@@ -15844,7 +15844,6 @@ var arSa = moment.defineLocale('ar-sa', {
     relativeTime : {
     },
     preparse: function (string) {
-        return string.replace(/[١٢٣٤٥٦٧٨٩٠]/g, function (match) {
             return numberMap[match];
         }).replace(/،/g, ',');
     },
@@ -16009,18 +16008,10 @@ function plural(word, num) {
 }
 function relativeTimeWithPlural(number, withoutSuffix, key) {
     var format = {
-        'ss': withoutSuffix ? 'секунда_секунды_секунд' : 'секунду_секунды_секунд',
-        'mm': withoutSuffix ? 'хвіліна_хвіліны_хвілін' : 'хвіліну_хвіліны_хвілін',
-        'hh': withoutSuffix ? 'гадзіна_гадзіны_гадзін' : 'гадзіну_гадзіны_гадзін',
-        'dd': 'дзень_дні_дзён',
-        'MM': 'месяц_месяцы_месяцаў',
-        'yy': 'год_гады_гадоў'
     };
     if (key === 'm') {
-        return withoutSuffix ? 'хвіліна' : 'хвіліну';
     }
     else if (key === 'h') {
-        return withoutSuffix ? 'гадзіна' : 'гадзіну';
     }
     else {
         return number + ' ' + plural(format[key], +number);
@@ -16073,7 +16064,6 @@ var be = moment.defineLocale('be', {
         } else {
         }
     },
-    dayOfMonthOrdinalParse: /\d{1,2}-(і|ы|га)/,
     ordinal: function (number, period) {
         switch (period) {
             case 'M':
@@ -16083,7 +16073,6 @@ var be = moment.defineLocale('be', {
             case 'W':
                 return (number % 10 === 2 || number % 10 === 3) && (number % 100 !== 12 && number % 100 !== 13) ? number + '-і' : number + '-ы';
             case 'D':
-                return number + '-га';
             default:
                 return number;
         }
@@ -16129,36 +16118,26 @@ var bg = moment.defineLocale('bg', {
                 case 0:
                 case 3:
                 case 6:
-                    return '[В изминалата] dddd [в] LT';
                 case 1:
                 case 2:
                 case 4:
                 case 5:
-                    return '[В изминалия] dddd [в] LT';
             }
         },
         sameElse : 'L'
     },
     relativeTime : {
     },
-    dayOfMonthOrdinalParse: /\d{1,2}-(ев|ен|ти|ви|ри|ми)/,
     ordinal : function (number) {
         var lastDigit = number % 10,
             last2Digits = number % 100;
         if (number === 0) {
-            return number + '-ев';
         } else if (last2Digits === 0) {
-            return number + '-ен';
         } else if (last2Digits > 10 && last2Digits < 20) {
-            return number + '-ти';
         } else if (lastDigit === 1) {
-            return number + '-ви';
         } else if (lastDigit === 2) {
-            return number + '-ри';
         } else if (lastDigit === 7 || lastDigit === 8) {
-            return number + '-ми';
         } else {
-            return number + '-ти';
         }
     },
     week : {
@@ -16253,9 +16232,6 @@ var bn = moment.defineLocale('bn', {
         if (hour === 12) {
             hour = 0;
         }
-        if ((meridiem === 'রাত' && hour >= 4) ||
-                (meridiem === 'দুপুর' && hour < 5) ||
-                meridiem === 'বিকাল') {
             return hour + 12;
         } else {
             return hour;
@@ -16263,15 +16239,10 @@ var bn = moment.defineLocale('bn', {
     },
     meridiem : function (hour, minute, isLower) {
         if (hour < 4) {
-            return 'রাত';
         } else if (hour < 10) {
-            return 'সকাল';
         } else if (hour < 17) {
-            return 'দুপুর';
         } else if (hour < 20) {
-            return 'বিকাল';
         } else {
-            return 'রাত';
         }
     },
     week : {
@@ -16478,58 +16449,39 @@ function translate(number, withoutSuffix, key) {
     switch (key) {
         case 'ss':
             if (number === 1) {
-                result += 'sekunda';
             } else if (number === 2 || number === 3 || number === 4) {
-                result += 'sekunde';
             } else {
-                result += 'sekundi';
             }
             return result;
         case 'm':
-            return withoutSuffix ? 'jedna minuta' : 'jedne minute';
         case 'mm':
             if (number === 1) {
-                result += 'minuta';
             } else if (number === 2 || number === 3 || number === 4) {
-                result += 'minute';
             } else {
-                result += 'minuta';
             }
             return result;
         case 'h':
-            return withoutSuffix ? 'jedan sat' : 'jednog sata';
         case 'hh':
             if (number === 1) {
-                result += 'sat';
             } else if (number === 2 || number === 3 || number === 4) {
-                result += 'sata';
             } else {
-                result += 'sati';
             }
             return result;
         case 'dd':
             if (number === 1) {
-                result += 'dan';
             } else {
-                result += 'dana';
             }
             return result;
         case 'MM':
             if (number === 1) {
-                result += 'mjesec';
             } else if (number === 2 || number === 3 || number === 4) {
-                result += 'mjeseca';
             } else {
-                result += 'mjeseci';
             }
             return result;
         case 'yy':
             if (number === 1) {
-                result += 'godina';
             } else if (number === 2 || number === 3 || number === 4) {
-                result += 'godine';
             } else {
-                result += 'godina';
             }
             return result;
     }
@@ -16683,57 +16635,39 @@ function translate(number, withoutSuffix, key, isFuture) {
     var result = number + ' ';
     switch (key) {
         case 's':  // a few seconds / in a few seconds / a few seconds ago
-            return (withoutSuffix || isFuture) ? 'pár sekund' : 'pár sekundami';
         case 'ss': // 9 seconds / in 9 seconds / 9 seconds ago
             if (withoutSuffix || isFuture) {
-                return result + (plural(number) ? 'sekundy' : 'sekund');
             } else {
-                return result + 'sekundami';
             }
             break;
         case 'm':  // a minute / in a minute / a minute ago
-            return withoutSuffix ? 'minuta' : (isFuture ? 'minutu' : 'minutou');
         case 'mm': // 9 minutes / in 9 minutes / 9 minutes ago
             if (withoutSuffix || isFuture) {
-                return result + (plural(number) ? 'minuty' : 'minut');
             } else {
-                return result + 'minutami';
             }
             break;
         case 'h':  // an hour / in an hour / an hour ago
-            return withoutSuffix ? 'hodina' : (isFuture ? 'hodinu' : 'hodinou');
         case 'hh': // 9 hours / in 9 hours / 9 hours ago
             if (withoutSuffix || isFuture) {
-                return result + (plural(number) ? 'hodiny' : 'hodin');
             } else {
-                return result + 'hodinami';
             }
             break;
         case 'd':  // a day / in a day / a day ago
-            return (withoutSuffix || isFuture) ? 'den' : 'dnem';
         case 'dd': // 9 days / in 9 days / 9 days ago
             if (withoutSuffix || isFuture) {
-                return result + (plural(number) ? 'dny' : 'dní');
             } else {
-                return result + 'dny';
             }
             break;
         case 'M':  // a month / in a month / a month ago
-            return (withoutSuffix || isFuture) ? 'měsíc' : 'měsícem';
         case 'MM': // 9 months / in 9 months / 9 months ago
             if (withoutSuffix || isFuture) {
-                return result + (plural(number) ? 'měsíce' : 'měsíců');
             } else {
-                return result + 'měsíci';
             }
             break;
         case 'y':  // a year / in a year / a year ago
-            return (withoutSuffix || isFuture) ? 'rok' : 'rokem';
         case 'yy': // 9 years / in 9 years / 9 years ago
             if (withoutSuffix || isFuture) {
-                return result + (plural(number) ? 'roky' : 'let');
             } else {
-                return result + 'lety';
             }
             break;
     }
@@ -17922,17 +17856,6 @@ return esUs;
 
 function processRelativeTime(number, withoutSuffix, key, isFuture) {
     var format = {
-        's' : ['mõne sekundi', 'mõni sekund', 'paar sekundit'],
-        'ss': [number + 'sekundi', number + 'sekundit'],
-        'm' : ['ühe minuti', 'üks minut'],
-        'mm': [number + ' minuti', number + ' minutit'],
-        'h' : ['ühe tunni', 'tund aega', 'üks tund'],
-        'hh': [number + ' tunni', number + ' tundi'],
-        'd' : ['ühe päeva', 'üks päev'],
-        'M' : ['kuu aja', 'kuu aega', 'üks kuu'],
-        'MM': [number + ' kuu', number + ' kuud'],
-        'y' : ['ühe aasta', 'aasta', 'üks aasta'],
-        'yy': [number + ' aasta', number + ' aastat']
     };
     if (withoutSuffix) {
         return format[key][2] ? format[key][2] : format[key][1];
@@ -18069,7 +17992,6 @@ var fa = moment.defineLocale('fa', {
     relativeTime : {
     },
     preparse: function (string) {
-        return string.replace(/[۰-۹]/g, function (match) {
             return numberMap[match];
         }).replace(/،/g, ',');
     },
@@ -18113,33 +18035,21 @@ function translate(number, withoutSuffix, key, isFuture) {
     var result = '';
     switch (key) {
         case 's':
-            return isFuture ? 'muutaman sekunnin' : 'muutama sekunti';
         case 'ss':
-            return isFuture ? 'sekunnin' : 'sekuntia';
         case 'm':
-            return isFuture ? 'minuutin' : 'minuutti';
         case 'mm':
-            result = isFuture ? 'minuutin' : 'minuuttia';
             break;
         case 'h':
-            return isFuture ? 'tunnin' : 'tunti';
         case 'hh':
-            result = isFuture ? 'tunnin' : 'tuntia';
             break;
         case 'd':
-            return isFuture ? 'päivän' : 'päivä';
         case 'dd':
-            result = isFuture ? 'päivän' : 'päivää';
             break;
         case 'M':
-            return isFuture ? 'kuukauden' : 'kuukausi';
         case 'MM':
-            result = isFuture ? 'kuukauden' : 'kuukautta';
             break;
         case 'y':
-            return isFuture ? 'vuoden' : 'vuosi';
         case 'yy':
-            result = isFuture ? 'vuoden' : 'vuotta';
             break;
     }
     result = verbalNumber(number, isFuture) + ' ' + result;
@@ -18889,58 +18799,39 @@ function translate(number, withoutSuffix, key) {
     switch (key) {
         case 'ss':
             if (number === 1) {
-                result += 'sekunda';
             } else if (number === 2 || number === 3 || number === 4) {
-                result += 'sekunde';
             } else {
-                result += 'sekundi';
             }
             return result;
         case 'm':
-            return withoutSuffix ? 'jedna minuta' : 'jedne minute';
         case 'mm':
             if (number === 1) {
-                result += 'minuta';
             } else if (number === 2 || number === 3 || number === 4) {
-                result += 'minute';
             } else {
-                result += 'minuta';
             }
             return result;
         case 'h':
-            return withoutSuffix ? 'jedan sat' : 'jednog sata';
         case 'hh':
             if (number === 1) {
-                result += 'sat';
             } else if (number === 2 || number === 3 || number === 4) {
-                result += 'sata';
             } else {
-                result += 'sati';
             }
             return result;
         case 'dd':
             if (number === 1) {
-                result += 'dan';
             } else {
-                result += 'dana';
             }
             return result;
         case 'MM':
             if (number === 1) {
-                result += 'mjesec';
             } else if (number === 2 || number === 3 || number === 4) {
-                result += 'mjeseca';
             } else {
-                result += 'mjeseci';
             }
             return result;
         case 'yy':
             if (number === 1) {
-                result += 'godina';
             } else if (number === 2 || number === 3 || number === 4) {
-                result += 'godine';
             } else {
-                result += 'godina';
             }
             return result;
     }
@@ -19669,7 +19560,6 @@ var kn = moment.defineLocale('kn', {
     relativeTime : {
     },
     preparse: function (string) {
-        return string.replace(/[೧೨೩೪೫೬೭೮೯೦]/g, function (match) {
             return numberMap[match];
         });
     },
@@ -19982,23 +19872,10 @@ return lo;
 
 
 var units = {
-    'ss' : 'sekundė_sekundžių_sekundes',
-    'm' : 'minutė_minutės_minutę',
-    'mm': 'minutės_minučių_minutes',
-    'h' : 'valanda_valandos_valandą',
-    'hh': 'valandos_valandų_valandas',
-    'd' : 'diena_dienos_dieną',
-    'dd': 'dienos_dienų_dienas',
-    'M' : 'mėnuo_mėnesio_mėnesį',
-    'MM': 'mėnesiai_mėnesių_mėnesius',
-    'y' : 'metai_metų_metus',
-    'yy': 'metai_metų_metus'
 };
 function translateSeconds(number, withoutSuffix, key, isFuture) {
     if (withoutSuffix) {
-        return 'kelios sekundės';
     } else {
-        return isFuture ? 'kelių sekundžių' : 'kelias sekundes';
     }
 }
 function translateSingular(number, withoutSuffix, key, isFuture) {
@@ -20081,17 +19958,6 @@ return lt;
 
 
 var units = {
-    'ss': 'sekundes_sekundēm_sekunde_sekundes'.split('_'),
-    'm': 'minūtes_minūtēm_minūte_minūtes'.split('_'),
-    'mm': 'minūtes_minūtēm_minūte_minūtes'.split('_'),
-    'h': 'stundas_stundām_stunda_stundas'.split('_'),
-    'hh': 'stundas_stundām_stunda_stundas'.split('_'),
-    'd': 'dienas_dienām_diena_dienas'.split('_'),
-    'dd': 'dienas_dienām_diena_dienas'.split('_'),
-    'M': 'mēneša_mēnešiem_mēnesis_mēneši'.split('_'),
-    'MM': 'mēneša_mēnešiem_mēnesis_mēneši'.split('_'),
-    'y': 'gada_gadiem_gads_gadi'.split('_'),
-    'yy': 'gada_gadiem_gads_gadi'.split('_')
 };
 /**
  * @param withoutSuffix boolean true = a length of time; false = before/after a period of time.
@@ -20113,7 +19979,6 @@ function relativeTimeWithSingular(number, withoutSuffix, key) {
     return format(units[key], number, withoutSuffix);
 }
 function relativeSeconds(number, withoutSuffix) {
-    return withoutSuffix ? 'dažas sekundes' : 'dažām sekundēm';
 }
 
 var lv = moment.defineLocale('lv', {
@@ -20161,14 +20026,6 @@ return lv;
 
 var translator = {
     words: { //Different grammatical cases
-        ss: ['sekund', 'sekunda', 'sekundi'],
-        m: ['jedan minut', 'jednog minuta'],
-        mm: ['minut', 'minuta', 'minuta'],
-        h: ['jedan sat', 'jednog sata'],
-        hh: ['sat', 'sata', 'sati'],
-        dd: ['dan', 'dana', 'dana'],
-        MM: ['mjesec', 'mjeseca', 'mjeseci'],
-        yy: ['godina', 'godine', 'godina']
     },
     correctGrammaticalCase: function (number, wordKey) {
         return number === 1 ? wordKey[0] : (number >= 2 && number <= 4 ? wordKey[1] : wordKey[2]);
@@ -20301,36 +20158,26 @@ var mk = moment.defineLocale('mk', {
                 case 0:
                 case 3:
                 case 6:
-                    return '[Изминатата] dddd [во] LT';
                 case 1:
                 case 2:
                 case 4:
                 case 5:
-                    return '[Изминатиот] dddd [во] LT';
             }
         },
         sameElse : 'L'
     },
     relativeTime : {
     },
-    dayOfMonthOrdinalParse: /\d{1,2}-(ев|ен|ти|ви|ри|ми)/,
     ordinal : function (number) {
         var lastDigit = number % 10,
             last2Digits = number % 100;
         if (number === 0) {
-            return number + '-ев';
         } else if (last2Digits === 0) {
-            return number + '-ен';
         } else if (last2Digits > 10 && last2Digits < 20) {
-            return number + '-ти';
         } else if (lastDigit === 1) {
-            return number + '-ви';
         } else if (lastDigit === 2) {
-            return number + '-ри';
         } else if (lastDigit === 7 || lastDigit === 8) {
-            return number + '-ми';
         } else {
-            return number + '-ти';
         }
     },
     week : {
@@ -20473,7 +20320,6 @@ var mr = moment.defineLocale('mr', {
     relativeTime : {
     },
     preparse: function (string) {
-        return string.replace(/[१२३४५६७८९०]/g, function (match) {
             return numberMap[match];
         });
     },
@@ -20704,7 +20550,6 @@ var my = moment.defineLocale('my', {
     relativeTime: {
     },
     preparse: function (string) {
-        return string.replace(/[၁၂၃၄၅၆၇၈၉၀]/g, function (match) {
             return numberMap[match];
         });
     },
@@ -21102,19 +20947,12 @@ function translate(number, withoutSuffix, key) {
     var result = number + ' ';
     switch (key) {
         case 'ss':
-            return result + (plural(number) ? 'sekundy' : 'sekund');
         case 'm':
-            return withoutSuffix ? 'minuta' : 'minutę';
         case 'mm':
-            return result + (plural(number) ? 'minuty' : 'minut');
         case 'h':
-            return withoutSuffix  ? 'godzina'  : 'godzinę';
         case 'hh':
-            return result + (plural(number) ? 'godziny' : 'godzin');
         case 'MM':
-            return result + (plural(number) ? 'miesiące' : 'miesięcy');
         case 'yy':
-            return result + (plural(number) ? 'lata' : 'lat');
     }
 }
 
@@ -21626,8 +21464,6 @@ return si;
 }(this, (function (moment) { 'use strict';
 
 
-var months = 'január_február_marec_apríl_máj_jún_júl_august_september_október_november_december'.split('_');
-var monthsShort = 'jan_feb_mar_apr_máj_jún_júl_aug_sep_okt_nov_dec'.split('_');
 function plural(n) {
     return (n > 1) && (n < 5);
 }
@@ -21635,57 +21471,39 @@ function translate(number, withoutSuffix, key, isFuture) {
     var result = number + ' ';
     switch (key) {
         case 's':  // a few seconds / in a few seconds / a few seconds ago
-            return (withoutSuffix || isFuture) ? 'pár sekúnd' : 'pár sekundami';
         case 'ss': // 9 seconds / in 9 seconds / 9 seconds ago
             if (withoutSuffix || isFuture) {
-                return result + (plural(number) ? 'sekundy' : 'sekúnd');
             } else {
-                return result + 'sekundami';
             }
             break;
         case 'm':  // a minute / in a minute / a minute ago
-            return withoutSuffix ? 'minúta' : (isFuture ? 'minútu' : 'minútou');
         case 'mm': // 9 minutes / in 9 minutes / 9 minutes ago
             if (withoutSuffix || isFuture) {
-                return result + (plural(number) ? 'minúty' : 'minút');
             } else {
-                return result + 'minútami';
             }
             break;
         case 'h':  // an hour / in an hour / an hour ago
-            return withoutSuffix ? 'hodina' : (isFuture ? 'hodinu' : 'hodinou');
         case 'hh': // 9 hours / in 9 hours / 9 hours ago
             if (withoutSuffix || isFuture) {
-                return result + (plural(number) ? 'hodiny' : 'hodín');
             } else {
-                return result + 'hodinami';
             }
             break;
         case 'd':  // a day / in a day / a day ago
-            return (withoutSuffix || isFuture) ? 'deň' : 'dňom';
         case 'dd': // 9 days / in 9 days / 9 days ago
             if (withoutSuffix || isFuture) {
-                return result + (plural(number) ? 'dni' : 'dní');
             } else {
-                return result + 'dňami';
             }
             break;
         case 'M':  // a month / in a month / a month ago
-            return (withoutSuffix || isFuture) ? 'mesiac' : 'mesiacom';
         case 'MM': // 9 months / in 9 months / 9 months ago
             if (withoutSuffix || isFuture) {
-                return result + (plural(number) ? 'mesiace' : 'mesiacov');
             } else {
-                return result + 'mesiacmi';
             }
             break;
         case 'y':  // a year / in a year / a year ago
-            return (withoutSuffix || isFuture) ? 'rok' : 'rokom';
         case 'yy': // 9 years / in 9 years / 9 years ago
             if (withoutSuffix || isFuture) {
-                return result + (plural(number) ? 'roky' : 'rokov');
             } else {
-                return result + 'rokmi';
             }
             break;
     }
@@ -21773,79 +21591,50 @@ function processRelativeTime(number, withoutSuffix, key, isFuture) {
     var result = number + ' ';
     switch (key) {
         case 's':
-            return withoutSuffix || isFuture ? 'nekaj sekund' : 'nekaj sekundami';
         case 'ss':
             if (number === 1) {
-                result += withoutSuffix ? 'sekundo' : 'sekundi';
             } else if (number === 2) {
-                result += withoutSuffix || isFuture ? 'sekundi' : 'sekundah';
             } else if (number < 5) {
-                result += withoutSuffix || isFuture ? 'sekunde' : 'sekundah';
             } else {
-                result += withoutSuffix || isFuture ? 'sekund' : 'sekund';
             }
             return result;
         case 'm':
-            return withoutSuffix ? 'ena minuta' : 'eno minuto';
         case 'mm':
             if (number === 1) {
-                result += withoutSuffix ? 'minuta' : 'minuto';
             } else if (number === 2) {
-                result += withoutSuffix || isFuture ? 'minuti' : 'minutama';
             } else if (number < 5) {
-                result += withoutSuffix || isFuture ? 'minute' : 'minutami';
             } else {
-                result += withoutSuffix || isFuture ? 'minut' : 'minutami';
             }
             return result;
         case 'h':
-            return withoutSuffix ? 'ena ura' : 'eno uro';
         case 'hh':
             if (number === 1) {
-                result += withoutSuffix ? 'ura' : 'uro';
             } else if (number === 2) {
-                result += withoutSuffix || isFuture ? 'uri' : 'urama';
             } else if (number < 5) {
-                result += withoutSuffix || isFuture ? 'ure' : 'urami';
             } else {
-                result += withoutSuffix || isFuture ? 'ur' : 'urami';
             }
             return result;
         case 'd':
-            return withoutSuffix || isFuture ? 'en dan' : 'enim dnem';
         case 'dd':
             if (number === 1) {
-                result += withoutSuffix || isFuture ? 'dan' : 'dnem';
             } else if (number === 2) {
-                result += withoutSuffix || isFuture ? 'dni' : 'dnevoma';
             } else {
-                result += withoutSuffix || isFuture ? 'dni' : 'dnevi';
             }
             return result;
         case 'M':
-            return withoutSuffix || isFuture ? 'en mesec' : 'enim mesecem';
         case 'MM':
             if (number === 1) {
-                result += withoutSuffix || isFuture ? 'mesec' : 'mesecem';
             } else if (number === 2) {
-                result += withoutSuffix || isFuture ? 'meseca' : 'mesecema';
             } else if (number < 5) {
-                result += withoutSuffix || isFuture ? 'mesece' : 'meseci';
             } else {
-                result += withoutSuffix || isFuture ? 'mesecev' : 'meseci';
             }
             return result;
         case 'y':
-            return withoutSuffix || isFuture ? 'eno leto' : 'enim letom';
         case 'yy':
             if (number === 1) {
-                result += withoutSuffix || isFuture ? 'leto' : 'letom';
             } else if (number === 2) {
-                result += withoutSuffix || isFuture ? 'leti' : 'letoma';
             } else if (number < 5) {
-                result += withoutSuffix || isFuture ? 'leta' : 'leti';
             } else {
-                result += withoutSuffix || isFuture ? 'let' : 'leti';
             }
             return result;
     }
@@ -21983,14 +21772,6 @@ return sq;
 
 var translator = {
     words: { //Different grammatical cases
-        ss: ['sekunda', 'sekunde', 'sekundi'],
-        m: ['jedan minut', 'jedne minute'],
-        mm: ['minut', 'minute', 'minuta'],
-        h: ['jedan sat', 'jednog sata'],
-        hh: ['sat', 'sata', 'sati'],
-        dd: ['dan', 'dana', 'dana'],
-        MM: ['mesec', 'meseca', 'meseci'],
-        yy: ['godina', 'godine', 'godina']
     },
     correctGrammaticalCase: function (number, wordKey) {
         return number === 1 ? wordKey[0] : (number >= 2 && number <= 4 ? wordKey[1] : wordKey[2]);
@@ -22069,14 +21850,6 @@ return sr;
 
 var translator = {
     words: { //Different grammatical cases
-        ss: ['секунда', 'секунде', 'секунди'],
-        m: ['један минут', 'једне минуте'],
-        mm: ['минут', 'минуте', 'минута'],
-        h: ['један сат', 'једног сата'],
-        hh: ['сат', 'сата', 'сати'],
-        dd: ['дан', 'дана', 'дана'],
-        MM: ['месец', 'месеца', 'месеци'],
-        yy: ['година', 'године', 'година']
     },
     correctGrammaticalCase: function (number, wordKey) {
         return number === 1 ? wordKey[0] : (number >= 2 && number <= 4 ? wordKey[1] : wordKey[2]);
@@ -22330,12 +22103,9 @@ var ta = moment.defineLocale('ta', {
     },
     relativeTime : {
     },
-    dayOfMonthOrdinalParse: /\d{1,2}வது/,
     ordinal : function (number) {
-        return number + 'வது';
     },
     preparse: function (string) {
-        return string.replace(/[௧௨௩௪௫௬௭௮௯௦]/g, function (match) {
             return numberMap[match];
         });
     },
@@ -22927,18 +22697,10 @@ function plural(word, num) {
 }
 function relativeTimeWithPlural(number, withoutSuffix, key) {
     var format = {
-        'ss': withoutSuffix ? 'секунда_секунди_секунд' : 'секунду_секунди_секунд',
-        'mm': withoutSuffix ? 'хвилина_хвилини_хвилин' : 'хвилину_хвилини_хвилин',
-        'hh': withoutSuffix ? 'година_години_годин' : 'годину_години_годин',
-        'dd': 'день_дні_днів',
-        'MM': 'місяць_місяці_місяців',
-        'yy': 'рік_роки_років'
     };
     if (key === 'm') {
-        return withoutSuffix ? 'хвилина' : 'хвилину';
     }
     else if (key === 'h') {
-        return withoutSuffix ? 'година' : 'годину';
     }
     else {
         return number + ' ' + plural(format[key], +number);
@@ -22946,18 +22708,13 @@ function relativeTimeWithPlural(number, withoutSuffix, key) {
 }
 function weekdaysCaseReplace(m, format) {
     var weekdays = {
-        'nominative': 'неділя_понеділок_вівторок_середа_четвер_п’ятниця_субота'.split('_'),
-        'accusative': 'неділю_понеділок_вівторок_середу_четвер_п’ятницю_суботу'.split('_'),
-        'genitive': 'неділі_понеділка_вівторка_середи_четверга_п’ятниці_суботи'.split('_')
     };
 
     if (!m) {
         return weekdays['nominative'];
     }
 
-    var nounCase = (/(\[[ВвУу]\]) ?dddd/).test(format) ?
         'accusative' :
-        ((/\[?(?:минулої|наступної)? ?\] ?dddd/).test(format) ?
             'genitive' :
             'nominative');
     return weekdays[nounCase][m.day()];
