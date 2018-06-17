@@ -48,7 +48,7 @@ module.exports =
 /******/ 	// getDefaultExport function for compatibility with non-harmony modules
 /******/ 	__webpack_require__.n = function(module) {
 /******/ 		var getter = module && module.__esModule ?
-/******/ 			function getDefault() { return module['default']; } :
+/******/ 			function getDefault() { return module['']; } :
 /******/ 			function getModuleExports() { return module; };
 /******/ 		__webpack_require__.d(getter, 'a', getter);
 /******/ 		return getter;
@@ -151,13 +151,13 @@ var Observable = (function () {
      * const sumObserver = {
      *   sum: 0,
      *   next(value) {
-     *     console.log('Adding: ' + value);
+     *     console.log('' + value);
      *     this.sum = this.sum + value;
      *   },
      *   error() { // We actually could just remove this method,
      *   },        // since we do not really care about errors right now.
      *   complete() {
-     *     console.log('Sum equals: ' + this.sum);
+     *     console.log('' + this.sum);
      *   }
      * };
      *
@@ -177,12 +177,12 @@ var Observable = (function () {
      * Rx.Observable.of(1, 2, 3)
      * .subscribe(
      *   function(value) {
-     *     console.log('Adding: ' + value);
+     *     console.log('' + value);
      *     sum = sum + value;
      *   },
      *   undefined,
      *   function() {
-     *     console.log('Sum equals: ' + sum);
+     *     console.log('' + sum);
      *   }
      * );
      *
@@ -197,13 +197,13 @@ var Observable = (function () {
      * const subscription = Rx.Observable.interval(1000).subscribe(
      *   num => console.log(num),
      *   undefined,
-     *   () => console.log('completed!') // Will not be called, even
+     *   () => console.log('') // Will not be called, even
      * );                                // when cancelling subscription
      *
      *
      * setTimeout(() => {
      *   subscription.unsubscribe();
-     *   console.log('unsubscribed!');
+     *   console.log('');
      * }, 2500);
      *
      * // Logs:
@@ -266,7 +266,7 @@ var Observable = (function () {
             }
         }
         if (!PromiseCtor) {
-            throw new Error('no Promise impl found');
+            throw new Error('');
         }
         return new PromiseCtor(function (resolve, reject) {
             // Must be declared in a separate statement to avoid a RefernceError when
@@ -318,7 +318,7 @@ var Observable = (function () {
      *
      * @example
      *
-     * import { map, filter, scan } from 'rxjs/operators';
+     * import { map, filter, scan } from '';
      *
      * Rx.Observable.interval(1000)
      *   .pipe(
@@ -350,7 +350,7 @@ var Observable = (function () {
             }
         }
         if (!PromiseCtor) {
-            throw new Error('no Promise impl found');
+            throw new Error('');
         }
         return new PromiseCtor(function (resolve, reject) {
             var value;
@@ -387,9 +387,9 @@ exports.Observable = Observable;
 
 ;(function (global, factory) {
      true ? module.exports = factory() :
-    typeof define === 'function' && define.amd ? define(factory) :
+    typeof define === '' && define.amd ? define(factory) :
     global.moment = factory()
-}(this, (function () { 'use strict';
+}(this, (function () { '';
 
 var hookCallback;
 
@@ -404,13 +404,13 @@ function setHookCallback (callback) {
 }
 
 function isArray(input) {
-    return input instanceof Array || Object.prototype.toString.call(input) === '[object Array]';
+    return input instanceof Array || Object.prototype.toString.call(input) === '';
 }
 
 function isObject(input) {
     // IE8 will treat undefined and null as object if it wasn't for
     // input != null
-    return input != null && Object.prototype.toString.call(input) === '[object Object]';
+    return input != null && Object.prototype.toString.call(input) === '';
 }
 
 function isObjectEmpty(obj) {
@@ -432,11 +432,11 @@ function isUndefined(input) {
 }
 
 function isNumber(input) {
-    return typeof input === 'number' || Object.prototype.toString.call(input) === '[object Number]';
+    return typeof input === '' || Object.prototype.toString.call(input) === '';
 }
 
 function isDate(input) {
-    return input instanceof Date || Object.prototype.toString.call(input) === '[object Date]';
+    return input instanceof Date || Object.prototype.toString.call(input) === '';
 }
 
 function map(arr, fn) {
@@ -458,11 +458,11 @@ function extend(a, b) {
         }
     }
 
-    if (hasOwnProp(b, 'toString')) {
+    if (hasOwnProp(b, '')) {
         a.toString = b.toString;
     }
 
-    if (hasOwnProp(b, 'valueOf')) {
+    if (hasOwnProp(b, '')) {
         a.valueOf = b.valueOf;
     }
 
@@ -674,8 +674,8 @@ function compareArrays(array1, array2, dontConvert) {
 
 function warn(msg) {
     if (hooks.suppressDeprecationWarnings === false &&
-            (typeof console !==  'undefined') && console.warn) {
-        console.warn('Deprecation warning: ' + msg);
+            (typeof console !==  '') && console.warn) {
+        console.warn('' + msg);
     }
 }
 
@@ -691,10 +691,10 @@ function deprecate(msg, fn) {
             var arg;
             for (var i = 0; i < arguments.length; i++) {
                 arg = '';
-                if (typeof arguments[i] === 'object') {
-                    arg += '\n[' + i + '] ';
+                if (typeof arguments[i] === '') {
+                    arg += '' + i + '] ';
                     for (var key in arguments[0]) {
-                        arg += key + ': ' + arguments[0][key] + ', ';
+                        arg += key + ': '', ';
                     }
                     arg = arg.slice(0, -2); // Remove trailing comma and space
                 } else {
@@ -702,7 +702,7 @@ function deprecate(msg, fn) {
                 }
                 args.push(arg);
             }
-            warn(msg + '\nArguments: ' + Array.prototype.slice.call(args).join('') + '\n' + (new Error()).stack);
+            warn(msg + '' + Array.prototype.slice.call(args).join('''\n' + (new Error()).stack);
             firstTime = false;
         }
         return fn.apply(this, arguments);
@@ -725,7 +725,7 @@ hooks.suppressDeprecationWarnings = false;
 hooks.deprecationHandler = null;
 
 function isFunction(input) {
-    return input instanceof Function || Object.prototype.toString.call(input) === '[object Function]';
+    return input instanceof Function || Object.prototype.toString.call(input) === '';
 }
 
 function set (config) {
@@ -796,26 +796,26 @@ if (Object.keys) {
 }
 
 var defaultCalendar = {
-    sameDay : '[Today at] LT',
-    nextDay : '[Tomorrow at] LT',
-    nextWeek : 'dddd [at] LT',
-    lastDay : '[Yesterday at] LT',
-    lastWeek : '[Last] dddd [at] LT',
+    sameDay : '',
+    nextDay : '',
+    nextWeek : '',
+    lastDay : '',
+    lastWeek : '',
     sameElse : 'L'
 };
 
 function calendar (key, mom, now) {
-    var output = this._calendar[key] || this._calendar['sameElse'];
+    var output = this._calendar[key] || this._calendar[''];
     return isFunction(output) ? output.call(mom, now) : output;
 }
 
 var defaultLongDateFormat = {
-    LTS  : 'h:mm:ss A',
-    LT   : 'h:mm A',
-    L    : 'MM/DD/YYYY',
-    LL   : 'MMMM D, YYYY',
-    LLL  : 'MMMM D, YYYY h:mm A',
-    LLLL : 'dddd, MMMM D, YYYY h:mm A'
+    LTS  : '',
+    LT   : '',
+    L    : '',
+    LL   : '',
+    LLL  : '',
+    LLLL : ''
 };
 
 function longDateFormat (key) {
@@ -833,7 +833,7 @@ function longDateFormat (key) {
     return this._longDateFormat[key];
 }
 
-var defaultInvalidDate = 'Invalid date';
+var defaultInvalidDate = '';
 
 function invalidDate () {
     return this._invalidDate;
@@ -847,20 +847,20 @@ function ordinal (number) {
 }
 
 var defaultRelativeTime = {
-    future : 'in %s',
-    past   : '%s ago',
-    s  : 'a few seconds',
-    ss : '%d seconds',
-    m  : 'a minute',
-    mm : '%d minutes',
-    h  : 'an hour',
-    hh : '%d hours',
-    d  : 'a day',
-    dd : '%d days',
-    M  : 'a month',
-    MM : '%d months',
-    y  : 'a year',
-    yy : '%d years'
+    future : '',
+    past   : '',
+    s  : '',
+    ss : '',
+    m  : '',
+    mm : '',
+    h  : '',
+    hh : '',
+    d  : '',
+    dd : '',
+    M  : '',
+    MM : '',
+    y  : '',
+    yy : ''
 };
 
 function relativeTime (number, withoutSuffix, string, isFuture) {
@@ -871,7 +871,7 @@ function relativeTime (number, withoutSuffix, string, isFuture) {
 }
 
 function pastFuture (diff, output) {
-    var format = this._relativeTime[diff > 0 ? 'future' : 'past'];
+    var format = this._relativeTime[diff > 0 ? '' : ''];
     return isFunction(format) ? format(output) : format.replace(/%s/i, output);
 }
 
@@ -883,7 +883,7 @@ function addUnitAlias (unit, shorthand) {
 }
 
 function normalizeUnits(units) {
-    return typeof units === 'string' ? aliases[units] || aliases[units.toLowerCase()] : undefined;
+    return typeof units === '' ? aliases[units] || aliases[units.toLowerCase()] : undefined;
 }
 
 function normalizeObjectUnits(inputObject) {
@@ -924,7 +924,7 @@ function zeroFill(number, targetLength, forceSign) {
     var absNumber = '' + Math.abs(number),
         zerosToFill = targetLength - absNumber.length,
         sign = number >= 0;
-    return (sign ? (forceSign ? '+' : '') : '-') +
+    return (sign ? (forceSign ? '+''''-') +
         Math.pow(10, Math.max(0, zerosToFill)).toString().substr(1) + absNumber;
 }
 
@@ -942,7 +942,7 @@ var formatTokenFunctions = {};
 // callback: function () { this.month() + 1 }
 function addFormatToken (token, padded, ordinal, callback) {
     var func = callback;
-    if (typeof callback === 'string') {
+    if (typeof callback === '') {
         func = function () {
             return this[callback]();
         };
@@ -1067,14 +1067,14 @@ function unescapeFormat(s) {
 }
 
 function regexEscape(s) {
-    return s.replace(/[-\/\\^$*+?.()|[\]{}]/g, '\\$&');
+    return s.replace(/[-\/\\^$*+?.()|[\]{}]/g, '');
 }
 
 var tokens = {};
 
 function addParseToken (token, callback) {
     var i, func = callback;
-    if (typeof token === 'string') {
+    if (typeof token === '') {
         token = [token];
     }
     if (isNumber(callback)) {
@@ -1114,35 +1114,35 @@ var WEEKDAY = 8;
 
 addFormatToken('Y', 0, 0, function () {
     var y = this.year();
-    return y <= 9999 ? '' + y : '+' + y;
+    return y <= 9999 ? '''+' + y;
 });
 
 addFormatToken(0, ['YY', 2], 0, function () {
     return this.year() % 100;
 });
 
-addFormatToken(0, ['YYYY',   4],       0, 'year');
-addFormatToken(0, ['YYYYY',  5],       0, 'year');
-addFormatToken(0, ['YYYYYY', 6, true], 0, 'year');
+addFormatToken(0, ['',   4],       0, '');
+addFormatToken(0, ['',  5],       0, '');
+addFormatToken(0, ['', 6, true], 0, '');
 
 // ALIASES
 
-addUnitAlias('year', 'y');
+addUnitAlias('', 'y');
 
 // PRIORITIES
 
-addUnitPriority('year', 1);
+addUnitPriority('', 1);
 
 // PARSING
 
 addRegexToken('Y',      matchSigned);
 addRegexToken('YY',     match1to2, match2);
-addRegexToken('YYYY',   match1to4, match4);
-addRegexToken('YYYYY',  match1to6, match6);
-addRegexToken('YYYYYY', match1to6, match6);
+addRegexToken('',   match1to4, match4);
+addRegexToken('',  match1to6, match6);
+addRegexToken('', match1to6, match6);
 
-addParseToken(['YYYYY', 'YYYYYY'], YEAR);
-addParseToken('YYYY', function (input, array) {
+addParseToken(['', ''], YEAR);
+addParseToken('', function (input, array) {
     array[YEAR] = input.length === 2 ? hooks.parseTwoDigitYear(input) : toInt(input);
 });
 addParseToken('YY', function (input, array) {
@@ -1170,7 +1170,7 @@ hooks.parseTwoDigitYear = function (input) {
 
 // MOMENTS
 
-var getSetYear = makeGetSet('FullYear', true);
+var getSetYear = makeGetSet('', true);
 
 function getIsLeapYear () {
     return isLeapYear(this.year());
@@ -1190,16 +1190,16 @@ function makeGetSet (unit, keepTime) {
 
 function get (mom, unit) {
     return mom.isValid() ?
-        mom._d['get' + (mom._isUTC ? 'UTC' : '') + unit]() : NaN;
+        mom._d['' + (mom._isUTC ? '' : '') + unit]() : NaN;
 }
 
 function set$1 (mom, unit, value) {
     if (mom.isValid() && !isNaN(value)) {
-        if (unit === 'FullYear' && isLeapYear(mom.year()) && mom.month() === 1 && mom.date() === 29) {
-            mom._d['set' + (mom._isUTC ? 'UTC' : '') + unit](value, mom.month(), daysInMonth(value, mom.month()));
+        if (unit === '' && isLeapYear(mom.year()) && mom.month() === 1 && mom.date() === 29) {
+            mom._d['' + (mom._isUTC ? '' : '') + unit](value, mom.month(), daysInMonth(value, mom.month()));
         }
         else {
-            mom._d['set' + (mom._isUTC ? 'UTC' : '') + unit](value);
+            mom._d['' + (mom._isUTC ? '' : '') + unit](value);
         }
     }
 }
@@ -1216,7 +1216,7 @@ function stringGet (units) {
 
 
 function stringSet (units, value) {
-    if (typeof units === 'object') {
+    if (typeof units === '') {
         units = normalizeObjectUnits(units);
         var prioritized = getPrioritizedUnits(units);
         for (var i = 0; i < prioritized.length; i++) {
@@ -1263,34 +1263,34 @@ function daysInMonth(year, month) {
 
 // FORMATTING
 
-addFormatToken('M', ['MM', 2], 'Mo', function () {
+addFormatToken('M''MM''Mo', function () {
     return this.month() + 1;
 });
 
-addFormatToken('MMM', 0, 0, function (format) {
+addFormatToken('', 0, 0, function (format) {
     return this.localeData().monthsShort(this, format);
 });
 
-addFormatToken('MMMM', 0, 0, function (format) {
+addFormatToken('', 0, 0, function (format) {
     return this.localeData().months(this, format);
 });
 
 // ALIASES
 
-addUnitAlias('month', 'M');
+addUnitAlias('', 'M');
 
 // PRIORITY
 
-addUnitPriority('month', 8);
+addUnitPriority('', 8);
 
 // PARSING
 
 addRegexToken('M',    match1to2);
 addRegexToken('MM',   match1to2, match2);
-addRegexToken('MMM',  function (isStrict, locale) {
+addRegexToken('',  function (isStrict, locale) {
     return locale.monthsShortRegex(isStrict);
 });
-addRegexToken('MMMM', function (isStrict, locale) {
+addRegexToken('', function (isStrict, locale) {
     return locale.monthsRegex(isStrict);
 });
 
@@ -1298,7 +1298,7 @@ addParseToken(['M', 'MM'], function (input, array) {
     array[MONTH] = toInt(input) - 1;
 });
 
-addParseToken(['MMM', 'MMMM'], function (input, array, config, token) {
+addParseToken(['', ''], function (input, array, config, token) {
     var month = config._locale.monthsParse(input, token, config._strict);
     // if we didn't find a month name, mark the date as invalid.
     if (month != null) {
@@ -1311,24 +1311,24 @@ addParseToken(['MMM', 'MMMM'], function (input, array, config, token) {
 // LOCALES
 
 var MONTHS_IN_FORMAT = /D[oD]?(\[[^\[\]]*\]|\s)+MMMM?/;
-var defaultLocaleMonths = 'January_February_March_April_May_June_July_August_September_October_November_December'.split('_');
+var defaultLocaleMonths = ''.split('_');
 function localeMonths (m, format) {
     if (!m) {
         return isArray(this._months) ? this._months :
-            this._months['standalone'];
+            this._months[''];
     }
     return isArray(this._months) ? this._months[m.month()] :
-        this._months[(this._months.isFormat || MONTHS_IN_FORMAT).test(format) ? 'format' : 'standalone'][m.month()];
+        this._months[(this._months.isFormat || MONTHS_IN_FORMAT).test(format) ? '' : ''][m.month()];
 }
 
-var defaultLocaleMonthsShort = 'Jan_Feb_Mar_Apr_May_Jun_Jul_Aug_Sep_Oct_Nov_Dec'.split('_');
+var defaultLocaleMonthsShort = ''.split('_');
 function localeMonthsShort (m, format) {
     if (!m) {
         return isArray(this._monthsShort) ? this._monthsShort :
-            this._monthsShort['standalone'];
+            this._monthsShort[''];
     }
     return isArray(this._monthsShort) ? this._monthsShort[m.month()] :
-        this._monthsShort[MONTHS_IN_FORMAT.test(format) ? 'format' : 'standalone'][m.month()];
+        this._monthsShort[MONTHS_IN_FORMAT.test(format) ? '' : ''][m.month()];
 }
 
 function handleStrictParse(monthName, format, strict) {
@@ -1346,7 +1346,7 @@ function handleStrictParse(monthName, format, strict) {
     }
 
     if (strict) {
-        if (format === 'MMM') {
+        if (format === '') {
             ii = indexOf.call(this._shortMonthsParse, llc);
             return ii !== -1 ? ii : null;
         } else {
@@ -1354,7 +1354,7 @@ function handleStrictParse(monthName, format, strict) {
             return ii !== -1 ? ii : null;
         }
     } else {
-        if (format === 'MMM') {
+        if (format === '') {
             ii = indexOf.call(this._shortMonthsParse, llc);
             if (ii !== -1) {
                 return ii;
@@ -1392,17 +1392,17 @@ function localeMonthsParse (monthName, format, strict) {
         // make the regex if we don't have it already
         mom = createUTC([2000, i]);
         if (strict && !this._longMonthsParse[i]) {
-            this._longMonthsParse[i] = new RegExp('^' + this.months(mom, '').replace('.', '') + '$', 'i');
-            this._shortMonthsParse[i] = new RegExp('^' + this.monthsShort(mom, '').replace('.', '') + '$', 'i');
+            this._longMonthsParse[i] = new RegExp('^''''.', '''$', 'i');
+            this._shortMonthsParse[i] = new RegExp('^''''.', '''$', 'i');
         }
         if (!strict && !this._monthsParse[i]) {
-            regex = '^' + this.months(mom, '') + '|^' + this.monthsShort(mom, '');
-            this._monthsParse[i] = new RegExp(regex.replace('.', ''), 'i');
+            regex = '^''''|^''');
+            this._monthsParse[i] = new RegExp(regex.replace('.', '''i');
         }
         // test the regex
-        if (strict && format === 'MMMM' && this._longMonthsParse[i].test(monthName)) {
+        if (strict && format === '' && this._longMonthsParse[i].test(monthName)) {
             return i;
-        } else if (strict && format === 'MMM' && this._shortMonthsParse[i].test(monthName)) {
+        } else if (strict && format === '' && this._shortMonthsParse[i].test(monthName)) {
             return i;
         } else if (!strict && this._monthsParse[i].test(monthName)) {
             return i;
@@ -1420,7 +1420,7 @@ function setMonth (mom, value) {
         return mom;
     }
 
-    if (typeof value === 'string') {
+    if (typeof value === '') {
         if (/^\d+$/.test(value)) {
             value = toInt(value);
         } else {
@@ -1433,7 +1433,7 @@ function setMonth (mom, value) {
     }
 
     dayOfMonth = Math.min(mom.date(), daysInMonth(mom.year(), value));
-    mom._d['set' + (mom._isUTC ? 'UTC' : '') + 'Month'](value, dayOfMonth);
+    mom._d['' + (mom._isUTC ? '' : '''Month'](value, dayOfMonth);
     return mom;
 }
 
@@ -1443,7 +1443,7 @@ function getSetMonth (value) {
         hooks.updateOffset(this, true);
         return this;
     } else {
-        return get(this, 'Month');
+        return get(this, '');
     }
 }
 
@@ -1454,7 +1454,7 @@ function getDaysInMonth () {
 var defaultMonthsShortRegex = matchWord;
 function monthsShortRegex (isStrict) {
     if (this._monthsParseExact) {
-        if (!hasOwnProp(this, '_monthsRegex')) {
+        if (!hasOwnProp(this, '')) {
             computeMonthsParse.call(this);
         }
         if (isStrict) {
@@ -1463,7 +1463,7 @@ function monthsShortRegex (isStrict) {
             return this._monthsShortRegex;
         }
     } else {
-        if (!hasOwnProp(this, '_monthsShortRegex')) {
+        if (!hasOwnProp(this, '')) {
             this._monthsShortRegex = defaultMonthsShortRegex;
         }
         return this._monthsShortStrictRegex && isStrict ?
@@ -1474,7 +1474,7 @@ function monthsShortRegex (isStrict) {
 var defaultMonthsRegex = matchWord;
 function monthsRegex (isStrict) {
     if (this._monthsParseExact) {
-        if (!hasOwnProp(this, '_monthsRegex')) {
+        if (!hasOwnProp(this, '')) {
             computeMonthsParse.call(this);
         }
         if (isStrict) {
@@ -1483,7 +1483,7 @@ function monthsRegex (isStrict) {
             return this._monthsRegex;
         }
     } else {
-        if (!hasOwnProp(this, '_monthsRegex')) {
+        if (!hasOwnProp(this, '')) {
             this._monthsRegex = defaultMonthsRegex;
         }
         return this._monthsStrictRegex && isStrict ?
@@ -1519,10 +1519,10 @@ function computeMonthsParse () {
         mixedPieces[i] = regexEscape(mixedPieces[i]);
     }
 
-    this._monthsRegex = new RegExp('^(' + mixedPieces.join('|') + ')', 'i');
+    this._monthsRegex = new RegExp('^(''|'')', 'i');
     this._monthsShortRegex = this._monthsRegex;
-    this._monthsStrictRegex = new RegExp('^(' + longPieces.join('|') + ')', 'i');
-    this._monthsShortStrictRegex = new RegExp('^(' + shortPieces.join('|') + ')', 'i');
+    this._monthsStrictRegex = new RegExp('^(''|'')', 'i');
+    this._monthsShortStrictRegex = new RegExp('^(''|'')', 'i');
 }
 
 function createDate (y, m, d, h, M, s, ms) {
@@ -1611,18 +1611,18 @@ function weeksInYear(year, dow, doy) {
 
 // FORMATTING
 
-addFormatToken('w', ['ww', 2], 'wo', 'week');
-addFormatToken('W', ['WW', 2], 'Wo', 'isoWeek');
+addFormatToken('w''ww''wo', '');
+addFormatToken('W''WW''Wo', '');
 
 // ALIASES
 
-addUnitAlias('week', 'w');
-addUnitAlias('isoWeek', 'W');
+addUnitAlias('', 'w');
+addUnitAlias('', 'W');
 
 // PRIORITIES
 
-addUnitPriority('week', 5);
-addUnitPriority('isoWeek', 5);
+addUnitPriority('', 5);
+addUnitPriority('', 5);
 
 // PARSING
 
@@ -1670,33 +1670,33 @@ function getSetISOWeek (input) {
 
 // FORMATTING
 
-addFormatToken('d', 0, 'do', 'day');
+addFormatToken('d''do', '');
 
 addFormatToken('dd', 0, 0, function (format) {
     return this.localeData().weekdaysMin(this, format);
 });
 
-addFormatToken('ddd', 0, 0, function (format) {
+addFormatToken('', 0, 0, function (format) {
     return this.localeData().weekdaysShort(this, format);
 });
 
-addFormatToken('dddd', 0, 0, function (format) {
+addFormatToken('', 0, 0, function (format) {
     return this.localeData().weekdays(this, format);
 });
 
-addFormatToken('e', 0, 0, 'weekday');
-addFormatToken('E', 0, 0, 'isoWeekday');
+addFormatToken('e''weekday');
+addFormatToken('E''isoWeekday');
 
 // ALIASES
 
-addUnitAlias('day', 'd');
-addUnitAlias('weekday', 'e');
-addUnitAlias('isoWeekday', 'E');
+addUnitAlias('', 'd');
+addUnitAlias('', 'e');
+addUnitAlias('', 'E');
 
 // PRIORITY
-addUnitPriority('day', 11);
-addUnitPriority('weekday', 11);
-addUnitPriority('isoWeekday', 11);
+addUnitPriority('', 11);
+addUnitPriority('', 11);
+addUnitPriority('', 11);
 
 // PARSING
 
@@ -1706,14 +1706,14 @@ addRegexToken('E',    match1to2);
 addRegexToken('dd',   function (isStrict, locale) {
     return locale.weekdaysMinRegex(isStrict);
 });
-addRegexToken('ddd',   function (isStrict, locale) {
+addRegexToken('',   function (isStrict, locale) {
     return locale.weekdaysShortRegex(isStrict);
 });
-addRegexToken('dddd',   function (isStrict, locale) {
+addRegexToken('',   function (isStrict, locale) {
     return locale.weekdaysRegex(isStrict);
 });
 
-addWeekParseToken(['dd', 'ddd', 'dddd'], function (input, week, config, token) {
+addWeekParseToken(['dd', '', ''], function (input, week, config, token) {
     var weekday = config._locale.weekdaysParse(input, token, config._strict);
     // if we didn't get a weekday name, mark the date as invalid
     if (weekday != null) {
@@ -1730,7 +1730,7 @@ addWeekParseToken(['d', 'e', 'E'], function (input, week, config, token) {
 // HELPERS
 
 function parseWeekday(input, locale) {
-    if (typeof input !== 'string') {
+    if (typeof input !== '') {
         return input;
     }
 
@@ -1739,7 +1739,7 @@ function parseWeekday(input, locale) {
     }
 
     input = locale.weekdaysParse(input);
-    if (typeof input === 'number') {
+    if (typeof input === '') {
         return input;
     }
 
@@ -1747,7 +1747,7 @@ function parseWeekday(input, locale) {
 }
 
 function parseIsoWeekday(input, locale) {
-    if (typeof input === 'string') {
+    if (typeof input === '') {
         return locale.weekdaysParse(input) % 7 || 7;
     }
     return isNaN(input) ? null : input;
@@ -1755,22 +1755,22 @@ function parseIsoWeekday(input, locale) {
 
 // LOCALES
 
-var defaultLocaleWeekdays = 'Sunday_Monday_Tuesday_Wednesday_Thursday_Friday_Saturday'.split('_');
+var defaultLocaleWeekdays = ''.split('_');
 function localeWeekdays (m, format) {
     if (!m) {
         return isArray(this._weekdays) ? this._weekdays :
-            this._weekdays['standalone'];
+            this._weekdays[''];
     }
     return isArray(this._weekdays) ? this._weekdays[m.day()] :
-        this._weekdays[this._weekdays.isFormat.test(format) ? 'format' : 'standalone'][m.day()];
+        this._weekdays[this._weekdays.isFormat.test(format) ? '' : ''][m.day()];
 }
 
-var defaultLocaleWeekdaysShort = 'Sun_Mon_Tue_Wed_Thu_Fri_Sat'.split('_');
+var defaultLocaleWeekdaysShort = ''.split('_');
 function localeWeekdaysShort (m) {
     return (m) ? this._weekdaysShort[m.day()] : this._weekdaysShort;
 }
 
-var defaultLocaleWeekdaysMin = 'Su_Mo_Tu_We_Th_Fr_Sa'.split('_');
+var defaultLocaleWeekdaysMin = ''.split('_');
 function localeWeekdaysMin (m) {
     return (m) ? this._weekdaysMin[m.day()] : this._weekdaysMin;
 }
@@ -1791,10 +1791,10 @@ function handleStrictParse$1(weekdayName, format, strict) {
     }
 
     if (strict) {
-        if (format === 'dddd') {
+        if (format === '') {
             ii = indexOf.call(this._weekdaysParse, llc);
             return ii !== -1 ? ii : null;
-        } else if (format === 'ddd') {
+        } else if (format === '') {
             ii = indexOf.call(this._shortWeekdaysParse, llc);
             return ii !== -1 ? ii : null;
         } else {
@@ -1802,7 +1802,7 @@ function handleStrictParse$1(weekdayName, format, strict) {
             return ii !== -1 ? ii : null;
         }
     } else {
-        if (format === 'dddd') {
+        if (format === '') {
             ii = indexOf.call(this._weekdaysParse, llc);
             if (ii !== -1) {
                 return ii;
@@ -1813,7 +1813,7 @@ function handleStrictParse$1(weekdayName, format, strict) {
             }
             ii = indexOf.call(this._minWeekdaysParse, llc);
             return ii !== -1 ? ii : null;
-        } else if (format === 'ddd') {
+        } else if (format === '') {
             ii = indexOf.call(this._shortWeekdaysParse, llc);
             if (ii !== -1) {
                 return ii;
@@ -1858,18 +1858,18 @@ function localeWeekdaysParse (weekdayName, format, strict) {
 
         mom = createUTC([2000, 1]).day(i);
         if (strict && !this._fullWeekdaysParse[i]) {
-            this._fullWeekdaysParse[i] = new RegExp('^' + this.weekdays(mom, '').replace('.', '\.?') + '$', 'i');
-            this._shortWeekdaysParse[i] = new RegExp('^' + this.weekdaysShort(mom, '').replace('.', '\.?') + '$', 'i');
-            this._minWeekdaysParse[i] = new RegExp('^' + this.weekdaysMin(mom, '').replace('.', '\.?') + '$', 'i');
+            this._fullWeekdaysParse[i] = new RegExp('^''''.', '') + '$', 'i');
+            this._shortWeekdaysParse[i] = new RegExp('^''''.', '') + '$', 'i');
+            this._minWeekdaysParse[i] = new RegExp('^''''.', '') + '$', 'i');
         }
         if (!this._weekdaysParse[i]) {
-            regex = '^' + this.weekdays(mom, '') + '|^' + this.weekdaysShort(mom, '') + '|^' + this.weekdaysMin(mom, '');
-            this._weekdaysParse[i] = new RegExp(regex.replace('.', ''), 'i');
+            regex = '^''''|^''''|^''');
+            this._weekdaysParse[i] = new RegExp(regex.replace('.', '''i');
         }
         // test the regex
-        if (strict && format === 'dddd' && this._fullWeekdaysParse[i].test(weekdayName)) {
+        if (strict && format === '' && this._fullWeekdaysParse[i].test(weekdayName)) {
             return i;
-        } else if (strict && format === 'ddd' && this._shortWeekdaysParse[i].test(weekdayName)) {
+        } else if (strict && format === '' && this._shortWeekdaysParse[i].test(weekdayName)) {
             return i;
         } else if (strict && format === 'dd' && this._minWeekdaysParse[i].test(weekdayName)) {
             return i;
@@ -1922,7 +1922,7 @@ function getSetISODayOfWeek (input) {
 var defaultWeekdaysRegex = matchWord;
 function weekdaysRegex (isStrict) {
     if (this._weekdaysParseExact) {
-        if (!hasOwnProp(this, '_weekdaysRegex')) {
+        if (!hasOwnProp(this, '')) {
             computeWeekdaysParse.call(this);
         }
         if (isStrict) {
@@ -1931,7 +1931,7 @@ function weekdaysRegex (isStrict) {
             return this._weekdaysRegex;
         }
     } else {
-        if (!hasOwnProp(this, '_weekdaysRegex')) {
+        if (!hasOwnProp(this, '')) {
             this._weekdaysRegex = defaultWeekdaysRegex;
         }
         return this._weekdaysStrictRegex && isStrict ?
@@ -1942,7 +1942,7 @@ function weekdaysRegex (isStrict) {
 var defaultWeekdaysShortRegex = matchWord;
 function weekdaysShortRegex (isStrict) {
     if (this._weekdaysParseExact) {
-        if (!hasOwnProp(this, '_weekdaysRegex')) {
+        if (!hasOwnProp(this, '')) {
             computeWeekdaysParse.call(this);
         }
         if (isStrict) {
@@ -1951,7 +1951,7 @@ function weekdaysShortRegex (isStrict) {
             return this._weekdaysShortRegex;
         }
     } else {
-        if (!hasOwnProp(this, '_weekdaysShortRegex')) {
+        if (!hasOwnProp(this, '')) {
             this._weekdaysShortRegex = defaultWeekdaysShortRegex;
         }
         return this._weekdaysShortStrictRegex && isStrict ?
@@ -1962,7 +1962,7 @@ function weekdaysShortRegex (isStrict) {
 var defaultWeekdaysMinRegex = matchWord;
 function weekdaysMinRegex (isStrict) {
     if (this._weekdaysParseExact) {
-        if (!hasOwnProp(this, '_weekdaysRegex')) {
+        if (!hasOwnProp(this, '')) {
             computeWeekdaysParse.call(this);
         }
         if (isStrict) {
@@ -1971,7 +1971,7 @@ function weekdaysMinRegex (isStrict) {
             return this._weekdaysMinRegex;
         }
     } else {
-        if (!hasOwnProp(this, '_weekdaysMinRegex')) {
+        if (!hasOwnProp(this, '')) {
             this._weekdaysMinRegex = defaultWeekdaysMinRegex;
         }
         return this._weekdaysMinStrictRegex && isStrict ?
@@ -2012,13 +2012,13 @@ function computeWeekdaysParse () {
         mixedPieces[i] = regexEscape(mixedPieces[i]);
     }
 
-    this._weekdaysRegex = new RegExp('^(' + mixedPieces.join('|') + ')', 'i');
+    this._weekdaysRegex = new RegExp('^(''|'')', 'i');
     this._weekdaysShortRegex = this._weekdaysRegex;
     this._weekdaysMinRegex = this._weekdaysRegex;
 
-    this._weekdaysStrictRegex = new RegExp('^(' + longPieces.join('|') + ')', 'i');
-    this._weekdaysShortStrictRegex = new RegExp('^(' + shortPieces.join('|') + ')', 'i');
-    this._weekdaysMinStrictRegex = new RegExp('^(' + minPieces.join('|') + ')', 'i');
+    this._weekdaysStrictRegex = new RegExp('^(''|'')', 'i');
+    this._weekdaysShortStrictRegex = new RegExp('^(''|'')', 'i');
+    this._weekdaysMinStrictRegex = new RegExp('^(''|'')', 'i');
 }
 
 // FORMATTING
@@ -2031,24 +2031,24 @@ function kFormat() {
     return this.hours() || 24;
 }
 
-addFormatToken('H', ['HH', 2], 0, 'hour');
-addFormatToken('h', ['hh', 2], 0, hFormat);
-addFormatToken('k', ['kk', 2], 0, kFormat);
+addFormatToken('H''HH''hour');
+addFormatToken('h''hh', 2], 0, hFormat);
+addFormatToken('k''kk', 2], 0, kFormat);
 
-addFormatToken('hmm', 0, 0, function () {
+addFormatToken('', 0, 0, function () {
     return '' + hFormat.apply(this) + zeroFill(this.minutes(), 2);
 });
 
-addFormatToken('hmmss', 0, 0, function () {
+addFormatToken('', 0, 0, function () {
     return '' + hFormat.apply(this) + zeroFill(this.minutes(), 2) +
         zeroFill(this.seconds(), 2);
 });
 
-addFormatToken('Hmm', 0, 0, function () {
+addFormatToken('', 0, 0, function () {
     return '' + this.hours() + zeroFill(this.minutes(), 2);
 });
 
-addFormatToken('Hmmss', 0, 0, function () {
+addFormatToken('', 0, 0, function () {
     return '' + this.hours() + zeroFill(this.minutes(), 2) +
         zeroFill(this.seconds(), 2);
 });
@@ -2064,10 +2064,10 @@ meridiem('A', false);
 
 // ALIASES
 
-addUnitAlias('hour', 'h');
+addUnitAlias('', 'h');
 
 // PRIORITY
-addUnitPriority('hour', 13);
+addUnitPriority('', 13);
 
 // PARSING
 
@@ -2084,10 +2084,10 @@ addRegexToken('HH', match1to2, match2);
 addRegexToken('hh', match1to2, match2);
 addRegexToken('kk', match1to2, match2);
 
-addRegexToken('hmm', match3to4);
-addRegexToken('hmmss', match5to6);
-addRegexToken('Hmm', match3to4);
-addRegexToken('Hmmss', match5to6);
+addRegexToken('', match3to4);
+addRegexToken('', match5to6);
+addRegexToken('', match3to4);
+addRegexToken('', match5to6);
 
 addParseToken(['H', 'HH'], HOUR);
 addParseToken(['k', 'kk'], function (input, array, config) {
@@ -2102,13 +2102,13 @@ addParseToken(['h', 'hh'], function (input, array, config) {
     array[HOUR] = toInt(input);
     getParsingFlags(config).bigHour = true;
 });
-addParseToken('hmm', function (input, array, config) {
+addParseToken('', function (input, array, config) {
     var pos = input.length - 2;
     array[HOUR] = toInt(input.substr(0, pos));
     array[MINUTE] = toInt(input.substr(pos));
     getParsingFlags(config).bigHour = true;
 });
-addParseToken('hmmss', function (input, array, config) {
+addParseToken('', function (input, array, config) {
     var pos1 = input.length - 4;
     var pos2 = input.length - 2;
     array[HOUR] = toInt(input.substr(0, pos1));
@@ -2116,12 +2116,12 @@ addParseToken('hmmss', function (input, array, config) {
     array[SECOND] = toInt(input.substr(pos2));
     getParsingFlags(config).bigHour = true;
 });
-addParseToken('Hmm', function (input, array, config) {
+addParseToken('', function (input, array, config) {
     var pos = input.length - 2;
     array[HOUR] = toInt(input.substr(0, pos));
     array[MINUTE] = toInt(input.substr(pos));
 });
-addParseToken('Hmmss', function (input, array, config) {
+addParseToken('', function (input, array, config) {
     var pos1 = input.length - 4;
     var pos2 = input.length - 2;
     array[HOUR] = toInt(input.substr(0, pos1));
@@ -2134,15 +2134,15 @@ addParseToken('Hmmss', function (input, array, config) {
 function localeIsPM (input) {
     // IE8 Quirks Mode & IE7 Standards Mode do not allow accessing strings like arrays
     // Using charAt should be more compatible.
-    return ((input + '').toLowerCase().charAt(0) === 'p');
+    return ((input + '''p');
 }
 
 var defaultLocaleMeridiemParse = /[ap]\.?m?\.?/i;
 function localeMeridiem (hours, minutes, isLower) {
     if (hours > 11) {
-        return isLower ? 'pm' : 'PM';
+        return isLower ? 'pm''PM';
     } else {
-        return isLower ? 'am' : 'AM';
+        return isLower ? 'am''AM';
     }
 }
 
@@ -2153,7 +2153,7 @@ function localeMeridiem (hours, minutes, isLower) {
 // specified which hour he wants. So trying to maintain the same hour (in
 // a new timezone) makes sense. Adding/subtracting hours does not follow
 // this rule.
-var getSetHour = makeGetSet('Hours', true);
+var getSetHour = makeGetSet('', true);
 
 // months
 // week
@@ -2189,7 +2189,7 @@ function normalizeLocale(key) {
 }
 
 // pick the locale from the array
-// try ['en-au', 'en-gb'] as 'en-au', 'en-gb', 'en', as in move through the list trying each
+// try ['', ''] as '', '', 'en', as in move through the list trying each
 // substring from most specific to least, but move to the next array item if it's a more specific variant than the current root
 function chooseLocale(names) {
     var i = 0, j, next, locale, split;
@@ -2218,7 +2218,7 @@ function chooseLocale(names) {
 function loadLocale(name) {
     var oldLocale = null;
     // TODO: Find a better way to register and load all the locales in Node
-    if (!locales[name] && (typeof module !== 'undefined') &&
+    if (!locales[name] && (typeof module !== '') &&
             module && module.exports) {
         try {
             oldLocale = globalLocale._abbr;
@@ -2257,11 +2257,11 @@ function defineLocale (name, config) {
         var parentConfig = baseConfig;
         config.abbr = name;
         if (locales[name] != null) {
-            deprecateSimple('defineLocaleOverride',
-                    'use moment.updateLocale(localeName, config) to change ' +
-                    'an existing locale. moment.defineLocale(localeName, ' +
-                    'config) should only be used for creating a new locale ' +
-                    'See http://momentjs.com/guides/#/warnings/define-locale/ for more info.');
+            deprecateSimple('',
+                    '' +
+                    '' +
+                    '' +
+                    '');
             parentConfig = locales[name]._config;
         } else if (config.parentLocale != null) {
             if (locales[config.parentLocale] != null) {
@@ -2473,7 +2473,7 @@ function configFromArray (config) {
     }
 
     // check for mismatching day of week
-    if (config._w && typeof config._w.d !== 'undefined' && config._w.d !== expectedWeekday) {
+    if (config._w && typeof config._w.d !== '' && config._w.d !== expectedWeekday) {
         getParsingFlags(config).weekdayMismatch = true;
     }
 }
@@ -2543,30 +2543,30 @@ var basicIsoRegex = /^\s*((?:[+-]\d{6}|\d{4})(?:\d\d\d\d|W\d\d\d|W\d\d|\d\d\d|\d
 var tzRegex = /Z|[+-]\d\d(?::?\d\d)?/;
 
 var isoDates = [
-    ['YYYYYY-MM-DD', /[+-]\d{6}-\d\d-\d\d/],
-    ['YYYY-MM-DD', /\d{4}-\d\d-\d\d/],
-    ['GGGG-[W]WW-E', /\d{4}-W\d\d-\d/],
-    ['GGGG-[W]WW', /\d{4}-W\d\d/, false],
-    ['YYYY-DDD', /\d{4}-\d{3}/],
-    ['YYYY-MM', /\d{4}-\d\d/, false],
-    ['YYYYYYMMDD', /[+-]\d{10}/],
-    ['YYYYMMDD', /\d{8}/],
+    ['', /[+-]\d{6}-\d\d-\d\d/],
+    ['', /\d{4}-\d\d-\d\d/],
+    ['', /\d{4}-W\d\d-\d/],
+    ['', /\d{4}-W\d\d/, false],
+    ['', /\d{4}-\d{3}/],
+    ['', /\d{4}-\d\d/, false],
+    ['', /[+-]\d{10}/],
+    ['', /\d{8}/],
     // YYYYMM is NOT allowed by the standard
-    ['GGGG[W]WWE', /\d{4}W\d{3}/],
-    ['GGGG[W]WW', /\d{4}W\d{2}/, false],
-    ['YYYYDDD', /\d{7}/]
+    ['', /\d{4}W\d{3}/],
+    ['', /\d{4}W\d{2}/, false],
+    ['', /\d{7}/]
 ];
 
 // iso time formats and regexes
 var isoTimes = [
-    ['HH:mm:ss.SSSS', /\d\d:\d\d:\d\d\.\d+/],
-    ['HH:mm:ss,SSSS', /\d\d:\d\d:\d\d,\d+/],
-    ['HH:mm:ss', /\d\d:\d\d:\d\d/],
-    ['HH:mm', /\d\d:\d\d/],
-    ['HHmmss.SSSS', /\d\d\d\d\d\d\.\d+/],
-    ['HHmmss,SSSS', /\d\d\d\d\d\d,\d+/],
-    ['HHmmss', /\d\d\d\d\d\d/],
-    ['HHmm', /\d\d\d\d/],
+    ['', /\d\d:\d\d:\d\d\.\d+/],
+    ['', /\d\d:\d\d:\d\d,\d+/],
+    ['', /\d\d:\d\d:\d\d/],
+    ['', /\d\d:\d\d/],
+    ['', /\d\d\d\d\d\d\.\d+/],
+    ['', /\d\d\d\d\d\d,\d+/],
+    ['', /\d\d\d\d\d\d/],
+    ['', /\d\d\d\d/],
     ['HH', /\d\d/]
 ];
 
@@ -2618,7 +2618,7 @@ function configFromISO(config) {
                 return;
             }
         }
-        config._f = dateFormat + (timeFormat || '') + (tzFormat || '');
+        config._f = dateFormat + (timeFormat || '''');
         configFromStringAndFormat(config);
     } else {
         config._isValid = false;
@@ -2656,7 +2656,7 @@ function untruncateYear(yearStr) {
 
 function preprocessRFC2822(s) {
     // Remove comments and folding whitespace and replace multiple-spaces with a single space
-    return s.replace(/\([^)]*\)|[\n\t]/g, ' ').replace(/(\s\s+)/g, ' ').trim();
+    return s.replace(/\([^)]*\)|[\n\t]/g, ' '' ').trim();
 }
 
 function checkWeekday(weekdayStr, parsedInput, config) {
@@ -2748,12 +2748,12 @@ function configFromString(config) {
 }
 
 hooks.createFromInputFallback = deprecate(
-    'value provided is not in a recognized RFC2822 or ISO format. moment construction falls back to js Date(), ' +
-    'which is not reliable across all browsers and versions. Non RFC2822/ISO date formats are ' +
-    'discouraged and will be removed in an upcoming major release. Please refer to ' +
-    'http://momentjs.com/guides/#/warnings/js-date/ for more info.',
+    '' +
+    '' +
+    '' +
+    '',
     function (config) {
-        config._d = new Date(config._i + (config._useUTC ? ' UTC' : ''));
+        config._d = new Date(config._i + (config._useUTC ? '' : ''));
     }
 );
 
@@ -2788,8 +2788,8 @@ function configFromStringAndFormat(config) {
     for (i = 0; i < tokens.length; i++) {
         token = tokens[i];
         parsedInput = (string.match(getParseRegexForToken(token, config)) || [])[0];
-        // console.log('token', token, 'parsedInput', parsedInput,
-        //         'regex', getParseRegexForToken(token, config));
+        // console.log('', token, '', parsedInput,
+        //         '', getParseRegexForToken(token, config));
         if (parsedInput) {
             skipped = string.substr(0, string.indexOf(parsedInput));
             if (skipped.length > 0) {
@@ -2940,7 +2940,7 @@ function prepareConfig (config) {
         return createInvalid({nullInput: true});
     }
 
-    if (typeof input === 'string') {
+    if (typeof input === '') {
         config._i = input = config._locale.preparse(input);
     }
 
@@ -2969,7 +2969,7 @@ function configFromInput(config) {
         config._d = new Date(hooks.now());
     } else if (isDate(input)) {
         config._d = new Date(input.valueOf());
-    } else if (typeof input === 'string') {
+    } else if (typeof input === '') {
         configFromString(config);
     } else if (isArray(input)) {
         config._a = map(input.slice(0), function (obj) {
@@ -3015,7 +3015,7 @@ function createLocal (input, format, locale, strict) {
 }
 
 var prototypeMin = deprecate(
-    'moment().min is deprecated, use moment.max instead. http://momentjs.com/guides/#/warnings/min-max/',
+    '',
     function () {
         var other = createLocal.apply(null, arguments);
         if (this.isValid() && other.isValid()) {
@@ -3027,7 +3027,7 @@ var prototypeMin = deprecate(
 );
 
 var prototypeMax = deprecate(
-    'moment().max is deprecated, use moment.min instead. http://momentjs.com/guides/#/warnings/min-max/',
+    '',
     function () {
         var other = createLocal.apply(null, arguments);
         if (this.isValid() && other.isValid()) {
@@ -3064,20 +3064,20 @@ function pickBy(fn, moments) {
 function min () {
     var args = [].slice.call(arguments, 0);
 
-    return pickBy('isBefore', args);
+    return pickBy('', args);
 }
 
 function max () {
     var args = [].slice.call(arguments, 0);
 
-    return pickBy('isAfter', args);
+    return pickBy('', args);
 }
 
 var now = function () {
     return Date.now ? Date.now() : +(new Date());
 };
 
-var ordering = ['year', 'quarter', 'month', 'week', 'day', 'hour', 'minute', 'second', 'millisecond'];
+var ordering = ['', '', '', '', '', '', '', '', ''];
 
 function isDurationValid(m) {
     for (var key in m) {
@@ -3187,8 +3187,8 @@ addParseToken(['Z', 'ZZ'], function (input, array, config) {
 // HELPERS
 
 // timezone chunker
-// '+10:00' > ['10',  '00']
-// '-1530'  > ['-15', '30']
+// '' > ['10''00']
+// ''  > ['', '30']
 var chunkOffset = /([\+\-]|\d\d)/gi;
 
 function offsetFromString(matcher, string) {
@@ -3199,7 +3199,7 @@ function offsetFromString(matcher, string) {
     }
 
     var chunk   = matches[matches.length - 1] || [];
-    var parts   = (chunk + '').match(chunkOffset) || ['-', 0, 0];
+    var parts   = (chunk + '''-', 0, 0];
     var minutes = +(parts[1] * 60) + toInt(parts[2]);
 
     return minutes === 0 ?
@@ -3253,7 +3253,7 @@ function getSetOffset (input, keepLocalTime, keepMinutes) {
         return input != null ? this : NaN;
     }
     if (input != null) {
-        if (typeof input === 'string') {
+        if (typeof input === '') {
             input = offsetFromString(matchShortOffset, input);
             if (input === null) {
                 return this;
@@ -3286,7 +3286,7 @@ function getSetOffset (input, keepLocalTime, keepMinutes) {
 
 function getSetZone (input, keepLocalTime) {
     if (input != null) {
-        if (typeof input !== 'string') {
+        if (typeof input !== '') {
             input = -input;
         }
 
@@ -3317,7 +3317,7 @@ function setOffsetToLocal (keepLocalTime) {
 function setOffsetToParsedOffset () {
     if (this._tzm != null) {
         this.utcOffset(this._tzm, false, true);
-    } else if (typeof this._i === 'string') {
+    } else if (typeof this._i === '') {
         var tZone = offsetFromString(matchOffset, this._i);
         if (tZone != null) {
             this.utcOffset(tZone);
@@ -3418,7 +3418,7 @@ function createDuration (input, key) {
             ms : toInt(absRound(match[MILLISECOND] * 1000)) * sign // the millisecond decimal point is included in the match
         };
     } else if (!!(match = isoRegex.exec(input))) {
-        sign = (match[1] === '-') ? -1 : (match[1] === '+') ? 1 : 1;
+        sign = (match[1] === '-''+') ? 1 : 1;
         duration = {
             y : parseIso(match[2], sign),
             M : parseIso(match[3], sign),
@@ -3430,7 +3430,7 @@ function createDuration (input, key) {
         };
     } else if (duration == null) {// checks for null or undefined
         duration = {};
-    } else if (typeof duration === 'object' && ('from' in duration || 'to' in duration)) {
+    } else if (typeof duration === '' && ('' in duration || 'to' in duration)) {
         diffRes = momentsDifference(createLocal(duration.from), createLocal(duration.to));
 
         duration = {};
@@ -3440,7 +3440,7 @@ function createDuration (input, key) {
 
     ret = new Duration(duration);
 
-    if (isDuration(input) && hasOwnProp(input, '_locale')) {
+    if (isDuration(input) && hasOwnProp(input, '')) {
         ret._locale = input._locale;
     }
 
@@ -3491,18 +3491,18 @@ function momentsDifference(base, other) {
     return res;
 }
 
-// TODO: remove 'name' arg after deprecation is removed
+// TODO: remove '' arg after deprecation is removed
 function createAdder(direction, name) {
     return function (val, period) {
         var dur, tmp;
         //invert the arguments, but complain about it
         if (period !== null && !isNaN(+period)) {
-            deprecateSimple(name, 'moment().' + name  + '(period, number) is deprecated. Please use moment().' + name + '(number, period). ' +
-            'See http://momentjs.com/guides/#/warnings/add-inverted-param/ for more info.');
+            deprecateSimple(name, '' + name  + '' + name + '' +
+            '');
             tmp = val; val = period; period = tmp;
         }
 
-        val = typeof val === 'string' ? +val : val;
+        val = typeof val === '' ? +val : val;
         dur = createDuration(val, period);
         addSubtract(this, dur, direction);
         return this;
@@ -3522,10 +3522,10 @@ function addSubtract (mom, duration, isAdding, updateOffset) {
     updateOffset = updateOffset == null ? true : updateOffset;
 
     if (months) {
-        setMonth(mom, get(mom, 'Month') + months * isAdding);
+        setMonth(mom, get(mom, '') + months * isAdding);
     }
     if (days) {
-        set$1(mom, 'Date', get(mom, 'Date') + days * isAdding);
+        set$1(mom, '', get(mom, '') + days * isAdding);
     }
     if (milliseconds) {
         mom._d.setTime(mom._d.valueOf() + milliseconds * isAdding);
@@ -3535,25 +3535,25 @@ function addSubtract (mom, duration, isAdding, updateOffset) {
     }
 }
 
-var add      = createAdder(1, 'add');
-var subtract = createAdder(-1, 'subtract');
+var add      = createAdder(1, '');
+var subtract = createAdder(-1, '');
 
 function getCalendarFormat(myMoment, now) {
-    var diff = myMoment.diff(now, 'days', true);
-    return diff < -6 ? 'sameElse' :
-            diff < -1 ? 'lastWeek' :
-            diff < 0 ? 'lastDay' :
-            diff < 1 ? 'sameDay' :
-            diff < 2 ? 'nextDay' :
-            diff < 7 ? 'nextWeek' : 'sameElse';
+    var diff = myMoment.diff(now, '', true);
+    return diff < -6 ? '' :
+            diff < -1 ? '' :
+            diff < 0 ? '' :
+            diff < 1 ? '' :
+            diff < 2 ? '' :
+            diff < 7 ? '' : '';
 }
 
 function calendar$1 (time, formats) {
     // We want to compare the start of today, vs this.
     // Getting start-of-today depends on whether we're local/utc/offset or not.
     var now = time || createLocal(),
-        sod = cloneWithOffset(now, this).startOf('day'),
-        format = hooks.calendarFormat(this, sod) || 'sameElse';
+        sod = cloneWithOffset(now, this).startOf(''),
+        format = hooks.calendarFormat(this, sod) || '';
 
     var output = formats && (isFunction(formats[format]) ? formats[format].call(this, now) : formats[format]);
 
@@ -3569,8 +3569,8 @@ function isAfter (input, units) {
     if (!(this.isValid() && localInput.isValid())) {
         return false;
     }
-    units = normalizeUnits(!isUndefined(units) ? units : 'millisecond');
-    if (units === 'millisecond') {
+    units = normalizeUnits(!isUndefined(units) ? units : '');
+    if (units === '') {
         return this.valueOf() > localInput.valueOf();
     } else {
         return localInput.valueOf() < this.clone().startOf(units).valueOf();
@@ -3582,8 +3582,8 @@ function isBefore (input, units) {
     if (!(this.isValid() && localInput.isValid())) {
         return false;
     }
-    units = normalizeUnits(!isUndefined(units) ? units : 'millisecond');
-    if (units === 'millisecond') {
+    units = normalizeUnits(!isUndefined(units) ? units : '');
+    if (units === '') {
         return this.valueOf() < localInput.valueOf();
     } else {
         return this.clone().endOf(units).valueOf() < localInput.valueOf();
@@ -3602,8 +3602,8 @@ function isSame (input, units) {
     if (!(this.isValid() && localInput.isValid())) {
         return false;
     }
-    units = normalizeUnits(units || 'millisecond');
-    if (units === 'millisecond') {
+    units = normalizeUnits(units || '');
+    if (units === '') {
         return this.valueOf() === localInput.valueOf();
     } else {
         inputMs = localInput.valueOf();
@@ -3639,14 +3639,14 @@ function diff (input, units, asFloat) {
     units = normalizeUnits(units);
 
     switch (units) {
-        case 'year': output = monthDiff(this, that) / 12; break;
-        case 'month': output = monthDiff(this, that); break;
-        case 'quarter': output = monthDiff(this, that) / 3; break;
-        case 'second': output = (this - that) / 1e3; break; // 1000
-        case 'minute': output = (this - that) / 6e4; break; // 1000 * 60
-        case 'hour': output = (this - that) / 36e5; break; // 1000 * 60 * 60
-        case 'day': output = (this - that - zoneDelta) / 864e5; break; // 1000 * 60 * 60 * 24, negate dst
-        case 'week': output = (this - that - zoneDelta) / 6048e5; break; // 1000 * 60 * 60 * 24 * 7, negate dst
+        case '': output = monthDiff(this, that) / 12; break;
+        case '': output = monthDiff(this, that); break;
+        case '': output = monthDiff(this, that) / 3; break;
+        case '': output = (this - that) / 1e3; break; // 1000
+        case '': output = (this - that) / 6e4; break; // 1000 * 60
+        case '': output = (this - that) / 36e5; break; // 1000 * 60 * 60
+        case '': output = (this - that - zoneDelta) / 864e5; break; // 1000 * 60 * 60 * 24, negate dst
+        case '': output = (this - that - zoneDelta) / 6048e5; break; // 1000 * 60 * 60 * 24 * 7, negate dst
         default: output = this - that;
     }
 
@@ -3657,15 +3657,15 @@ function monthDiff (a, b) {
     // difference in months
     var wholeMonthDiff = ((b.year() - a.year()) * 12) + (b.month() - a.month()),
         // b is in (anchor - 1 month, anchor + 1 month)
-        anchor = a.clone().add(wholeMonthDiff, 'months'),
+        anchor = a.clone().add(wholeMonthDiff, ''),
         anchor2, adjust;
 
     if (b - anchor < 0) {
-        anchor2 = a.clone().add(wholeMonthDiff - 1, 'months');
+        anchor2 = a.clone().add(wholeMonthDiff - 1, '');
         // linear across the month
         adjust = (b - anchor) / (anchor - anchor2);
     } else {
-        anchor2 = a.clone().add(wholeMonthDiff + 1, 'months');
+        anchor2 = a.clone().add(wholeMonthDiff + 1, '');
         // linear across the month
         adjust = (b - anchor) / (anchor2 - anchor);
     }
@@ -3674,11 +3674,11 @@ function monthDiff (a, b) {
     return -(wholeMonthDiff + adjust) || 0;
 }
 
-hooks.defaultFormat = 'YYYY-MM-DDTHH:mm:ssZ';
-hooks.defaultFormatUtc = 'YYYY-MM-DDTHH:mm:ss[Z]';
+hooks.defaultFormat = '';
+hooks.defaultFormatUtc = '';
 
 function toString () {
-    return this.clone().locale('en').format('ddd MMM DD YYYY HH:mm:ss [GMT]ZZ');
+    return this.clone().locale('en''ddd MMM DD YYYY HH:mm:ss [GMT]ZZ');
 }
 
 function toISOString(keepOffset) {
@@ -3688,17 +3688,17 @@ function toISOString(keepOffset) {
     var utc = keepOffset !== true;
     var m = utc ? this.clone().utc() : this;
     if (m.year() < 0 || m.year() > 9999) {
-        return formatMoment(m, utc ? 'YYYYYY-MM-DD[T]HH:mm:ss.SSS[Z]' : 'YYYYYY-MM-DD[T]HH:mm:ss.SSSZ');
+        return formatMoment(m, utc ? '' : '');
     }
     if (isFunction(Date.prototype.toISOString)) {
         // native implementation is ~50x faster, use it when we can
         if (utc) {
             return this.toDate().toISOString();
         } else {
-            return new Date(this._d.valueOf()).toISOString().replace('Z', formatMoment(m, 'Z'));
+            return new Date(this._d.valueOf()).toISOString().replace('Z''Z'));
         }
     }
-    return formatMoment(m, utc ? 'YYYY-MM-DD[T]HH:mm:ss.SSS[Z]' : 'YYYY-MM-DD[T]HH:mm:ss.SSSZ');
+    return formatMoment(m, utc ? '' : '');
 }
 
 /**
@@ -3709,18 +3709,18 @@ function toISOString(keepOffset) {
  */
 function inspect () {
     if (!this.isValid()) {
-        return 'moment.invalid(/* ' + this._i + ' */)';
+        return '' + this._i + '';
     }
-    var func = 'moment';
+    var func = '';
     var zone = '';
     if (!this.isLocal()) {
-        func = this.utcOffset() === 0 ? 'moment.utc' : 'moment.parseZone';
+        func = this.utcOffset() === 0 ? '' : '';
         zone = 'Z';
     }
-    var prefix = '[' + func + '("]';
-    var year = (0 <= this.year() && this.year() <= 9999) ? 'YYYY' : 'YYYYYY';
-    var datetime = '-MM-DD[T]HH:mm:ss.SSS';
-    var suffix = zone + '[")]';
+    var prefix = '[''("]';
+    var year = (0 <= this.year() && this.year() <= 9999) ? '' : '';
+    var datetime = '';
+    var suffix = zone + '';
 
     return this.format(prefix + year + datetime + suffix);
 }
@@ -3779,7 +3779,7 @@ function locale (key) {
 }
 
 var lang = deprecate(
-    'moment().lang() is deprecated. Instead, use moment().localeData() to get the language configuration. Use moment().locale() to change languages.',
+    '',
     function (key) {
         if (key === undefined) {
             return this.localeData();
@@ -3798,39 +3798,39 @@ function startOf (units) {
     // the following switch intentionally omits break keywords
     // to utilize falling through the cases.
     switch (units) {
-        case 'year':
+        case '':
             this.month(0);
             /* falls through */
-        case 'quarter':
-        case 'month':
+        case '':
+        case '':
             this.date(1);
             /* falls through */
-        case 'week':
-        case 'isoWeek':
-        case 'day':
-        case 'date':
+        case '':
+        case '':
+        case '':
+        case '':
             this.hours(0);
             /* falls through */
-        case 'hour':
+        case '':
             this.minutes(0);
             /* falls through */
-        case 'minute':
+        case '':
             this.seconds(0);
             /* falls through */
-        case 'second':
+        case '':
             this.milliseconds(0);
     }
 
     // weeks are a special case
-    if (units === 'week') {
+    if (units === '') {
         this.weekday(0);
     }
-    if (units === 'isoWeek') {
+    if (units === '') {
         this.isoWeekday(1);
     }
 
     // quarters are also special
-    if (units === 'quarter') {
+    if (units === '') {
         this.month(Math.floor(this.month() / 3) * 3);
     }
 
@@ -3839,16 +3839,16 @@ function startOf (units) {
 
 function endOf (units) {
     units = normalizeUnits(units);
-    if (units === undefined || units === 'millisecond') {
+    if (units === undefined || units === '') {
         return this;
     }
 
-    // 'date' is an alias for 'day', so it should be considered as such.
-    if (units === 'date') {
-        units = 'day';
+    // '' is an alias for '', so it should be considered as such.
+    if (units === '') {
+        units = '';
     }
 
-    return this.startOf(units).add(1, (units === 'isoWeek' ? 'week' : units)).subtract(1, 'ms');
+    return this.startOf(units).add(1, (units === '' ? '' : units)).subtract(1, 'ms');
 }
 
 function valueOf () {
@@ -3922,20 +3922,20 @@ function addWeekYearFormatToken (token, getter) {
     addFormatToken(0, [token, token.length], 0, getter);
 }
 
-addWeekYearFormatToken('gggg',     'weekYear');
-addWeekYearFormatToken('ggggg',    'weekYear');
-addWeekYearFormatToken('GGGG',  'isoWeekYear');
-addWeekYearFormatToken('GGGGG', 'isoWeekYear');
+addWeekYearFormatToken('',     '');
+addWeekYearFormatToken('',    '');
+addWeekYearFormatToken('',  '');
+addWeekYearFormatToken('', '');
 
 // ALIASES
 
-addUnitAlias('weekYear', 'gg');
-addUnitAlias('isoWeekYear', 'GG');
+addUnitAlias('', 'gg');
+addUnitAlias('', 'GG');
 
 // PRIORITY
 
-addUnitPriority('weekYear', 1);
-addUnitPriority('isoWeekYear', 1);
+addUnitPriority('', 1);
+addUnitPriority('', 1);
 
 
 // PARSING
@@ -3944,12 +3944,12 @@ addRegexToken('G',      matchSigned);
 addRegexToken('g',      matchSigned);
 addRegexToken('GG',     match1to2, match2);
 addRegexToken('gg',     match1to2, match2);
-addRegexToken('GGGG',   match1to4, match4);
-addRegexToken('gggg',   match1to4, match4);
-addRegexToken('GGGGG',  match1to6, match6);
-addRegexToken('ggggg',  match1to6, match6);
+addRegexToken('',   match1to4, match4);
+addRegexToken('',   match1to4, match4);
+addRegexToken('',  match1to6, match6);
+addRegexToken('',  match1to6, match6);
 
-addWeekParseToken(['gggg', 'ggggg', 'GGGG', 'GGGGG'], function (input, week, config, token) {
+addWeekParseToken(['', '', '', ''], function (input, week, config, token) {
     week[token.substr(0, 2)] = toInt(input);
 });
 
@@ -4007,15 +4007,15 @@ function setWeekAll(weekYear, week, weekday, dow, doy) {
 
 // FORMATTING
 
-addFormatToken('Q', 0, 'Qo', 'quarter');
+addFormatToken('Q''Qo', '');
 
 // ALIASES
 
-addUnitAlias('quarter', 'Q');
+addUnitAlias('', 'Q');
 
 // PRIORITY
 
-addUnitPriority('quarter', 7);
+addUnitPriority('', 7);
 
 // PARSING
 
@@ -4032,14 +4032,14 @@ function getSetQuarter (input) {
 
 // FORMATTING
 
-addFormatToken('D', ['DD', 2], 'Do', 'date');
+addFormatToken('D''DD''Do', '');
 
 // ALIASES
 
-addUnitAlias('date', 'D');
+addUnitAlias('', 'D');
 
 // PRIOROITY
-addUnitPriority('date', 9);
+addUnitPriority('', 9);
 
 // PARSING
 
@@ -4059,24 +4059,24 @@ addParseToken('Do', function (input, array) {
 
 // MOMENTS
 
-var getSetDayOfMonth = makeGetSet('Date', true);
+var getSetDayOfMonth = makeGetSet('', true);
 
 // FORMATTING
 
-addFormatToken('DDD', ['DDDD', 3], 'DDDo', 'dayOfYear');
+addFormatToken('', ['', 3], '', '');
 
 // ALIASES
 
-addUnitAlias('dayOfYear', 'DDD');
+addUnitAlias('', '');
 
 // PRIORITY
-addUnitPriority('dayOfYear', 4);
+addUnitPriority('', 4);
 
 // PARSING
 
-addRegexToken('DDD',  match1to3);
-addRegexToken('DDDD', match3);
-addParseToken(['DDD', 'DDDD'], function (input, array, config) {
+addRegexToken('',  match1to3);
+addRegexToken('', match3);
+addParseToken(['', ''], function (input, array, config) {
     config._dayOfYear = toInt(input);
 });
 
@@ -4085,21 +4085,21 @@ addParseToken(['DDD', 'DDDD'], function (input, array, config) {
 // MOMENTS
 
 function getSetDayOfYear (input) {
-    var dayOfYear = Math.round((this.clone().startOf('day') - this.clone().startOf('year')) / 864e5) + 1;
+    var dayOfYear = Math.round((this.clone().startOf('') - this.clone().startOf('')) / 864e5) + 1;
     return input == null ? dayOfYear : this.add((input - dayOfYear), 'd');
 }
 
 // FORMATTING
 
-addFormatToken('m', ['mm', 2], 0, 'minute');
+addFormatToken('m''mm''minute');
 
 // ALIASES
 
-addUnitAlias('minute', 'm');
+addUnitAlias('', 'm');
 
 // PRIORITY
 
-addUnitPriority('minute', 14);
+addUnitPriority('', 14);
 
 // PARSING
 
@@ -4109,19 +4109,19 @@ addParseToken(['m', 'mm'], MINUTE);
 
 // MOMENTS
 
-var getSetMinute = makeGetSet('Minutes', false);
+var getSetMinute = makeGetSet('', false);
 
 // FORMATTING
 
-addFormatToken('s', ['ss', 2], 0, 'second');
+addFormatToken('');
 
 // ALIASES
 
-addUnitAlias('second', 's');
+addUnitAlias('', 's');
 
 // PRIORITY
 
-addUnitPriority('second', 15);
+addUnitPriority('', 15);
 
 // PARSING
 
@@ -4131,7 +4131,7 @@ addParseToken(['s', 'ss'], SECOND);
 
 // MOMENTS
 
-var getSetSecond = makeGetSet('Seconds', false);
+var getSetSecond = makeGetSet('', false);
 
 // FORMATTING
 
@@ -4143,43 +4143,43 @@ addFormatToken(0, ['SS', 2], 0, function () {
     return ~~(this.millisecond() / 10);
 });
 
-addFormatToken(0, ['SSS', 3], 0, 'millisecond');
-addFormatToken(0, ['SSSS', 4], 0, function () {
+addFormatToken(0, ['', 3], 0, '');
+addFormatToken(0, ['', 4], 0, function () {
     return this.millisecond() * 10;
 });
-addFormatToken(0, ['SSSSS', 5], 0, function () {
+addFormatToken(0, ['', 5], 0, function () {
     return this.millisecond() * 100;
 });
-addFormatToken(0, ['SSSSSS', 6], 0, function () {
+addFormatToken(0, ['', 6], 0, function () {
     return this.millisecond() * 1000;
 });
-addFormatToken(0, ['SSSSSSS', 7], 0, function () {
+addFormatToken(0, ['', 7], 0, function () {
     return this.millisecond() * 10000;
 });
-addFormatToken(0, ['SSSSSSSS', 8], 0, function () {
+addFormatToken(0, ['', 8], 0, function () {
     return this.millisecond() * 100000;
 });
-addFormatToken(0, ['SSSSSSSSS', 9], 0, function () {
+addFormatToken(0, ['', 9], 0, function () {
     return this.millisecond() * 1000000;
 });
 
 
 // ALIASES
 
-addUnitAlias('millisecond', 'ms');
+addUnitAlias('', 'ms');
 
 // PRIORITY
 
-addUnitPriority('millisecond', 16);
+addUnitPriority('', 16);
 
 // PARSING
 
 addRegexToken('S',    match1to3, match1);
 addRegexToken('SS',   match1to3, match2);
-addRegexToken('SSS',  match1to3, match3);
+addRegexToken('',  match1to3, match3);
 
 var token;
-for (token = 'SSSS'; token.length <= 9; token += 'S') {
+for (token = ''; token.length <= 9; token += 'S') {
     addRegexToken(token, matchUnsigned);
 }
 
@@ -4187,26 +4187,26 @@ function parseMs(input, array) {
     array[MILLISECOND] = toInt(('0.' + input) * 1000);
 }
 
-for (token = 'S'; token.length <= 9; token += 'S') {
+for (token = 'S''S') {
     addParseToken(token, parseMs);
 }
 // MOMENTS
 
-var getSetMillisecond = makeGetSet('Milliseconds', false);
+var getSetMillisecond = makeGetSet('', false);
 
 // FORMATTING
 
-addFormatToken('z',  0, 0, 'zoneAbbr');
-addFormatToken('zz', 0, 0, 'zoneName');
+addFormatToken('z''zoneAbbr');
+addFormatToken('zz''zoneName');
 
 // MOMENTS
 
 function getZoneAbbr () {
-    return this._isUTC ? 'UTC' : '';
+    return this._isUTC ? '' : '';
 }
 
 function getZoneName () {
-    return this._isUTC ? 'Coordinated Universal Time' : '';
+    return this._isUTC ? '' : '';
 }
 
 var proto = Moment.prototype;
@@ -4307,11 +4307,11 @@ proto.zoneAbbr = getZoneAbbr;
 proto.zoneName = getZoneName;
 
 // Deprecations
-proto.dates  = deprecate('dates accessor is deprecated. Use date instead.', getSetDayOfMonth);
-proto.months = deprecate('months accessor is deprecated. Use month instead', getSetMonth);
-proto.years  = deprecate('years accessor is deprecated. Use year instead', getSetYear);
-proto.zone   = deprecate('moment().zone is deprecated, use moment().utcOffset instead. http://momentjs.com/guides/#/warnings/zone/', getSetZone);
-proto.isDSTShifted = deprecate('isDSTShifted is deprecated. See http://momentjs.com/guides/#/warnings/dst-shifted/ for more information', isDaylightSavingTimeShifted);
+proto.dates  = deprecate('', getSetDayOfMonth);
+proto.months = deprecate('', getSetMonth);
+proto.years  = deprecate('', getSetYear);
+proto.zone   = deprecate('', getSetZone);
+proto.isDSTShifted = deprecate('', isDaylightSavingTimeShifted);
 
 function createUnix (input) {
     return createLocal(input * 1000);
@@ -4378,13 +4378,13 @@ function listMonthsImpl (format, index, field) {
     format = format || '';
 
     if (index != null) {
-        return get$1(format, index, field, 'month');
+        return get$1(format, index, field, '');
     }
 
     var i;
     var out = [];
     for (i = 0; i < 12; i++) {
-        out[i] = get$1(format, i, field, 'month');
+        out[i] = get$1(format, i, field, '');
     }
     return out;
 }
@@ -4398,7 +4398,7 @@ function listMonthsImpl (format, index, field) {
 // (true, fmt, 5)
 // (true, fmt)
 function listWeekdaysImpl (localeSorted, format, index, field) {
-    if (typeof localeSorted === 'boolean') {
+    if (typeof localeSorted === '') {
         if (isNumber(format)) {
             index = format;
             format = undefined;
@@ -4422,35 +4422,35 @@ function listWeekdaysImpl (localeSorted, format, index, field) {
         shift = localeSorted ? locale._week.dow : 0;
 
     if (index != null) {
-        return get$1(format, (index + shift) % 7, field, 'day');
+        return get$1(format, (index + shift) % 7, field, '');
     }
 
     var i;
     var out = [];
     for (i = 0; i < 7; i++) {
-        out[i] = get$1(format, (i + shift) % 7, field, 'day');
+        out[i] = get$1(format, (i + shift) % 7, field, '');
     }
     return out;
 }
 
 function listMonths (format, index) {
-    return listMonthsImpl(format, index, 'months');
+    return listMonthsImpl(format, index, '');
 }
 
 function listMonthsShort (format, index) {
-    return listMonthsImpl(format, index, 'monthsShort');
+    return listMonthsImpl(format, index, '');
 }
 
 function listWeekdays (localeSorted, format, index) {
-    return listWeekdaysImpl(localeSorted, format, index, 'weekdays');
+    return listWeekdaysImpl(localeSorted, format, index, '');
 }
 
 function listWeekdaysShort (localeSorted, format, index) {
-    return listWeekdaysImpl(localeSorted, format, index, 'weekdaysShort');
+    return listWeekdaysImpl(localeSorted, format, index, '');
 }
 
 function listWeekdaysMin (localeSorted, format, index) {
-    return listWeekdaysImpl(localeSorted, format, index, 'weekdaysMin');
+    return listWeekdaysImpl(localeSorted, format, index, '');
 }
 
 getSetGlobalLocale('en', {
@@ -4460,14 +4460,14 @@ getSetGlobalLocale('en', {
             output = (toInt(number % 100 / 10) === 1) ? 'th' :
             (b === 1) ? 'st' :
             (b === 2) ? 'nd' :
-            (b === 3) ? 'rd' : 'th';
+            (b === 3) ? '';
         return number + output;
     }
 });
 
 // Side effect imports
-hooks.lang = deprecate('moment.lang is deprecated. Use moment.locale instead.', getSetGlobalLocale);
-hooks.langData = deprecate('moment.langData is deprecated. Use moment.localeData instead.', getLocale);
+hooks.lang = deprecate('', getSetGlobalLocale);
+hooks.langData = deprecate('', getLocale);
 
 var mathAbs = Math.abs;
 
@@ -4584,22 +4584,22 @@ function as (units) {
 
     units = normalizeUnits(units);
 
-    if (units === 'month' || units === 'year') {
+    if (units === '' || units === '') {
         days   = this._days   + milliseconds / 864e5;
         months = this._months + daysToMonths(days);
-        return units === 'month' ? months : months / 12;
+        return units === '' ? months : months / 12;
     } else {
         // handle milliseconds separately because of floating point math errors (issue #1867)
         days = this._days + Math.round(monthsToDays(this._months));
         switch (units) {
-            case 'week'   : return days / 7     + milliseconds / 6048e5;
-            case 'day'    : return days         + milliseconds / 864e5;
-            case 'hour'   : return days * 24    + milliseconds / 36e5;
-            case 'minute' : return days * 1440  + milliseconds / 6e4;
-            case 'second' : return days * 86400 + milliseconds / 1000;
+            case ''   : return days / 7     + milliseconds / 6048e5;
+            case ''    : return days         + milliseconds / 864e5;
+            case ''   : return days * 24    + milliseconds / 36e5;
+            case '' : return days * 1440  + milliseconds / 6e4;
+            case '' : return days * 86400 + milliseconds / 1000;
             // Math.floor prevents floating point math errors here
-            case 'millisecond': return Math.floor(days * 864e5) + milliseconds;
-            default: throw new Error('Unknown unit ' + units);
+            case '': return Math.floor(days * 864e5) + milliseconds;
+            default: throw new Error('' + units);
         }
     }
 }
@@ -4647,13 +4647,13 @@ function makeGetter(name) {
     };
 }
 
-var milliseconds = makeGetter('milliseconds');
-var seconds      = makeGetter('seconds');
-var minutes      = makeGetter('minutes');
-var hours        = makeGetter('hours');
-var days         = makeGetter('days');
-var months       = makeGetter('months');
-var years        = makeGetter('years');
+var milliseconds = makeGetter('');
+var seconds      = makeGetter('');
+var minutes      = makeGetter('');
+var hours        = makeGetter('');
+var days         = makeGetter('');
+var months       = makeGetter('');
+var years        = makeGetter('');
 
 function weeks () {
     return absFloor(this.days() / 7);
@@ -4693,7 +4693,7 @@ function relativeTime$1 (posNegDuration, withoutSuffix, locale) {
             days    < thresholds.d   && ['dd', days]    ||
             months  <= 1             && ['M']           ||
             months  < thresholds.M   && ['MM', months]  ||
-            years   <= 1             && ['y']           || ['yy', years];
+            years   <= 1             && ['y''yy', years];
 
     a[2] = withoutSuffix;
     a[3] = +posNegDuration > 0;
@@ -4706,7 +4706,7 @@ function getSetRelativeTimeRounding (roundingFunction) {
     if (roundingFunction === undefined) {
         return round;
     }
-    if (typeof(roundingFunction) === 'function') {
+    if (typeof(roundingFunction) === '') {
         round = roundingFunction;
         return true;
     }
@@ -4783,28 +4783,28 @@ function toISOString$1() {
     var D = days;
     var h = hours;
     var m = minutes;
-    var s = seconds ? seconds.toFixed(3).replace(/\.?0+$/, '') : '';
+    var s = seconds ? seconds.toFixed(3).replace(/\.?0+$/, '''';
     var total = this.asSeconds();
 
     if (!total) {
         // this is the same as C#'s (Noda) and python (isodate)...
         // but not other JS (goog.date)
-        return 'P0D';
+        return '';
     }
 
-    var totalSign = total < 0 ? '-' : '';
-    var ymSign = sign(this._months) !== sign(total) ? '-' : '';
-    var daysSign = sign(this._days) !== sign(total) ? '-' : '';
-    var hmsSign = sign(this._milliseconds) !== sign(total) ? '-' : '';
+    var totalSign = total < 0 ? '-''';
+    var ymSign = sign(this._months) !== sign(total) ? '-''';
+    var daysSign = sign(this._days) !== sign(total) ? '-''';
+    var hmsSign = sign(this._milliseconds) !== sign(total) ? '-''';
 
     return totalSign + 'P' +
-        (Y ? ymSign + Y + 'Y' : '') +
-        (M ? ymSign + M + 'M' : '') +
-        (D ? daysSign + D + 'D' : '') +
-        ((h || m || s) ? 'T' : '') +
-        (h ? hmsSign + h + 'H' : '') +
-        (m ? hmsSign + m + 'M' : '') +
-        (s ? hmsSign + s + 'S' : '');
+        (Y ? ymSign + Y + 'Y''') +
+        (M ? ymSign + M + 'M''') +
+        (D ? daysSign + D + 'D''') +
+        ((h || m || s) ? 'T''') +
+        (h ? hmsSign + h + 'H''') +
+        (m ? hmsSign + m + 'M''') +
+        (s ? hmsSign + s + 'S''');
 }
 
 var proto$2 = Duration.prototype;
@@ -4842,15 +4842,15 @@ proto$2.locale         = locale;
 proto$2.localeData     = localeData;
 
 // Deprecations
-proto$2.toIsoString = deprecate('toIsoString() is deprecated. Please use toISOString() instead (notice the capitals)', toISOString$1);
+proto$2.toIsoString = deprecate('', toISOString$1);
 proto$2.lang = lang;
 
 // Side effect imports
 
 // FORMATTING
 
-addFormatToken('X', 0, 0, 'unix');
-addFormatToken('x', 0, 0, 'valueOf');
+addFormatToken('X''unix');
+addFormatToken('x''valueOf');
 
 // PARSING
 
@@ -4866,7 +4866,7 @@ addParseToken('x', function (input, array, config) {
 // Side effect imports
 
 
-hooks.version = '2.20.1';
+hooks.version = '';
 
 setHookCallback(createLocal);
 
@@ -4900,15 +4900,15 @@ hooks.prototype             = proto;
 
 // currently HTML5 input type only supports 24-hour formats
 hooks.HTML5_FMT = {
-    DATETIME_LOCAL: 'YYYY-MM-DDTHH:mm',             // <input type="datetime-local" />
-    DATETIME_LOCAL_SECONDS: 'YYYY-MM-DDTHH:mm:ss',  // <input type="datetime-local" step="1" />
-    DATETIME_LOCAL_MS: 'YYYY-MM-DDTHH:mm:ss.SSS',   // <input type="datetime-local" step="0.001" />
-    DATE: 'YYYY-MM-DD',                             // <input type="date" />
-    TIME: 'HH:mm',                                  // <input type="time" />
-    TIME_SECONDS: 'HH:mm:ss',                       // <input type="time" step="1" />
-    TIME_MS: 'HH:mm:ss.SSS',                        // <input type="time" step="0.001" />
-    WEEK: 'YYYY-[W]WW',                             // <input type="week" />
-    MONTH: 'YYYY-MM'                                // <input type="month" />
+    DATETIME_LOCAL: '',             // <input type="datetime-local" />
+    DATETIME_LOCAL_SECONDS: '',  // <input type="datetime-local" step="1" />
+    DATETIME_LOCAL_MS: '',   // <input type="datetime-local" step="0.001" />
+    DATE: '',                             // <input type="date" />
+    TIME: '',                                  // <input type="time" />
+    TIME_SECONDS: '',                       // <input type="time" step="1" />
+    TIME_MS: '',                        // <input type="time" step="0.001" />
+    WEEK: '',                             // <input type="week" />
+    MONTH: ''                                // <input type="month" />
 };
 
 return hooks;
@@ -4967,7 +4967,7 @@ var Subscriber = (function (_super) {
                     this.destination = Observer_1.empty;
                     break;
                 }
-                if (typeof destinationOrNext === 'object') {
+                if (typeof destinationOrNext === '') {
                     if (destinationOrNext instanceof Subscriber) {
                         this.syncErrorThrowable = destinationOrNext.syncErrorThrowable;
                         this.destination = destinationOrNext;
@@ -5281,7 +5281,7 @@ function subscribeToResult(outerSubscriber, result, outerValue, outerIndex) {
         });
         return destination;
     }
-    else if (result && typeof result[iterator_1.iterator] === 'function') {
+    else if (result && typeof result[iterator_1.iterator] === '') {
         var iterator = result[iterator_1.iterator]();
         do {
             var item = iterator.next();
@@ -5295,19 +5295,19 @@ function subscribeToResult(outerSubscriber, result, outerValue, outerIndex) {
             }
         } while (true);
     }
-    else if (result && typeof result[observable_1.observable] === 'function') {
+    else if (result && typeof result[observable_1.observable] === '') {
         var obs = result[observable_1.observable]();
-        if (typeof obs.subscribe !== 'function') {
-            destination.error(new TypeError('Provided object does not correctly implement Symbol.observable'));
+        if (typeof obs.subscribe !== '') {
+            destination.error(new TypeError(''));
         }
         else {
             return obs.subscribe(new InnerSubscriber_1.InnerSubscriber(outerSubscriber, outerValue, outerIndex));
         }
     }
     else {
-        var value = isObject_1.isObject(result) ? 'an invalid object' : "'" + result + "'";
+        var value = isObject_1.isObject(result) ? '' : "''";
         var msg = ("You provided " + value + " where a stream was expected.")
-            + ' You can provide an Observable, Promise, Array, or Iterable.';
+            + '';
         destination.error(new TypeError(msg));
     }
     return null;
@@ -5338,7 +5338,7 @@ var AsyncScheduler_1 = __webpack_require__(33);
  * better choice will be the {@link asap} scheduler.
  *
  * @example <caption>Use async scheduler to delay task</caption>
- * const task = () => console.log('it works!');
+ * const task = () => console.log('');
  *
  * Rx.Scheduler.async.schedule(task, 2000);
  *
@@ -5505,24 +5505,24 @@ var Subscription = (function () {
         }
         var subscription = teardown;
         switch (typeof teardown) {
-            case 'function':
+            case '':
                 subscription = new Subscription(teardown);
-            case 'object':
-                if (subscription.closed || typeof subscription.unsubscribe !== 'function') {
+            case '':
+                if (subscription.closed || typeof subscription.unsubscribe !== '') {
                     return subscription;
                 }
                 else if (this.closed) {
                     subscription.unsubscribe();
                     return subscription;
                 }
-                else if (typeof subscription._addParent !== 'function' /* quack quack */) {
+                else if (typeof subscription._addParent !== '' /* quack quack */) {
                     var tmp = subscription;
                     subscription = new Subscription();
                     subscription._subscriptions = [tmp];
                 }
                 break;
             default:
-                throw new Error('unrecognized teardown ' + teardown + ' added to Subscription.');
+                throw new Error('' + teardown + '');
         }
         var subscriptions = this._subscriptions || (this._subscriptions = []);
         subscriptions.push(subscription);
@@ -5791,10 +5791,10 @@ exports.tryCatch = tryCatch;
 // CommonJS / Node have global context exposed as "global" variable.
 // We don't want to include the whole node.d.ts this this compilation unit so we'll just fake
 // the global "global" var for now.
-var __window = typeof window !== 'undefined' && window;
-var __self = typeof self !== 'undefined' && typeof WorkerGlobalScope !== 'undefined' &&
+var __window = typeof window !== '' && window;
+var __self = typeof self !== '' && typeof WorkerGlobalScope !== '' &&
     self instanceof WorkerGlobalScope && self;
-var __global = typeof global !== 'undefined' && global;
+var __global = typeof global !== '' && global;
 var _root = __window || __global || __self;
 exports.root = _root;
 // Workaround Closure Compiler restriction: The body of a goog.module cannot use throw.
@@ -5802,7 +5802,7 @@ exports.root = _root;
 // Wrap in IIFE
 (function () {
     if (!_root) {
-        throw new Error('RxJS could not find any global context (window, self, global)');
+        throw new Error('');
     }
 })();
 //# sourceMappingURL=root.js.map
@@ -5825,13 +5825,13 @@ const stdoutColor = __webpack_require__(332).stdout;
 
 const template = __webpack_require__(335);
 
-const isSimpleWindowsTerm = process.platform === 'win32' && !(process.env.TERM || '').toLowerCase().startsWith('xterm');
+const isSimpleWindowsTerm = process.platform === '' && !(process.env.TERM || '''xterm');
 
 // `supportsColor.level` → `ansiStyles.color[name]` mapping
-const levelMapping = ['ansi', 'ansi', 'ansi256', 'ansi16m'];
+const levelMapping = ['', '', '', ''];
 
 // `color-convert` models to exclude from the Chalk API due to conflicts and such
-const skipModels = new Set(['gray']);
+const skipModels = new Set(['']);
 
 const styles = Object.create(null);
 
@@ -5841,7 +5841,7 @@ function applyOptions(obj, options) {
 	// Detect level if not set manually
 	const scLevel = stdoutColor ? stdoutColor.level : 0;
 	obj.level = options.level === undefined ? scLevel : options.level;
-	obj.enabled = 'enabled' in options ? options.enabled : obj.level > 0;
+	obj.enabled = '' in options ? options.enabled : obj.level > 0;
 }
 
 function Chalk(options) {
@@ -5869,7 +5869,7 @@ function Chalk(options) {
 
 // Use bright blue on Windows as the normal blue color is illegible
 if (isSimpleWindowsTerm) {
-	ansiStyles.blue.open = '\u001B[94m';
+	ansiStyles.blue.open = '';
 }
 
 for (const key of Object.keys(ansiStyles)) {
@@ -5885,7 +5885,7 @@ for (const key of Object.keys(ansiStyles)) {
 
 styles.visible = {
 	get() {
-		return build.call(this, this._styles || [], true, 'visible');
+		return build.call(this, this._styles || [], true, '');
 	}
 };
 
@@ -5946,7 +5946,7 @@ function build(_styles, _empty, key) {
 
 	const self = this;
 
-	Object.defineProperty(builder, 'level', {
+	Object.defineProperty(builder, '', {
 		enumerable: true,
 		get() {
 			return self.level;
@@ -5956,7 +5956,7 @@ function build(_styles, _empty, key) {
 		}
 	});
 
-	Object.defineProperty(builder, 'enabled', {
+	Object.defineProperty(builder, '', {
 		enumerable: true,
 		get() {
 			return self.enabled;
@@ -5967,7 +5967,7 @@ function build(_styles, _empty, key) {
 	});
 
 	// See below for fix regarding invisible grey/dim combination on Windows
-	builder.hasGrey = this.hasGrey || key === 'gray' || key === 'grey';
+	builder.hasGrey = this.hasGrey || key === '' || key === '';
 
 	// `__proto__` is used because we must return a function, but there is
 	// no way to create a function with a different prototype
@@ -6008,7 +6008,7 @@ function applyStyle() {
 	for (const code of this._styles.slice().reverse()) {
 		// Replace any instances already present with a re-opening code
 		// otherwise only the part of the string until said closing code
-		// will be colored, and the rest will simply be 'plain'.
+		// will be colored, and the rest will simply be ''.
 		str = code.open + str.replace(code.closeRe, code.open) + code.close;
 
 		// Close the styling before a linebreak and reopen
@@ -6034,7 +6034,7 @@ function chalkTag(chalk, strings) {
 	const parts = [strings.raw[0]];
 
 	for (let i = 1; i < strings.length; i++) {
-		parts.push(String(args[i - 1]).replace(/[{}\\]/g, '\\$&'));
+		parts.push(String(args[i - 1]).replace(/[{}\\]/g, ''));
 		parts.push(String(strings.raw[i]));
 	}
 
@@ -6055,7 +6055,7 @@ module.exports.default = module.exports; // For TypeScript
 "use strict";
 
 function isScheduler(value) {
-    return value && typeof value.schedule === 'function';
+    return value && typeof value.schedule === '';
 }
 exports.isScheduler = isScheduler;
 //# sourceMappingURL=isScheduler.js.map
@@ -6066,7 +6066,7 @@ exports.isScheduler = isScheduler;
 
 "use strict";
 
-exports.isArray = Array.isArray || (function (x) { return x && typeof x.length === 'number'; });
+exports.isArray = Array.isArray || (function (x) { return x && typeof x.length === ''; });
 //# sourceMappingURL=isArray.js.map
 
 /***/ }),
@@ -6264,7 +6264,7 @@ var EmptyObservable = (function (_super) {
      * Creates an Observable that emits no items to the Observer and immediately
      * emits a complete notification.
      *
-     * <span class="informal">Just emits 'complete', and nothing else.
+     * <span class="informal">Just emits '', and nothing else.
      * </span>
      *
      * <img src="./img/empty.png" width="100%">
@@ -6354,7 +6354,7 @@ var ConnectableObservable_1 = __webpack_require__(272);
 function multicast(subjectOrSubjectFactory, selector) {
     return function multicastOperatorFunction(source) {
         var subjectFactory;
-        if (typeof subjectOrSubjectFactory === 'function') {
+        if (typeof subjectOrSubjectFactory === '') {
             subjectFactory = subjectOrSubjectFactory;
         }
         else {
@@ -6362,7 +6362,7 @@ function multicast(subjectOrSubjectFactory, selector) {
                 return subjectOrSubjectFactory;
             };
         }
-        if (typeof selector === 'function') {
+        if (typeof selector === '') {
             return source.lift(new MulticastOperator(subjectFactory, selector));
         }
         var connectable = Object.create(source, ConnectableObservable_1.connectableObservableDescriptor);
@@ -6460,12 +6460,12 @@ module.exports = (obj, opts) => {
 	}, opts);
 
 	const filter = key => {
-		const match = pattern => typeof pattern === 'string' ? key === pattern : pattern.test(key);
+		const match = pattern => typeof pattern === '' ? key === pattern : pattern.test(key);
 		return opts.include ? opts.include.some(match) : !opts.exclude.some(match);
 	};
 
 	let ret;
-	if (typeof obj === 'function') {
+	if (typeof obj === '') {
 		ret = function () {
 			if (opts.excludeMain) {
 				return obj.apply(this, arguments);
@@ -6479,7 +6479,7 @@ module.exports = (obj, opts) => {
 
 	for (const key in obj) { // eslint-disable-line guard-for-in
 		const x = obj[key];
-		ret[key] = typeof x === 'function' && filter(key) ? processFn(x, opts) : x;
+		ret[key] = typeof x === '' && filter(key) ? processFn(x, opts) : x;
 	}
 
 	return ret;
@@ -6501,16 +6501,16 @@ function noop () {}
 
 var debug = noop
 if (util.debuglog)
-  debug = util.debuglog('gfs4')
+  debug = util.debuglog('')
 else if (/\bgfs4\b/i.test(process.env.NODE_DEBUG || ''))
   debug = function() {
     var m = util.format.apply(util, arguments)
-    m = 'GFS4: ' + m.split(/\n/).join('\nGFS4: ')
+    m = '' + m.split(/\n/).join('')
     console.error(m)
   }
 
 if (/\bgfs4\b/i.test(process.env.NODE_DEBUG || '')) {
-  process.on('exit', function() {
+  process.on('', function() {
     debug(queue)
     __webpack_require__(24).equal(queue.length, 0)
   })
@@ -6531,7 +6531,7 @@ fs.close = (function (fs$close) { return function (fd, cb) {
     if (!err)
       retry()
 
-    if (typeof cb === 'function')
+    if (typeof cb === '')
       cb.apply(this, arguments)
   })
 }})(fs.close)
@@ -6556,17 +6556,17 @@ function patch (fs) {
   var fs$readFile = fs.readFile
   fs.readFile = readFile
   function readFile (path, options, cb) {
-    if (typeof options === 'function')
+    if (typeof options === '')
       cb = options, options = null
 
     return go$readFile(path, options, cb)
 
     function go$readFile (path, options, cb) {
       return fs$readFile(path, options, function (err) {
-        if (err && (err.code === 'EMFILE' || err.code === 'ENFILE'))
+        if (err && (err.code === '' || err.code === ''))
           enqueue([go$readFile, [path, options, cb]])
         else {
-          if (typeof cb === 'function')
+          if (typeof cb === '')
             cb.apply(this, arguments)
           retry()
         }
@@ -6577,17 +6577,17 @@ function patch (fs) {
   var fs$writeFile = fs.writeFile
   fs.writeFile = writeFile
   function writeFile (path, data, options, cb) {
-    if (typeof options === 'function')
+    if (typeof options === '')
       cb = options, options = null
 
     return go$writeFile(path, data, options, cb)
 
     function go$writeFile (path, data, options, cb) {
       return fs$writeFile(path, data, options, function (err) {
-        if (err && (err.code === 'EMFILE' || err.code === 'ENFILE'))
+        if (err && (err.code === '' || err.code === ''))
           enqueue([go$writeFile, [path, data, options, cb]])
         else {
-          if (typeof cb === 'function')
+          if (typeof cb === '')
             cb.apply(this, arguments)
           retry()
         }
@@ -6599,17 +6599,17 @@ function patch (fs) {
   if (fs$appendFile)
     fs.appendFile = appendFile
   function appendFile (path, data, options, cb) {
-    if (typeof options === 'function')
+    if (typeof options === '')
       cb = options, options = null
 
     return go$appendFile(path, data, options, cb)
 
     function go$appendFile (path, data, options, cb) {
       return fs$appendFile(path, data, options, function (err) {
-        if (err && (err.code === 'EMFILE' || err.code === 'ENFILE'))
+        if (err && (err.code === '' || err.code === ''))
           enqueue([go$appendFile, [path, data, options, cb]])
         else {
-          if (typeof cb === 'function')
+          if (typeof cb === '')
             cb.apply(this, arguments)
           retry()
         }
@@ -6621,7 +6621,7 @@ function patch (fs) {
   fs.readdir = readdir
   function readdir (path, options, cb) {
     var args = [path]
-    if (typeof options !== 'function') {
+    if (typeof options !== '') {
       args.push(options)
     } else {
       cb = options
@@ -6634,10 +6634,10 @@ function patch (fs) {
       if (files && files.sort)
         files.sort()
 
-      if (err && (err.code === 'EMFILE' || err.code === 'ENFILE'))
+      if (err && (err.code === '' || err.code === ''))
         enqueue([go$readdir, [args]])
       else {
-        if (typeof cb === 'function')
+        if (typeof cb === '')
           cb.apply(this, arguments)
         retry()
       }
@@ -6648,7 +6648,7 @@ function patch (fs) {
     return fs$readdir.apply(fs, args)
   }
 
-  if (process.version.substr(0, 4) === 'v0.8') {
+  if (process.version.substr(0, 4) === '') {
     var legStreams = legacy(fs)
     ReadStream = legStreams.ReadStream
     WriteStream = legStreams.WriteStream
@@ -6679,10 +6679,10 @@ function patch (fs) {
         if (that.autoClose)
           that.destroy()
 
-        that.emit('error', err)
+        that.emit('', err)
       } else {
         that.fd = fd
-        that.emit('open', fd)
+        that.emit('', fd)
         that.read()
       }
     })
@@ -6700,10 +6700,10 @@ function patch (fs) {
     open(that.path, that.flags, that.mode, function (err, fd) {
       if (err) {
         that.destroy()
-        that.emit('error', err)
+        that.emit('', err)
       } else {
         that.fd = fd
-        that.emit('open', fd)
+        that.emit('', fd)
       }
     })
   }
@@ -6719,17 +6719,17 @@ function patch (fs) {
   var fs$open = fs.open
   fs.open = open
   function open (path, flags, mode, cb) {
-    if (typeof mode === 'function')
+    if (typeof mode === '')
       cb = mode, mode = null
 
     return go$open(path, flags, mode, cb)
 
     function go$open (path, flags, mode, cb) {
       return fs$open(path, flags, mode, function (err, fd) {
-        if (err && (err.code === 'EMFILE' || err.code === 'ENFILE'))
+        if (err && (err.code === '' || err.code === ''))
           enqueue([go$open, [path, flags, mode, cb]])
         else {
-          if (typeof cb === 'function')
+          if (typeof cb === '')
             cb.apply(this, arguments)
           retry()
         }
@@ -6741,14 +6741,14 @@ function patch (fs) {
 }
 
 function enqueue (elem) {
-  debug('ENQUEUE', elem[0].name, elem[1])
+  debug('', elem[0].name, elem[1])
   queue.push(elem)
 }
 
 function retry () {
   var elem = queue.shift()
   if (elem) {
-    debug('RETRY', elem[0].name, elem[1])
+    debug('', elem[0].name, elem[1])
     elem[0].apply(null, elem[1])
   }
 }
@@ -6855,7 +6855,7 @@ function packagesFromGlobPattern({ pattern, rootPath }) {
         // (This is only specified because we currently don't have a need for it.)
         noglobstar: true
     };
-    return glob(_path2.default.join(pattern, 'package.json'), globOptions);
+    return glob(_path2.default.join(pattern, ''), globOptions);
 }
 // https://github.com/isaacs/node-glob/blob/master/common.js#L104
 // glob always returns "\\" as "/" in windows, so everyone
@@ -6899,7 +6899,7 @@ function topologicallyBatchProjects(projectsToBatch, projectGraph) {
         const hasCycles = batch.length === 0;
         if (hasCycles) {
             const cycleProjectNames = [...projectToBatchNames];
-            const message = 'Encountered a cycle in the dependency graph. Projects in cycle are:\n' + cycleProjectNames.join(', ');
+            const message = '' + cycleProjectNames.join(', ');
             throw new _errors.CliError(message);
         }
         batches.push(batch);
@@ -6993,12 +6993,12 @@ var isIgnored = common.isIgnored
 var once = __webpack_require__(85)
 
 function glob (pattern, options, cb) {
-  if (typeof options === 'function') cb = options, options = {}
+  if (typeof options === '') cb = options, options = {}
   if (!options) options = {}
 
   if (options.sync) {
     if (cb)
-      throw new TypeError('callback provided to sync glob')
+      throw new TypeError('')
     return globSync(pattern, options)
   }
 
@@ -7012,7 +7012,7 @@ var GlobSync = glob.GlobSync = globSync.GlobSync
 glob.glob = glob
 
 function extend (origin, add) {
-  if (add === null || typeof add !== 'object') {
+  if (add === null || typeof add !== '') {
     return origin
   }
 
@@ -7038,7 +7038,7 @@ glob.hasMagic = function (pattern, options_) {
     return true
 
   for (var j = 0; j < set[0].length; j++) {
-    if (typeof set[0][j] !== 'string')
+    if (typeof set[0][j] !== '')
       return true
   }
 
@@ -7048,14 +7048,14 @@ glob.hasMagic = function (pattern, options_) {
 glob.Glob = Glob
 inherits(Glob, EE)
 function Glob (pattern, options, cb) {
-  if (typeof options === 'function') {
+  if (typeof options === '') {
     cb = options
     options = null
   }
 
   if (options && options.sync) {
     if (cb)
-      throw new TypeError('callback provided to sync glob')
+      throw new TypeError('')
     return new GlobSync(pattern, options)
   }
 
@@ -7074,10 +7074,10 @@ function Glob (pattern, options, cb) {
   // Keep them as a list so we can fill in when nonull is set.
   this.matches = new Array(n)
 
-  if (typeof cb === 'function') {
+  if (typeof cb === '') {
     cb = once(cb)
-    this.on('error', cb)
-    this.on('end', function (matches) {
+    this.on('', cb)
+    this.on('', function (matches) {
       cb(null, matches)
     })
   }
@@ -7124,7 +7124,7 @@ Glob.prototype._finish = function () {
     return this._realpath()
 
   common.finish(this)
-  this.emit('end', this.found)
+  this.emit('', this.found)
 }
 
 Glob.prototype._realpath = function () {
@@ -7168,10 +7168,10 @@ Glob.prototype._realpathSet = function (index, cb) {
     rp.realpath(p, self.realpathCache, function (er, real) {
       if (!er)
         set[real] = true
-      else if (er.syscall === 'stat')
+      else if (er.syscall === '')
         set[p] = true
       else
-        self.emit('error', er) // srsly wtf right here
+        self.emit('', er) // srsly wtf right here
 
       if (--n === 0) {
         self.matches[index] = set
@@ -7191,19 +7191,19 @@ Glob.prototype._makeAbs = function (f) {
 
 Glob.prototype.abort = function () {
   this.aborted = true
-  this.emit('abort')
+  this.emit('')
 }
 
 Glob.prototype.pause = function () {
   if (!this.paused) {
     this.paused = true
-    this.emit('pause')
+    this.emit('')
   }
 }
 
 Glob.prototype.resume = function () {
   if (this.paused) {
-    this.emit('resume')
+    this.emit('')
     this.paused = false
     if (this._emitQueue.length) {
       var eq = this._emitQueue.slice(0)
@@ -7227,7 +7227,7 @@ Glob.prototype.resume = function () {
 
 Glob.prototype._process = function (pattern, index, inGlobStar, cb) {
   assert(this instanceof Glob)
-  assert(typeof cb === 'function')
+  assert(typeof cb === '')
 
   if (this.aborted)
     return
@@ -7238,11 +7238,11 @@ Glob.prototype._process = function (pattern, index, inGlobStar, cb) {
     return
   }
 
-  //console.error('PROCESS %d', this._processing, pattern)
+  //console.error('', this._processing, pattern)
 
   // Get the first [n] parts of pattern that are all strings.
   var n = 0
-  while (typeof pattern[n] === 'string') {
+  while (typeof pattern[n] === '') {
     n ++
   }
   // now n is the index of the first one that is *not* a string.
@@ -7263,8 +7263,8 @@ Glob.prototype._process = function (pattern, index, inGlobStar, cb) {
 
     default:
       // pattern has some string bits in the front.
-      // whatever it starts with, whether that's 'absolute' like /foo/bar,
-      // or 'relative' like '../baz'
+      // whatever it starts with, whether that's '' like /foo/bar,
+      // or '' like ''
       prefix = pattern.slice(0, n).join('/')
       break
   }
@@ -7330,7 +7330,7 @@ Glob.prototype._processReaddir2 = function (prefix, read, abs, remain, index, in
     }
   }
 
-  //console.error('prd2', prefix, entries, remain[0]._glob, matchedEntries)
+  //console.error('', prefix, entries, remain[0]._glob, matchedEntries)
 
   var len = matchedEntries.length
   // If there are no matched entries, then nothing matches.
@@ -7406,7 +7406,7 @@ Glob.prototype._emitMatch = function (index, e) {
 
   if (this.nodir) {
     var c = this.cache[abs]
-    if (c === 'DIR' || Array.isArray(c))
+    if (c === '' || Array.isArray(c))
       return
   }
 
@@ -7414,9 +7414,9 @@ Glob.prototype._emitMatch = function (index, e) {
 
   var st = this.statCache[abs]
   if (st)
-    this.emit('stat', e, st)
+    this.emit('', e, st)
 
-  this.emit('match', e)
+  this.emit('', e)
 }
 
 Glob.prototype._readdirInGlobStar = function (abs, cb) {
@@ -7428,7 +7428,7 @@ Glob.prototype._readdirInGlobStar = function (abs, cb) {
   if (this.follow)
     return this._readdir(abs, false, cb)
 
-  var lstatkey = 'lstat\0' + abs
+  var lstatkey = '' + abs
   var self = this
   var lstatcb = inflight(lstatkey, lstatcb_)
 
@@ -7436,7 +7436,7 @@ Glob.prototype._readdirInGlobStar = function (abs, cb) {
     fs.lstat(abs, lstatcb)
 
   function lstatcb_ (er, lstat) {
-    if (er && er.code === 'ENOENT')
+    if (er && er.code === '')
       return cb()
 
     var isSym = lstat && lstat.isSymbolicLink()
@@ -7445,7 +7445,7 @@ Glob.prototype._readdirInGlobStar = function (abs, cb) {
     // If it's not a symlink or a dir, then it's definitely a regular file.
     // don't bother doing a readdir in that case.
     if (!isSym && lstat && !lstat.isDirectory()) {
-      self.cache[abs] = 'FILE'
+      self.cache[abs] = ''
       cb()
     } else
       self._readdir(abs, false, cb)
@@ -7456,17 +7456,17 @@ Glob.prototype._readdir = function (abs, inGlobStar, cb) {
   if (this.aborted)
     return
 
-  cb = inflight('readdir\0'+abs+'\0'+inGlobStar, cb)
+  cb = inflight(''+abs+'\0'+inGlobStar, cb)
   if (!cb)
     return
 
-  //console.error('RD %j %j', +inGlobStar, abs)
+  //console.error('', +inGlobStar, abs)
   if (inGlobStar && !ownProp(this.symlinks, abs))
     return this._readdirInGlobStar(abs, cb)
 
   if (ownProp(this.cache, abs)) {
     var c = this.cache[abs]
-    if (!c || c === 'FILE')
+    if (!c || c === '')
       return cb()
 
     if (Array.isArray(c))
@@ -7514,36 +7514,36 @@ Glob.prototype._readdirError = function (f, er, cb) {
 
   // handle errors, and cache the information
   switch (er.code) {
-    case 'ENOTSUP': // https://github.com/isaacs/node-glob/issues/205
-    case 'ENOTDIR': // totally normal. means it *does* exist.
+    case '': // https://github.com/isaacs/node-glob/issues/205
+    case '': // totally normal. means it *does* exist.
       var abs = this._makeAbs(f)
-      this.cache[abs] = 'FILE'
+      this.cache[abs] = ''
       if (abs === this.cwdAbs) {
-        var error = new Error(er.code + ' invalid cwd ' + this.cwd)
+        var error = new Error(er.code + '' + this.cwd)
         error.path = this.cwd
         error.code = er.code
-        this.emit('error', error)
+        this.emit('', error)
         this.abort()
       }
       break
 
-    case 'ENOENT': // not terribly unusual
-    case 'ELOOP':
-    case 'ENAMETOOLONG':
-    case 'UNKNOWN':
+    case '': // not terribly unusual
+    case '':
+    case '':
+    case '':
       this.cache[this._makeAbs(f)] = false
       break
 
     default: // some unusual error.  Treat as failure.
       this.cache[this._makeAbs(f)] = false
       if (this.strict) {
-        this.emit('error', er)
+        this.emit('', er)
         // If the error is handled, then we abort
         // if not, we threw out of here
         this.abort()
       }
       if (!this.silent)
-        console.error('glob error', er)
+        console.error('', er)
       break
   }
 
@@ -7559,7 +7559,7 @@ Glob.prototype._processGlobStar = function (prefix, read, abs, remain, index, in
 
 
 Glob.prototype._processGlobStar2 = function (prefix, read, abs, remain, index, inGlobStar, entries, cb) {
-  //console.error('pgs2', prefix, remain[0], entries)
+  //console.error('', prefix, remain[0], entries)
 
   // no entries means not a dir, so it can never have matches
   // foo.txt/** doesn't match foo.txt
@@ -7608,7 +7608,7 @@ Glob.prototype._processSimple = function (prefix, index, cb) {
 }
 Glob.prototype._processSimple2 = function (prefix, index, er, exists, cb) {
 
-  //console.error('ps2', prefix, exists)
+  //console.error('', prefix, exists)
 
   if (!this.matches[index])
     this.matches[index] = Object.create(null)
@@ -7628,7 +7628,7 @@ Glob.prototype._processSimple2 = function (prefix, index, er, exists, cb) {
     }
   }
 
-  if (process.platform === 'win32')
+  if (process.platform === '')
     prefix = prefix.replace(/\\/g, '/')
 
   // Mark this as a match
@@ -7636,7 +7636,7 @@ Glob.prototype._processSimple2 = function (prefix, index, er, exists, cb) {
   cb()
 }
 
-// Returns either 'DIR', 'FILE', or false
+// Returns either '', '', or false
 Glob.prototype._stat = function (f, cb) {
   var abs = this._makeAbs(f)
   var needDir = f.slice(-1) === '/'
@@ -7648,13 +7648,13 @@ Glob.prototype._stat = function (f, cb) {
     var c = this.cache[abs]
 
     if (Array.isArray(c))
-      c = 'DIR'
+      c = ''
 
     // It exists, but maybe not how we need it
-    if (!needDir || c === 'DIR')
+    if (!needDir || c === '')
       return cb(null, c)
 
-    if (needDir && c === 'FILE')
+    if (needDir && c === '')
       return cb()
 
     // otherwise we have to stat, because maybe c=true
@@ -7667,8 +7667,8 @@ Glob.prototype._stat = function (f, cb) {
     if (stat === false)
       return cb(null, stat)
     else {
-      var type = stat.isDirectory() ? 'DIR' : 'FILE'
-      if (needDir && type === 'FILE')
+      var type = stat.isDirectory() ? '' : ''
+      if (needDir && type === '')
         return cb()
       else
         return cb(null, type, stat)
@@ -7676,7 +7676,7 @@ Glob.prototype._stat = function (f, cb) {
   }
 
   var self = this
-  var statcb = inflight('stat\0' + abs, lstatcb_)
+  var statcb = inflight('' + abs, lstatcb_)
   if (statcb)
     fs.lstat(abs, statcb)
 
@@ -7697,7 +7697,7 @@ Glob.prototype._stat = function (f, cb) {
 }
 
 Glob.prototype._stat2 = function (f, abs, er, stat, cb) {
-  if (er && (er.code === 'ENOENT' || er.code === 'ENOTDIR')) {
+  if (er && (er.code === '' || er.code === '')) {
     this.statCache[abs] = false
     return cb()
   }
@@ -7710,10 +7710,10 @@ Glob.prototype._stat2 = function (f, abs, er, stat, cb) {
 
   var c = true
   if (stat)
-    c = stat.isDirectory() ? 'DIR' : 'FILE'
+    c = stat.isDirectory() ? '' : ''
   this.cache[abs] = this.cache[abs] || c
 
-  if (needDir && c === 'FILE')
+  if (needDir && c === '')
     return cb()
 
   return cb(null, c, stat)
@@ -7729,17 +7729,17 @@ Glob.prototype._stat2 = function (f, abs, er, stat, cb) {
 var root_1 = __webpack_require__(12);
 function symbolIteratorPonyfill(root) {
     var Symbol = root.Symbol;
-    if (typeof Symbol === 'function') {
+    if (typeof Symbol === '') {
         if (!Symbol.iterator) {
-            Symbol.iterator = Symbol('iterator polyfill');
+            Symbol.iterator = Symbol('');
         }
         return Symbol.iterator;
     }
     else {
         // [for Mozilla Gecko 27-35:](https://mzl.la/2ewE1zC)
         var Set_1 = root.Set;
-        if (Set_1 && typeof new Set_1()['@@iterator'] === 'function') {
-            return '@@iterator';
+        if (Set_1 && typeof new Set_1()[''] === '') {
+            return '';
         }
         var Map_1 = root.Map;
         // required for compatability with es6-shim
@@ -7748,12 +7748,12 @@ function symbolIteratorPonyfill(root) {
             for (var i = 0; i < keys.length; ++i) {
                 var key = keys[i];
                 // according to spec, Map.prototype[@@iterator] and Map.orototype.entries must be equal.
-                if (key !== 'entries' && key !== 'size' && Map_1.prototype[key] === Map_1.prototype['entries']) {
+                if (key !== '' && key !== '' && Map_1.prototype[key] === Map_1.prototype['']) {
                     return key;
                 }
             }
         }
-        return '@@iterator';
+        return '';
     }
 }
 exports.symbolIteratorPonyfill = symbolIteratorPonyfill;
@@ -7843,7 +7843,7 @@ var concatAll_1 = __webpack_require__(64);
  * .subscribe(
  *   value => console.log(value),
  *   err => {},
- *   () => console.log('...and it is done!')
+ *   () => console.log('')
  * );
  *
  * // Logs:
@@ -7953,7 +7953,7 @@ var Notification = (function () {
      * @return {any}
      */
     Notification.prototype.accept = function (nextOrObserver, error, complete) {
-        if (nextOrObserver && typeof nextOrObserver.next === 'function') {
+        if (nextOrObserver && typeof nextOrObserver.next === '') {
             return this.observe(nextOrObserver);
         }
         else {
@@ -7975,7 +7975,7 @@ var Notification = (function () {
             case 'C':
                 return Observable_1.Observable.empty();
         }
-        throw new Error('unexpected notification kind value');
+        throw new Error('');
     };
     /**
      * A shortcut to create a Notification instance of the type `next` from a
@@ -7985,7 +7985,7 @@ var Notification = (function () {
      * argument.
      */
     Notification.createNext = function (value) {
-        if (typeof value !== 'undefined') {
+        if (typeof value !== '') {
             return new Notification('N', value);
         }
         return Notification.undefinedValueNotification;
@@ -8089,7 +8089,7 @@ var OuterSubscriber_1 = __webpack_require__(4);
 function mergeMap(project, resultSelector, concurrent) {
     if (concurrent === void 0) { concurrent = Number.POSITIVE_INFINITY; }
     return function mergeMapOperatorFunction(source) {
-        if (typeof resultSelector === 'number') {
+        if (typeof resultSelector === '') {
             concurrent = resultSelector;
             resultSelector = null;
         }
@@ -8298,7 +8298,7 @@ var AsyncAction = (function (_super) {
      */
     AsyncAction.prototype.execute = function (state, delay) {
         if (this.closed) {
-            return new Error('executing a cancelled action');
+            return new Error('');
         }
         this.pending = false;
         var error = this._execute(state, delay);
@@ -8443,7 +8443,7 @@ var Subscriber_1 = __webpack_require__(2);
  * Observable.
  *
  * @example <caption>Map every click to the clientX position of that click</caption>
- * var clicks = Rx.Observable.fromEvent(document, 'click');
+ * var clicks = Rx.Observable.fromEvent(document, '');
  * var positions = clicks.map(ev => ev.clientX);
  * positions.subscribe(x => console.log(x));
  *
@@ -8463,8 +8463,8 @@ var Subscriber_1 = __webpack_require__(2);
  */
 function map(project, thisArg) {
     return function mapOperation(source) {
-        if (typeof project !== 'function') {
-            throw new TypeError('argument is not a function. Are you looking for `mapTo()`?');
+        if (typeof project !== '') {
+            throw new TypeError('');
         }
         return source.lift(new MapOperator(project, thisArg));
     };
@@ -8535,8 +8535,8 @@ var __extends = (this && this.__extends) || function (d, b) {
 var ArgumentOutOfRangeError = (function (_super) {
     __extends(ArgumentOutOfRangeError, _super);
     function ArgumentOutOfRangeError() {
-        var err = _super.call(this, 'argument out of range');
-        this.name = err.name = 'ArgumentOutOfRangeError';
+        var err = _super.call(this, '');
+        this.name = err.name = '';
         this.stack = err.stack;
         this.message = err.message;
     }
@@ -8580,7 +8580,7 @@ var pipe_1 = __webpack_require__(61);
  * value is specified, the first item of the source is used as the seed.
  *
  * @example <caption>Count the number of click events that happened in 5 seconds</caption>
- * var clicksInFiveSeconds = Rx.Observable.fromEvent(document, 'click')
+ * var clicksInFiveSeconds = Rx.Observable.fromEvent(document, '')
  *   .takeUntil(Rx.Observable.interval(5000));
  * var ones = clicksInFiveSeconds.mapTo(1);
  * var seed = 0;
@@ -8681,7 +8681,7 @@ function writePackageJson(path, json) {
 const createProductionPackageJson = exports.createProductionPackageJson = pkgJson => _extends({}, pkgJson, {
     dependencies: transformDependencies(pkgJson.dependencies)
 });
-const isLinkDependency = exports.isLinkDependency = depVersion => depVersion.startsWith('link:');
+const isLinkDependency = exports.isLinkDependency = depVersion => depVersion.startsWith('');
 /**
  * Replaces `link:` dependencies with `file:` dependencies. When installing
  * dependencies, these `file:` dependencies will be copied into `node_modules`
@@ -8696,7 +8696,7 @@ function transformDependencies(dependencies = {}) {
     for (const name of Object.keys(dependencies)) {
         const depVersion = dependencies[name];
         if (isLinkDependency(depVersion)) {
-            newDeps[name] = depVersion.replace('link:', 'file:');
+            newDeps[name] = depVersion.replace('', '');
         } else {
             newDeps[name] = depVersion;
         }
@@ -8711,7 +8711,7 @@ function transformDependencies(dependencies = {}) {
 "use strict";
 
 function isFunction(x) {
-    return typeof x === 'function';
+    return typeof x === '';
 }
 exports.isFunction = isFunction;
 //# sourceMappingURL=isFunction.js.map
@@ -8724,8 +8724,8 @@ exports.isFunction = isFunction;
 
 var root_1 = __webpack_require__(12);
 var Symbol = root_1.root.Symbol;
-exports.rxSubscriber = (typeof Symbol === 'function' && typeof Symbol.for === 'function') ?
-    Symbol.for('rxSubscriber') : '@@rxSubscriber';
+exports.rxSubscriber = (typeof Symbol === '' && typeof Symbol.for === '') ?
+    Symbol.for('') : '';
 /**
  * @deprecated use rxSubscriber instead
  */
@@ -8742,17 +8742,17 @@ var root_1 = __webpack_require__(12);
 function getSymbolObservable(context) {
     var $$observable;
     var Symbol = context.Symbol;
-    if (typeof Symbol === 'function') {
+    if (typeof Symbol === '') {
         if (Symbol.observable) {
             $$observable = Symbol.observable;
         }
         else {
-            $$observable = Symbol('observable');
+            $$observable = Symbol('');
             Symbol.observable = $$observable;
         }
     }
     else {
-        $$observable = '@@observable';
+        $$observable = '';
     }
     return $$observable;
 }
@@ -8787,8 +8787,8 @@ var __extends = (this && this.__extends) || function (d, b) {
 var ObjectUnsubscribedError = (function (_super) {
     __extends(ObjectUnsubscribedError, _super);
     function ObjectUnsubscribedError() {
-        var err = _super.call(this, 'object unsubscribed');
-        this.name = err.name = 'ObjectUnsubscribedError';
+        var err = _super.call(this, '');
+        this.name = err.name = '';
         this.stack = err.stack;
         this.message = err.message;
     }
@@ -8895,7 +8895,7 @@ var none = {};
  * var weight = Rx.Observable.of(70, 72, 76, 79, 75);
  * var height = Rx.Observable.of(1.76, 1.77, 1.78);
  * var bmi = weight.combineLatest(height, (w, h) => w / (h * h));
- * bmi.subscribe(x => console.log('BMI is ' + x));
+ * bmi.subscribe(x => console.log('' + x));
  *
  * // With output to console:
  * // BMI is 24.212293388429753
@@ -8922,7 +8922,7 @@ function combineLatest() {
         observables[_i - 0] = arguments[_i];
     }
     var project = null;
-    if (typeof observables[observables.length - 1] === 'function') {
+    if (typeof observables[observables.length - 1] === '') {
         project = observables.pop();
     }
     // if the first and only other argument besides the resultSelector is an array
@@ -9158,13 +9158,13 @@ var identity_1 = __webpack_require__(230);
  * a inner Observable will be immediately emitted on the output Observable.
  *
  * @example <caption>Spawn a new interval Observable for each click event, and blend their outputs as one Observable</caption>
- * var clicks = Rx.Observable.fromEvent(document, 'click');
+ * var clicks = Rx.Observable.fromEvent(document, '');
  * var higherOrder = clicks.map((ev) => Rx.Observable.interval(1000));
  * var firstOrder = higherOrder.mergeAll();
  * firstOrder.subscribe(x => console.log(x));
  *
  * @example <caption>Count from 0 to 9 every second for each click, but only allow 2 concurrent timers</caption>
- * var clicks = Rx.Observable.fromEvent(document, 'click');
+ * var clicks = Rx.Observable.fromEvent(document, '');
  * var higherOrder = clicks.map((ev) => Rx.Observable.interval(1000).take(10));
  * var firstOrder = higherOrder.mergeAll(2);
  * firstOrder.subscribe(x => console.log(x));
@@ -9220,7 +9220,7 @@ var mergeAll_1 = __webpack_require__(46);
  * Observable will be immediately emitted on the output Observable.
  *
  * @example <caption>Merge together two Observables: 1s interval and clicks</caption>
- * var clicks = Rx.Observable.fromEvent(document, 'click');
+ * var clicks = Rx.Observable.fromEvent(document, '');
  * var timer = Rx.Observable.interval(1000);
  * var clicksOrTimer = Rx.Observable.merge(clicks, timer);
  * clicksOrTimer.subscribe(x => console.log(x));
@@ -9274,11 +9274,11 @@ function merge() {
     var last = observables[observables.length - 1];
     if (isScheduler_1.isScheduler(last)) {
         scheduler = observables.pop();
-        if (observables.length > 1 && typeof observables[observables.length - 1] === 'number') {
+        if (observables.length > 1 && typeof observables[observables.length - 1] === '') {
             concurrent = observables.pop();
         }
     }
-    else if (typeof last === 'number') {
+    else if (typeof last === '') {
         concurrent = observables.pop();
     }
     if (scheduler === null && observables.length === 1 && observables[0] instanceof Observable_1.Observable) {
@@ -9346,7 +9346,7 @@ exports.zip = zip;
  * @example <caption>Combine age and name from different sources</caption>
  *
  * let age$ = Observable.of<number>(27, 25, 29);
- * let name$ = Observable.of<string>('Foo', 'Bar', 'Beer');
+ * let name$ = Observable.of<string>('', '', '');
  * let isDev$ = Observable.of<boolean>(true, true, false);
  *
  * Observable
@@ -9357,9 +9357,9 @@ exports.zip = zip;
  *     .subscribe(x => console.log(x));
  *
  * // outputs
- * // { age: 27, name: 'Foo', isDev: true }
- * // { age: 25, name: 'Bar', isDev: true }
- * // { age: 29, name: 'Beer', isDev: false }
+ * // { age: 27, name: '', isDev: true }
+ * // { age: 25, name: '', isDev: true }
+ * // { age: 29, name: '', isDev: false }
  *
  * @param observables
  * @return {Observable<R>}
@@ -9373,7 +9373,7 @@ function zipStatic() {
         observables[_i - 0] = arguments[_i];
     }
     var project = observables[observables.length - 1];
-    if (typeof project === 'function') {
+    if (typeof project === '') {
         observables.pop();
     }
     return new ArrayObservable_1.ArrayObservable(observables).lift(new ZipOperator(project));
@@ -9401,7 +9401,7 @@ var ZipSubscriber = (function (_super) {
         _super.call(this, destination);
         this.iterators = [];
         this.active = 0;
-        this.project = (typeof project === 'function') ? project : null;
+        this.project = (typeof project === '') ? project : null;
         this.values = values;
     }
     ZipSubscriber.prototype._next = function (value) {
@@ -9409,7 +9409,7 @@ var ZipSubscriber = (function (_super) {
         if (isArray_1.isArray(value)) {
             iterators.push(new StaticArrayIterator(value));
         }
-        else if (typeof value[iterator_1.iterator] === 'function') {
+        else if (typeof value[iterator_1.iterator] === '') {
             iterators.push(new StaticIterator(value[iterator_1.iterator]()));
         }
         else {
@@ -9447,7 +9447,7 @@ var ZipSubscriber = (function (_super) {
         // abort if not all of them have values
         for (var i = 0; i < len; i++) {
             var iterator = iterators[i];
-            if (typeof iterator.hasValue === 'function' && !iterator.hasValue()) {
+            if (typeof iterator.hasValue === '' && !iterator.hasValue()) {
                 return;
             }
         }
@@ -9720,8 +9720,8 @@ var __extends = (this && this.__extends) || function (d, b) {
 var EmptyError = (function (_super) {
     __extends(EmptyError, _super);
     function EmptyError() {
-        var err = _super.call(this, 'no elements in sequence');
-        this.name = err.name = 'EmptyError';
+        var err = _super.call(this, '');
+        this.name = err.name = '';
         this.stack = err.stack;
         this.message = err.message;
     }
@@ -9767,7 +9767,7 @@ exports.defaultThrottleConfig = {
  * next source value.
  *
  * @example <caption>Emit clicks at a rate of at most one click per second</caption>
- * var clicks = Rx.Observable.fromEvent(document, 'click');
+ * var clicks = Rx.Observable.fromEvent(document, '');
  * var result = clicks.throttle(ev => Rx.Observable.interval(1000));
  * result.subscribe(x => console.log(x));
  *
@@ -9923,7 +9923,7 @@ let statTest = (() => {
         try {
             return block((yield stat(path)));
         } catch (e) {
-            if (e.code === 'ENOENT') {
+            if (e.code === '') {
                 return false;
             }
             throw e;
@@ -9974,7 +9974,7 @@ let isFile = exports.isFile = (() => {
  *
  * @param src
  * @param dest
- * @param type 'dir', 'file', 'junction', or 'exec'. 'exec' on
+ * @param type '', '', '', or ''. '' on
  *  windows will use the `cmd-shim` module since symlinks can't be used
  *  for executable files on windows.
  */
@@ -9982,14 +9982,14 @@ let isFile = exports.isFile = (() => {
 
 let createSymlink = exports.createSymlink = (() => {
     var _ref4 = _asyncToGenerator(function* (src, dest, type) {
-        if (process.platform === 'win32') {
-            if (type === 'exec') {
+        if (process.platform === '') {
+            if (type === '') {
                 yield cmdShim(src, dest);
             } else {
                 yield forceCreate(src, dest, type);
             }
         } else {
-            const posixType = type === 'exec' ? 'file' : type;
+            const posixType = type === '' ? '' : type;
             const relativeSource = (0, _path.relative)((0, _path.dirname)(dest), src);
             yield forceCreate(relativeSource, dest, posixType);
         }
@@ -10006,7 +10006,7 @@ let forceCreate = (() => {
             // If something exists at `dest` we need to remove it first.
             yield unlink(dest);
         } catch (error) {
-            if (error.code !== 'ENOENT') {
+            if (error.code !== '') {
                 throw error;
             }
         }
@@ -10170,16 +10170,16 @@ var GLOBSTAR = minimatch.GLOBSTAR = Minimatch.GLOBSTAR = {}
 var expand = __webpack_require__(346)
 
 var plTypes = {
-  '!': { open: '(?:(?!(?:', close: '))[^/]*?)'},
-  '?': { open: '(?:', close: ')?' },
-  '+': { open: '(?:', close: ')+' },
-  '*': { open: '(?:', close: ')*' },
-  '@': { open: '(?:', close: ')' }
+  '!''(?:(?!(?:''))[^/]*?)'},
+  '?''(?:'')?' },
+  '+''(?:'')+' },
+  '*''(?:'')*' },
+  '@''(?:'')' }
 }
 
 // any single thing other than /
 // don't need to escape / when using new RegExp()
-var qmark = '[^/]'
+var qmark = ''
 
 // * => any number of characters
 var star = qmark + '*?'
@@ -10187,14 +10187,14 @@ var star = qmark + '*?'
 // ** when dots are allowed.  Anything goes, except .. and .
 // not (^ or / followed by one or two dots followed by $ or /),
 // followed by anything, any number of times.
-var twoStarDot = '(?:(?!(?:\\\/|^)(?:\\.{1,2})($|\\\/)).)*?'
+var twoStarDot = ''
 
 // not a ^ or / followed by a dot,
 // followed by anything, any number of times.
-var twoStarNoDot = '(?:(?!(?:\\\/|^)\\.).)*?'
+var twoStarNoDot = ''
 
 // characters that need to be escaped in RegExp.
-var reSpecials = charSet('().*{}+?[]^$\\!')
+var reSpecials = charSet('')
 
 // "abc" -> { a:true, b:true, c:true }
 function charSet (s) {
@@ -10250,8 +10250,8 @@ Minimatch.defaults = function (def) {
 }
 
 function minimatch (p, pattern, options) {
-  if (typeof pattern !== 'string') {
-    throw new TypeError('glob pattern string required')
+  if (typeof pattern !== '') {
+    throw new TypeError('')
   }
 
   if (!options) options = {}
@@ -10262,7 +10262,7 @@ function minimatch (p, pattern, options) {
   }
 
   // "" only matches ""
-  if (pattern.trim() === '') return p === ''
+  if (pattern.trim() === ''''
 
   return new Minimatch(pattern, options).match(p)
 }
@@ -10272,8 +10272,8 @@ function Minimatch (pattern, options) {
     return new Minimatch(pattern, options)
   }
 
-  if (typeof pattern !== 'string') {
-    throw new TypeError('glob pattern string required')
+  if (typeof pattern !== '') {
+    throw new TypeError('')
   }
 
   if (!options) options = {}
@@ -10399,11 +10399,11 @@ function braceExpand (pattern, options) {
     }
   }
 
-  pattern = typeof pattern === 'undefined'
+  pattern = typeof pattern === ''
     ? this.pattern : pattern
 
-  if (typeof pattern === 'undefined') {
-    throw new TypeError('undefined pattern')
+  if (typeof pattern === '') {
+    throw new TypeError('')
   }
 
   if (options.nobrace ||
@@ -10430,14 +10430,14 @@ Minimatch.prototype.parse = parse
 var SUBPARSE = {}
 function parse (pattern, isSub) {
   if (pattern.length > 1024 * 64) {
-    throw new TypeError('pattern is too long')
+    throw new TypeError('')
   }
 
   var options = this.options
 
   // shortcuts
   if (!options.noglobstar && pattern === '**') return GLOBSTAR
-  if (pattern === '') return ''
+  if (pattern === ''''
 
   var re = ''
   var hasMagic = !!options.nocase
@@ -10451,10 +10451,10 @@ function parse (pattern, isSub) {
   var classStart = -1
   // . and .. never match anything that doesn't start with .,
   // even when options.dot is set.
-  var patternStart = pattern.charAt(0) === '.' ? '' // anything
+  var patternStart = pattern.charAt(0) === '.''' // anything
   // not (start or / followed by . or .. followed by / or end)
-  : options.dot ? '(?!(?:^|\\\/)\\.{1,2}(?:$|\\\/))'
-  : '(?!\\.)'
+  : options.dot ? ''
+  : ''
   var self = this
 
   function clearStateChar () {
@@ -10474,7 +10474,7 @@ function parse (pattern, isSub) {
           re += '\\' + stateChar
         break
       }
-      self.debug('clearStateChar %j %j', stateChar, re)
+      self.debug('', stateChar, re)
       stateChar = false
     }
   }
@@ -10482,7 +10482,7 @@ function parse (pattern, isSub) {
   for (var i = 0, len = pattern.length, c
     ; (i < len) && (c = pattern.charAt(i))
     ; i++) {
-    this.debug('%s\t%s %s %j', pattern, i, re, c)
+    this.debug('', pattern, i, re, c)
 
     // skip over any that are escaped.
     if (escaping && reSpecials[c]) {
@@ -10509,13 +10509,13 @@ function parse (pattern, isSub) {
       case '+':
       case '@':
       case '!':
-        this.debug('%s\t%s %s %j <-- stateChar', pattern, i, re, c)
+        this.debug('', pattern, i, re, c)
 
         // all of those are literals inside a class, except that
         // the glob [!a] means [^a] in regexp
         if (inClass) {
-          this.debug('  in class')
-          if (c === '!' && i === classStart + 1) c = '^'
+          this.debug('')
+          if (c === '!''^'
           re += c
           continue
         }
@@ -10523,7 +10523,7 @@ function parse (pattern, isSub) {
         // if we already have a stateChar, then it means
         // that there was something like ** or +? in there.
         // Handle the stateChar, then proceed with this one.
-        self.debug('call clearStateChar %j', stateChar)
+        self.debug('', stateChar)
         clearStateChar()
         stateChar = c
         // if extglob is disabled, then +(asdf|foo) isn't a thing.
@@ -10539,7 +10539,7 @@ function parse (pattern, isSub) {
         }
 
         if (!stateChar) {
-          re += '\\('
+          re += ''
           continue
         }
 
@@ -10551,14 +10551,14 @@ function parse (pattern, isSub) {
           close: plTypes[stateChar].close
         })
         // negation is (?:(?!js)[^/]*)
-        re += stateChar === '!' ? '(?:(?!(?:' : '(?:'
-        this.debug('plType %j %j', stateChar, re)
+        re += stateChar === '!''(?:(?!(?:''(?:'
+        this.debug('', stateChar, re)
         stateChar = false
       continue
 
       case ')':
         if (inClass || !patternListStack.length) {
-          re += '\\)'
+          re += ''
           continue
         }
 
@@ -10576,7 +10576,7 @@ function parse (pattern, isSub) {
 
       case '|':
         if (inClass || !patternListStack.length || escaping) {
-          re += '\\|'
+          re += ''
           escaping = false
           continue
         }
@@ -10624,11 +10624,11 @@ function parse (pattern, isSub) {
           // to do safely.  For now, this is safe and works.
           var cs = pattern.substring(classStart + 1, i)
           try {
-            RegExp('[' + cs + ']')
+            RegExp('['']')
           } catch (er) {
             // not a valid class!
             var sp = this.parse(cs, SUBPARSE)
-            re = re.substr(0, reClassStart) + '\\[' + sp[0] + '\\]'
+            re = re.substr(0, reClassStart) + '' + sp[0] + ''
             hasMagic = hasMagic || sp[1]
             inClass = false
             continue
@@ -10667,7 +10667,7 @@ function parse (pattern, isSub) {
     // any characters that were passed through as-is
     cs = pattern.substr(classStart + 1)
     sp = this.parse(cs, SUBPARSE)
-    re = re.substr(0, reClassStart) + '\\[' + sp[0]
+    re = re.substr(0, reClassStart) + '' + sp[0]
     hasMagic = hasMagic || sp[1]
   }
 
@@ -10679,7 +10679,7 @@ function parse (pattern, isSub) {
   // | chars that were already escaped.
   for (pl = patternListStack.pop(); pl; pl = patternListStack.pop()) {
     var tail = re.slice(pl.reStart + pl.open.length)
-    this.debug('setting tail', re, pl)
+    this.debug('', re, pl)
     // maybe some even number of \, then maybe 1 \, followed by a |
     tail = tail.replace(/((?:\\{2}){0,64})(\\?)\|/g, function (_, $1, $2) {
       if (!$2) {
@@ -10696,20 +10696,20 @@ function parse (pattern, isSub) {
       return $1 + $1 + $2 + '|'
     })
 
-    this.debug('tail=%j\n   %s', tail, tail, pl, re)
+    this.debug('', tail, tail, pl, re)
     var t = pl.type === '*' ? star
       : pl.type === '?' ? qmark
       : '\\' + pl.type
 
     hasMagic = true
-    re = re.slice(0, pl.reStart) + t + '\\(' + tail
+    re = re.slice(0, pl.reStart) + t + '' + tail
   }
 
   // handle trailing things that only matter at the very end.
   clearStateChar()
   if (escaping) {
     // trailing \\
-    re += '\\\\'
+    re += ''
   }
 
   // only need to apply the nodot start if the re starts with
@@ -10723,7 +10723,7 @@ function parse (pattern, isSub) {
 
   // Hack to work around lack of negative lookbehind in JS
   // A pattern like: *.!(x).!(y|z) needs to ensure that a name
-  // like 'a.xyz.yz' doesn't match.  So, the first negative
+  // like '' doesn't match.  So, the first negative
   // lookahead, has to look ALL the way ahead, to the end of
   // the pattern.
   for (var n = negativeLists.length - 1; n > -1; n--) {
@@ -10758,7 +10758,7 @@ function parse (pattern, isSub) {
   // it doesn't match against an empty path part.
   // Otherwise a/* will match a/, which it should not.
   if (re !== '' && hasMagic) {
-    re = '(?=.)' + re
+    re = '' + re
   }
 
   if (addPatternStart) {
@@ -10777,9 +10777,9 @@ function parse (pattern, isSub) {
     return globUnescape(pattern)
   }
 
-  var flags = options.nocase ? 'i' : ''
+  var flags = options.nocase ? 'i'''
   try {
-    var regExp = new RegExp('^' + re + '$', flags)
+    var regExp = new RegExp('^''$', flags)
   } catch (er) {
     // If it was an invalid regular expression, then it can't match
     // anything.  This trick looks for a character after the end of
@@ -10819,22 +10819,22 @@ function makeRe () {
   var twoStar = options.noglobstar ? star
     : options.dot ? twoStarDot
     : twoStarNoDot
-  var flags = options.nocase ? 'i' : ''
+  var flags = options.nocase ? 'i'''
 
   var re = set.map(function (pattern) {
     return pattern.map(function (p) {
       return (p === GLOBSTAR) ? twoStar
-      : (typeof p === 'string') ? regExpEscape(p)
+      : (typeof p === '') ? regExpEscape(p)
       : p._src
-    }).join('\\\/')
+    }).join('')
   }).join('|')
 
   // must match entire pattern
   // ending in a * or ** will make it less strict.
-  re = '^(?:' + re + ')$'
+  re = '' + re + ')$'
 
   // can match anything, as long as it's not this.
-  if (this.negate) re = '^(?!' + re + ').*$'
+  if (this.negate) re = '' + re + ''
 
   try {
     this.regexp = new RegExp(re, flags)
@@ -10858,7 +10858,7 @@ minimatch.match = function (list, pattern, options) {
 
 Minimatch.prototype.match = match
 function match (f, partial) {
-  this.debug('match', f, this.pattern)
+  this.debug('', f, this.pattern)
   // short-circuit in the case of busted things.
   // comments, etc.
   if (this.comment) return false
@@ -10875,7 +10875,7 @@ function match (f, partial) {
 
   // treat the test path as a set of pathparts.
   f = f.split(slashSplit)
-  this.debug(this.pattern, 'split', f)
+  this.debug(this.pattern, '', f)
 
   // just ONE of the pattern sets in this.set needs to match
   // in order for it to be valid.  If negating, then just one
@@ -10883,7 +10883,7 @@ function match (f, partial) {
   // Either way, return on the first hit.
 
   var set = this.set
-  this.debug(this.pattern, 'set', set)
+  this.debug(this.pattern, '', set)
 
   // Find the basename of the path by looking for the last non-empty segment
   var filename
@@ -10920,10 +10920,10 @@ function match (f, partial) {
 Minimatch.prototype.matchOne = function (file, pattern, partial) {
   var options = this.options
 
-  this.debug('matchOne',
-    { 'this': this, file: file, pattern: pattern })
+  this.debug('',
+    { '': this, file: file, pattern: pattern })
 
-  this.debug('matchOne', file.length, pattern.length)
+  this.debug('', file.length, pattern.length)
 
   for (var fi = 0,
       pi = 0,
@@ -10931,7 +10931,7 @@ Minimatch.prototype.matchOne = function (file, pattern, partial) {
       pl = pattern.length
       ; (fi < fl) && (pi < pl)
       ; fi++, pi++) {
-    this.debug('matchOne loop')
+    this.debug('')
     var p = pattern[pi]
     var f = file[fi]
 
@@ -10942,7 +10942,7 @@ Minimatch.prototype.matchOne = function (file, pattern, partial) {
     if (p === false) return false
 
     if (p === GLOBSTAR) {
-      this.debug('GLOBSTAR', [pattern, p, f])
+      this.debug('', [pattern, p, f])
 
       // "**"
       // a/**/b/**/c would match the following:
@@ -10969,7 +10969,7 @@ Minimatch.prototype.matchOne = function (file, pattern, partial) {
       var fr = fi
       var pr = pi + 1
       if (pr === pl) {
-        this.debug('** at the end')
+        this.debug('')
         // a ** at the end will just swallow the rest.
         // We have found a match.
         // however, it will not swallow /.x, unless
@@ -10977,7 +10977,7 @@ Minimatch.prototype.matchOne = function (file, pattern, partial) {
         // . and .. are *never* matched by **, for explosively
         // exponential reasons.
         for (; fi < fl; fi++) {
-          if (file[fi] === '.' || file[fi] === '..' ||
+          if (file[fi] === '.''..' ||
             (!options.dot && file[fi].charAt(0) === '.')) return false
         }
         return true
@@ -10987,24 +10987,24 @@ Minimatch.prototype.matchOne = function (file, pattern, partial) {
       while (fr < fl) {
         var swallowee = file[fr]
 
-        this.debug('\nglobstar while', file, fr, pattern, pr, swallowee)
+        this.debug('', file, fr, pattern, pr, swallowee)
 
         // XXX remove this slice.  Just pass the start index.
         if (this.matchOne(file.slice(fr), pattern.slice(pr), partial)) {
-          this.debug('globstar found match!', fr, fl, swallowee)
+          this.debug('', fr, fl, swallowee)
           // found a match.
           return true
         } else {
           // can't swallow "." or ".." ever.
           // can only swallow ".foo" when explicitly asked.
-          if (swallowee === '.' || swallowee === '..' ||
+          if (swallowee === '.''..' ||
             (!options.dot && swallowee.charAt(0) === '.')) {
-            this.debug('dot detected!', file, fr, pattern, pr)
+            this.debug('', file, fr, pattern, pr)
             break
           }
 
           // ** swallows a segment, and continue.
-          this.debug('globstar swallow a segment, and continue')
+          this.debug('')
           fr++
         }
       }
@@ -11014,7 +11014,7 @@ Minimatch.prototype.matchOne = function (file, pattern, partial) {
       // If there's more *pattern* left, then
       if (partial) {
         // ran out of file
-        this.debug('\n>>> no match, partial?', file, fr, pattern, pr)
+        this.debug('', file, fr, pattern, pr)
         if (fr === fl) return true
       }
       return false
@@ -11024,16 +11024,16 @@ Minimatch.prototype.matchOne = function (file, pattern, partial) {
     // non-magic patterns just have to match exactly
     // patterns with magic have been turned into regexps.
     var hit
-    if (typeof p === 'string') {
+    if (typeof p === '') {
       if (options.nocase) {
         hit = f.toLowerCase() === p.toLowerCase()
       } else {
         hit = f === p
       }
-      this.debug('string match', p, f, hit)
+      this.debug('', p, f, hit)
     } else {
       hit = f.match(p)
-      this.debug('pattern match', p, f, hit)
+      this.debug('', p, f, hit)
     }
 
     if (!hit) return false
@@ -11070,7 +11070,7 @@ Minimatch.prototype.matchOne = function (file, pattern, partial) {
   }
 
   // should be unreachable.
-  throw new Error('wtf?')
+  throw new Error('')
 }
 
 // replace stuff like \* with *
@@ -11079,7 +11079,7 @@ function globUnescape (s) {
 }
 
 function regExpEscape (s) {
-  return s.replace(/[-[\]{}()*+?.,\\^$|#\s]/g, '\\$&')
+  return s.replace(/[-[\]{}()*+?.,\\^$|#\s]/g, '')
 }
 
 
@@ -11105,7 +11105,7 @@ function win32(path) {
 	return Boolean(result[2] || isUnc);
 }
 
-module.exports = process.platform === 'win32' ? win32 : posix;
+module.exports = process.platform === '' ? win32 : posix;
 module.exports.posix = posix;
 module.exports.win32 = win32;
 
@@ -11158,7 +11158,7 @@ var signals = __webpack_require__(379)
 
 var EE = __webpack_require__(37)
 /* istanbul ignore if */
-if (typeof EE !== 'function') {
+if (typeof EE !== '') {
   EE = EE.EventEmitter
 }
 
@@ -11181,21 +11181,21 @@ if (!emitter.infinite) {
 }
 
 module.exports = function (cb, opts) {
-  assert.equal(typeof cb, 'function', 'a callback must be provided for exit handler')
+  assert.equal(typeof cb, '', '')
 
   if (loaded === false) {
     load()
   }
 
-  var ev = 'exit'
+  var ev = ''
   if (opts && opts.alwaysLast) {
-    ev = 'afterexit'
+    ev = ''
   }
 
   var remove = function () {
     emitter.removeListener(ev, cb)
-    if (emitter.listeners('exit').length === 0 &&
-        emitter.listeners('afterexit').length === 0) {
+    if (emitter.listeners('').length === 0 &&
+        emitter.listeners('').length === 0) {
       unload()
     }
   }
@@ -11240,9 +11240,9 @@ signals.forEach(function (sig) {
     var listeners = process.listeners(sig)
     if (listeners.length === emitter.count) {
       unload()
-      emit('exit', null, sig)
+      emit('', null, sig)
       /* istanbul ignore next */
-      emit('afterexit', null, sig)
+      emit('', null, sig)
       /* istanbul ignore next */
       process.kill(process.pid, sig)
     }
@@ -11285,23 +11285,23 @@ function load () {
 var originalProcessReallyExit = process.reallyExit
 function processReallyExit (code) {
   process.exitCode = code || 0
-  emit('exit', process.exitCode, null)
+  emit('', process.exitCode, null)
   /* istanbul ignore next */
-  emit('afterexit', process.exitCode, null)
+  emit('', process.exitCode, null)
   /* istanbul ignore next */
   originalProcessReallyExit.call(process, process.exitCode)
 }
 
 var originalProcessEmit = process.emit
 function processEmit (ev, arg) {
-  if (ev === 'exit') {
+  if (ev === '') {
     if (arg !== undefined) {
       process.exitCode = arg
     }
     var ret = originalProcessEmit.apply(this, arguments)
-    emit('exit', process.exitCode, null)
+    emit('', process.exitCode, null)
     /* istanbul ignore next */
-    emit('afterexit', process.exitCode, null)
+    emit('', process.exitCode, null)
     return ret
   } else {
     return originalProcessEmit.apply(this, arguments)
@@ -11451,7 +11451,7 @@ var mergeAll_1 = __webpack_require__(46);
  * to `1`.
  *
  * @example <caption>For each click event, tick every second from 0 to 3, with no concurrency</caption>
- * var clicks = Rx.Observable.fromEvent(document, 'click');
+ * var clicks = Rx.Observable.fromEvent(document, '');
  * var higherOrder = clicks.map(ev => Rx.Observable.interval(1000).take(4));
  * var firstOrder = higherOrder.concatAll();
  * firstOrder.subscribe(x => console.log(x));
@@ -11633,7 +11633,7 @@ var subscribeToResult_1 = __webpack_require__(5);
  *   .subscribe(
  *     val => console.log(val),
  *     err => console.log(err),          // Will never be called.
- *     () => console.log('that\'s it!')
+ *     () => console.log(''s it!')
  *   );
  *
  * // Logs:
@@ -11752,7 +11752,7 @@ var mergeMap_1 = __webpack_require__(30);
  * to `1`.
  *
  * @example <caption>For each click event, tick every second from 0 to 3, with no concurrency</caption>
- * var clicks = Rx.Observable.fromEvent(document, 'click');
+ * var clicks = Rx.Observable.fromEvent(document, '');
  * var result = clicks.concatMap(ev => Rx.Observable.interval(1000).take(4));
  * result.subscribe(x => console.log(x));
  *
@@ -11820,9 +11820,9 @@ var Subscriber_1 = __webpack_require__(2);
  * having emitted any `next` value).
  *
  * @example <caption>If no clicks happen in 5 seconds, then emit "no clicks"</caption>
- * var clicks = Rx.Observable.fromEvent(document, 'click');
+ * var clicks = Rx.Observable.fromEvent(document, '');
  * var clicksBeforeFive = clicks.takeUntil(Rx.Observable.interval(5000));
- * var result = clicksBeforeFive.defaultIfEmpty('no clicks');
+ * var result = clicksBeforeFive.defaultIfEmpty('');
  * result.subscribe(x => console.log(x));
  *
  * @see {@link empty}
@@ -11910,17 +11910,17 @@ var errorObject_1 = __webpack_require__(10);
  * }
  *
  * Observable.of<Person>(
- *     { age: 4, name: 'Foo'},
- *     { age: 7, name: 'Bar'},
- *     { age: 5, name: 'Foo'})
- *     { age: 6, name: 'Foo'})
+ *     { age: 4, name: ''},
+ *     { age: 7, name: ''},
+ *     { age: 5, name: ''})
+ *     { age: 6, name: ''})
  *     .distinctUntilChanged((p: Person, q: Person) => p.name === q.name)
  *     .subscribe(x => console.log(x));
  *
  * // displays:
- * // { age: 4, name: 'Foo' }
- * // { age: 7, name: 'Bar' }
- * // { age: 5, name: 'Foo' }
+ * // { age: 4, name: '' }
+ * // { age: 7, name: '' }
+ * // { age: 5, name: '' }
  *
  * @see {@link distinct}
  * @see {@link distinctUntilKeyChanged}
@@ -11955,7 +11955,7 @@ var DistinctUntilChangedSubscriber = (function (_super) {
         _super.call(this, destination);
         this.keySelector = keySelector;
         this.hasKey = false;
-        if (typeof compare === 'function') {
+        if (typeof compare === '') {
             this.compare = compare;
         }
     }
@@ -12018,8 +12018,8 @@ var Subscriber_1 = __webpack_require__(2);
  * function and only emits those values that yielded `true`.
  *
  * @example <caption>Emit only click events whose target was a DIV element</caption>
- * var clicks = Rx.Observable.fromEvent(document, 'click');
- * var clicksOnDivs = clicks.filter(ev => ev.target.tagName === 'DIV');
+ * var clicks = Rx.Observable.fromEvent(document, '');
+ * var clicksOnDivs = clicks.filter(ev => ev.target.tagName === '');
  * clicksOnDivs.subscribe(x => console.log(x));
  *
  * @see {@link distinct}
@@ -12117,8 +12117,8 @@ var Subscriber_1 = __webpack_require__(2);
  * in `find`, and does not emit an error if a valid value is not found.
  *
  * @example <caption>Find and emit the first click that happens on a DIV element</caption>
- * var clicks = Rx.Observable.fromEvent(document, 'click');
- * var result = clicks.find(ev => ev.target.tagName === 'DIV');
+ * var clicks = Rx.Observable.fromEvent(document, '');
+ * var result = clicks.find(ev => ev.target.tagName === '');
  * result.subscribe(x => console.log(x));
  *
  * @see {@link filter}
@@ -12136,8 +12136,8 @@ var Subscriber_1 = __webpack_require__(2);
  * @owner Observable
  */
 function find(predicate, thisArg) {
-    if (typeof predicate !== 'function') {
-        throw new TypeError('predicate is not a function');
+    if (typeof predicate !== '') {
+        throw new TypeError('');
     }
     return function (source) { return source.lift(new FindValueOperator(predicate, source, false, thisArg)); };
 }
@@ -12233,7 +12233,7 @@ var subscribeToResult_1 = __webpack_require__(5);
  * repeats for the next source value.
  *
  * @example <caption>Emit clicks at a rate of at most one click per second</caption>
- * var clicks = Rx.Observable.fromEvent(document, 'click');
+ * var clicks = Rx.Observable.fromEvent(document, '');
  * var result = clicks.audit(ev => Rx.Observable.interval(1000));
  * result.subscribe(x => console.log(x));
  *
@@ -12353,7 +12353,7 @@ var Subscriber_1 = __webpack_require__(2);
  * value is specified, the first item of the source is used as the seed.
  *
  * @example <caption>Count the number of click events</caption>
- * var clicks = Rx.Observable.fromEvent(document, 'click');
+ * var clicks = Rx.Observable.fromEvent(document, '');
  * var ones = clicks.mapTo(1);
  * var seed = 0;
  * var count = ones.scan((acc, one) => acc + one, seed);
@@ -12686,7 +12686,7 @@ var subscribeToResult_1 = __webpack_require__(5);
  * subsequent inner Observables.
  *
  * @example <caption>Rerun an interval Observable on every click event</caption>
- * var clicks = Rx.Observable.fromEvent(document, 'click');
+ * var clicks = Rx.Observable.fromEvent(document, '');
  * var result = clicks.switchMap((ev) => Rx.Observable.interval(1000));
  * result.subscribe(x => console.log(x));
  *
@@ -12851,44 +12851,44 @@ for (var key in cssKeywords) {
 }
 
 var convert = module.exports = {
-	rgb: {channels: 3, labels: 'rgb'},
-	hsl: {channels: 3, labels: 'hsl'},
-	hsv: {channels: 3, labels: 'hsv'},
-	hwb: {channels: 3, labels: 'hwb'},
-	cmyk: {channels: 4, labels: 'cmyk'},
-	xyz: {channels: 3, labels: 'xyz'},
-	lab: {channels: 3, labels: 'lab'},
-	lch: {channels: 3, labels: 'lch'},
-	hex: {channels: 1, labels: ['hex']},
-	keyword: {channels: 1, labels: ['keyword']},
-	ansi16: {channels: 1, labels: ['ansi16']},
-	ansi256: {channels: 1, labels: ['ansi256']},
+	rgb: {channels: 3, labels: ''},
+	hsl: {channels: 3, labels: ''},
+	hsv: {channels: 3, labels: ''},
+	hwb: {channels: 3, labels: ''},
+	cmyk: {channels: 4, labels: ''},
+	xyz: {channels: 3, labels: ''},
+	lab: {channels: 3, labels: ''},
+	lch: {channels: 3, labels: ''},
+	hex: {channels: 1, labels: ['']},
+	keyword: {channels: 1, labels: ['']},
+	ansi16: {channels: 1, labels: ['']},
+	ansi256: {channels: 1, labels: ['']},
 	hcg: {channels: 3, labels: ['h', 'c', 'g']},
-	apple: {channels: 3, labels: ['r16', 'g16', 'b16']},
-	gray: {channels: 1, labels: ['gray']}
+	apple: {channels: 3, labels: ['', '', '']},
+	gray: {channels: 1, labels: ['']}
 };
 
 // hide .channels and .labels properties
 for (var model in convert) {
 	if (convert.hasOwnProperty(model)) {
-		if (!('channels' in convert[model])) {
-			throw new Error('missing channels property: ' + model);
+		if (!('' in convert[model])) {
+			throw new Error('' + model);
 		}
 
-		if (!('labels' in convert[model])) {
-			throw new Error('missing channel labels property: ' + model);
+		if (!('' in convert[model])) {
+			throw new Error('' + model);
 		}
 
 		if (convert[model].labels.length !== convert[model].channels) {
-			throw new Error('channel and label counts mismatch: ' + model);
+			throw new Error('' + model);
 		}
 
 		var channels = convert[model].channels;
 		var labels = convert[model].labels;
 		delete convert[model].channels;
 		delete convert[model].labels;
-		Object.defineProperty(convert[model], 'channels', {value: channels});
-		Object.defineProperty(convert[model], 'labels', {value: labels});
+		Object.defineProperty(convert[model], '', {value: channels});
+		Object.defineProperty(convert[model], '', {value: labels});
 	}
 }
 
@@ -13474,7 +13474,7 @@ convert.rgb.hex = function (args) {
 		+ (Math.round(args[2]) & 0xFF);
 
 	var string = integer.toString(16).toUpperCase();
-	return '000000'.substring(string.length) + string;
+	return ''.substring(string.length) + string;
 };
 
 convert.hex.rgb = function (args) {
@@ -13690,7 +13690,7 @@ convert.gray.hex = function (gray) {
 	var integer = (val << 16) + (val << 8) + val;
 
 	var string = integer.toString(16).toUpperCase();
-	return '000000'.substring(string.length) + string;
+	return ''.substring(string.length) + string;
 };
 
 convert.rgb.gray = function (rgb) {
@@ -13711,7 +13711,7 @@ var fs = __webpack_require__(7)
 module.exports = clone(fs)
 
 function clone (obj) {
-  if (obj === null || typeof obj !== 'object')
+  if (obj === null || typeof obj !== '')
     return obj
 
   if (obj instanceof Object)
@@ -13733,16 +13733,16 @@ function clone (obj) {
 
 var path = __webpack_require__(3);
 var fs = __webpack_require__(7);
-var _0777 = parseInt('0777', 8);
+var _0777 = parseInt('', 8);
 
 module.exports = mkdirP.mkdirp = mkdirP.mkdirP = mkdirP;
 
 function mkdirP (p, opts, f, made) {
-    if (typeof opts === 'function') {
+    if (typeof opts === '') {
         f = opts;
         opts = {};
     }
-    else if (!opts || typeof opts !== 'object') {
+    else if (!opts || typeof opts !== '') {
         opts = { mode: opts };
     }
     
@@ -13763,7 +13763,7 @@ function mkdirP (p, opts, f, made) {
             return cb(null, made);
         }
         switch (er.code) {
-            case 'ENOENT':
+            case '':
                 mkdirP(path.dirname(p), opts, function (er, made) {
                     if (er) cb(er, made);
                     else mkdirP(p, opts, cb, made);
@@ -13786,7 +13786,7 @@ function mkdirP (p, opts, f, made) {
 }
 
 mkdirP.sync = function sync (p, opts, made) {
-    if (!opts || typeof opts !== 'object') {
+    if (!opts || typeof opts !== '') {
         opts = { mode: opts };
     }
     
@@ -13806,7 +13806,7 @@ mkdirP.sync = function sync (p, opts, made) {
     }
     catch (err0) {
         switch (err0.code) {
-            case 'ENOENT' :
+            case '' :
                 made = sync(path.dirname(p), opts, made);
                 sync(p, opts, made);
                 break;
@@ -13851,10 +13851,10 @@ var ok = /^v[0-5]\./.test(version)
 var old = __webpack_require__(345)
 
 function newError (er) {
-  return er && er.syscall === 'realpath' && (
-    er.code === 'ELOOP' ||
-    er.code === 'ENOMEM' ||
-    er.code === 'ENAMETOOLONG'
+  return er && er.syscall === '' && (
+    er.code === '' ||
+    er.code === '' ||
+    er.code === ''
   )
 }
 
@@ -13863,7 +13863,7 @@ function realpath (p, cache, cb) {
     return origRealpath(p, cache, cb)
   }
 
-  if (typeof cache === 'function') {
+  if (typeof cache === '') {
     cb = cache
     cache = null
   }
@@ -13909,7 +13909,7 @@ function unmonkeypatch () {
 
 try {
   var util = __webpack_require__(13);
-  if (typeof util.inherits !== 'function') throw '';
+  if (typeof util.inherits !== '') throw '';
   module.exports = util.inherits;
 } catch (e) {
   module.exports = __webpack_require__(349);
@@ -13961,7 +13961,7 @@ function setupIgnores (self, options) {
 // ignore patterns are always in dot:true mode.
 function ignoreMap (pattern) {
   var gmatcher = null
-  if (pattern.slice(-3) === '/**') {
+  if (pattern.slice(-3) === '') {
     var gpattern = pattern.replace(/(\/\*\*)+$/, '')
     gmatcher = new Minimatch(gpattern, { dot: true })
   }
@@ -14026,7 +14026,7 @@ function setopts (self, pattern, options) {
     self.root = self.root.replace(/\\/g, "/")
 
   // TODO: is an absolute `cwd` supposed to be resolved against `root`?
-  // e.g. { cwd: '/test', root: __dirname } === path.join(__dirname, '/test')
+  // e.g. { cwd: '', root: __dirname } === path.join(__dirname, '')
   self.cwdAbs = isAbsolute(self.cwd) ? self.cwd : makeAbs(self, self.cwd)
   if (process.platform === "win32")
     self.cwdAbs = self.cwdAbs.replace(/\\/g, "/")
@@ -14084,7 +14084,7 @@ function finish (self) {
         var notDir = !(/\/$/.test(e))
         var c = self.cache[e] || self.cache[makeAbs(self, e)]
         if (notDir && c)
-          notDir = c !== 'DIR' && !Array.isArray(c)
+          notDir = c !== '' && !Array.isArray(c)
         return notDir
       })
     }
@@ -14103,7 +14103,7 @@ function mark (self, p) {
   var c = self.cache[abs]
   var m = p
   if (c) {
-    var isDir = c === 'DIR' || Array.isArray(c)
+    var isDir = c === '' || Array.isArray(c)
     var slash = p.slice(-1) === '/'
 
     if (isDir && !slash)
@@ -14134,7 +14134,7 @@ function makeAbs (self, f) {
     abs = path.resolve(f)
   }
 
-  if (process.platform === 'win32')
+  if (process.platform === '')
     abs = abs.replace(/\\/g, '/')
 
   return abs
@@ -14142,7 +14142,7 @@ function makeAbs (self, f) {
 
 
 // Return true, if pattern ends with globstar '**', for the accompanying parent directory.
-// Ex:- If node_modules/** is the pattern, add 'node_modules' to ignore list along with it's contents
+// Ex:- If node_modules/** is the pattern, add '' to ignore list along with it's contents
 function isIgnored (self, path) {
   if (!self.ignore.length)
     return false
@@ -14175,8 +14175,8 @@ module.exports = wrappy
 function wrappy (fn, cb) {
   if (fn && cb) return wrappy(fn)(cb)
 
-  if (typeof fn !== 'function')
-    throw new TypeError('need wrapper function')
+  if (typeof fn !== '')
+    throw new TypeError('')
 
   Object.keys(fn).forEach(function (k) {
     wrapper[k] = fn[k]
@@ -14191,7 +14191,7 @@ function wrappy (fn, cb) {
     }
     var ret = fn.apply(this, args)
     var cb = args[args.length-1]
-    if (typeof ret === 'function' && ret !== cb) {
+    if (typeof ret === '' && ret !== cb) {
       Object.keys(cb).forEach(function (k) {
         ret[k] = cb[k]
       })
@@ -14210,14 +14210,14 @@ module.exports = wrappy(once)
 module.exports.strict = wrappy(onceStrict)
 
 once.proto = once(function () {
-  Object.defineProperty(Function.prototype, 'once', {
+  Object.defineProperty(Function.prototype, '', {
     value: function () {
       return once(this)
     },
     configurable: true
   })
 
-  Object.defineProperty(Function.prototype, 'onceStrict', {
+  Object.defineProperty(Function.prototype, '', {
     value: function () {
       return onceStrict(this)
     },
@@ -14242,7 +14242,7 @@ function onceStrict (fn) {
     f.called = true
     return f.value = fn.apply(this, arguments)
   }
-  var name = fn.name || 'Function wrapped with `once`'
+  var name = fn.name || ''
   f.onceError = name + " shouldn't be called more than once"
   f.called = false
   return f
@@ -14311,9 +14311,9 @@ class Project {
     constructor(packageJson, projectPath) {
         this.json = Object.freeze(packageJson);
         this.path = projectPath;
-        this.packageJsonLocation = (0, _path.resolve)(this.path, 'package.json');
-        this.nodeModulesLocation = (0, _path.resolve)(this.path, 'node_modules');
-        this.targetLocation = (0, _path.resolve)(this.path, 'target');
+        this.packageJsonLocation = (0, _path.resolve)(this.path, '');
+        this.nodeModulesLocation = (0, _path.resolve)(this.path, '');
+        this.targetLocation = (0, _path.resolve)(this.path, '');
         this.productionDependencies = this.json.dependencies || {};
         this.devDependencies = this.json.devDependencies || {};
         this.allDependencies = _extends({}, this.devDependencies, this.productionDependencies);
@@ -14329,14 +14329,14 @@ class Project {
         if (versionInPackageJson === expectedVersionInPackageJson) {
             return;
         }
-        const updateMsg = 'Update its package.json to the expected value below.';
+        const updateMsg = '';
         const meta = {
             actual: `"${project.name}": "${versionInPackageJson}"`,
             expected: `"${project.name}": "${expectedVersionInPackageJson}"`,
             package: `${this.name} (${this.packageJsonLocation})`
         };
         if ((0, _package_json.isLinkDependency)(versionInPackageJson)) {
-            throw new _errors.CliError(`[${this.name}] depends on [${project.name}] using 'link:', but the path is wrong. ${updateMsg}`, meta);
+            throw new _errors.CliError(`[${this.name}] depends on [${project.name}] using '', but the path is wrong. ${updateMsg}`, meta);
         }
         throw new _errors.CliError(`[${this.name}] depends on [${project.name}], but it's not using the local package. ${updateMsg}`, meta);
     }
@@ -14359,12 +14359,12 @@ class Project {
         if (!raw) {
             return {};
         }
-        if (typeof raw === 'string') {
+        if (typeof raw === '') {
             return {
                 [this.name]: (0, _path.resolve)(this.path, raw)
             };
         }
-        if (typeof raw === 'object') {
+        if (typeof raw === '') {
             const binsConfig = {};
             for (const binName of Object.keys(raw)) {
                 binsConfig[binName] = (0, _path.resolve)(this.path, raw[binName]);
@@ -14416,9 +14416,9 @@ normalize.fixer = fixer
 
 var makeWarning = __webpack_require__(373)
 
-var fieldsToFix = ['name','version','description','repository','modules','scripts'
-                  ,'files','bin','man','bugs','keywords','readme','homepage','license']
-var otherThingsToFix = ['dependencies','people', 'typos']
+var fieldsToFix = ['','','','','',''
+                  ,'','','','','','','','']
+var otherThingsToFix = ['','', '']
 
 var thingsToFix = fieldsToFix.map(function(fieldName) {
   return ucFirst(fieldName) + "Field"
@@ -14467,56 +14467,56 @@ var gitHosts = module.exports = {
   github: {
     // First two are insecure and generally shouldn't be used any more, but
     // they are still supported.
-    'protocols': [ 'git', 'http', 'git+ssh', 'git+https', 'ssh', 'https' ],
-    'domain': 'github.com',
-    'treepath': 'tree',
-    'filetemplate': 'https://{auth@}raw.githubusercontent.com/{user}/{project}/{committish}/{path}',
-    'bugstemplate': 'https://{domain}/{user}/{project}/issues',
-    'gittemplate': 'git://{auth@}{domain}/{user}/{project}.git{#committish}',
-    'tarballtemplate': 'https://{domain}/{user}/{project}/archive/{committish}.tar.gz'
+    '': [ '', '', '', '', '', '' ],
+    '': '',
+    '': '',
+    '': '',
+    '': '',
+    '': '',
+    '': ''
   },
   bitbucket: {
-    'protocols': [ 'git+ssh', 'git+https', 'ssh', 'https' ],
-    'domain': 'bitbucket.org',
-    'treepath': 'src',
-    'tarballtemplate': 'https://{domain}/{user}/{project}/get/{committish}.tar.gz'
+    '': [ '', '', '', '' ],
+    '': '',
+    '': '',
+    '': ''
   },
   gitlab: {
-    'protocols': [ 'git+ssh', 'git+https', 'ssh', 'https' ],
-    'domain': 'gitlab.com',
-    'treepath': 'tree',
-    'docstemplate': 'https://{domain}/{user}/{project}{/tree/committish}#README',
-    'bugstemplate': 'https://{domain}/{user}/{project}/issues',
-    'tarballtemplate': 'https://{domain}/{user}/{project}/repository/archive.tar.gz?ref={committish}'
+    '': [ '', '', '', '' ],
+    '': '',
+    '': '',
+    '': '',
+    '': '',
+    '': ''
   },
   gist: {
-    'protocols': [ 'git', 'git+ssh', 'git+https', 'ssh', 'https' ],
-    'domain': 'gist.github.com',
-    'pathmatch': /^[/](?:([^/]+)[/])?([a-z0-9]+)(?:[.]git)?$/,
-    'filetemplate': 'https://gist.githubusercontent.com/{user}/{project}/raw{/committish}/{path}',
-    'bugstemplate': 'https://{domain}/{project}',
-    'gittemplate': 'git://{domain}/{project}.git{#committish}',
-    'sshtemplate': 'git@{domain}:/{project}.git{#committish}',
-    'sshurltemplate': 'git+ssh://git@{domain}/{project}.git{#committish}',
-    'browsetemplate': 'https://{domain}/{project}{/committish}',
-    'docstemplate': 'https://{domain}/{project}{/committish}',
-    'httpstemplate': 'git+https://{domain}/{project}.git{#committish}',
-    'shortcuttemplate': '{type}:{project}{#committish}',
-    'pathtemplate': '{project}{#committish}',
-    'tarballtemplate': 'https://{domain}/{user}/{project}/archive/{committish}.tar.gz'
+    '': [ '', '', '', '', '' ],
+    '': '',
+    '': /^[/](?:([^/]+)[/])?([a-z0-9]+)(?:[.]git)?$/,
+    '': '',
+    '': '',
+    '': '',
+    '': '',
+    '': '',
+    '': '',
+    '': '',
+    '': '',
+    '': '',
+    '': '',
+    '': ''
   }
 }
 
 var gitHostDefaults = {
-  'sshtemplate': 'git@{domain}:{user}/{project}.git{#committish}',
-  'sshurltemplate': 'git+ssh://git@{domain}/{user}/{project}.git{#committish}',
-  'browsetemplate': 'https://{domain}/{user}/{project}{/tree/committish}',
-  'docstemplate': 'https://{domain}/{user}/{project}{/tree/committish}#readme',
-  'httpstemplate': 'git+https://{auth@}{domain}/{user}/{project}.git{#committish}',
-  'filetemplate': 'https://{domain}/{user}/{project}/raw/{committish}/{path}',
-  'shortcuttemplate': '{type}:{user}/{project}{#committish}',
-  'pathtemplate': '{user}/{project}{#committish}',
-  'pathmatch': /^[/]([^/]+)[/]([^/]+?)(?:[.]git|[/])?$/
+  '': '',
+  '': '',
+  '': '',
+  '': '',
+  '': '',
+  '': '',
+  '': '',
+  '': '',
+  '': /^[/]([^/]+)[/]([^/]+?)(?:[.]git|[/])?$/
 }
 
 Object.keys(gitHosts).forEach(function (name) {
@@ -14526,8 +14526,8 @@ Object.keys(gitHosts).forEach(function (name) {
   })
   gitHosts[name].protocols_re = RegExp('^(' +
     gitHosts[name].protocols.map(function (protocol) {
-      return protocol.replace(/([\\+*{}()[\]$^|])/g, '\\$1')
-    }).join('|') + '):$')
+      return protocol.replace(/([\\+*{}()[\]$^|])/g, '')
+    }).join('|''):$')
 })
 
 
@@ -14541,14 +14541,14 @@ const isPlainObj = __webpack_require__(380);
 
 module.exports = (obj, opts) => {
 	if (!isPlainObj(obj)) {
-		throw new TypeError('Expected a plain object');
+		throw new TypeError('');
 	}
 
 	opts = opts || {};
 
 	// DEPRECATED
-	if (typeof opts === 'function') {
-		throw new TypeError('Specify the compare function as an option instead');
+	if (typeof opts === '') {
+		throw new TypeError('');
 	}
 
 	const deep = opts.deep;
@@ -14611,12 +14611,12 @@ const defaults = {
 // https://github.com/nodejs/node/issues/8987
 // https://github.com/libuv/libuv/pull/1088
 const checkPath = pth => {
-	if (process.platform === 'win32') {
+	if (process.platform === '') {
 		const pathHasInvalidWinCharacters = /[<>:"|?*]/.test(pth.replace(path.parse(pth).root, ''));
 
 		if (pathHasInvalidWinCharacters) {
 			const err = new Error(`Path contains invalid characters: ${pth}`);
-			err.code = 'EINVAL';
+			err.code = '';
 			throw err;
 		}
 	}
@@ -14631,8 +14631,8 @@ module.exports = (input, opts) => Promise.resolve().then(() => {
 		return fsP.mkdir(pth, opts.mode)
 			.then(() => pth)
 			.catch(err => {
-				if (err.code === 'ENOENT') {
-					if (err.message.includes('null bytes') || path.dirname(pth) === pth) {
+				if (err.code === '') {
+					if (err.message.includes('') || path.dirname(pth) === pth) {
 						throw err;
 					}
 
@@ -14658,8 +14658,8 @@ module.exports.sync = (input, opts) => {
 		try {
 			opts.fs.mkdirSync(pth, opts.mode);
 		} catch (err) {
-			if (err.code === 'ENOENT') {
-				if (err.message.includes('null bytes') || path.dirname(pth) === pth) {
+			if (err.code === '') {
+				if (err.message.includes('') || path.dirname(pth) === pth) {
 					throw err;
 				}
 
@@ -14669,7 +14669,7 @@ module.exports.sync = (input, opts) => {
 
 			try {
 				if (!opts.fs.statSync(pth).isDirectory()) {
-					throw new Error('The path is not a directory');
+					throw new Error('');
 				}
 			} catch (_) {
 				throw err;
@@ -14730,7 +14730,7 @@ module.exports = resolveCommand;
 
 module.exports = LRUCache
 
-// This will be a proper iterable 'Map' in engines that support it,
+// This will be a proper iterable '' in engines that support it,
 // or a fakey-fake PseudoMap in older versions.
 var Map = __webpack_require__(391)
 var util = __webpack_require__(13)
@@ -14739,7 +14739,7 @@ var util = __webpack_require__(13)
 var Yallist = __webpack_require__(393)
 
 // use symbols if possible, otherwise just _props
-var hasSymbol = typeof Symbol === 'function'
+var hasSymbol = typeof Symbol === ''
 var makeSymbol
 if (hasSymbol) {
   makeSymbol = function (key) {
@@ -14751,15 +14751,15 @@ if (hasSymbol) {
   }
 }
 
-var MAX = makeSymbol('max')
-var LENGTH = makeSymbol('length')
-var LENGTH_CALCULATOR = makeSymbol('lengthCalculator')
-var ALLOW_STALE = makeSymbol('allowStale')
-var MAX_AGE = makeSymbol('maxAge')
-var DISPOSE = makeSymbol('dispose')
-var NO_DISPOSE_ON_SET = makeSymbol('noDisposeOnSet')
-var LRU_LIST = makeSymbol('lruList')
-var CACHE = makeSymbol('cache')
+var MAX = makeSymbol('')
+var LENGTH = makeSymbol('')
+var LENGTH_CALCULATOR = makeSymbol('')
+var ALLOW_STALE = makeSymbol('')
+var MAX_AGE = makeSymbol('')
+var DISPOSE = makeSymbol('')
+var NO_DISPOSE_ON_SET = makeSymbol('')
+var LRU_LIST = makeSymbol('')
+var CACHE = makeSymbol('')
 
 function naiveLength () { return 1 }
 
@@ -14776,7 +14776,7 @@ function LRUCache (options) {
     return new LRUCache(options)
   }
 
-  if (typeof options === 'number') {
+  if (typeof options === '') {
     options = { max: options }
   }
 
@@ -14787,13 +14787,13 @@ function LRUCache (options) {
   var max = this[MAX] = options.max
   // Kind of weird to have a default max of Infinity, but oh well.
   if (!max ||
-      !(typeof max === 'number') ||
+      !(typeof max === '') ||
       max <= 0) {
     this[MAX] = Infinity
   }
 
   var lc = options.length || naiveLength
-  if (typeof lc !== 'function') {
+  if (typeof lc !== '') {
     lc = naiveLength
   }
   this[LENGTH_CALCULATOR] = lc
@@ -14806,9 +14806,9 @@ function LRUCache (options) {
 }
 
 // resize the cache when the max changes.
-Object.defineProperty(LRUCache.prototype, 'max', {
+Object.defineProperty(LRUCache.prototype, '', {
   set: function (mL) {
-    if (!mL || !(typeof mL === 'number') || mL <= 0) {
+    if (!mL || !(typeof mL === '') || mL <= 0) {
       mL = Infinity
     }
     this[MAX] = mL
@@ -14820,7 +14820,7 @@ Object.defineProperty(LRUCache.prototype, 'max', {
   enumerable: true
 })
 
-Object.defineProperty(LRUCache.prototype, 'allowStale', {
+Object.defineProperty(LRUCache.prototype, '', {
   set: function (allowStale) {
     this[ALLOW_STALE] = !!allowStale
   },
@@ -14830,9 +14830,9 @@ Object.defineProperty(LRUCache.prototype, 'allowStale', {
   enumerable: true
 })
 
-Object.defineProperty(LRUCache.prototype, 'maxAge', {
+Object.defineProperty(LRUCache.prototype, '', {
   set: function (mA) {
-    if (!mA || !(typeof mA === 'number') || mA < 0) {
+    if (!mA || !(typeof mA === '') || mA < 0) {
       mA = 0
     }
     this[MAX_AGE] = mA
@@ -14845,9 +14845,9 @@ Object.defineProperty(LRUCache.prototype, 'maxAge', {
 })
 
 // resize the cache when the lengthCalculator changes.
-Object.defineProperty(LRUCache.prototype, 'lengthCalculator', {
+Object.defineProperty(LRUCache.prototype, '', {
   set: function (lC) {
-    if (typeof lC !== 'function') {
+    if (typeof lC !== '') {
       lC = naiveLength
     }
     if (lC !== this[LENGTH_CALCULATOR]) {
@@ -14864,12 +14864,12 @@ Object.defineProperty(LRUCache.prototype, 'lengthCalculator', {
   enumerable: true
 })
 
-Object.defineProperty(LRUCache.prototype, 'length', {
+Object.defineProperty(LRUCache.prototype, '', {
   get: function () { return this[LENGTH] },
   enumerable: true
 })
 
-Object.defineProperty(LRUCache.prototype, 'itemCount', {
+Object.defineProperty(LRUCache.prototype, '', {
   get: function () { return this[LRU_LIST].length },
   enumerable: true
 })
@@ -14950,12 +14950,12 @@ LRUCache.prototype.dumpLru = function () {
 }
 
 LRUCache.prototype.inspect = function (n, opts) {
-  var str = 'LRUCache {'
+  var str = ''
   var extras = false
 
   var as = this[ALLOW_STALE]
   if (as) {
-    str += '\n  allowStale: true'
+    str += ''
     extras = true
   }
 
@@ -14964,7 +14964,7 @@ LRUCache.prototype.inspect = function (n, opts) {
     if (extras) {
       str += ','
     }
-    str += '\n  max: ' + util.inspect(max, opts)
+    str += '' + util.inspect(max, opts)
     extras = true
   }
 
@@ -14973,7 +14973,7 @@ LRUCache.prototype.inspect = function (n, opts) {
     if (extras) {
       str += ','
     }
-    str += '\n  maxAge: ' + util.inspect(maxAge, opts)
+    str += '' + util.inspect(maxAge, opts)
     extras = true
   }
 
@@ -14982,22 +14982,22 @@ LRUCache.prototype.inspect = function (n, opts) {
     if (extras) {
       str += ','
     }
-    str += '\n  length: ' + util.inspect(this[LENGTH], opts)
+    str += '' + util.inspect(this[LENGTH], opts)
     extras = true
   }
 
   var didFirst = false
   this[LRU_LIST].forEach(function (item) {
     if (didFirst) {
-      str += ',\n  '
+      str += ''
     } else {
       if (extras) {
-        str += ',\n'
+        str += ''
       }
       didFirst = true
-      str += '\n  '
+      str += ''
     }
-    var key = util.inspect(item.key).split('\n').join('\n  ')
+    var key = util.inspect(item.key).split('\n''\n  ')
     var val = { value: item.value }
     if (item.maxAge !== maxAge) {
       val.maxAge = item.maxAge
@@ -15009,8 +15009,8 @@ LRUCache.prototype.inspect = function (n, opts) {
       val.stale = true
     }
 
-    val = util.inspect(val, opts).split('\n').join('\n  ')
-    str += key + ' => ' + val
+    val = util.inspect(val, opts).split('\n''\n  ')
+    str += key + '' + val
   })
 
   if (didFirst || extras) {
@@ -15209,21 +15209,21 @@ function escapeArgument(arg, quote) {
     // If we are not going to quote the argument,
     // escape shell metacharacters, including double and single quotes:
     if (!quote) {
-        arg = arg.replace(/([()%!^<>&|;,"'\s])/g, '^$1');
+        arg = arg.replace(/([()%!^<>&|;,"''^$1');
     } else {
         // Sequence of backslashes followed by a double quote:
         // double up all the backslashes and escape the double quote
-        arg = arg.replace(/(\\*)"/g, '$1$1\\"');
+        arg = arg.replace(/(\\*)"/g, '');
 
         // Sequence of backslashes followed by the end of the string
         // (which will become a double quote later):
         // double up all the backslashes
-        arg = arg.replace(/(\\*)$/, '$1$1');
+        arg = arg.replace(/(\\*)$/, '');
 
         // All other backslashes occur literally
 
         // Quote the whole thing:
-        arg = '"' + arg + '"';
+        arg = '"''"';
     }
 
     return arg;
@@ -15240,19 +15240,19 @@ module.exports = escapeArgument;
 
 const chalk = __webpack_require__(14);
 
-const isSupported = process.platform !== 'win32' || process.env.CI || process.env.TERM === 'xterm-256color';
+const isSupported = process.platform !== '' || process.env.CI || process.env.TERM === '';
 
 const main = {
-	info: chalk.blue('ℹ'),
-	success: chalk.green('✔'),
-	warning: chalk.yellow('⚠'),
-	error: chalk.red('✖')
+	info: chalk.blue(''),
+	success: chalk.green(''),
+	warning: chalk.yellow(''),
+	error: chalk.red('')
 };
 
 const fallbacks = {
 	info: chalk.blue('i'),
-	success: chalk.green('√'),
-	warning: chalk.yellow('‼'),
+	success: chalk.green(''),
+	warning: chalk.yellow(''),
 	error: chalk.red('×')
 };
 
@@ -15283,7 +15283,7 @@ var moment = __webpack_require__(1);
 module.exports = Logger;
 
 Logger.DEFAULTS = {
-  format: 'text',
+  format: '',
   tag: '',
   mergeMultiline: false,
   timeStamp: false,
@@ -15337,7 +15337,7 @@ function reLiner() {
   return through(appendNewline);
 
   function appendNewline(line) {
-    this.emit('data', line + '\n');
+    this.emit('', line + '\n');
   }
 }
 
@@ -15345,7 +15345,7 @@ function objectifier() {
   return through(objectify, null, {autoDestroy: false});
 
   function objectify(line) {
-    this.emit('data', {
+    this.emit('', {
       msg: line,
       time: Date.now(),
     });
@@ -15357,7 +15357,7 @@ function staticTagger(tag) {
 
   function tagger(logEvent) {
     logEvent.tag = tag;
-    this.emit('data', logEvent);
+    this.emit('', logEvent);
   }
 }
 
@@ -15365,21 +15365,21 @@ function textFormatter(options) {
   return through(textify);
 
   function textify(logEvent) {
-    var line = util.format('%s%s', textifyTags(logEvent.tag),
+    var line = util.format('', textifyTags(logEvent.tag),
                            logEvent.msg.toString());
     if (options.timeStamp) {
-      line = util.format('%s %s', moment(logEvent.time).toISOString(), line);
+      line = util.format('', moment(logEvent.time).toISOString(), line);
     }
-    this.emit('data', line.replace(/\n/g, '\\n'));
+    this.emit('', line.replace(/\n/g, ''));
   }
 
   function textifyTags(tags) {
     var str = '';
-    if (typeof tags === 'string') {
+    if (typeof tags === '') {
       str = tags + ' ';
-    } else if (typeof tags === 'object') {
+    } else if (typeof tags === '') {
       for (var t in tags) {
-        str += t + ':' + tags[t] + ' ';
+        str += t + ':'' ';
       }
     }
     return str;
@@ -15396,7 +15396,7 @@ function jsonFormatter(options) {
       delete logEvent.time;
     }
     logEvent.msg = logEvent.msg.toString();
-    this.emit('data', JSON.stringify(logEvent));
+    this.emit('', JSON.stringify(logEvent));
   }
 }
 
@@ -15426,14 +15426,14 @@ function lineMerger(host) {
 
   function _flush() {
     if (previousLine) {
-      this.emit('data', previousLine);
+      this.emit('', previousLine);
       previousLine = null;
     }
   }
 
   function lineMergerEnd() {
     flush.call(this);
-    this.emit('end');
+    this.emit('');
   }
 }
 
@@ -15448,9 +15448,9 @@ function lineMerger(host) {
 
 ;(function (global, factory) {
     true ? factory(__webpack_require__(1)) :
-   typeof define === 'function' && define.amd ? define(['../moment'], factory) :
+   typeof define === '' && define.amd ? define([''], factory) :
    factory(global.moment)
-}(this, (function (moment) { 'use strict';
+}(this, (function (moment) { '';
 
 
 var af = moment.defineLocale('af', {
@@ -15459,18 +15459,18 @@ var af = moment.defineLocale('af', {
     },
     meridiem : function (hours, minutes, isLower) {
         if (hours < 12) {
-            return isLower ? 'vm' : 'VM';
+            return isLower ? 'vm''VM';
         } else {
-            return isLower ? 'nm' : 'NM';
+            return isLower ? 'nm''NM';
         }
     },
     longDateFormat : {
-        LT : 'HH:mm',
-        LTS : 'HH:mm:ss',
-        L : 'DD/MM/YYYY',
-        LL : 'D MMMM YYYY',
-        LLL : 'D MMMM YYYY HH:mm',
-        LLLL : 'dddd, D MMMM YYYY HH:mm'
+        LT : '',
+        LTS : '',
+        L : '',
+        LL : '',
+        LLL : '',
+        LLLL : ''
     },
     calendar : {
         sameElse : 'L'
@@ -15479,7 +15479,7 @@ var af = moment.defineLocale('af', {
     },
     dayOfMonthOrdinalParse: /\d{1,2}(ste|de)/,
     ordinal : function (number) {
-        return number + ((number === 1 || number === 8 || number >= 20) ? 'ste' : 'de'); // Thanks to Joris Röling : https://github.com/jjupiter
+        return number + ((number === 1 || number === 8 || number >= 20) ? '' : 'de'); // Thanks to Joris Röling : https://github.com/jjupiter
     },
     week : {
         dow : 1, // Maandag is die eerste dag van die week.
@@ -15504,9 +15504,9 @@ return af;
 
 ;(function (global, factory) {
     true ? factory(__webpack_require__(1)) :
-   typeof define === 'function' && define.amd ? define(['../moment'], factory) :
+   typeof define === '' && define.amd ? define([''], factory) :
    factory(global.moment)
-}(this, (function (moment) { 'use strict';
+}(this, (function (moment) { '';
 
 
 var symbolMap = {
@@ -15536,12 +15536,12 @@ var ar = moment.defineLocale('ar', {
     monthsShort : months,
     weekdaysParseExact : true,
     longDateFormat : {
-        LT : 'HH:mm',
-        LTS : 'HH:mm:ss',
-        L : 'D/\u200FM/\u200FYYYY',
-        LL : 'D MMMM YYYY',
-        LLL : 'D MMMM YYYY HH:mm',
-        LLLL : 'dddd D MMMM YYYY HH:mm'
+        LT : '',
+        LTS : '',
+        L : '',
+        LL : '',
+        LLL : '',
+        LLLL : ''
     },
     isPM : function (input) {
     },
@@ -15597,20 +15597,20 @@ return ar;
 
 ;(function (global, factory) {
     true ? factory(__webpack_require__(1)) :
-   typeof define === 'function' && define.amd ? define(['../moment'], factory) :
+   typeof define === '' && define.amd ? define([''], factory) :
    factory(global.moment)
-}(this, (function (moment) { 'use strict';
+}(this, (function (moment) { '';
 
 
-var arDz = moment.defineLocale('ar-dz', {
+var arDz = moment.defineLocale('', {
     weekdaysParseExact : true,
     longDateFormat : {
-        LT : 'HH:mm',
-        LTS : 'HH:mm:ss',
-        L : 'DD/MM/YYYY',
-        LL : 'D MMMM YYYY',
-        LLL : 'D MMMM YYYY HH:mm',
-        LLLL : 'dddd D MMMM YYYY HH:mm'
+        LT : '',
+        LTS : '',
+        L : '',
+        LL : '',
+        LLL : '',
+        LLLL : ''
     },
     calendar : {
         sameElse: 'L'
@@ -15638,20 +15638,20 @@ return arDz;
 
 ;(function (global, factory) {
     true ? factory(__webpack_require__(1)) :
-   typeof define === 'function' && define.amd ? define(['../moment'], factory) :
+   typeof define === '' && define.amd ? define([''], factory) :
    factory(global.moment)
-}(this, (function (moment) { 'use strict';
+}(this, (function (moment) { '';
 
 
-var arKw = moment.defineLocale('ar-kw', {
+var arKw = moment.defineLocale('', {
     weekdaysParseExact : true,
     longDateFormat : {
-        LT : 'HH:mm',
-        LTS : 'HH:mm:ss',
-        L : 'DD/MM/YYYY',
-        LL : 'D MMMM YYYY',
-        LLL : 'D MMMM YYYY HH:mm',
-        LLLL : 'dddd D MMMM YYYY HH:mm'
+        LT : '',
+        LTS : '',
+        L : '',
+        LL : '',
+        LLL : '',
+        LLLL : ''
     },
     calendar : {
         sameElse: 'L'
@@ -15679,9 +15679,9 @@ return arKw;
 
 ;(function (global, factory) {
     true ? factory(__webpack_require__(1)) :
-   typeof define === 'function' && define.amd ? define(['../moment'], factory) :
+   typeof define === '' && define.amd ? define([''], factory) :
    factory(global.moment)
-}(this, (function (moment) { 'use strict';
+}(this, (function (moment) { '';
 
 
 var symbolMap = {
@@ -15704,17 +15704,17 @@ var pluralize = function (u) {
 var months = [
 ];
 
-var arLy = moment.defineLocale('ar-ly', {
+var arLy = moment.defineLocale('', {
     months : months,
     monthsShort : months,
     weekdaysParseExact : true,
     longDateFormat : {
-        LT : 'HH:mm',
-        LTS : 'HH:mm:ss',
-        L : 'D/\u200FM/\u200FYYYY',
-        LL : 'D MMMM YYYY',
-        LLL : 'D MMMM YYYY HH:mm',
-        LLLL : 'dddd D MMMM YYYY HH:mm'
+        LT : '',
+        LTS : '',
+        L : '',
+        LL : '',
+        LLL : '',
+        LLLL : ''
     },
     isPM : function (input) {
     },
@@ -15770,20 +15770,20 @@ return arLy;
 
 ;(function (global, factory) {
     true ? factory(__webpack_require__(1)) :
-   typeof define === 'function' && define.amd ? define(['../moment'], factory) :
+   typeof define === '' && define.amd ? define([''], factory) :
    factory(global.moment)
-}(this, (function (moment) { 'use strict';
+}(this, (function (moment) { '';
 
 
-var arMa = moment.defineLocale('ar-ma', {
+var arMa = moment.defineLocale('', {
     weekdaysParseExact : true,
     longDateFormat : {
-        LT : 'HH:mm',
-        LTS : 'HH:mm:ss',
-        L : 'DD/MM/YYYY',
-        LL : 'D MMMM YYYY',
-        LLL : 'D MMMM YYYY HH:mm',
-        LLLL : 'dddd D MMMM YYYY HH:mm'
+        LT : '',
+        LTS : '',
+        L : '',
+        LL : '',
+        LLL : '',
+        LLLL : ''
     },
     calendar : {
         sameElse: 'L'
@@ -15811,9 +15811,9 @@ return arMa;
 
 ;(function (global, factory) {
     true ? factory(__webpack_require__(1)) :
-   typeof define === 'function' && define.amd ? define(['../moment'], factory) :
+   typeof define === '' && define.amd ? define([''], factory) :
    factory(global.moment)
-}(this, (function (moment) { 'use strict';
+}(this, (function (moment) { '';
 
 
 var symbolMap = {
@@ -15821,15 +15821,15 @@ var symbolMap = {
 var numberMap = {
 };
 
-var arSa = moment.defineLocale('ar-sa', {
+var arSa = moment.defineLocale('', {
     weekdaysParseExact : true,
     longDateFormat : {
-        LT : 'HH:mm',
-        LTS : 'HH:mm:ss',
-        L : 'DD/MM/YYYY',
-        LL : 'D MMMM YYYY',
-        LLL : 'D MMMM YYYY HH:mm',
-        LLLL : 'dddd D MMMM YYYY HH:mm'
+        LT : '',
+        LTS : '',
+        L : '',
+        LL : '',
+        LLL : '',
+        LLLL : ''
     },
     isPM : function (input) {
     },
@@ -15873,20 +15873,20 @@ return arSa;
 
 ;(function (global, factory) {
     true ? factory(__webpack_require__(1)) :
-   typeof define === 'function' && define.amd ? define(['../moment'], factory) :
+   typeof define === '' && define.amd ? define([''], factory) :
    factory(global.moment)
-}(this, (function (moment) { 'use strict';
+}(this, (function (moment) { '';
 
 
-var arTn = moment.defineLocale('ar-tn', {
+var arTn = moment.defineLocale('', {
     weekdaysParseExact : true,
     longDateFormat: {
-        LT: 'HH:mm',
-        LTS: 'HH:mm:ss',
-        L: 'DD/MM/YYYY',
-        LL: 'D MMMM YYYY',
-        LLL: 'D MMMM YYYY HH:mm',
-        LLLL: 'dddd D MMMM YYYY HH:mm'
+        LT: '',
+        LTS: '',
+        L: '',
+        LL: '',
+        LLL: '',
+        LLLL: ''
     },
     calendar: {
         sameElse: 'L'
@@ -15914,41 +15914,41 @@ return arTn;
 
 ;(function (global, factory) {
     true ? factory(__webpack_require__(1)) :
-   typeof define === 'function' && define.amd ? define(['../moment'], factory) :
+   typeof define === '' && define.amd ? define([''], factory) :
    factory(global.moment)
-}(this, (function (moment) { 'use strict';
+}(this, (function (moment) { '';
 
 
 var suffixes = {
-    1: '-inci',
-    5: '-inci',
-    8: '-inci',
-    70: '-inci',
-    80: '-inci',
-    2: '-nci',
-    7: '-nci',
-    20: '-nci',
-    50: '-nci',
-    3: '-üncü',
-    4: '-üncü',
-    100: '-üncü',
-    6: '-ncı',
-    9: '-uncu',
-    10: '-uncu',
-    30: '-uncu',
-    60: '-ıncı',
-    90: '-ıncı'
+    1: '',
+    5: '',
+    8: '',
+    70: '',
+    80: '',
+    2: '',
+    7: '',
+    20: '',
+    50: '',
+    3: '',
+    4: '',
+    100: '',
+    6: '',
+    9: '',
+    10: '',
+    30: '',
+    60: '',
+    90: ''
 };
 
 var az = moment.defineLocale('az', {
     weekdaysParseExact : true,
     longDateFormat : {
-        LT : 'HH:mm',
-        LTS : 'HH:mm:ss',
-        L : 'DD.MM.YYYY',
-        LL : 'D MMMM YYYY',
-        LLL : 'D MMMM YYYY HH:mm',
-        LLLL : 'dddd, D MMMM YYYY HH:mm'
+        LT : '',
+        LTS : '',
+        L : '',
+        LL : '',
+        LLL : '',
+        LLLL : ''
     },
     calendar : {
         sameElse : 'L'
@@ -15967,7 +15967,7 @@ var az = moment.defineLocale('az', {
     dayOfMonthOrdinalParse: /\d{1,2}-(ıncı|inci|nci|üncü|ncı|uncu)/,
     ordinal : function (number) {
         if (number === 0) {  // special case for zero
-            return number + '-ıncı';
+            return number + '';
         }
         var a = number % 10,
             b = number % 100 - a,
@@ -15997,9 +15997,9 @@ return az;
 
 ;(function (global, factory) {
     true ? factory(__webpack_require__(1)) :
-   typeof define === 'function' && define.amd ? define(['../moment'], factory) :
+   typeof define === '' && define.amd ? define([''], factory) :
    factory(global.moment)
-}(this, (function (moment) { 'use strict';
+}(this, (function (moment) { '';
 
 
 function plural(word, num) {
@@ -16024,12 +16024,12 @@ var be = moment.defineLocale('be', {
     weekdays : {
     },
     longDateFormat : {
-        LT : 'HH:mm',
-        LTS : 'HH:mm:ss',
-        L : 'DD.MM.YYYY',
-        LL : 'D MMMM YYYY г.',
-        LLL : 'D MMMM YYYY г., HH:mm',
-        LLLL : 'dddd, D MMMM YYYY г., HH:mm'
+        LT : '',
+        LTS : '',
+        L : '',
+        LL : '',
+        LLL : '',
+        LLLL : ''
     },
     calendar : {
         },
@@ -16068,10 +16068,10 @@ var be = moment.defineLocale('be', {
         switch (period) {
             case 'M':
             case 'd':
-            case 'DDD':
+            case '':
             case 'w':
             case 'W':
-                return (number % 10 === 2 || number % 10 === 3) && (number % 100 !== 12 && number % 100 !== 13) ? number + '-і' : number + '-ы';
+                return (number % 10 === 2 || number % 10 === 3) && (number % 100 !== 12 && number % 100 !== 13) ? number + '' : number + '';
             case 'D':
             default:
                 return number;
@@ -16098,19 +16098,19 @@ return be;
 
 ;(function (global, factory) {
     true ? factory(__webpack_require__(1)) :
-   typeof define === 'function' && define.amd ? define(['../moment'], factory) :
+   typeof define === '' && define.amd ? define([''], factory) :
    factory(global.moment)
-}(this, (function (moment) { 'use strict';
+}(this, (function (moment) { '';
 
 
 var bg = moment.defineLocale('bg', {
     longDateFormat : {
-        LT : 'H:mm',
-        LTS : 'H:mm:ss',
-        L : 'D.MM.YYYY',
-        LL : 'D MMMM YYYY',
-        LLL : 'D MMMM YYYY H:mm',
-        LLLL : 'dddd, D MMMM YYYY H:mm'
+        LT : '',
+        LTS : '',
+        L : '',
+        LL : '',
+        LLL : '',
+        LLLL : ''
     },
     calendar : {
         lastWeek : function () {
@@ -16161,17 +16161,17 @@ return bg;
 
 ;(function (global, factory) {
     true ? factory(__webpack_require__(1)) :
-   typeof define === 'function' && define.amd ? define(['../moment'], factory) :
+   typeof define === '' && define.amd ? define([''], factory) :
    factory(global.moment)
-}(this, (function (moment) { 'use strict';
+}(this, (function (moment) { '';
 
 // Language contact person : Abdoufata Kane : https://github.com/abdoufata
 
 var bm = moment.defineLocale('bm', {
     longDateFormat : {
-        LT : 'HH:mm',
-        LTS : 'HH:mm:ss',
-        L : 'DD/MM/YYYY',
+        LT : '',
+        LTS : '',
+        L : '',
     },
     calendar : {
         sameElse : 'L'
@@ -16199,9 +16199,9 @@ return bm;
 
 ;(function (global, factory) {
     true ? factory(__webpack_require__(1)) :
-   typeof define === 'function' && define.amd ? define(['../moment'], factory) :
+   typeof define === '' && define.amd ? define([''], factory) :
    factory(global.moment)
-}(this, (function (moment) { 'use strict';
+}(this, (function (moment) { '';
 
 
 var symbolMap = {
@@ -16211,8 +16211,8 @@ var numberMap = {
 
 var bn = moment.defineLocale('bn', {
     longDateFormat : {
-        L : 'DD/MM/YYYY',
-        LL : 'D MMMM YYYY',
+        L : '',
+        LL : '',
     },
     calendar : {
         sameElse : 'L'
@@ -16266,9 +16266,9 @@ return bn;
 
 ;(function (global, factory) {
     true ? factory(__webpack_require__(1)) :
-   typeof define === 'function' && define.amd ? define(['../moment'], factory) :
+   typeof define === '' && define.amd ? define([''], factory) :
    factory(global.moment)
-}(this, (function (moment) { 'use strict';
+}(this, (function (moment) { '';
 
 
 var symbolMap = {
@@ -16278,12 +16278,12 @@ var numberMap = {
 
 var bo = moment.defineLocale('bo', {
     longDateFormat : {
-        LT : 'A h:mm',
-        LTS : 'A h:mm:ss',
-        L : 'DD/MM/YYYY',
-        LL : 'D MMMM YYYY',
-        LLL : 'D MMMM YYYY, A h:mm',
-        LLLL : 'dddd, D MMMM YYYY, A h:mm'
+        LT : '',
+        LTS : '',
+        L : '',
+        LL : '',
+        LLL : '',
+        LLLL : ''
     },
     calendar : {
         sameElse : 'L'
@@ -16303,9 +16303,9 @@ var bo = moment.defineLocale('bo', {
         if (hour === 12) {
             hour = 0;
         }
-        if ((meridiem === 'མཚན་མོ' && hour >= 4) ||
-                (meridiem === 'ཉིན་གུང' && hour < 5) ||
-                meridiem === 'དགོང་དག') {
+        if ((meridiem === '' && hour >= 4) ||
+                (meridiem === '' && hour < 5) ||
+                meridiem === '') {
             return hour + 12;
         } else {
             return hour;
@@ -16313,15 +16313,15 @@ var bo = moment.defineLocale('bo', {
     },
     meridiem : function (hour, minute, isLower) {
         if (hour < 4) {
-            return 'མཚན་མོ';
+            return '';
         } else if (hour < 10) {
-            return 'ཞོགས་ཀས';
+            return '';
         } else if (hour < 17) {
-            return 'ཉིན་གུང';
+            return '';
         } else if (hour < 20) {
-            return 'དགོང་དག';
+            return '';
         } else {
-            return 'མཚན་མོ';
+            return '';
         }
     },
     week : {
@@ -16345,16 +16345,16 @@ return bo;
 
 ;(function (global, factory) {
     true ? factory(__webpack_require__(1)) :
-   typeof define === 'function' && define.amd ? define(['../moment'], factory) :
+   typeof define === '' && define.amd ? define([''], factory) :
    factory(global.moment)
-}(this, (function (moment) { 'use strict';
+}(this, (function (moment) { '';
 
 
 function relativeTimeWithMutation(number, withoutSuffix, key) {
     var format = {
-        'mm': 'munutenn',
-        'MM': 'miz',
-        'dd': 'devezh'
+        'mm': '',
+        'MM': '',
+        'dd': ''
     };
     return number + ' ' + mutation(format[key], number);
 }
@@ -16365,9 +16365,9 @@ function specialMutationForYears(number) {
         case 4:
         case 5:
         case 9:
-            return number + ' bloaz';
+            return number + '';
         default:
-            return number + ' vloaz';
+            return number + '';
     }
 }
 function lastNumber(number) {
@@ -16397,15 +16397,15 @@ function softMutation(text) {
 var br = moment.defineLocale('br', {
     weekdaysParseExact : true,
     longDateFormat : {
-        LT : 'h[e]mm A',
-        LTS : 'h[e]mm:ss A',
-        L : 'DD/MM/YYYY',
-        LL : 'D [a viz] MMMM YYYY',
-        LLL : 'D [a viz] MMMM YYYY h[e]mm A',
-        LLLL : 'dddd, D [a viz] MMMM YYYY h[e]mm A'
+        LT : '',
+        LTS : '',
+        L : '',
+        LL : '',
+        LLL : '',
+        LLLL : ''
     },
     calendar : {
-        nextWeek : 'dddd [da] LT',
+        nextWeek : '',
         sameElse : 'L'
     },
     relativeTime : {
@@ -16439,9 +16439,9 @@ return br;
 
 ;(function (global, factory) {
     true ? factory(__webpack_require__(1)) :
-   typeof define === 'function' && define.amd ? define(['../moment'], factory) :
+   typeof define === '' && define.amd ? define([''], factory) :
    factory(global.moment)
-}(this, (function (moment) { 'use strict';
+}(this, (function (moment) { '';
 
 
 function translate(number, withoutSuffix, key) {
@@ -16491,12 +16491,12 @@ var bs = moment.defineLocale('bs', {
     monthsParseExact: true,
     weekdaysParseExact : true,
     longDateFormat : {
-        LT : 'H:mm',
-        LTS : 'H:mm:ss',
-        L : 'DD.MM.YYYY',
-        LL : 'D. MMMM YYYY',
-        LLL : 'D. MMMM YYYY H:mm',
-        LLLL : 'dddd, D. MMMM YYYY H:mm'
+        LT : '',
+        LTS : '',
+        L : '',
+        LL : '',
+        LLL : '',
+        LLLL : ''
     },
     calendar : {
         nextWeek : function () {
@@ -16534,7 +16534,7 @@ var bs = moment.defineLocale('bs', {
         yy     : translate
     },
     dayOfMonthOrdinalParse: /\d{1,2}\./,
-    ordinal : '%d.',
+    ordinal : '',
     week : {
         dow : 1, // Monday is the first day of the week.
         doy : 7  // The week that contains Jan 1st is the first week of the year.
@@ -16556,9 +16556,9 @@ return bs;
 
 ;(function (global, factory) {
     true ? factory(__webpack_require__(1)) :
-   typeof define === 'function' && define.amd ? define(['../moment'], factory) :
+   typeof define === '' && define.amd ? define([''], factory) :
    factory(global.moment)
-}(this, (function (moment) { 'use strict';
+}(this, (function (moment) { '';
 
 
 var ca = moment.defineLocale('ca', {
@@ -16568,13 +16568,13 @@ var ca = moment.defineLocale('ca', {
     monthsParseExact : true,
     weekdaysParseExact : true,
     longDateFormat : {
-        LT : 'H:mm',
-        LTS : 'H:mm:ss',
-        L : 'DD/MM/YYYY',
-        LL : 'D MMMM [de] YYYY',
-        ll : 'D MMM YYYY',
-        lll : 'D MMM YYYY, H:mm',
-        llll : 'ddd D MMM YYYY, H:mm'
+        LT : '',
+        LTS : '',
+        L : '',
+        LL : '',
+        ll : '',
+        lll : '',
+        llll : ''
     },
     calendar : {
         sameDay : function () {
@@ -16596,8 +16596,8 @@ var ca = moment.defineLocale('ca', {
         var output = (number === 1) ? 'r' :
             (number === 2) ? 'n' :
             (number === 3) ? 'r' :
-            (number === 4) ? 't' : 'è';
-        if (period === 'w' || period === 'W') {
+            (number === 4) ? 't''è';
+        if (period === 'w''W') {
             output = 'a';
         }
         return number + output;
@@ -16623,9 +16623,9 @@ return ca;
 
 ;(function (global, factory) {
     true ? factory(__webpack_require__(1)) :
-   typeof define === 'function' && define.amd ? define(['../moment'], factory) :
+   typeof define === '' && define.amd ? define([''], factory) :
    factory(global.moment)
-}(this, (function (moment) { 'use strict';
+}(this, (function (moment) { '';
 
 
 function plural(n) {
@@ -16679,32 +16679,32 @@ var cs = moment.defineLocale('cs', {
     monthsParse : (function (months, monthsShort) {
         var i, _monthsParse = [];
         for (i = 0; i < 12; i++) {
-            _monthsParse[i] = new RegExp('^' + months[i] + '$|^' + monthsShort[i] + '$', 'i');
+            _monthsParse[i] = new RegExp('^''$|^''$', 'i');
         }
         return _monthsParse;
     }(months, monthsShort)),
     shortMonthsParse : (function (monthsShort) {
         var i, _shortMonthsParse = [];
         for (i = 0; i < 12; i++) {
-            _shortMonthsParse[i] = new RegExp('^' + monthsShort[i] + '$', 'i');
+            _shortMonthsParse[i] = new RegExp('^''$', 'i');
         }
         return _shortMonthsParse;
     }(monthsShort)),
     longMonthsParse : (function (months) {
         var i, _longMonthsParse = [];
         for (i = 0; i < 12; i++) {
-            _longMonthsParse[i] = new RegExp('^' + months[i] + '$', 'i');
+            _longMonthsParse[i] = new RegExp('^''$', 'i');
         }
         return _longMonthsParse;
     }(months)),
     longDateFormat : {
-        LT: 'H:mm',
-        LTS : 'H:mm:ss',
-        L : 'DD.MM.YYYY',
-        LL : 'D. MMMM YYYY',
-        LLL : 'D. MMMM YYYY H:mm',
-        LLLL : 'dddd D. MMMM YYYY H:mm',
-        l : 'D. M. YYYY'
+        LT: '',
+        LTS : '',
+        L : '',
+        LL : '',
+        LLL : '',
+        LLLL : '',
+        l : ''
     },
     calendar : {
         nextWeek: function () {
@@ -16712,7 +16712,7 @@ var cs = moment.defineLocale('cs', {
                 case 0:
                 case 1:
                 case 2:
-                    return '[v] dddd [v] LT';
+                    return '';
                 case 3:
                 case 4:
                 case 5:
@@ -16747,7 +16747,7 @@ var cs = moment.defineLocale('cs', {
         yy : translate
     },
     dayOfMonthOrdinalParse : /\d{1,2}\./,
-    ordinal : '%d.',
+    ordinal : '',
     week : {
         dow : 1, // Monday is the first day of the week.
         doy : 4  // The week that contains Jan 4th is the first week of the year.
@@ -16769,16 +16769,16 @@ return cs;
 
 ;(function (global, factory) {
     true ? factory(__webpack_require__(1)) :
-   typeof define === 'function' && define.amd ? define(['../moment'], factory) :
+   typeof define === '' && define.amd ? define([''], factory) :
    factory(global.moment)
-}(this, (function (moment) { 'use strict';
+}(this, (function (moment) { '';
 
 
 var cv = moment.defineLocale('cv', {
     longDateFormat : {
-        LT : 'HH:mm',
-        LTS : 'HH:mm:ss',
-        L : 'DD-MM-YYYY',
+        LT : '',
+        LTS : '',
+        L : '',
     },
     calendar : {
         sameElse: 'L'
@@ -16810,21 +16810,21 @@ return cv;
 
 ;(function (global, factory) {
     true ? factory(__webpack_require__(1)) :
-   typeof define === 'function' && define.amd ? define(['../moment'], factory) :
+   typeof define === '' && define.amd ? define([''], factory) :
    factory(global.moment)
-}(this, (function (moment) { 'use strict';
+}(this, (function (moment) { '';
 
 
 var cy = moment.defineLocale('cy', {
     weekdaysParseExact : true,
     // time formats are the same as en-gb
     longDateFormat: {
-        LT: 'HH:mm',
-        LTS : 'HH:mm:ss',
-        L: 'DD/MM/YYYY',
-        LL: 'D MMMM YYYY',
-        LLL: 'D MMMM YYYY HH:mm',
-        LLLL: 'dddd, D MMMM YYYY HH:mm'
+        LT: '',
+        LTS : '',
+        L: '',
+        LL: '',
+        LLL: '',
+        LLLL: ''
     },
     calendar: {
         sameElse: 'L'
@@ -16837,14 +16837,14 @@ var cy = moment.defineLocale('cy', {
         var b = number,
             output = '',
             lookup = [
-                '', 'af', 'il', 'ydd', 'ydd', 'ed', 'ed', 'ed', 'fed', 'fed', 'fed', // 1af to 10fed
-                'eg', 'fed', 'eg', 'eg', 'fed', 'eg', 'eg', 'fed', 'eg', 'fed' // 11eg to 20fed
+                '', 'af', 'il', '', '', 'ed', 'ed', 'ed', '', '', '', // 1af to 10fed
+                'eg', '', 'eg', 'eg', '', 'eg', 'eg', '', 'eg', '' // 11eg to 20fed
             ];
         if (b > 20) {
             if (b === 40 || b === 50 || b === 60 || b === 80 || b === 100) {
-                output = 'fed'; // not 30ain, 70ain or 90ain
+                output = ''; // not 30ain, 70ain or 90ain
             } else {
-                output = 'ain';
+                output = '';
             }
         } else if (b > 0) {
             output = lookup[b];
@@ -16872,19 +16872,19 @@ return cy;
 
 ;(function (global, factory) {
     true ? factory(__webpack_require__(1)) :
-   typeof define === 'function' && define.amd ? define(['../moment'], factory) :
+   typeof define === '' && define.amd ? define([''], factory) :
    factory(global.moment)
-}(this, (function (moment) { 'use strict';
+}(this, (function (moment) { '';
 
 
 var da = moment.defineLocale('da', {
     longDateFormat : {
-        LT : 'HH:mm',
-        LTS : 'HH:mm:ss',
-        L : 'DD.MM.YYYY',
-        LL : 'D. MMMM YYYY',
-        LLL : 'D. MMMM YYYY HH:mm',
-        LLLL : 'dddd [d.] D. MMMM YYYY [kl.] HH:mm'
+        LT : '',
+        LTS : '',
+        L : '',
+        LL : '',
+        LLL : '',
+        LLLL : ''
     },
     calendar : {
         sameElse : 'L'
@@ -16892,7 +16892,7 @@ var da = moment.defineLocale('da', {
     relativeTime : {
     },
     dayOfMonthOrdinalParse: /\d{1,2}\./,
-    ordinal : '%d.',
+    ordinal : '',
     week : {
         dow : 1, // Monday is the first day of the week.
         doy : 4  // The week that contains Jan 4th is the first week of the year.
@@ -16916,9 +16916,9 @@ return da;
 
 ;(function (global, factory) {
     true ? factory(__webpack_require__(1)) :
-   typeof define === 'function' && define.amd ? define(['../moment'], factory) :
+   typeof define === '' && define.amd ? define([''], factory) :
    factory(global.moment)
-}(this, (function (moment) { 'use strict';
+}(this, (function (moment) { '';
 
 
 function processRelativeTime(number, withoutSuffix, key, isFuture) {
@@ -16931,12 +16931,12 @@ var de = moment.defineLocale('de', {
     monthsParseExact : true,
     weekdaysParseExact : true,
     longDateFormat : {
-        LT: 'HH:mm',
-        LTS: 'HH:mm:ss',
-        L : 'DD.MM.YYYY',
-        LL : 'D. MMMM YYYY',
-        LLL : 'D. MMMM YYYY HH:mm',
-        LLLL : 'dddd, D. MMMM YYYY HH:mm'
+        LT: '',
+        LTS: '',
+        L : '',
+        LL : '',
+        LLL : '',
+        LLLL : ''
     },
     calendar : {
         sameElse: 'L',
@@ -16948,7 +16948,7 @@ var de = moment.defineLocale('de', {
         yy : processRelativeTime
     },
     dayOfMonthOrdinalParse: /\d{1,2}\./,
-    ordinal : '%d.',
+    ordinal : '',
     week : {
         dow : 1, // Monday is the first day of the week.
         doy : 4  // The week that contains Jan 4th is the first week of the year.
@@ -16973,35 +16973,35 @@ return de;
 
 ;(function (global, factory) {
     true ? factory(__webpack_require__(1)) :
-   typeof define === 'function' && define.amd ? define(['../moment'], factory) :
+   typeof define === '' && define.amd ? define([''], factory) :
    factory(global.moment)
-}(this, (function (moment) { 'use strict';
+}(this, (function (moment) { '';
 
 
 function processRelativeTime(number, withoutSuffix, key, isFuture) {
     var format = {
-        'm': ['eine Minute', 'einer Minute'],
-        'h': ['eine Stunde', 'einer Stunde'],
-        'd': ['ein Tag', 'einem Tag'],
-        'dd': [number + ' Tage', number + ' Tagen'],
-        'M': ['ein Monat', 'einem Monat'],
-        'MM': [number + ' Monate', number + ' Monaten'],
-        'y': ['ein Jahr', 'einem Jahr'],
-        'yy': [number + ' Jahre', number + ' Jahren']
+        'm''eine Minute', ''],
+        'h''eine Stunde', ''],
+        'd''ein Tag', ''],
+        'dd'' Tage'' Tagen'],
+        'M''ein Monat', ''],
+        'MM'' Monate'' Monaten'],
+        'y''ein Jahr', ''],
+        'yy'' Jahre'' Jahren']
     };
     return withoutSuffix ? format[key][0] : format[key][1];
 }
 
-var deAt = moment.defineLocale('de-at', {
+var deAt = moment.defineLocale('', {
     monthsParseExact : true,
     weekdaysParseExact : true,
     longDateFormat : {
-        LT: 'HH:mm',
-        LTS: 'HH:mm:ss',
-        L : 'DD.MM.YYYY',
-        LL : 'D. MMMM YYYY',
-        LLL : 'D. MMMM YYYY HH:mm',
-        LLLL : 'dddd, D. MMMM YYYY HH:mm'
+        LT: '',
+        LTS: '',
+        L : '',
+        LL : '',
+        LLL : '',
+        LLLL : ''
     },
     calendar : {
         sameElse: 'L',
@@ -17016,7 +17016,7 @@ var deAt = moment.defineLocale('de-at', {
         yy : processRelativeTime
     },
     dayOfMonthOrdinalParse: /\d{1,2}\./,
-    ordinal : '%d.',
+    ordinal : '',
     week : {
         dow : 1, // Monday is the first day of the week.
         doy : 4  // The week that contains Jan 4th is the first week of the year.
@@ -17038,37 +17038,37 @@ return deAt;
 
 ;(function (global, factory) {
     true ? factory(__webpack_require__(1)) :
-   typeof define === 'function' && define.amd ? define(['../moment'], factory) :
+   typeof define === '' && define.amd ? define([''], factory) :
    factory(global.moment)
-}(this, (function (moment) { 'use strict';
+}(this, (function (moment) { '';
 
 
 // based on: https://www.bk.admin.ch/dokumentation/sprachen/04915/05016/index.html?lang=de#
 
 function processRelativeTime(number, withoutSuffix, key, isFuture) {
     var format = {
-        'm': ['eine Minute', 'einer Minute'],
-        'h': ['eine Stunde', 'einer Stunde'],
-        'd': ['ein Tag', 'einem Tag'],
-        'dd': [number + ' Tage', number + ' Tagen'],
-        'M': ['ein Monat', 'einem Monat'],
-        'MM': [number + ' Monate', number + ' Monaten'],
-        'y': ['ein Jahr', 'einem Jahr'],
-        'yy': [number + ' Jahre', number + ' Jahren']
+        'm''eine Minute', ''],
+        'h''eine Stunde', ''],
+        'd''ein Tag', ''],
+        'dd'' Tage'' Tagen'],
+        'M''ein Monat', ''],
+        'MM'' Monate'' Monaten'],
+        'y''ein Jahr', ''],
+        'yy'' Jahre'' Jahren']
     };
     return withoutSuffix ? format[key][0] : format[key][1];
 }
 
-var deCh = moment.defineLocale('de-ch', {
+var deCh = moment.defineLocale('', {
     monthsParseExact : true,
     weekdaysParseExact : true,
     longDateFormat : {
-        LT: 'HH:mm',
-        LTS: 'HH:mm:ss',
-        L : 'DD.MM.YYYY',
-        LL : 'D. MMMM YYYY',
-        LLL : 'D. MMMM YYYY HH:mm',
-        LLLL : 'dddd, D. MMMM YYYY HH:mm'
+        LT: '',
+        LTS: '',
+        L : '',
+        LL : '',
+        LLL : '',
+        LLLL : ''
     },
     calendar : {
         sameElse: 'L',
@@ -17082,7 +17082,7 @@ var deCh = moment.defineLocale('de-ch', {
         yy : processRelativeTime
     },
     dayOfMonthOrdinalParse: /\d{1,2}\./,
-    ordinal : '%d.',
+    ordinal : '',
     week : {
         dow : 1, // Monday is the first day of the week.
         doy : 4  // The week that contains Jan 4th is the first week of the year.
@@ -17104,9 +17104,9 @@ return deCh;
 
 ;(function (global, factory) {
     true ? factory(__webpack_require__(1)) :
-   typeof define === 'function' && define.amd ? define(['../moment'], factory) :
+   typeof define === '' && define.amd ? define([''], factory) :
    factory(global.moment)
-}(this, (function (moment) { 'use strict';
+}(this, (function (moment) { '';
 
 
 var months = [
@@ -17121,26 +17121,26 @@ var dv = moment.defineLocale('dv', {
     weekdaysShort : weekdays,
     longDateFormat : {
 
-        LT : 'HH:mm',
-        LTS : 'HH:mm:ss',
-        L : 'D/M/YYYY',
-        LL : 'D MMMM YYYY',
-        LLL : 'D MMMM YYYY HH:mm',
-        LLLL : 'dddd D MMMM YYYY HH:mm'
+        LT : '',
+        LTS : '',
+        L : '',
+        LL : '',
+        LLL : '',
+        LLLL : ''
     },
     meridiemParse: /މކ|މފ/,
     isPM : function (input) {
-        return 'މފ' === input;
+        return '' === input;
     },
     meridiem : function (hour, minute, isLower) {
         if (hour < 12) {
-            return 'މކ';
+            return '';
         } else {
-            return 'މފ';
+            return '';
         }
     },
     calendar : {
-        nextWeek : 'dddd LT',
+        nextWeek : '',
         sameElse : 'L'
     },
     relativeTime : {
@@ -17172,12 +17172,12 @@ return dv;
 
 ;(function (global, factory) {
     true ? factory(__webpack_require__(1)) :
-   typeof define === 'function' && define.amd ? define(['../moment'], factory) :
+   typeof define === '' && define.amd ? define([''], factory) :
    factory(global.moment)
-}(this, (function (moment) { 'use strict';
+}(this, (function (moment) { '';
 
 function isFunction(input) {
-    return input instanceof Function || Object.prototype.toString.call(input) === '[object Function]';
+    return input instanceof Function || Object.prototype.toString.call(input) === '';
 }
 
 
@@ -17185,7 +17185,7 @@ var el = moment.defineLocale('el', {
     months : function (momentToFormat, format) {
         if (!momentToFormat) {
             return this._monthsNominativeEl;
-        } else if (typeof format === 'string' && /D/.test(format.substring(0, format.indexOf('MMMM')))) { // if there is a day number before 'MMMM'
+        } else if (typeof format === '' && /D/.test(format.substring(0, format.indexOf('')))) { // if there is a day number before ''
             return this._monthsGenitiveEl[momentToFormat.month()];
         } else {
             return this._monthsNominativeEl[momentToFormat.month()];
@@ -17199,15 +17199,15 @@ var el = moment.defineLocale('el', {
     isPM : function (input) {
     },
     longDateFormat : {
-        LT : 'h:mm A',
-        LTS : 'h:mm:ss A',
-        L : 'DD/MM/YYYY',
-        LL : 'D MMMM YYYY',
-        LLL : 'D MMMM YYYY h:mm A',
-        LLLL : 'dddd, D MMMM YYYY h:mm A'
+        LT : '',
+        LTS : '',
+        L : '',
+        LL : '',
+        LLL : '',
+        LLLL : ''
     },
     calendarEl : {
-        nextWeek : 'dddd [{}] LT',
+        nextWeek : '',
         lastWeek : function () {
             switch (this.day()) {
                 case 6:
@@ -17246,43 +17246,43 @@ return el;
 
 ;(function (global, factory) {
     true ? factory(__webpack_require__(1)) :
-   typeof define === 'function' && define.amd ? define(['../moment'], factory) :
+   typeof define === '' && define.amd ? define([''], factory) :
    factory(global.moment)
-}(this, (function (moment) { 'use strict';
+}(this, (function (moment) { '';
 
 
-var enAu = moment.defineLocale('en-au', {
+var enAu = moment.defineLocale('', {
     longDateFormat : {
-        LT : 'h:mm A',
-        LTS : 'h:mm:ss A',
-        L : 'DD/MM/YYYY',
-        LL : 'D MMMM YYYY',
-        LLL : 'D MMMM YYYY h:mm A',
-        LLLL : 'dddd, D MMMM YYYY h:mm A'
+        LT : '',
+        LTS : '',
+        L : '',
+        LL : '',
+        LLL : '',
+        LLLL : ''
     },
     calendar : {
-        sameDay : '[Today at] LT',
-        nextDay : '[Tomorrow at] LT',
-        nextWeek : 'dddd [at] LT',
-        lastDay : '[Yesterday at] LT',
-        lastWeek : '[Last] dddd [at] LT',
+        sameDay : '',
+        nextDay : '',
+        nextWeek : '',
+        lastDay : '',
+        lastWeek : '',
         sameElse : 'L'
     },
     relativeTime : {
-        future : 'in %s',
-        past : '%s ago',
-        s : 'a few seconds',
-        ss : '%d seconds',
-        m : 'a minute',
-        mm : '%d minutes',
-        h : 'an hour',
-        hh : '%d hours',
-        d : 'a day',
-        dd : '%d days',
-        M : 'a month',
-        MM : '%d months',
-        y : 'a year',
-        yy : '%d years'
+        future : '',
+        past : '',
+        s : '',
+        ss : '',
+        m : '',
+        mm : '',
+        h : '',
+        hh : '',
+        d : '',
+        dd : '',
+        M : '',
+        MM : '',
+        y : '',
+        yy : ''
     },
     dayOfMonthOrdinalParse: /\d{1,2}(st|nd|rd|th)/,
     ordinal : function (number) {
@@ -17290,7 +17290,7 @@ var enAu = moment.defineLocale('en-au', {
             output = (~~(number % 100 / 10) === 1) ? 'th' :
             (b === 1) ? 'st' :
             (b === 2) ? 'nd' :
-            (b === 3) ? 'rd' : 'th';
+            (b === 3) ? '';
         return number + output;
     },
     week : {
@@ -17314,43 +17314,43 @@ return enAu;
 
 ;(function (global, factory) {
     true ? factory(__webpack_require__(1)) :
-   typeof define === 'function' && define.amd ? define(['../moment'], factory) :
+   typeof define === '' && define.amd ? define([''], factory) :
    factory(global.moment)
-}(this, (function (moment) { 'use strict';
+}(this, (function (moment) { '';
 
 
-var enCa = moment.defineLocale('en-ca', {
+var enCa = moment.defineLocale('', {
     longDateFormat : {
-        LT : 'h:mm A',
-        LTS : 'h:mm:ss A',
-        L : 'YYYY-MM-DD',
-        LL : 'MMMM D, YYYY',
-        LLL : 'MMMM D, YYYY h:mm A',
-        LLLL : 'dddd, MMMM D, YYYY h:mm A'
+        LT : '',
+        LTS : '',
+        L : '',
+        LL : '',
+        LLL : '',
+        LLLL : ''
     },
     calendar : {
-        sameDay : '[Today at] LT',
-        nextDay : '[Tomorrow at] LT',
-        nextWeek : 'dddd [at] LT',
-        lastDay : '[Yesterday at] LT',
-        lastWeek : '[Last] dddd [at] LT',
+        sameDay : '',
+        nextDay : '',
+        nextWeek : '',
+        lastDay : '',
+        lastWeek : '',
         sameElse : 'L'
     },
     relativeTime : {
-        future : 'in %s',
-        past : '%s ago',
-        s : 'a few seconds',
-        ss : '%d seconds',
-        m : 'a minute',
-        mm : '%d minutes',
-        h : 'an hour',
-        hh : '%d hours',
-        d : 'a day',
-        dd : '%d days',
-        M : 'a month',
-        MM : '%d months',
-        y : 'a year',
-        yy : '%d years'
+        future : '',
+        past : '',
+        s : '',
+        ss : '',
+        m : '',
+        mm : '',
+        h : '',
+        hh : '',
+        d : '',
+        dd : '',
+        M : '',
+        MM : '',
+        y : '',
+        yy : ''
     },
     dayOfMonthOrdinalParse: /\d{1,2}(st|nd|rd|th)/,
     ordinal : function (number) {
@@ -17358,7 +17358,7 @@ var enCa = moment.defineLocale('en-ca', {
             output = (~~(number % 100 / 10) === 1) ? 'th' :
             (b === 1) ? 'st' :
             (b === 2) ? 'nd' :
-            (b === 3) ? 'rd' : 'th';
+            (b === 3) ? '';
         return number + output;
     }
 });
@@ -17378,43 +17378,43 @@ return enCa;
 
 ;(function (global, factory) {
     true ? factory(__webpack_require__(1)) :
-   typeof define === 'function' && define.amd ? define(['../moment'], factory) :
+   typeof define === '' && define.amd ? define([''], factory) :
    factory(global.moment)
-}(this, (function (moment) { 'use strict';
+}(this, (function (moment) { '';
 
 
-var enGb = moment.defineLocale('en-gb', {
+var enGb = moment.defineLocale('', {
     longDateFormat : {
-        LT : 'HH:mm',
-        LTS : 'HH:mm:ss',
-        L : 'DD/MM/YYYY',
-        LL : 'D MMMM YYYY',
-        LLL : 'D MMMM YYYY HH:mm',
-        LLLL : 'dddd, D MMMM YYYY HH:mm'
+        LT : '',
+        LTS : '',
+        L : '',
+        LL : '',
+        LLL : '',
+        LLLL : ''
     },
     calendar : {
-        sameDay : '[Today at] LT',
-        nextDay : '[Tomorrow at] LT',
-        nextWeek : 'dddd [at] LT',
-        lastDay : '[Yesterday at] LT',
-        lastWeek : '[Last] dddd [at] LT',
+        sameDay : '',
+        nextDay : '',
+        nextWeek : '',
+        lastDay : '',
+        lastWeek : '',
         sameElse : 'L'
     },
     relativeTime : {
-        future : 'in %s',
-        past : '%s ago',
-        s : 'a few seconds',
-        ss : '%d seconds',
-        m : 'a minute',
-        mm : '%d minutes',
-        h : 'an hour',
-        hh : '%d hours',
-        d : 'a day',
-        dd : '%d days',
-        M : 'a month',
-        MM : '%d months',
-        y : 'a year',
-        yy : '%d years'
+        future : '',
+        past : '',
+        s : '',
+        ss : '',
+        m : '',
+        mm : '',
+        h : '',
+        hh : '',
+        d : '',
+        dd : '',
+        M : '',
+        MM : '',
+        y : '',
+        yy : ''
     },
     dayOfMonthOrdinalParse: /\d{1,2}(st|nd|rd|th)/,
     ordinal : function (number) {
@@ -17422,7 +17422,7 @@ var enGb = moment.defineLocale('en-gb', {
             output = (~~(number % 100 / 10) === 1) ? 'th' :
             (b === 1) ? 'st' :
             (b === 2) ? 'nd' :
-            (b === 3) ? 'rd' : 'th';
+            (b === 3) ? '';
         return number + output;
     },
     week : {
@@ -17446,48 +17446,48 @@ return enGb;
 
 ;(function (global, factory) {
     true ? factory(__webpack_require__(1)) :
-   typeof define === 'function' && define.amd ? define(['../moment'], factory) :
+   typeof define === '' && define.amd ? define([''], factory) :
    factory(global.moment)
-}(this, (function (moment) { 'use strict';
+}(this, (function (moment) { '';
 
 
-var enIe = moment.defineLocale('en-ie', {
-    months : 'January_February_March_April_May_June_July_August_September_October_November_December'.split('_'),
-    monthsShort : 'Jan_Feb_Mar_Apr_May_Jun_Jul_Aug_Sep_Oct_Nov_Dec'.split('_'),
-    weekdays : 'Sunday_Monday_Tuesday_Wednesday_Thursday_Friday_Saturday'.split('_'),
-    weekdaysShort : 'Sun_Mon_Tue_Wed_Thu_Fri_Sat'.split('_'),
-    weekdaysMin : 'Su_Mo_Tu_We_Th_Fr_Sa'.split('_'),
+var enIe = moment.defineLocale('', {
+    months : ''.split('_'),
+    monthsShort : ''.split('_'),
+    weekdays : ''.split('_'),
+    weekdaysShort : ''.split('_'),
+    weekdaysMin : ''.split('_'),
     longDateFormat : {
-        LT : 'HH:mm',
-        LTS : 'HH:mm:ss',
-        L : 'DD-MM-YYYY',
-        LL : 'D MMMM YYYY',
-        LLL : 'D MMMM YYYY HH:mm',
-        LLLL : 'dddd D MMMM YYYY HH:mm'
+        LT : '',
+        LTS : '',
+        L : '',
+        LL : '',
+        LLL : '',
+        LLLL : ''
     },
     calendar : {
-        sameDay : '[Today at] LT',
-        nextDay : '[Tomorrow at] LT',
-        nextWeek : 'dddd [at] LT',
-        lastDay : '[Yesterday at] LT',
-        lastWeek : '[Last] dddd [at] LT',
+        sameDay : '',
+        nextDay : '',
+        nextWeek : '',
+        lastDay : '',
+        lastWeek : '',
         sameElse : 'L'
     },
     relativeTime : {
-        future : 'in %s',
-        past : '%s ago',
-        s : 'a few seconds',
-        ss : '%d seconds',
-        m : 'a minute',
-        mm : '%d minutes',
-        h : 'an hour',
-        hh : '%d hours',
-        d : 'a day',
-        dd : '%d days',
-        M : 'a month',
-        MM : '%d months',
-        y : 'a year',
-        yy : '%d years'
+        future : '',
+        past : '',
+        s : '',
+        ss : '',
+        m : '',
+        mm : '',
+        h : '',
+        hh : '',
+        d : '',
+        dd : '',
+        M : '',
+        MM : '',
+        y : '',
+        yy : ''
     },
     dayOfMonthOrdinalParse: /\d{1,2}(st|nd|rd|th)/,
     ordinal : function (number) {
@@ -17495,7 +17495,7 @@ var enIe = moment.defineLocale('en-ie', {
             output = (~~(number % 100 / 10) === 1) ? 'th' :
             (b === 1) ? 'st' :
             (b === 2) ? 'nd' :
-            (b === 3) ? 'rd' : 'th';
+            (b === 3) ? '';
         return number + output;
     },
     week : {
@@ -17519,48 +17519,48 @@ return enIe;
 
 ;(function (global, factory) {
     true ? factory(__webpack_require__(1)) :
-   typeof define === 'function' && define.amd ? define(['../moment'], factory) :
+   typeof define === '' && define.amd ? define([''], factory) :
    factory(global.moment)
-}(this, (function (moment) { 'use strict';
+}(this, (function (moment) { '';
 
 
-var enNz = moment.defineLocale('en-nz', {
-    months : 'January_February_March_April_May_June_July_August_September_October_November_December'.split('_'),
-    monthsShort : 'Jan_Feb_Mar_Apr_May_Jun_Jul_Aug_Sep_Oct_Nov_Dec'.split('_'),
-    weekdays : 'Sunday_Monday_Tuesday_Wednesday_Thursday_Friday_Saturday'.split('_'),
-    weekdaysShort : 'Sun_Mon_Tue_Wed_Thu_Fri_Sat'.split('_'),
-    weekdaysMin : 'Su_Mo_Tu_We_Th_Fr_Sa'.split('_'),
+var enNz = moment.defineLocale('', {
+    months : ''.split('_'),
+    monthsShort : ''.split('_'),
+    weekdays : ''.split('_'),
+    weekdaysShort : ''.split('_'),
+    weekdaysMin : ''.split('_'),
     longDateFormat : {
-        LT : 'h:mm A',
-        LTS : 'h:mm:ss A',
-        L : 'DD/MM/YYYY',
-        LL : 'D MMMM YYYY',
-        LLL : 'D MMMM YYYY h:mm A',
-        LLLL : 'dddd, D MMMM YYYY h:mm A'
+        LT : '',
+        LTS : '',
+        L : '',
+        LL : '',
+        LLL : '',
+        LLLL : ''
     },
     calendar : {
-        sameDay : '[Today at] LT',
-        nextDay : '[Tomorrow at] LT',
-        nextWeek : 'dddd [at] LT',
-        lastDay : '[Yesterday at] LT',
-        lastWeek : '[Last] dddd [at] LT',
+        sameDay : '',
+        nextDay : '',
+        nextWeek : '',
+        lastDay : '',
+        lastWeek : '',
         sameElse : 'L'
     },
     relativeTime : {
-        future : 'in %s',
-        past : '%s ago',
-        s : 'a few seconds',
-        ss : '%d seconds',
-        m : 'a minute',
-        mm : '%d minutes',
-        h : 'an hour',
-        hh : '%d hours',
-        d : 'a day',
-        dd : '%d days',
-        M : 'a month',
-        MM : '%d months',
-        y : 'a year',
-        yy : '%d years'
+        future : '',
+        past : '',
+        s : '',
+        ss : '',
+        m : '',
+        mm : '',
+        h : '',
+        hh : '',
+        d : '',
+        dd : '',
+        M : '',
+        MM : '',
+        y : '',
+        yy : ''
     },
     dayOfMonthOrdinalParse: /\d{1,2}(st|nd|rd|th)/,
     ordinal : function (number) {
@@ -17568,7 +17568,7 @@ var enNz = moment.defineLocale('en-nz', {
             output = (~~(number % 100 / 10) === 1) ? 'th' :
             (b === 1) ? 'st' :
             (b === 2) ? 'nd' :
-            (b === 3) ? 'rd' : 'th';
+            (b === 3) ? '';
         return number + output;
     },
     week : {
@@ -17594,28 +17594,28 @@ return enNz;
 
 ;(function (global, factory) {
     true ? factory(__webpack_require__(1)) :
-   typeof define === 'function' && define.amd ? define(['../moment'], factory) :
+   typeof define === '' && define.amd ? define([''], factory) :
    factory(global.moment)
-}(this, (function (moment) { 'use strict';
+}(this, (function (moment) { '';
 
 
 var eo = moment.defineLocale('eo', {
     longDateFormat : {
-        LT : 'HH:mm',
-        LTS : 'HH:mm:ss',
-        L : 'YYYY-MM-DD',
-        LL : 'D[-a de] MMMM, YYYY',
-        LLL : 'D[-a de] MMMM, YYYY HH:mm',
-        LLLL : 'dddd, [la] D[-a de] MMMM, YYYY HH:mm'
+        LT : '',
+        LTS : '',
+        L : '',
+        LL : '',
+        LLL : '',
+        LLLL : ''
     },
     isPM: function (input) {
         return input.charAt(0).toLowerCase() === 'p';
     },
     meridiem : function (hours, minutes, isLower) {
         if (hours > 11) {
-            return isLower ? 'p.t.m.' : 'P.T.M.';
+            return isLower ? '' : '';
         } else {
-            return isLower ? 'a.t.m.' : 'A.T.M.';
+            return isLower ? '' : '';
         }
     },
     calendar : {
@@ -17624,7 +17624,7 @@ var eo = moment.defineLocale('eo', {
     relativeTime : {
     },
     dayOfMonthOrdinalParse: /\d{1,2}a/,
-    ordinal : '%da',
+    ordinal : '',
     week : {
         dow : 1, // Monday is the first day of the week.
         doy : 7  // The week that contains Jan 1st is the first week of the year.
@@ -17646,13 +17646,13 @@ return eo;
 
 ;(function (global, factory) {
     true ? factory(__webpack_require__(1)) :
-   typeof define === 'function' && define.amd ? define(['../moment'], factory) :
+   typeof define === '' && define.amd ? define([''], factory) :
    factory(global.moment)
-}(this, (function (moment) { 'use strict';
+}(this, (function (moment) { '';
 
 
-var monthsShortDot = 'ene._feb._mar._abr._may._jun._jul._ago._sep._oct._nov._dic.'.split('_');
-var monthsShort = 'ene_feb_mar_abr_may_jun_jul_ago_sep_oct_nov_dic'.split('_');
+var monthsShortDot = ''.split('_');
+var monthsShort = ''.split('_');
 
 
 var es = moment.defineLocale('es', {
@@ -17672,12 +17672,12 @@ var es = moment.defineLocale('es', {
     shortMonthsParse : monthsParse,
     weekdaysParseExact : true,
     longDateFormat : {
-        LT : 'H:mm',
-        LTS : 'H:mm:ss',
-        L : 'DD/MM/YYYY',
-        LL : 'D [de] MMMM [de] YYYY',
-        LLL : 'D [de] MMMM [de] YYYY H:mm',
-        LLLL : 'dddd, D [de] MMMM [de] YYYY H:mm'
+        LT : '',
+        LTS : '',
+        L : '',
+        LL : '',
+        LLL : '',
+        LLLL : ''
     },
     calendar : {
         sameDay : function () {
@@ -17685,7 +17685,7 @@ var es = moment.defineLocale('es', {
         nextDay : function () {
         },
         nextWeek : function () {
-            return 'dddd [a la' + ((this.hours() !== 1) ? 's' : '') + '] LT';
+            return '' + ((this.hours() !== 1) ? 's''''] LT';
         },
         lastDay : function () {
         },
@@ -17715,14 +17715,14 @@ return es;
 
 ;(function (global, factory) {
     true ? factory(__webpack_require__(1)) :
-   typeof define === 'function' && define.amd ? define(['../moment'], factory) :
+   typeof define === '' && define.amd ? define([''], factory) :
    factory(global.moment)
-}(this, (function (moment) { 'use strict';
+}(this, (function (moment) { '';
 
 
 
 
-var esDo = moment.defineLocale('es-do', {
+var esDo = moment.defineLocale('', {
     monthsShort : function (m, format) {
         if (!m) {
             return monthsShortDot;
@@ -17739,12 +17739,12 @@ var esDo = moment.defineLocale('es-do', {
     shortMonthsParse: monthsParse,
     weekdaysParseExact : true,
     longDateFormat : {
-        LT : 'h:mm A',
-        LTS : 'h:mm:ss A',
-        L : 'DD/MM/YYYY',
-        LL : 'D [de] MMMM [de] YYYY',
-        LLL : 'D [de] MMMM [de] YYYY h:mm A',
-        LLLL : 'dddd, D [de] MMMM [de] YYYY h:mm A'
+        LT : '',
+        LTS : '',
+        L : '',
+        LL : '',
+        LLL : '',
+        LLLL : ''
     },
     calendar : {
         sameDay : function () {
@@ -17762,7 +17762,7 @@ var esDo = moment.defineLocale('es-do', {
     relativeTime : {
     },
     dayOfMonthOrdinalParse : /\d{1,2}º/,
-    ordinal : '%dº',
+    ordinal : '',
     week : {
         dow : 1, // Monday is the first day of the week.
         doy : 4  // The week that contains Jan 4th is the first week of the year.
@@ -17784,13 +17784,13 @@ return esDo;
 
 ;(function (global, factory) {
     true ? factory(__webpack_require__(1)) :
-   typeof define === 'function' && define.amd ? define(['../moment'], factory) :
+   typeof define === '' && define.amd ? define([''], factory) :
    factory(global.moment)
-}(this, (function (moment) { 'use strict';
+}(this, (function (moment) { '';
 
 
 
-var esUs = moment.defineLocale('es-us', {
+var esUs = moment.defineLocale('', {
     monthsShort : function (m, format) {
         if (!m) {
             return monthsShortDot;
@@ -17803,12 +17803,12 @@ var esUs = moment.defineLocale('es-us', {
     monthsParseExact : true,
     weekdaysParseExact : true,
     longDateFormat : {
-        LT : 'h:mm A',
-        LTS : 'h:mm:ss A',
-        L : 'MM/DD/YYYY',
-        LL : 'MMMM [de] D [de] YYYY',
-        LLL : 'MMMM [de] D [de] YYYY h:mm A',
-        LLLL : 'dddd, MMMM [de] D [de] YYYY h:mm A'
+        LT : '',
+        LTS : '',
+        L : '',
+        LL : '',
+        LLL : '',
+        LLLL : ''
     },
     calendar : {
         sameDay : function () {
@@ -17816,7 +17816,7 @@ var esUs = moment.defineLocale('es-us', {
         nextDay : function () {
         },
         nextWeek : function () {
-            return 'dddd [a la' + ((this.hours() !== 1) ? 's' : '') + '] LT';
+            return '' + ((this.hours() !== 1) ? 's''''] LT';
         },
         lastDay : function () {
         },
@@ -17849,9 +17849,9 @@ return esUs;
 
 ;(function (global, factory) {
     true ? factory(__webpack_require__(1)) :
-   typeof define === 'function' && define.amd ? define(['../moment'], factory) :
+   typeof define === '' && define.amd ? define([''], factory) :
    factory(global.moment)
-}(this, (function (moment) { 'use strict';
+}(this, (function (moment) { '';
 
 
 function processRelativeTime(number, withoutSuffix, key, isFuture) {
@@ -17865,12 +17865,12 @@ function processRelativeTime(number, withoutSuffix, key, isFuture) {
 
 var et = moment.defineLocale('et', {
     longDateFormat : {
-        LT   : 'H:mm',
-        LTS : 'H:mm:ss',
-        L    : 'DD.MM.YYYY',
-        LL   : 'D. MMMM YYYY',
-        LLL  : 'D. MMMM YYYY H:mm',
-        LLLL : 'dddd, D. MMMM YYYY H:mm'
+        LT   : '',
+        LTS : '',
+        L    : '',
+        LL   : '',
+        LLL  : '',
+        LLLL : ''
     },
     calendar : {
         sameElse : 'L'
@@ -17889,7 +17889,7 @@ var et = moment.defineLocale('et', {
         yy     : processRelativeTime
     },
     dayOfMonthOrdinalParse: /\d{1,2}\./,
-    ordinal : '%d.',
+    ordinal : '',
     week : {
         dow : 1, // Monday is the first day of the week.
         doy : 4  // The week that contains Jan 4th is the first week of the year.
@@ -17911,25 +17911,25 @@ return et;
 
 ;(function (global, factory) {
     true ? factory(__webpack_require__(1)) :
-   typeof define === 'function' && define.amd ? define(['../moment'], factory) :
+   typeof define === '' && define.amd ? define([''], factory) :
    factory(global.moment)
-}(this, (function (moment) { 'use strict';
+}(this, (function (moment) { '';
 
 
 var eu = moment.defineLocale('eu', {
     monthsParseExact : true,
     weekdaysParseExact : true,
     longDateFormat : {
-        LT : 'HH:mm',
-        LTS : 'HH:mm:ss',
-        L : 'YYYY-MM-DD',
-        LL : 'YYYY[ko] MMMM[ren] D[a]',
-        LLL : 'YYYY[ko] MMMM[ren] D[a] HH:mm',
-        LLLL : 'dddd, YYYY[ko] MMMM[ren] D[a] HH:mm',
-        l : 'YYYY-M-D',
-        ll : 'YYYY[ko] MMM D[a]',
-        lll : 'YYYY[ko] MMM D[a] HH:mm',
-        llll : 'ddd, YYYY[ko] MMM D[a] HH:mm'
+        LT : '',
+        LTS : '',
+        L : '',
+        LL : '',
+        LLL : '',
+        LLLL : '',
+        l : '',
+        ll : '',
+        lll : '',
+        llll : ''
     },
     calendar : {
         sameElse : 'L'
@@ -17937,7 +17937,7 @@ var eu = moment.defineLocale('eu', {
     relativeTime : {
     },
     dayOfMonthOrdinalParse: /\d{1,2}\./,
-    ordinal : '%d.',
+    ordinal : '',
     week : {
         dow : 1, // Monday is the first day of the week.
         doy : 7  // The week that contains Jan 1st is the first week of the year.
@@ -17959,9 +17959,9 @@ return eu;
 
 ;(function (global, factory) {
     true ? factory(__webpack_require__(1)) :
-   typeof define === 'function' && define.amd ? define(['../moment'], factory) :
+   typeof define === '' && define.amd ? define([''], factory) :
    factory(global.moment)
-}(this, (function (moment) { 'use strict';
+}(this, (function (moment) { '';
 
 
 var symbolMap = {
@@ -17972,12 +17972,12 @@ var numberMap = {
 var fa = moment.defineLocale('fa', {
     weekdaysParseExact : true,
     longDateFormat : {
-        LT : 'HH:mm',
-        LTS : 'HH:mm:ss',
-        L : 'DD/MM/YYYY',
-        LL : 'D MMMM YYYY',
-        LLL : 'D MMMM YYYY HH:mm',
-        LLLL : 'dddd, D MMMM YYYY HH:mm'
+        LT : '',
+        LTS : '',
+        L : '',
+        LL : '',
+        LLL : '',
+        LLLL : ''
     },
     isPM: function (input) {
     },
@@ -18021,14 +18021,14 @@ return fa;
 
 ;(function (global, factory) {
     true ? factory(__webpack_require__(1)) :
-   typeof define === 'function' && define.amd ? define(['../moment'], factory) :
+   typeof define === '' && define.amd ? define([''], factory) :
    factory(global.moment)
-}(this, (function (moment) { 'use strict';
+}(this, (function (moment) { '';
 
 
-var numbersPast = 'nolla yksi kaksi kolme neljä viisi kuusi seitsemän kahdeksan yhdeksän'.split(' ');
+var numbersPast = ''.split(' ');
 var numbersFuture = [
-        'nolla', 'yhden', 'kahden', 'kolmen', 'neljän', 'viiden', 'kuuden',
+        '', '', '', '', '', '', '',
         numbersPast[7], numbersPast[8], numbersPast[9]
     ];
 function translate(number, withoutSuffix, key, isFuture) {
@@ -18061,13 +18061,13 @@ function verbalNumber(number, isFuture) {
 
 var fi = moment.defineLocale('fi', {
     longDateFormat : {
-        LT : 'HH.mm',
-        LTS : 'HH.mm.ss',
-        L : 'DD.MM.YYYY',
-        LL : 'Do MMMM[ta] YYYY',
-        LLLL : 'dddd, Do MMMM[ta] YYYY, [klo] HH.mm',
-        l : 'D.M.YYYY',
-        ll : 'Do MMM YYYY',
+        LT : '',
+        LTS : '',
+        L : '',
+        LL : '',
+        LLLL : '',
+        l : '',
+        ll : '',
     },
     calendar : {
         sameElse : 'L'
@@ -18087,7 +18087,7 @@ var fi = moment.defineLocale('fi', {
         yy : translate
     },
     dayOfMonthOrdinalParse: /\d{1,2}\./,
-    ordinal : '%d.',
+    ordinal : '',
     week : {
         dow : 1, // Monday is the first day of the week.
         doy : 4  // The week that contains Jan 4th is the first week of the year.
@@ -18109,19 +18109,19 @@ return fi;
 
 ;(function (global, factory) {
     true ? factory(__webpack_require__(1)) :
-   typeof define === 'function' && define.amd ? define(['../moment'], factory) :
+   typeof define === '' && define.amd ? define([''], factory) :
    factory(global.moment)
-}(this, (function (moment) { 'use strict';
+}(this, (function (moment) { '';
 
 
 var fo = moment.defineLocale('fo', {
     longDateFormat : {
-        LT : 'HH:mm',
-        LTS : 'HH:mm:ss',
-        L : 'DD/MM/YYYY',
-        LL : 'D MMMM YYYY',
-        LLL : 'D MMMM YYYY HH:mm',
-        LLLL : 'dddd D. MMMM, YYYY HH:mm'
+        LT : '',
+        LTS : '',
+        L : '',
+        LL : '',
+        LLL : '',
+        LLLL : ''
     },
     calendar : {
         sameElse : 'L'
@@ -18129,7 +18129,7 @@ var fo = moment.defineLocale('fo', {
     relativeTime : {
     },
     dayOfMonthOrdinalParse: /\d{1,2}\./,
-    ordinal : '%d.',
+    ordinal : '',
     week : {
         dow : 1, // Monday is the first day of the week.
         doy : 4  // The week that contains Jan 4th is the first week of the year.
@@ -18151,21 +18151,21 @@ return fo;
 
 ;(function (global, factory) {
     true ? factory(__webpack_require__(1)) :
-   typeof define === 'function' && define.amd ? define(['../moment'], factory) :
+   typeof define === '' && define.amd ? define([''], factory) :
    factory(global.moment)
-}(this, (function (moment) { 'use strict';
+}(this, (function (moment) { '';
 
 
 var fr = moment.defineLocale('fr', {
     monthsParseExact : true,
     weekdaysParseExact : true,
     longDateFormat : {
-        LT : 'HH:mm',
-        LTS : 'HH:mm:ss',
-        L : 'DD/MM/YYYY',
-        LL : 'D MMMM YYYY',
-        LLL : 'D MMMM YYYY HH:mm',
-        LLLL : 'dddd D MMMM YYYY HH:mm'
+        LT : '',
+        LTS : '',
+        L : '',
+        LL : '',
+        LLL : '',
+        LLLL : ''
     },
     calendar : {
         sameElse : 'L'
@@ -18178,20 +18178,20 @@ var fr = moment.defineLocale('fr', {
             // block for masculine words below.
             // See https://github.com/moment/moment/issues/3375
             case 'D':
-                return number + (number === 1 ? 'er' : '');
+                return number + (number === 1 ? 'er''');
 
             // Words with masculine grammatical gender: mois, trimestre, jour
             default:
             case 'M':
             case 'Q':
-            case 'DDD':
+            case '':
             case 'd':
-                return number + (number === 1 ? 'er' : 'e');
+                return number + (number === 1 ? '');
 
             // Words with feminine grammatical gender: semaine
             case 'w':
             case 'W':
-                return number + (number === 1 ? 're' : 'e');
+                return number + (number === 1 ? '');
         }
     },
     week : {
@@ -18215,21 +18215,21 @@ return fr;
 
 ;(function (global, factory) {
     true ? factory(__webpack_require__(1)) :
-   typeof define === 'function' && define.amd ? define(['../moment'], factory) :
+   typeof define === '' && define.amd ? define([''], factory) :
    factory(global.moment)
-}(this, (function (moment) { 'use strict';
+}(this, (function (moment) { '';
 
 
-var frCa = moment.defineLocale('fr-ca', {
+var frCa = moment.defineLocale('', {
     monthsParseExact : true,
     weekdaysParseExact : true,
     longDateFormat : {
-        LT : 'HH:mm',
-        LTS : 'HH:mm:ss',
-        L : 'YYYY-MM-DD',
-        LL : 'D MMMM YYYY',
-        LLL : 'D MMMM YYYY HH:mm',
-        LLLL : 'dddd D MMMM YYYY HH:mm'
+        LT : '',
+        LTS : '',
+        L : '',
+        LL : '',
+        LLL : '',
+        LLLL : ''
     },
     calendar : {
         sameElse : 'L'
@@ -18244,14 +18244,14 @@ var frCa = moment.defineLocale('fr-ca', {
             case 'M':
             case 'Q':
             case 'D':
-            case 'DDD':
+            case '':
             case 'd':
-                return number + (number === 1 ? 'er' : 'e');
+                return number + (number === 1 ? '');
 
             // Words with feminine grammatical gender: semaine
             case 'w':
             case 'W':
-                return number + (number === 1 ? 're' : 'e');
+                return number + (number === 1 ? '');
         }
     }
 });
@@ -18271,21 +18271,21 @@ return frCa;
 
 ;(function (global, factory) {
     true ? factory(__webpack_require__(1)) :
-   typeof define === 'function' && define.amd ? define(['../moment'], factory) :
+   typeof define === '' && define.amd ? define([''], factory) :
    factory(global.moment)
-}(this, (function (moment) { 'use strict';
+}(this, (function (moment) { '';
 
 
-var frCh = moment.defineLocale('fr-ch', {
+var frCh = moment.defineLocale('', {
     monthsParseExact : true,
     weekdaysParseExact : true,
     longDateFormat : {
-        LT : 'HH:mm',
-        LTS : 'HH:mm:ss',
-        L : 'DD.MM.YYYY',
-        LL : 'D MMMM YYYY',
-        LLL : 'D MMMM YYYY HH:mm',
-        LLLL : 'dddd D MMMM YYYY HH:mm'
+        LT : '',
+        LTS : '',
+        L : '',
+        LL : '',
+        LLL : '',
+        LLLL : ''
     },
     calendar : {
         sameElse : 'L'
@@ -18300,14 +18300,14 @@ var frCh = moment.defineLocale('fr-ch', {
             case 'M':
             case 'Q':
             case 'D':
-            case 'DDD':
+            case '':
             case 'd':
-                return number + (number === 1 ? 'er' : 'e');
+                return number + (number === 1 ? '');
 
             // Words with feminine grammatical gender: semaine
             case 'w':
             case 'W':
-                return number + (number === 1 ? 're' : 'e');
+                return number + (number === 1 ? '');
         }
     },
     week : {
@@ -18331,9 +18331,9 @@ return frCh;
 
 ;(function (global, factory) {
     true ? factory(__webpack_require__(1)) :
-   typeof define === 'function' && define.amd ? define(['../moment'], factory) :
+   typeof define === '' && define.amd ? define([''], factory) :
    factory(global.moment)
-}(this, (function (moment) { 'use strict';
+}(this, (function (moment) { '';
 
 
 
@@ -18350,12 +18350,12 @@ var fy = moment.defineLocale('fy', {
     monthsParseExact : true,
     weekdaysParseExact : true,
     longDateFormat : {
-        LT : 'HH:mm',
-        LTS : 'HH:mm:ss',
-        L : 'DD-MM-YYYY',
-        LL : 'D MMMM YYYY',
-        LLL : 'D MMMM YYYY HH:mm',
-        LLLL : 'dddd D MMMM YYYY HH:mm'
+        LT : '',
+        LTS : '',
+        L : '',
+        LL : '',
+        LLL : '',
+        LLLL : ''
     },
     calendar : {
         sameElse: 'L'
@@ -18364,7 +18364,7 @@ var fy = moment.defineLocale('fy', {
     },
     dayOfMonthOrdinalParse: /\d{1,2}(ste|de)/,
     ordinal : function (number) {
-        return number + ((number === 1 || number === 8 || number >= 20) ? 'ste' : 'de');
+        return number + ((number === 1 || number === 8 || number >= 20) ? '' : 'de');
     },
     week : {
         dow : 1, // Monday is the first day of the week.
@@ -18387,9 +18387,9 @@ return fy;
 
 ;(function (global, factory) {
     true ? factory(__webpack_require__(1)) :
-   typeof define === 'function' && define.amd ? define(['../moment'], factory) :
+   typeof define === '' && define.amd ? define([''], factory) :
    factory(global.moment)
-}(this, (function (moment) { 'use strict';
+}(this, (function (moment) { '';
 
 
 var gd = moment.defineLocale('gd', {
@@ -18400,12 +18400,12 @@ var gd = moment.defineLocale('gd', {
     weekdaysShort : weekdaysShort,
     weekdaysMin : weekdaysMin,
     longDateFormat : {
-        LT : 'HH:mm',
-        LTS : 'HH:mm:ss',
-        L : 'DD/MM/YYYY',
-        LL : 'D MMMM YYYY',
-        LLL : 'D MMMM YYYY HH:mm',
-        LLLL : 'dddd, D MMMM YYYY HH:mm'
+        LT : '',
+        LTS : '',
+        L : '',
+        LL : '',
+        LLL : '',
+        LLLL : ''
     },
     calendar : {
         sameElse : 'L'
@@ -18414,7 +18414,7 @@ var gd = moment.defineLocale('gd', {
     },
     dayOfMonthOrdinalParse : /\d{1,2}(d|na|mh)/,
     ordinal : function (number) {
-        var output = number === 1 ? 'd' : number % 10 === 2 ? 'na' : 'mh';
+        var output = number === 1 ? 'd''na''mh';
         return number + output;
     },
     week : {
@@ -18438,21 +18438,21 @@ return gd;
 
 ;(function (global, factory) {
     true ? factory(__webpack_require__(1)) :
-   typeof define === 'function' && define.amd ? define(['../moment'], factory) :
+   typeof define === '' && define.amd ? define([''], factory) :
    factory(global.moment)
-}(this, (function (moment) { 'use strict';
+}(this, (function (moment) { '';
 
 
 var gl = moment.defineLocale('gl', {
     monthsParseExact: true,
     weekdaysParseExact : true,
     longDateFormat : {
-        LT : 'H:mm',
-        LTS : 'H:mm:ss',
-        L : 'DD/MM/YYYY',
-        LL : 'D [de] MMMM [de] YYYY',
-        LLL : 'D [de] MMMM [de] YYYY H:mm',
-        LLLL : 'dddd, D [de] MMMM [de] YYYY H:mm'
+        LT : '',
+        LTS : '',
+        L : '',
+        LL : '',
+        LLL : '',
+        LLLL : ''
     },
     calendar : {
         sameDay : function () {
@@ -18470,7 +18470,7 @@ var gl = moment.defineLocale('gl', {
     relativeTime : {
     },
     dayOfMonthOrdinalParse : /\d{1,2}º/,
-    ordinal : '%dº',
+    ordinal : '',
     week : {
         dow : 1, // Monday is the first day of the week.
         doy : 4  // The week that contains Jan 4th is the first week of the year.
@@ -18492,9 +18492,9 @@ return gl;
 
 ;(function (global, factory) {
     true ? factory(__webpack_require__(1)) :
-   typeof define === 'function' && define.amd ? define(['../moment'], factory) :
+   typeof define === '' && define.amd ? define([''], factory) :
    factory(global.moment)
-}(this, (function (moment) { 'use strict';
+}(this, (function (moment) { '';
 
 
 function processRelativeTime(number, withoutSuffix, key, isFuture) {
@@ -18503,17 +18503,17 @@ function processRelativeTime(number, withoutSuffix, key, isFuture) {
     return withoutSuffix ? format[key][0] : format[key][1];
 }
 
-var gomLatn = moment.defineLocale('gom-latn', {
+var gomLatn = moment.defineLocale('', {
     monthsParseExact : true,
     weekdaysParseExact : true,
     longDateFormat : {
-        LT : 'A h:mm [vazta]',
-        LTS : 'A h:mm:ss [vazta]',
-        L : 'DD-MM-YYYY',
-        LL : 'D MMMM YYYY',
-        LLL : 'D MMMM YYYY A h:mm [vazta]',
-        LLLL : 'dddd, MMMM[achea] Do, YYYY, A h:mm [vazta]',
-        llll: 'ddd, D MMM YYYY, A h:mm [vazta]'
+        LT : '',
+        LTS : '',
+        L : '',
+        LL : '',
+        LLL : '',
+        LLLL : '',
+        llll: ''
     },
     calendar : {
         sameElse: 'L'
@@ -18529,7 +18529,7 @@ var gomLatn = moment.defineLocale('gom-latn', {
             default:
             case 'M':
             case 'Q':
-            case 'DDD':
+            case '':
             case 'd':
             case 'w':
             case 'W':
@@ -18544,7 +18544,7 @@ var gomLatn = moment.defineLocale('gom-latn', {
         if (hour === 12) {
             hour = 0;
         }
-        if (meridiem === 'rati') {
+        if (meridiem === '') {
             return hour < 4 ? hour : hour + 12;
         }
     },
@@ -18569,9 +18569,9 @@ return gomLatn;
 
 ;(function (global, factory) {
     true ? factory(__webpack_require__(1)) :
-   typeof define === 'function' && define.amd ? define(['../moment'], factory) :
+   typeof define === '' && define.amd ? define([''], factory) :
    factory(global.moment)
-}(this, (function (moment) { 'use strict';
+}(this, (function (moment) { '';
 
 
 var symbolMap = {
@@ -18582,12 +18582,12 @@ var numberMap = {
 var gu = moment.defineLocale('gu', {
     monthsParseExact: true,
     longDateFormat: {
-        LT: 'A h:mm વાગ્યે',
-        LTS: 'A h:mm:ss વાગ્યે',
-        L: 'DD/MM/YYYY',
-        LL: 'D MMMM YYYY',
-        LLL: 'D MMMM YYYY, A h:mm વાગ્યે',
-        LLLL: 'dddd, D MMMM YYYY, A h:mm વાગ્યે'
+        LT: '',
+        LTS: '',
+        L: '',
+        LL: '',
+        LLL: '',
+        LLLL: ''
     },
     calendar: {
         sameElse: 'L'
@@ -18604,32 +18604,32 @@ var gu = moment.defineLocale('gu', {
         });
     },
     // Gujarati notation for meridiems are quite fuzzy in practice. While there exists
-    // a rigid notion of a 'Pahar' it is not used as rigidly in modern Gujarati.
+    // a rigid notion of a '' it is not used as rigidly in modern Gujarati.
     meridiemHour: function (hour, meridiem) {
         if (hour === 12) {
             hour = 0;
         }
-        if (meridiem === 'રાત') {
+        if (meridiem === '') {
             return hour < 4 ? hour : hour + 12;
-        } else if (meridiem === 'સવાર') {
+        } else if (meridiem === '') {
             return hour;
-        } else if (meridiem === 'બપોર') {
+        } else if (meridiem === '') {
             return hour >= 10 ? hour : hour + 12;
-        } else if (meridiem === 'સાંજ') {
+        } else if (meridiem === '') {
             return hour + 12;
         }
     },
     meridiem: function (hour, minute, isLower) {
         if (hour < 4) {
-            return 'રાત';
+            return '';
         } else if (hour < 10) {
-            return 'સવાર';
+            return '';
         } else if (hour < 17) {
-            return 'બપોર';
+            return '';
         } else if (hour < 20) {
-            return 'સાંજ';
+            return '';
         } else {
-            return 'રાત';
+            return '';
         }
     },
     week: {
@@ -18655,20 +18655,20 @@ return gu;
 
 ;(function (global, factory) {
     true ? factory(__webpack_require__(1)) :
-   typeof define === 'function' && define.amd ? define(['../moment'], factory) :
+   typeof define === '' && define.amd ? define([''], factory) :
    factory(global.moment)
-}(this, (function (moment) { 'use strict';
+}(this, (function (moment) { '';
 
 
 var he = moment.defineLocale('he', {
     longDateFormat : {
-        LT : 'HH:mm',
-        LTS : 'HH:mm:ss',
-        L : 'DD/MM/YYYY',
-        l : 'D/M/YYYY',
-        ll : 'D MMM YYYY',
-        lll : 'D MMM YYYY HH:mm',
-        llll : 'ddd, D MMM YYYY HH:mm'
+        LT : '',
+        LTS : '',
+        L : '',
+        l : '',
+        ll : '',
+        lll : '',
+        llll : ''
     },
     calendar : {
         sameElse : 'L'
@@ -18719,9 +18719,9 @@ return he;
 
 ;(function (global, factory) {
     true ? factory(__webpack_require__(1)) :
-   typeof define === 'function' && define.amd ? define(['../moment'], factory) :
+   typeof define === '' && define.amd ? define([''], factory) :
    factory(global.moment)
-}(this, (function (moment) { 'use strict';
+}(this, (function (moment) { '';
 
 
 var symbolMap = {
@@ -18732,8 +18732,8 @@ var numberMap = {
 var hi = moment.defineLocale('hi', {
     monthsParseExact: true,
     longDateFormat : {
-        L : 'DD/MM/YYYY',
-        LL : 'D MMMM YYYY',
+        L : '',
+        LL : '',
     },
     calendar : {
         sameElse : 'L'
@@ -18789,9 +18789,9 @@ return hi;
 
 ;(function (global, factory) {
     true ? factory(__webpack_require__(1)) :
-   typeof define === 'function' && define.amd ? define(['../moment'], factory) :
+   typeof define === '' && define.amd ? define([''], factory) :
    factory(global.moment)
-}(this, (function (moment) { 'use strict';
+}(this, (function (moment) { '';
 
 
 function translate(number, withoutSuffix, key) {
@@ -18843,12 +18843,12 @@ var hr = moment.defineLocale('hr', {
     monthsParseExact: true,
     weekdaysParseExact : true,
     longDateFormat : {
-        LT : 'H:mm',
-        LTS : 'H:mm:ss',
-        L : 'DD.MM.YYYY',
-        LL : 'D. MMMM YYYY',
-        LLL : 'D. MMMM YYYY H:mm',
-        LLLL : 'dddd, D. MMMM YYYY H:mm'
+        LT : '',
+        LTS : '',
+        L : '',
+        LL : '',
+        LLL : '',
+        LLLL : ''
     },
     calendar : {
         nextWeek : function () {
@@ -18860,7 +18860,7 @@ var hr = moment.defineLocale('hr', {
                 case 2:
                 case 4:
                 case 5:
-                    return '[u] dddd [u] LT';
+                    return '';
             }
         },
         lastWeek : function () {
@@ -18887,7 +18887,7 @@ var hr = moment.defineLocale('hr', {
         yy     : translate
     },
     dayOfMonthOrdinalParse: /\d{1,2}\./,
-    ordinal : '%d.',
+    ordinal : '',
     week : {
         dow : 1, // Monday is the first day of the week.
         doy : 7  // The week that contains Jan 1st is the first week of the year.
@@ -18909,54 +18909,54 @@ return hr;
 
 ;(function (global, factory) {
     true ? factory(__webpack_require__(1)) :
-   typeof define === 'function' && define.amd ? define(['../moment'], factory) :
+   typeof define === '' && define.amd ? define([''], factory) :
    factory(global.moment)
-}(this, (function (moment) { 'use strict';
+}(this, (function (moment) { '';
 
 
-var weekEndings = 'vasárnap hétfőn kedden szerdán csütörtökön pénteken szombaton'.split(' ');
+var weekEndings = ''.split(' ');
 function translate(number, withoutSuffix, key, isFuture) {
     var num = number;
     switch (key) {
         case 's':
-            return (isFuture || withoutSuffix) ? 'néhány másodperc' : 'néhány másodperce';
+            return (isFuture || withoutSuffix) ? '' : '';
         case 'ss':
-            return num + (isFuture || withoutSuffix) ? ' másodperc' : ' másodperce';
+            return num + (isFuture || withoutSuffix) ? '' : '';
         case 'm':
-            return 'egy' + (isFuture || withoutSuffix ? ' perc' : ' perce');
+            return '' + (isFuture || withoutSuffix ? '' : '');
         case 'mm':
-            return num + (isFuture || withoutSuffix ? ' perc' : ' perce');
+            return num + (isFuture || withoutSuffix ? '' : '');
         case 'h':
-            return 'egy' + (isFuture || withoutSuffix ? ' óra' : ' órája');
+            return '' + (isFuture || withoutSuffix ? '' : '');
         case 'hh':
-            return num + (isFuture || withoutSuffix ? ' óra' : ' órája');
+            return num + (isFuture || withoutSuffix ? '' : '');
         case 'd':
-            return 'egy' + (isFuture || withoutSuffix ? ' nap' : ' napja');
+            return '' + (isFuture || withoutSuffix ? '' : '');
         case 'dd':
-            return num + (isFuture || withoutSuffix ? ' nap' : ' napja');
+            return num + (isFuture || withoutSuffix ? '' : '');
         case 'M':
-            return 'egy' + (isFuture || withoutSuffix ? ' hónap' : ' hónapja');
+            return '' + (isFuture || withoutSuffix ? '' : '');
         case 'MM':
-            return num + (isFuture || withoutSuffix ? ' hónap' : ' hónapja');
+            return num + (isFuture || withoutSuffix ? '' : '');
         case 'y':
-            return 'egy' + (isFuture || withoutSuffix ? ' év' : ' éve');
+            return '' + (isFuture || withoutSuffix ? '' : '');
         case 'yy':
-            return num + (isFuture || withoutSuffix ? ' év' : ' éve');
+            return num + (isFuture || withoutSuffix ? '' : '');
     }
     return '';
 }
 function week(isFuture) {
-    return (isFuture ? '' : '[múlt] ') + '[' + weekEndings[this.day()] + '] LT[-kor]';
+    return (isFuture ? '''[múlt] ''[''] LT[-kor]';
 }
 
 var hu = moment.defineLocale('hu', {
     longDateFormat : {
-        LT : 'H:mm',
-        LTS : 'H:mm:ss',
-        L : 'YYYY.MM.DD.',
-        LL : 'YYYY. MMMM D.',
-        LLL : 'YYYY. MMMM D. H:mm',
-        LLLL : 'YYYY. MMMM D., dddd H:mm'
+        LT : '',
+        LTS : '',
+        L : '',
+        LL : '',
+        LLL : '',
+        LLLL : ''
     },
     isPM: function (input) {
         return input.charAt(1).toLowerCase() === 'u';
@@ -18991,7 +18991,7 @@ var hu = moment.defineLocale('hu', {
         yy : translate
     },
     dayOfMonthOrdinalParse: /\d{1,2}\./,
-    ordinal : '%d.',
+    ordinal : '',
     week : {
         dow : 1, // Monday is the first day of the week.
         doy : 4  // The week that contains Jan 4th is the first week of the year.
@@ -19013,18 +19013,18 @@ return hu;
 
 ;(function (global, factory) {
     true ? factory(__webpack_require__(1)) :
-   typeof define === 'function' && define.amd ? define(['../moment'], factory) :
+   typeof define === '' && define.amd ? define([''], factory) :
    factory(global.moment)
-}(this, (function (moment) { 'use strict';
+}(this, (function (moment) { '';
 
 
-var hyAm = moment.defineLocale('hy-am', {
+var hyAm = moment.defineLocale('', {
     months : {
     },
     longDateFormat : {
-        LT : 'HH:mm',
-        LTS : 'HH:mm:ss',
-        L : 'DD.MM.YYYY',
+        LT : '',
+        LTS : '',
+        L : '',
     },
     calendar : {
         nextWeek: function () {
@@ -19046,10 +19046,10 @@ var hyAm = moment.defineLocale('hy-am', {
     },
     ordinal: function (number, period) {
         switch (period) {
-            case 'DDD':
+            case '':
             case 'w':
             case 'W':
-            case 'DDDo':
+            case '':
                 if (number === 1) {
                 }
             default:
@@ -19078,17 +19078,17 @@ return hyAm;
 
 ;(function (global, factory) {
     true ? factory(__webpack_require__(1)) :
-   typeof define === 'function' && define.amd ? define(['../moment'], factory) :
+   typeof define === '' && define.amd ? define([''], factory) :
    factory(global.moment)
-}(this, (function (moment) { 'use strict';
+}(this, (function (moment) { '';
 
 
 var id = moment.defineLocale('id', {
     longDateFormat : {
-        LT : 'HH.mm',
-        LTS : 'HH.mm.ss',
-        L : 'DD/MM/YYYY',
-        LL : 'D MMMM YYYY',
+        LT : '',
+        LTS : '',
+        L : '',
+        LL : '',
     },
     meridiemHour : function (hour, meridiem) {
         if (hour === 12) {
@@ -19128,9 +19128,9 @@ return id;
 
 ;(function (global, factory) {
     true ? factory(__webpack_require__(1)) :
-   typeof define === 'function' && define.amd ? define(['../moment'], factory) :
+   typeof define === '' && define.amd ? define([''], factory) :
    factory(global.moment)
-}(this, (function (moment) { 'use strict';
+}(this, (function (moment) { '';
 
 
 function plural(n) {
@@ -19145,72 +19145,72 @@ function translate(number, withoutSuffix, key, isFuture) {
     var result = number + ' ';
     switch (key) {
         case 's':
-            return withoutSuffix || isFuture ? 'nokkrar sekúndur' : 'nokkrum sekúndum';
+            return withoutSuffix || isFuture ? '' : '';
         case 'ss':
             if (plural(number)) {
-                return result + (withoutSuffix || isFuture ? 'sekúndur' : 'sekúndum');
+                return result + (withoutSuffix || isFuture ? '' : '');
             }
-            return result + 'sekúnda';
+            return result + '';
         case 'm':
-            return withoutSuffix ? 'mínúta' : 'mínútu';
+            return withoutSuffix ? '' : '';
         case 'mm':
             if (plural(number)) {
-                return result + (withoutSuffix || isFuture ? 'mínútur' : 'mínútum');
+                return result + (withoutSuffix || isFuture ? '' : '');
             } else if (withoutSuffix) {
-                return result + 'mínúta';
+                return result + '';
             }
-            return result + 'mínútu';
+            return result + '';
         case 'hh':
             if (plural(number)) {
-                return result + (withoutSuffix || isFuture ? 'klukkustundir' : 'klukkustundum');
+                return result + (withoutSuffix || isFuture ? '' : '');
             }
-            return result + 'klukkustund';
+            return result + '';
         case 'd':
             if (withoutSuffix) {
-                return 'dagur';
+                return '';
             }
-            return isFuture ? 'dag' : 'degi';
+            return isFuture ? '' : '';
         case 'dd':
             if (plural(number)) {
                 if (withoutSuffix) {
-                    return result + 'dagar';
+                    return result + '';
                 }
-                return result + (isFuture ? 'daga' : 'dögum');
+                return result + (isFuture ? '' : '');
             } else if (withoutSuffix) {
-                return result + 'dagur';
+                return result + '';
             }
-            return result + (isFuture ? 'dag' : 'degi');
+            return result + (isFuture ? '' : '');
         case 'M':
             if (withoutSuffix) {
-                return 'mánuður';
+                return '';
             }
-            return isFuture ? 'mánuð' : 'mánuði';
+            return isFuture ? '' : '';
         case 'MM':
             if (plural(number)) {
                 if (withoutSuffix) {
-                    return result + 'mánuðir';
+                    return result + '';
                 }
-                return result + (isFuture ? 'mánuði' : 'mánuðum');
+                return result + (isFuture ? '' : '');
             } else if (withoutSuffix) {
-                return result + 'mánuður';
+                return result + '';
             }
-            return result + (isFuture ? 'mánuð' : 'mánuði');
+            return result + (isFuture ? '' : '');
         case 'y':
-            return withoutSuffix || isFuture ? 'ár' : 'ári';
+            return withoutSuffix || isFuture ? '' : '';
         case 'yy':
             if (plural(number)) {
-                return result + (withoutSuffix || isFuture ? 'ár' : 'árum');
+                return result + (withoutSuffix || isFuture ? '' : '');
             }
-            return result + (withoutSuffix || isFuture ? 'ár' : 'ári');
+            return result + (withoutSuffix || isFuture ? '' : '');
     }
 }
 
 var is = moment.defineLocale('is', {
     longDateFormat : {
-        LT : 'H:mm',
-        LTS : 'H:mm:ss',
-        L : 'DD.MM.YYYY',
-        LL : 'D. MMMM YYYY',
+        LT : '',
+        LTS : '',
+        L : '',
+        LL : '',
     },
     calendar : {
         sameElse : 'L'
@@ -19218,7 +19218,7 @@ var is = moment.defineLocale('is', {
     relativeTime : {
     },
     dayOfMonthOrdinalParse: /\d{1,2}\./,
-    ordinal : '%d.',
+    ordinal : '',
     week : {
         dow : 1, // Monday is the first day of the week.
         doy : 4  // The week that contains Jan 4th is the first week of the year.
@@ -19241,19 +19241,19 @@ return is;
 
 ;(function (global, factory) {
     true ? factory(__webpack_require__(1)) :
-   typeof define === 'function' && define.amd ? define(['../moment'], factory) :
+   typeof define === '' && define.amd ? define([''], factory) :
    factory(global.moment)
-}(this, (function (moment) { 'use strict';
+}(this, (function (moment) { '';
 
 
 var it = moment.defineLocale('it', {
     longDateFormat : {
-        LT : 'HH:mm',
-        LTS : 'HH:mm:ss',
-        L : 'DD/MM/YYYY',
-        LL : 'D MMMM YYYY',
-        LLL : 'D MMMM YYYY HH:mm',
-        LLLL : 'dddd D MMMM YYYY HH:mm'
+        LT : '',
+        LTS : '',
+        L : '',
+        LL : '',
+        LLL : '',
+        LLLL : ''
     },
     calendar : {
         lastWeek: function () {
@@ -19290,16 +19290,16 @@ return it;
 
 ;(function (global, factory) {
     true ? factory(__webpack_require__(1)) :
-   typeof define === 'function' && define.amd ? define(['../moment'], factory) :
+   typeof define === '' && define.amd ? define([''], factory) :
    factory(global.moment)
-}(this, (function (moment) { 'use strict';
+}(this, (function (moment) { '';
 
 
 var ja = moment.defineLocale('ja', {
     longDateFormat : {
-        LT : 'HH:mm',
-        LTS : 'HH:mm:ss',
-        L : 'YYYY/MM/DD',
+        LT : '',
+        LTS : '',
+        L : '',
     },
     isPM : function (input) {
     },
@@ -19315,7 +19315,7 @@ var ja = moment.defineLocale('ja', {
         switch (period) {
             case 'd':
             case 'D':
-            case 'DDD':
+            case '':
             default:
                 return number;
         }
@@ -19340,17 +19340,17 @@ return ja;
 
 ;(function (global, factory) {
     true ? factory(__webpack_require__(1)) :
-   typeof define === 'function' && define.amd ? define(['../moment'], factory) :
+   typeof define === '' && define.amd ? define([''], factory) :
    factory(global.moment)
-}(this, (function (moment) { 'use strict';
+}(this, (function (moment) { '';
 
 
 var jv = moment.defineLocale('jv', {
     longDateFormat : {
-        LT : 'HH.mm',
-        LTS : 'HH.mm.ss',
-        L : 'DD/MM/YYYY',
-        LL : 'D MMMM YYYY',
+        LT : '',
+        LTS : '',
+        L : '',
+        LL : '',
     },
     meridiemHour : function (hour, meridiem) {
         if (hour === 12) {
@@ -19388,9 +19388,9 @@ return jv;
 
 ;(function (global, factory) {
     true ? factory(__webpack_require__(1)) :
-   typeof define === 'function' && define.amd ? define(['../moment'], factory) :
+   typeof define === '' && define.amd ? define([''], factory) :
    factory(global.moment)
-}(this, (function (moment) { 'use strict';
+}(this, (function (moment) { '';
 
 
 var ka = moment.defineLocale('ka', {
@@ -19399,12 +19399,12 @@ var ka = moment.defineLocale('ka', {
     weekdays : {
     },
     longDateFormat : {
-        LT : 'h:mm A',
-        LTS : 'h:mm:ss A',
-        L : 'DD/MM/YYYY',
-        LL : 'D MMMM YYYY',
-        LLL : 'D MMMM YYYY h:mm A',
-        LLLL : 'dddd, D MMMM YYYY h:mm A'
+        LT : '',
+        LTS : '',
+        L : '',
+        LL : '',
+        LLL : '',
+        LLLL : ''
     },
     calendar : {
         sameElse : 'L'
@@ -19445,9 +19445,9 @@ return ka;
 
 ;(function (global, factory) {
     true ? factory(__webpack_require__(1)) :
-   typeof define === 'function' && define.amd ? define(['../moment'], factory) :
+   typeof define === '' && define.amd ? define([''], factory) :
    factory(global.moment)
-}(this, (function (moment) { 'use strict';
+}(this, (function (moment) { '';
 
 
 var suffixes = {
@@ -19455,12 +19455,12 @@ var suffixes = {
 
 var kk = moment.defineLocale('kk', {
     longDateFormat : {
-        LT : 'HH:mm',
-        LTS : 'HH:mm:ss',
-        L : 'DD.MM.YYYY',
-        LL : 'D MMMM YYYY',
-        LLL : 'D MMMM YYYY HH:mm',
-        LLLL : 'dddd, D MMMM YYYY HH:mm'
+        LT : '',
+        LTS : '',
+        L : '',
+        LL : '',
+        LLL : '',
+        LLLL : ''
     },
     calendar : {
         sameElse : 'L'
@@ -19494,19 +19494,19 @@ return kk;
 
 ;(function (global, factory) {
     true ? factory(__webpack_require__(1)) :
-   typeof define === 'function' && define.amd ? define(['../moment'], factory) :
+   typeof define === '' && define.amd ? define([''], factory) :
    factory(global.moment)
-}(this, (function (moment) { 'use strict';
+}(this, (function (moment) { '';
 
 
 var km = moment.defineLocale('km', {
     longDateFormat: {
-        LT: 'HH:mm',
-        LTS : 'HH:mm:ss',
-        L: 'DD/MM/YYYY',
-        LL: 'D MMMM YYYY',
-        LLL: 'D MMMM YYYY HH:mm',
-        LLLL: 'dddd, D MMMM YYYY HH:mm'
+        LT: '',
+        LTS : '',
+        L: '',
+        LL: '',
+        LLL: '',
+        LLLL: ''
     },
     calendar: {
         sameElse: 'L'
@@ -19534,9 +19534,9 @@ return km;
 
 ;(function (global, factory) {
     true ? factory(__webpack_require__(1)) :
-   typeof define === 'function' && define.amd ? define(['../moment'], factory) :
+   typeof define === '' && define.amd ? define([''], factory) :
    factory(global.moment)
-}(this, (function (moment) { 'use strict';
+}(this, (function (moment) { '';
 
 
 var symbolMap = {
@@ -19547,12 +19547,12 @@ var numberMap = {
 var kn = moment.defineLocale('kn', {
     monthsParseExact: true,
     longDateFormat : {
-        LT : 'A h:mm',
-        LTS : 'A h:mm:ss',
-        L : 'DD/MM/YYYY',
-        LL : 'D MMMM YYYY',
-        LLL : 'D MMMM YYYY, A h:mm',
-        LLLL : 'dddd, D MMMM YYYY, A h:mm'
+        LT : '',
+        LTS : '',
+        L : '',
+        LL : '',
+        LLL : '',
+        LLLL : ''
     },
     calendar : {
         sameElse : 'L'
@@ -19599,20 +19599,20 @@ return kn;
 
 ;(function (global, factory) {
     true ? factory(__webpack_require__(1)) :
-   typeof define === 'function' && define.amd ? define(['../moment'], factory) :
+   typeof define === '' && define.amd ? define([''], factory) :
    factory(global.moment)
-}(this, (function (moment) { 'use strict';
+}(this, (function (moment) { '';
 
 
 var ko = moment.defineLocale('ko', {
     longDateFormat : {
-        LT : 'A h:mm',
-        LTS : 'A h:mm:ss',
-        L : 'YYYY.MM.DD',
-        l : 'YYYY.MM.DD',
+        LT : '',
+        LTS : '',
+        L : '',
+        l : '',
     },
     calendar : {
-        nextWeek : 'dddd LT',
+        nextWeek : '',
         sameElse : 'L'
     },
     relativeTime : {
@@ -19621,7 +19621,7 @@ var ko = moment.defineLocale('ko', {
         switch (period) {
             case 'd':
             case 'D':
-            case 'DDD':
+            case '':
             case 'M':
             case 'w':
             case 'W':
@@ -19650,9 +19650,9 @@ return ko;
 
 ;(function (global, factory) {
     true ? factory(__webpack_require__(1)) :
-   typeof define === 'function' && define.amd ? define(['../moment'], factory) :
+   typeof define === '' && define.amd ? define([''], factory) :
    factory(global.moment)
-}(this, (function (moment) { 'use strict';
+}(this, (function (moment) { '';
 
 
 
@@ -19661,12 +19661,12 @@ var suffixes = {
 
 var ky = moment.defineLocale('ky', {
     longDateFormat : {
-        LT : 'HH:mm',
-        LTS : 'HH:mm:ss',
-        L : 'DD.MM.YYYY',
-        LL : 'D MMMM YYYY',
-        LLL : 'D MMMM YYYY HH:mm',
-        LLLL : 'dddd, D MMMM YYYY HH:mm'
+        LT : '',
+        LTS : '',
+        L : '',
+        LL : '',
+        LLL : '',
+        LLLL : ''
     },
     calendar : {
         sameElse : 'L'
@@ -19700,18 +19700,18 @@ return ky;
 
 ;(function (global, factory) {
     true ? factory(__webpack_require__(1)) :
-   typeof define === 'function' && define.amd ? define(['../moment'], factory) :
+   typeof define === '' && define.amd ? define([''], factory) :
    factory(global.moment)
-}(this, (function (moment) { 'use strict';
+}(this, (function (moment) { '';
 
 
 function processRelativeTime(number, withoutSuffix, key, isFuture) {
     var format = {
-        'm': ['eng Minutt', 'enger Minutt'],
-        'h': ['eng Stonn', 'enger Stonn'],
-        'd': ['een Dag', 'engem Dag'],
-        'M': ['ee Mount', 'engem Mount'],
-        'y': ['ee Joer', 'engem Joer']
+        'm''eng Minutt', ''],
+        'h''eng Stonn', ''],
+        'd''een Dag', ''],
+        'M''ee Mount', ''],
+        'y''ee Joer', '']
     };
     return withoutSuffix ? format[key][0] : format[key][1];
 }
@@ -19720,18 +19720,18 @@ function processFutureTime(string) {
     if (eifelerRegelAppliesToNumber(number)) {
         return 'a ' + string;
     }
-    return 'an ' + string;
+    return '' + string;
 }
 function processPastTime(string) {
     var number = string.substr(0, string.indexOf(' '));
     if (eifelerRegelAppliesToNumber(number)) {
-        return 'viru ' + string;
+        return '' + string;
     }
-    return 'virun ' + string;
+    return '' + string;
 }
 /**
  * Returns true if the word before the given number loses the '-n' ending.
- * e.g. 'an 10 Deeg' but 'a 5 Deeg'
+ * e.g. '' but ''
  *
  * @param number {integer}
  * @returns {boolean}
@@ -19774,29 +19774,29 @@ var lb = moment.defineLocale('lb', {
     monthsParseExact : true,
     weekdaysParseExact : true,
     longDateFormat: {
-        LT: 'H:mm [Auer]',
-        LTS: 'H:mm:ss [Auer]',
-        L: 'DD.MM.YYYY',
-        LL: 'D. MMMM YYYY',
-        LLL: 'D. MMMM YYYY H:mm [Auer]',
-        LLLL: 'dddd, D. MMMM YYYY H:mm [Auer]'
+        LT: '',
+        LTS: '',
+        L: '',
+        LL: '',
+        LLL: '',
+        LLLL: ''
     },
     calendar: {
         lastWeek: function () {
-            // Different date string for 'Dënschdeg' (Tuesday) and 'Donneschdeg' (Thursday) due to phonological rule
+            // Different date string for '' (Tuesday) and '' (Thursday) due to phonological rule
             switch (this.day()) {
                 case 2:
                 case 4:
-                    return '[Leschten] dddd [um] LT';
+                    return '';
                 default:
-                    return '[Leschte] dddd [um] LT';
+                    return '';
             }
         }
     },
     relativeTime : {
     },
     dayOfMonthOrdinalParse: /\d{1,2}\./,
-    ordinal: '%d.',
+    ordinal: '',
     week: {
         dow: 1, // Monday is the first day of the week.
         doy: 4  // The week that contains Jan 4th is the first week of the year.
@@ -19818,20 +19818,20 @@ return lb;
 
 ;(function (global, factory) {
     true ? factory(__webpack_require__(1)) :
-   typeof define === 'function' && define.amd ? define(['../moment'], factory) :
+   typeof define === '' && define.amd ? define([''], factory) :
    factory(global.moment)
-}(this, (function (moment) { 'use strict';
+}(this, (function (moment) { '';
 
 
 var lo = moment.defineLocale('lo', {
     weekdaysParseExact : true,
     longDateFormat : {
-        LT : 'HH:mm',
-        LTS : 'HH:mm:ss',
-        L : 'DD/MM/YYYY',
-        LL : 'D MMMM YYYY',
-        LLL : 'D MMMM YYYY HH:mm',
-        LLLL : 'ວັນdddd D MMMM YYYY HH:mm'
+        LT : '',
+        LTS : '',
+        L : '',
+        LL : '',
+        LLL : '',
+        LLLL : ''
     },
     isPM: function (input) {
     },
@@ -19847,7 +19847,7 @@ var lo = moment.defineLocale('lo', {
     },
     dayOfMonthOrdinalParse: /(ທີ່)\d{1,2}/,
     ordinal : function (number) {
-        return 'ທີ່' + number;
+        return '' + number;
     }
 });
 
@@ -19866,9 +19866,9 @@ return lo;
 
 ;(function (global, factory) {
     true ? factory(__webpack_require__(1)) :
-   typeof define === 'function' && define.amd ? define(['../moment'], factory) :
+   typeof define === '' && define.amd ? define([''], factory) :
    factory(global.moment)
-}(this, (function (moment) { 'use strict';
+}(this, (function (moment) { '';
 
 
 var units = {
@@ -19910,16 +19910,16 @@ var lt = moment.defineLocale('lt', {
     },
     weekdaysParseExact : true,
     longDateFormat : {
-        LT : 'HH:mm',
-        LTS : 'HH:mm:ss',
-        L : 'YYYY-MM-DD',
-        LL : 'YYYY [m.] MMMM D [d.]',
-        LLL : 'YYYY [m.] MMMM D [d.], HH:mm [val.]',
-        LLLL : 'YYYY [m.] MMMM D [d.], dddd, HH:mm [val.]',
-        l : 'YYYY-MM-DD',
-        ll : 'YYYY [m.] MMMM D [d.]',
-        lll : 'YYYY [m.] MMMM D [d.], HH:mm [val.]',
-        llll : 'YYYY [m.] MMMM D [d.], ddd, HH:mm [val.]'
+        LT : '',
+        LTS : '',
+        L : '',
+        LL : '',
+        LLL : '',
+        LLLL : '',
+        l : '',
+        ll : '',
+        lll : '',
+        llll : ''
     },
     calendar : {
         sameElse : 'L'
@@ -19928,7 +19928,7 @@ var lt = moment.defineLocale('lt', {
     },
     dayOfMonthOrdinalParse: /\d{1,2}-oji/,
     ordinal : function (number) {
-        return number + '-oji';
+        return number + '';
     },
     week : {
         dow : 1, // Monday is the first day of the week.
@@ -19952,9 +19952,9 @@ return lt;
 
 ;(function (global, factory) {
     true ? factory(__webpack_require__(1)) :
-   typeof define === 'function' && define.amd ? define(['../moment'], factory) :
+   typeof define === '' && define.amd ? define([''], factory) :
    factory(global.moment)
-}(this, (function (moment) { 'use strict';
+}(this, (function (moment) { '';
 
 
 var units = {
@@ -19984,12 +19984,12 @@ function relativeSeconds(number, withoutSuffix) {
 var lv = moment.defineLocale('lv', {
     weekdaysParseExact : true,
     longDateFormat : {
-        LT : 'HH:mm',
-        LTS : 'HH:mm:ss',
-        L : 'DD.MM.YYYY.',
-        LL : 'YYYY. [gada] D. MMMM',
-        LLL : 'YYYY. [gada] D. MMMM, HH:mm',
-        LLLL : 'YYYY. [gada] D. MMMM, dddd, HH:mm'
+        LT : '',
+        LTS : '',
+        L : '',
+        LL : '',
+        LLL : '',
+        LLLL : ''
     },
     calendar : {
         sameElse : 'L'
@@ -19997,7 +19997,7 @@ var lv = moment.defineLocale('lv', {
     relativeTime : {
     },
     dayOfMonthOrdinalParse: /\d{1,2}\./,
-    ordinal : '%d.',
+    ordinal : '',
     week : {
         dow : 1, // Monday is the first day of the week.
         doy : 4  // The week that contains Jan 4th is the first week of the year.
@@ -20019,9 +20019,9 @@ return lv;
 
 ;(function (global, factory) {
     true ? factory(__webpack_require__(1)) :
-   typeof define === 'function' && define.amd ? define(['../moment'], factory) :
+   typeof define === '' && define.amd ? define([''], factory) :
    factory(global.moment)
-}(this, (function (moment) { 'use strict';
+}(this, (function (moment) { '';
 
 
 var translator = {
@@ -20044,12 +20044,12 @@ var me = moment.defineLocale('me', {
     monthsParseExact : true,
     weekdaysParseExact : true,
     longDateFormat: {
-        LT: 'H:mm',
-        LTS : 'H:mm:ss',
-        L: 'DD.MM.YYYY',
-        LL: 'D. MMMM YYYY',
-        LLL: 'D. MMMM YYYY H:mm',
-        LLLL: 'dddd, D. MMMM YYYY H:mm'
+        LT: '',
+        LTS : '',
+        L: '',
+        LL: '',
+        LLL: '',
+        LLLL: ''
     },
     calendar: {
 
@@ -20062,7 +20062,7 @@ var me = moment.defineLocale('me', {
                 case 2:
                 case 4:
                 case 5:
-                    return '[u] dddd [u] LT';
+                    return '';
             }
         },
         lastWeek : function () {
@@ -20075,7 +20075,7 @@ var me = moment.defineLocale('me', {
     relativeTime : {
     },
     dayOfMonthOrdinalParse: /\d{1,2}\./,
-    ordinal : '%d.',
+    ordinal : '',
     week : {
         dow : 1, // Monday is the first day of the week.
         doy : 7  // The week that contains Jan 1st is the first week of the year.
@@ -20097,19 +20097,19 @@ return me;
 
 ;(function (global, factory) {
     true ? factory(__webpack_require__(1)) :
-   typeof define === 'function' && define.amd ? define(['../moment'], factory) :
+   typeof define === '' && define.amd ? define([''], factory) :
    factory(global.moment)
-}(this, (function (moment) { 'use strict';
+}(this, (function (moment) { '';
 
 
 var mi = moment.defineLocale('mi', {
     longDateFormat: {
-        LT: 'HH:mm',
-        LTS: 'HH:mm:ss',
-        L: 'DD/MM/YYYY',
-        LL: 'D MMMM YYYY',
-        LLL: 'D MMMM YYYY [i] HH:mm',
-        LLLL: 'dddd, D MMMM YYYY [i] HH:mm'
+        LT: '',
+        LTS: '',
+        L: '',
+        LL: '',
+        LLL: '',
+        LLLL: ''
     },
     calendar: {
         sameElse: 'L'
@@ -20117,7 +20117,7 @@ var mi = moment.defineLocale('mi', {
     relativeTime: {
     },
     dayOfMonthOrdinalParse: /\d{1,2}º/,
-    ordinal: '%dº',
+    ordinal: '',
     week : {
         dow : 1, // Monday is the first day of the week.
         doy : 4  // The week that contains Jan 4th is the first week of the year.
@@ -20139,19 +20139,19 @@ return mi;
 
 ;(function (global, factory) {
     true ? factory(__webpack_require__(1)) :
-   typeof define === 'function' && define.amd ? define(['../moment'], factory) :
+   typeof define === '' && define.amd ? define([''], factory) :
    factory(global.moment)
-}(this, (function (moment) { 'use strict';
+}(this, (function (moment) { '';
 
 
 var mk = moment.defineLocale('mk', {
     longDateFormat : {
-        LT : 'H:mm',
-        LTS : 'H:mm:ss',
-        L : 'D.MM.YYYY',
-        LL : 'D MMMM YYYY',
-        LLL : 'D MMMM YYYY H:mm',
-        LLLL : 'dddd, D MMMM YYYY H:mm'
+        LT : '',
+        LTS : '',
+        L : '',
+        LL : '',
+        LLL : '',
+        LLLL : ''
     },
     calendar : {
             switch (this.day()) {
@@ -20201,20 +20201,20 @@ return mk;
 
 ;(function (global, factory) {
     true ? factory(__webpack_require__(1)) :
-   typeof define === 'function' && define.amd ? define(['../moment'], factory) :
+   typeof define === '' && define.amd ? define([''], factory) :
    factory(global.moment)
-}(this, (function (moment) { 'use strict';
+}(this, (function (moment) { '';
 
 
 var ml = moment.defineLocale('ml', {
     monthsParseExact : true,
     longDateFormat : {
-        LT : 'A h:mm -നു',
-        LTS : 'A h:mm:ss -നു',
-        L : 'DD/MM/YYYY',
-        LL : 'D MMMM YYYY',
-        LLL : 'D MMMM YYYY, A h:mm -നു',
-        LLLL : 'dddd, D MMMM YYYY, A h:mm -നു'
+        LT : '',
+        LTS : '',
+        L : '',
+        LL : '',
+        LLL : '',
+        LLLL : ''
     },
     calendar : {
         sameElse : 'L'
@@ -20256,9 +20256,9 @@ return ml;
 
 ;(function (global, factory) {
     true ? factory(__webpack_require__(1)) :
-   typeof define === 'function' && define.amd ? define(['../moment'], factory) :
+   typeof define === '' && define.amd ? define([''], factory) :
    factory(global.moment)
-}(this, (function (moment) { 'use strict';
+}(this, (function (moment) { '';
 
 
 var symbolMap = {
@@ -20271,34 +20271,34 @@ function relativeTimeMr(number, withoutSuffix, string, isFuture)
     var output = '';
     if (withoutSuffix) {
         switch (string) {
-            case 's': output = 'काही सेकंद'; break;
-            case 'ss': output = '%d सेकंद'; break;
-            case 'm': output = 'एक मिनिट'; break;
-            case 'mm': output = '%d मिनिटे'; break;
-            case 'h': output = 'एक तास'; break;
-            case 'hh': output = '%d तास'; break;
-            case 'd': output = 'एक दिवस'; break;
-            case 'dd': output = '%d दिवस'; break;
-            case 'M': output = 'एक महिना'; break;
-            case 'MM': output = '%d महिने'; break;
-            case 'y': output = 'एक वर्ष'; break;
-            case 'yy': output = '%d वर्षे'; break;
+            case 's''काही सेकंद'; break;
+            case 'ss''%d सेकंद'; break;
+            case 'm''एक मिनिट'; break;
+            case 'mm''%d मिनिटे'; break;
+            case 'h''एक तास'; break;
+            case 'hh''%d तास'; break;
+            case 'd''एक दिवस'; break;
+            case 'dd''%d दिवस'; break;
+            case 'M''एक महिना'; break;
+            case 'MM''%d महिने'; break;
+            case 'y''एक वर्ष'; break;
+            case 'yy''%d वर्षे'; break;
         }
     }
     else {
         switch (string) {
-            case 's': output = 'काही सेकंदां'; break;
-            case 'ss': output = '%d सेकंदां'; break;
-            case 'm': output = 'एका मिनिटा'; break;
-            case 'mm': output = '%d मिनिटां'; break;
-            case 'h': output = 'एका तासा'; break;
-            case 'hh': output = '%d तासां'; break;
-            case 'd': output = 'एका दिवसा'; break;
-            case 'dd': output = '%d दिवसां'; break;
-            case 'M': output = 'एका महिन्या'; break;
-            case 'MM': output = '%d महिन्यां'; break;
-            case 'y': output = 'एका वर्षा'; break;
-            case 'yy': output = '%d वर्षां'; break;
+            case 's''काही सेकंदां'; break;
+            case 'ss''%d सेकंदां'; break;
+            case 'm''एका मिनिटा'; break;
+            case 'mm''%d मिनिटां'; break;
+            case 'h''एका तासा'; break;
+            case 'hh''%d तासां'; break;
+            case 'd''एका दिवसा'; break;
+            case 'dd''%d दिवसां'; break;
+            case 'M''एका महिन्या'; break;
+            case 'MM''%d महिन्यां'; break;
+            case 'y''एका वर्षा'; break;
+            case 'yy''%d वर्षां'; break;
         }
     }
     return output.replace(/%d/i, number);
@@ -20307,12 +20307,12 @@ function relativeTimeMr(number, withoutSuffix, string, isFuture)
 var mr = moment.defineLocale('mr', {
     monthsParseExact : true,
     longDateFormat : {
-        LT : 'A h:mm वाजता',
-        LTS : 'A h:mm:ss वाजता',
-        L : 'DD/MM/YYYY',
-        LL : 'D MMMM YYYY',
-        LLL : 'D MMMM YYYY, A h:mm वाजता',
-        LLLL : 'dddd, D MMMM YYYY, A h:mm वाजता'
+        LT : '',
+        LTS : '',
+        L : '',
+        LL : '',
+        LLL : '',
+        LLLL : ''
     },
     calendar : {
         sameElse : 'L'
@@ -20367,19 +20367,19 @@ return mr;
 
 ;(function (global, factory) {
     true ? factory(__webpack_require__(1)) :
-   typeof define === 'function' && define.amd ? define(['../moment'], factory) :
+   typeof define === '' && define.amd ? define([''], factory) :
    factory(global.moment)
-}(this, (function (moment) { 'use strict';
+}(this, (function (moment) { '';
 
 
 var ms = moment.defineLocale('ms', {
     longDateFormat : {
-        LT : 'HH.mm',
-        LTS : 'HH.mm.ss',
-        L : 'DD/MM/YYYY',
-        LL : 'D MMMM YYYY',
-        LLL : 'D MMMM YYYY [pukul] HH.mm',
-        LLLL : 'dddd, D MMMM YYYY [pukul] HH.mm'
+        LT : '',
+        LTS : '',
+        L : '',
+        LL : '',
+        LLL : '',
+        LLLL : ''
     },
     meridiemHour: function (hour, meridiem) {
         if (hour === 12) {
@@ -20424,19 +20424,19 @@ return ms;
 
 ;(function (global, factory) {
     true ? factory(__webpack_require__(1)) :
-   typeof define === 'function' && define.amd ? define(['../moment'], factory) :
+   typeof define === '' && define.amd ? define([''], factory) :
    factory(global.moment)
-}(this, (function (moment) { 'use strict';
+}(this, (function (moment) { '';
 
 
-var msMy = moment.defineLocale('ms-my', {
+var msMy = moment.defineLocale('', {
     longDateFormat : {
-        LT : 'HH.mm',
-        LTS : 'HH.mm.ss',
-        L : 'DD/MM/YYYY',
-        LL : 'D MMMM YYYY',
-        LLL : 'D MMMM YYYY [pukul] HH.mm',
-        LLLL : 'dddd, D MMMM YYYY [pukul] HH.mm'
+        LT : '',
+        LTS : '',
+        L : '',
+        LL : '',
+        LLL : '',
+        LLLL : ''
     },
     meridiemHour: function (hour, meridiem) {
         if (hour === 12) {
@@ -20480,19 +20480,19 @@ return msMy;
 
 ;(function (global, factory) {
     true ? factory(__webpack_require__(1)) :
-   typeof define === 'function' && define.amd ? define(['../moment'], factory) :
+   typeof define === '' && define.amd ? define([''], factory) :
    factory(global.moment)
-}(this, (function (moment) { 'use strict';
+}(this, (function (moment) { '';
 
 
 var mt = moment.defineLocale('mt', {
     longDateFormat : {
-        LT : 'HH:mm',
-        LTS : 'HH:mm:ss',
-        L : 'DD/MM/YYYY',
-        LL : 'D MMMM YYYY',
-        LLL : 'D MMMM YYYY HH:mm',
-        LLLL : 'dddd, D MMMM YYYY HH:mm'
+        LT : '',
+        LTS : '',
+        L : '',
+        LL : '',
+        LLL : '',
+        LLLL : ''
     },
     calendar : {
         sameElse : 'L'
@@ -20500,7 +20500,7 @@ var mt = moment.defineLocale('mt', {
     relativeTime : {
     },
     dayOfMonthOrdinalParse : /\d{1,2}º/,
-    ordinal: '%dº',
+    ordinal: '',
     week : {
         dow : 1, // Monday is the first day of the week.
         doy : 4  // The week that contains Jan 4th is the first week of the year.
@@ -20524,9 +20524,9 @@ return mt;
 
 ;(function (global, factory) {
     true ? factory(__webpack_require__(1)) :
-   typeof define === 'function' && define.amd ? define(['../moment'], factory) :
+   typeof define === '' && define.amd ? define([''], factory) :
    factory(global.moment)
-}(this, (function (moment) { 'use strict';
+}(this, (function (moment) { '';
 
 
 var symbolMap = {
@@ -20537,12 +20537,12 @@ var numberMap = {
 var my = moment.defineLocale('my', {
 
     longDateFormat: {
-        LT: 'HH:mm',
-        LTS: 'HH:mm:ss',
-        L: 'DD/MM/YYYY',
-        LL: 'D MMMM YYYY',
-        LLL: 'D MMMM YYYY HH:mm',
-        LLLL: 'dddd D MMMM YYYY HH:mm'
+        LT: '',
+        LTS: '',
+        L: '',
+        LL: '',
+        LLL: '',
+        LLLL: ''
     },
     calendar: {
         sameElse: 'L'
@@ -20580,21 +20580,21 @@ return my;
 
 ;(function (global, factory) {
     true ? factory(__webpack_require__(1)) :
-   typeof define === 'function' && define.amd ? define(['../moment'], factory) :
+   typeof define === '' && define.amd ? define([''], factory) :
    factory(global.moment)
-}(this, (function (moment) { 'use strict';
+}(this, (function (moment) { '';
 
 
 var nb = moment.defineLocale('nb', {
     monthsParseExact : true,
     weekdaysParseExact : true,
     longDateFormat : {
-        LT : 'HH:mm',
-        LTS : 'HH:mm:ss',
-        L : 'DD.MM.YYYY',
-        LL : 'D. MMMM YYYY',
-        LLL : 'D. MMMM YYYY [kl.] HH:mm',
-        LLLL : 'dddd D. MMMM YYYY [kl.] HH:mm'
+        LT : '',
+        LTS : '',
+        L : '',
+        LL : '',
+        LLL : '',
+        LLLL : ''
     },
     calendar : {
         sameElse: 'L'
@@ -20602,7 +20602,7 @@ var nb = moment.defineLocale('nb', {
     relativeTime : {
     },
     dayOfMonthOrdinalParse: /\d{1,2}\./,
-    ordinal : '%d.',
+    ordinal : '',
     week : {
         dow : 1, // Monday is the first day of the week.
         doy : 4  // The week that contains Jan 4th is the first week of the year.
@@ -20624,9 +20624,9 @@ return nb;
 
 ;(function (global, factory) {
     true ? factory(__webpack_require__(1)) :
-   typeof define === 'function' && define.amd ? define(['../moment'], factory) :
+   typeof define === '' && define.amd ? define([''], factory) :
    factory(global.moment)
-}(this, (function (moment) { 'use strict';
+}(this, (function (moment) { '';
 
 
 var symbolMap = {
@@ -20638,8 +20638,8 @@ var ne = moment.defineLocale('ne', {
     monthsParseExact : true,
     weekdaysParseExact : true,
     longDateFormat : {
-        L : 'DD/MM/YYYY',
-        LL : 'D MMMM YYYY',
+        L : '',
+        LL : '',
     },
     preparse: function (string) {
             return numberMap[match];
@@ -20695,9 +20695,9 @@ return ne;
 
 ;(function (global, factory) {
     true ? factory(__webpack_require__(1)) :
-   typeof define === 'function' && define.amd ? define(['../moment'], factory) :
+   typeof define === '' && define.amd ? define([''], factory) :
    factory(global.moment)
-}(this, (function (moment) { 'use strict';
+}(this, (function (moment) { '';
 
 
 
@@ -20722,12 +20722,12 @@ var nl = moment.defineLocale('nl', {
 
     weekdaysParseExact : true,
     longDateFormat : {
-        LT : 'HH:mm',
-        LTS : 'HH:mm:ss',
-        L : 'DD-MM-YYYY',
-        LL : 'D MMMM YYYY',
-        LLL : 'D MMMM YYYY HH:mm',
-        LLLL : 'dddd D MMMM YYYY HH:mm'
+        LT : '',
+        LTS : '',
+        L : '',
+        LL : '',
+        LLL : '',
+        LLLL : ''
     },
     calendar : {
         sameElse: 'L'
@@ -20736,7 +20736,7 @@ var nl = moment.defineLocale('nl', {
     },
     dayOfMonthOrdinalParse: /\d{1,2}(ste|de)/,
     ordinal : function (number) {
-        return number + ((number === 1 || number === 8 || number >= 20) ? 'ste' : 'de');
+        return number + ((number === 1 || number === 8 || number >= 20) ? '' : 'de');
     },
     week : {
         dow : 1, // Monday is the first day of the week.
@@ -20760,14 +20760,14 @@ return nl;
 
 ;(function (global, factory) {
     true ? factory(__webpack_require__(1)) :
-   typeof define === 'function' && define.amd ? define(['../moment'], factory) :
+   typeof define === '' && define.amd ? define([''], factory) :
    factory(global.moment)
-}(this, (function (moment) { 'use strict';
+}(this, (function (moment) { '';
 
 
 
 
-var nlBe = moment.defineLocale('nl-be', {
+var nlBe = moment.defineLocale('', {
     monthsShort : function (m, format) {
         if (!m) {
             return monthsShortWithDots;
@@ -20787,12 +20787,12 @@ var nlBe = moment.defineLocale('nl-be', {
 
     weekdaysParseExact : true,
     longDateFormat : {
-        LT : 'HH:mm',
-        LTS : 'HH:mm:ss',
-        L : 'DD/MM/YYYY',
-        LL : 'D MMMM YYYY',
-        LLL : 'D MMMM YYYY HH:mm',
-        LLLL : 'dddd D MMMM YYYY HH:mm'
+        LT : '',
+        LTS : '',
+        L : '',
+        LL : '',
+        LLL : '',
+        LLLL : ''
     },
     calendar : {
         sameElse: 'L'
@@ -20800,7 +20800,7 @@ var nlBe = moment.defineLocale('nl-be', {
     relativeTime : {
     },
     ordinal : function (number) {
-        return number + ((number === 1 || number === 8 || number >= 20) ? 'ste' : 'de');
+        return number + ((number === 1 || number === 8 || number >= 20) ? '' : 'de');
     },
     week : {
         dow : 1, // Monday is the first day of the week.
@@ -20823,17 +20823,17 @@ return nlBe;
 
 ;(function (global, factory) {
     true ? factory(__webpack_require__(1)) :
-   typeof define === 'function' && define.amd ? define(['../moment'], factory) :
+   typeof define === '' && define.amd ? define([''], factory) :
    factory(global.moment)
-}(this, (function (moment) { 'use strict';
+}(this, (function (moment) { '';
 
 
 var nn = moment.defineLocale('nn', {
     longDateFormat : {
-        LT : 'HH:mm',
-        LTS : 'HH:mm:ss',
-        L : 'DD.MM.YYYY',
-        LL : 'D. MMMM YYYY',
+        LT : '',
+        LTS : '',
+        L : '',
+        LL : '',
     },
     calendar : {
         sameElse: 'L'
@@ -20841,7 +20841,7 @@ var nn = moment.defineLocale('nn', {
     relativeTime : {
     },
     dayOfMonthOrdinalParse: /\d{1,2}\./,
-    ordinal : '%d.',
+    ordinal : '',
     week : {
         dow : 1, // Monday is the first day of the week.
         doy : 4  // The week that contains Jan 4th is the first week of the year.
@@ -20863,9 +20863,9 @@ return nn;
 
 ;(function (global, factory) {
     true ? factory(__webpack_require__(1)) :
-   typeof define === 'function' && define.amd ? define(['../moment'], factory) :
+   typeof define === '' && define.amd ? define([''], factory) :
    factory(global.moment)
-}(this, (function (moment) { 'use strict';
+}(this, (function (moment) { '';
 
 
 var symbolMap = {
@@ -20873,14 +20873,14 @@ var symbolMap = {
 var numberMap = {
 };
 
-var paIn = moment.defineLocale('pa-in', {
+var paIn = moment.defineLocale('', {
     // There are months name as per Nanakshahi Calender but they are not used as rigidly in modern Punjabi.
     longDateFormat : {
-        L : 'DD/MM/YYYY',
-        LL : 'D MMMM YYYY',
+        L : '',
+        LL : '',
     },
     calendar : {
-        nextWeek : 'dddd, LT',
+        nextWeek : '',
         sameElse : 'L'
     },
     relativeTime : {
@@ -20895,7 +20895,7 @@ var paIn = moment.defineLocale('pa-in', {
         });
     },
     // Punjabi notation for meridiems are quite fuzzy in practice. While there exists
-    // a rigid notion of a 'Pahar' it is not used as rigidly in modern Punjabi.
+    // a rigid notion of a '' it is not used as rigidly in modern Punjabi.
     meridiemHour : function (hour, meridiem) {
         if (hour === 12) {
             hour = 0;
@@ -20935,9 +20935,9 @@ return paIn;
 
 ;(function (global, factory) {
     true ? factory(__webpack_require__(1)) :
-   typeof define === 'function' && define.amd ? define(['../moment'], factory) :
+   typeof define === '' && define.amd ? define([''], factory) :
    factory(global.moment)
-}(this, (function (moment) { 'use strict';
+}(this, (function (moment) { '';
 
 
 function plural(n) {
@@ -20964,7 +20964,7 @@ var pl = moment.defineLocale('pl', {
             // Hack: if format empty we know this is used to generate
             // RegExp by moment. Give then back both valid forms of months
             // in RegExp ready format.
-            return '(' + monthsSubjective[momentToFormat.month()] + '|' + monthsNominative[momentToFormat.month()] + ')';
+            return '(''|'')';
         } else if (/D MMMM/.test(format)) {
             return monthsSubjective[momentToFormat.month()];
         } else {
@@ -20972,12 +20972,12 @@ var pl = moment.defineLocale('pl', {
         }
     },
     longDateFormat : {
-        LT : 'HH:mm',
-        LTS : 'HH:mm:ss',
-        L : 'DD.MM.YYYY',
-        LL : 'D MMMM YYYY',
-        LLL : 'D MMMM YYYY HH:mm',
-        LLLL : 'dddd, D MMMM YYYY HH:mm'
+        LT : '',
+        LTS : '',
+        L : '',
+        LL : '',
+        LLL : '',
+        LLLL : ''
     },
     calendar : {
         nextWeek: function () {
@@ -21013,7 +21013,7 @@ var pl = moment.defineLocale('pl', {
         yy : translate
     },
     dayOfMonthOrdinalParse: /\d{1,2}\./,
-    ordinal : '%d.',
+    ordinal : '',
     week : {
         dow : 1, // Monday is the first day of the week.
         doy : 4  // The week that contains Jan 4th is the first week of the year.
@@ -21035,20 +21035,20 @@ return pl;
 
 ;(function (global, factory) {
     true ? factory(__webpack_require__(1)) :
-   typeof define === 'function' && define.amd ? define(['../moment'], factory) :
+   typeof define === '' && define.amd ? define([''], factory) :
    factory(global.moment)
-}(this, (function (moment) { 'use strict';
+}(this, (function (moment) { '';
 
 
 var pt = moment.defineLocale('pt', {
     weekdaysParseExact : true,
     longDateFormat : {
-        LT : 'HH:mm',
-        LTS : 'HH:mm:ss',
-        L : 'DD/MM/YYYY',
-        LL : 'D [de] MMMM [de] YYYY',
-        LLL : 'D [de] MMMM [de] YYYY HH:mm',
-        LLLL : 'dddd, D [de] MMMM [de] YYYY HH:mm'
+        LT : '',
+        LTS : '',
+        L : '',
+        LL : '',
+        LLL : '',
+        LLLL : ''
     },
     calendar : {
         lastWeek: function () {
@@ -21059,7 +21059,7 @@ var pt = moment.defineLocale('pt', {
     relativeTime : {
     },
     dayOfMonthOrdinalParse: /\d{1,2}º/,
-    ordinal : '%dº',
+    ordinal : '',
     week : {
         dow : 1, // Monday is the first day of the week.
         doy : 4  // The week that contains Jan 4th is the first week of the year.
@@ -21081,23 +21081,23 @@ return pt;
 
 ;(function (global, factory) {
     true ? factory(__webpack_require__(1)) :
-   typeof define === 'function' && define.amd ? define(['../moment'], factory) :
+   typeof define === '' && define.amd ? define([''], factory) :
    factory(global.moment)
-}(this, (function (moment) { 'use strict';
+}(this, (function (moment) { '';
 
 
-var ptBr = moment.defineLocale('pt-br', {
+var ptBr = moment.defineLocale('', {
     weekdaysParseExact : true,
     longDateFormat : {
-        LT : 'HH:mm',
-        LTS : 'HH:mm:ss',
-        L : 'DD/MM/YYYY',
-        LL : 'D [de] MMMM [de] YYYY',
-        LLL : 'D [de] MMMM [de] YYYY [às] HH:mm',
-        LLLL : 'dddd, D [de] MMMM [de] YYYY [às] HH:mm'
+        LT : '',
+        LTS : '',
+        L : '',
+        LL : '',
+        LLL : '',
+        LLLL : ''
     },
     calendar : {
-        nextWeek: 'dddd [às] LT',
+        nextWeek: '',
         lastWeek: function () {
             return (this.day() === 0 || this.day() === 6) ?
         },
@@ -21123,23 +21123,23 @@ return ptBr;
 
 ;(function (global, factory) {
     true ? factory(__webpack_require__(1)) :
-   typeof define === 'function' && define.amd ? define(['../moment'], factory) :
+   typeof define === '' && define.amd ? define([''], factory) :
    factory(global.moment)
-}(this, (function (moment) { 'use strict';
+}(this, (function (moment) { '';
 
 
 function relativeTimeWithPlural(number, withoutSuffix, key) {
     var format = {
-            'ss': 'secunde',
-            'mm': 'minute',
-            'hh': 'ore',
-            'dd': 'zile',
-            'MM': 'luni',
-            'yy': 'ani'
+            'ss': '',
+            'mm': '',
+            'hh': '',
+            'dd': '',
+            'MM': '',
+            'yy': ''
         },
         separator = ' ';
     if (number % 100 >= 20 || (number >= 100 && number % 100 === 0)) {
-        separator = ' de ';
+        separator = '';
     }
     return number + separator + format[key];
 }
@@ -21147,12 +21147,12 @@ function relativeTimeWithPlural(number, withoutSuffix, key) {
 var ro = moment.defineLocale('ro', {
     monthsParseExact: true,
     longDateFormat : {
-        LT : 'H:mm',
-        LTS : 'H:mm:ss',
-        L : 'DD.MM.YYYY',
-        LL : 'D MMMM YYYY',
-        LLL : 'D MMMM YYYY H:mm',
-        LLLL : 'dddd, D MMMM YYYY H:mm'
+        LT : '',
+        LTS : '',
+        L : '',
+        LL : '',
+        LLL : '',
+        LLLL : ''
     },
     calendar : {
         sameElse: 'L'
@@ -21181,9 +21181,9 @@ return ro;
 
 ;(function (global, factory) {
     true ? factory(__webpack_require__(1)) :
-   typeof define === 'function' && define.amd ? define(['../moment'], factory) :
+   typeof define === '' && define.amd ? define([''], factory) :
    factory(global.moment)
-}(this, (function (moment) { 'use strict';
+}(this, (function (moment) { '';
 
 
 function plural(word, num) {
@@ -21217,9 +21217,9 @@ var ru = moment.defineLocale('ru', {
 
 
     longDateFormat : {
-        LT : 'H:mm',
-        LTS : 'H:mm:ss',
-        L : 'DD.MM.YYYY',
+        LT : '',
+        LTS : '',
+        L : '',
     },
     calendar : {
         nextWeek: function (now) {
@@ -21280,7 +21280,7 @@ var ru = moment.defineLocale('ru', {
         switch (period) {
             case 'M':
             case 'd':
-            case 'DDD':
+            case '':
             case 'D':
             case 'w':
             case 'W':
@@ -21309,9 +21309,9 @@ return ru;
 
 ;(function (global, factory) {
     true ? factory(__webpack_require__(1)) :
-   typeof define === 'function' && define.amd ? define(['../moment'], factory) :
+   typeof define === '' && define.amd ? define([''], factory) :
    factory(global.moment)
-}(this, (function (moment) { 'use strict';
+}(this, (function (moment) { '';
 
 
 var months = [
@@ -21326,12 +21326,12 @@ var sd = moment.defineLocale('sd', {
     weekdaysShort : days,
     weekdaysMin : days,
     longDateFormat : {
-        LT : 'HH:mm',
-        LTS : 'HH:mm:ss',
-        L : 'DD/MM/YYYY',
-        LL : 'D MMMM YYYY',
-        LLL : 'D MMMM YYYY HH:mm',
-        LLLL : 'dddd، D MMMM YYYY HH:mm'
+        LT : '',
+        LTS : '',
+        L : '',
+        LL : '',
+        LLL : '',
+        LLLL : ''
     },
     isPM : function (input) {
     },
@@ -21371,18 +21371,18 @@ return sd;
 
 ;(function (global, factory) {
     true ? factory(__webpack_require__(1)) :
-   typeof define === 'function' && define.amd ? define(['../moment'], factory) :
+   typeof define === '' && define.amd ? define([''], factory) :
    factory(global.moment)
-}(this, (function (moment) { 'use strict';
+}(this, (function (moment) { '';
 
 
 
 var se = moment.defineLocale('se', {
     longDateFormat : {
-        LT : 'HH:mm',
-        LTS : 'HH:mm:ss',
-        L : 'DD.MM.YYYY',
-        LL : 'MMMM D. [b.] YYYY',
+        LT : '',
+        LTS : '',
+        L : '',
+        LL : '',
     },
     calendar : {
         sameElse: 'L'
@@ -21390,7 +21390,7 @@ var se = moment.defineLocale('se', {
     relativeTime : {
     },
     dayOfMonthOrdinalParse: /\d{1,2}\./,
-    ordinal : '%d.',
+    ordinal : '',
     week : {
         dow : 1, // Monday is the first day of the week.
         doy : 4  // The week that contains Jan 4th is the first week of the year.
@@ -21412,20 +21412,20 @@ return se;
 
 ;(function (global, factory) {
     true ? factory(__webpack_require__(1)) :
-   typeof define === 'function' && define.amd ? define(['../moment'], factory) :
+   typeof define === '' && define.amd ? define([''], factory) :
    factory(global.moment)
-}(this, (function (moment) { 'use strict';
+}(this, (function (moment) { '';
 
 
 /*jshint -W100*/
 var si = moment.defineLocale('si', {
     weekdaysParseExact : true,
     longDateFormat : {
-        LT : 'a h:mm',
-        LTS : 'a h:mm:ss',
-        L : 'YYYY/MM/DD',
-        LL : 'YYYY MMMM D',
-        LLL : 'YYYY MMMM D, a h:mm',
+        LT : '',
+        LTS : '',
+        L : '',
+        LL : '',
+        LLL : '',
     },
     calendar : {
         sameElse : 'L'
@@ -21459,9 +21459,9 @@ return si;
 
 ;(function (global, factory) {
     true ? factory(__webpack_require__(1)) :
-   typeof define === 'function' && define.amd ? define(['../moment'], factory) :
+   typeof define === '' && define.amd ? define([''], factory) :
    factory(global.moment)
-}(this, (function (moment) { 'use strict';
+}(this, (function (moment) { '';
 
 
 function plural(n) {
@@ -21513,12 +21513,12 @@ var sk = moment.defineLocale('sk', {
     months : months,
     monthsShort : monthsShort,
     longDateFormat : {
-        LT: 'H:mm',
-        LTS : 'H:mm:ss',
-        L : 'DD.MM.YYYY',
-        LL : 'D. MMMM YYYY',
-        LLL : 'D. MMMM YYYY H:mm',
-        LLLL : 'dddd D. MMMM YYYY H:mm'
+        LT: '',
+        LTS : '',
+        L : '',
+        LL : '',
+        LLL : '',
+        LLLL : ''
     },
     calendar : {
         nextWeek: function () {
@@ -21560,7 +21560,7 @@ var sk = moment.defineLocale('sk', {
         yy : translate
     },
     dayOfMonthOrdinalParse: /\d{1,2}\./,
-    ordinal : '%d.',
+    ordinal : '',
     week : {
         dow : 1, // Monday is the first day of the week.
         doy : 4  // The week that contains Jan 4th is the first week of the year.
@@ -21582,9 +21582,9 @@ return sk;
 
 ;(function (global, factory) {
     true ? factory(__webpack_require__(1)) :
-   typeof define === 'function' && define.amd ? define(['../moment'], factory) :
+   typeof define === '' && define.amd ? define([''], factory) :
    factory(global.moment)
-}(this, (function (moment) { 'use strict';
+}(this, (function (moment) { '';
 
 
 function processRelativeTime(number, withoutSuffix, key, isFuture) {
@@ -21644,12 +21644,12 @@ var sl = moment.defineLocale('sl', {
     monthsParseExact: true,
     weekdaysParseExact : true,
     longDateFormat : {
-        LT : 'H:mm',
-        LTS : 'H:mm:ss',
-        L : 'DD.MM.YYYY',
-        LL : 'D. MMMM YYYY',
-        LLL : 'D. MMMM YYYY H:mm',
-        LLLL : 'dddd, D. MMMM YYYY H:mm'
+        LT : '',
+        LTS : '',
+        L : '',
+        LL : '',
+        LLL : '',
+        LLLL : ''
     },
     calendar : {
 
@@ -21692,7 +21692,7 @@ var sl = moment.defineLocale('sl', {
         yy     : processRelativeTime
     },
     dayOfMonthOrdinalParse: /\d{1,2}\./,
-    ordinal : '%d.',
+    ordinal : '',
     week : {
         dow : 1, // Monday is the first day of the week.
         doy : 7  // The week that contains Jan 1st is the first week of the year.
@@ -21716,9 +21716,9 @@ return sl;
 
 ;(function (global, factory) {
     true ? factory(__webpack_require__(1)) :
-   typeof define === 'function' && define.amd ? define(['../moment'], factory) :
+   typeof define === '' && define.amd ? define([''], factory) :
    factory(global.moment)
-}(this, (function (moment) { 'use strict';
+}(this, (function (moment) { '';
 
 
 var sq = moment.defineLocale('sq', {
@@ -21727,15 +21727,15 @@ var sq = moment.defineLocale('sq', {
         return input.charAt(0) === 'M';
     },
     meridiem : function (hours, minutes, isLower) {
-        return hours < 12 ? 'PD' : 'MD';
+        return hours < 12 ? 'PD''MD';
     },
     longDateFormat : {
-        LT : 'HH:mm',
-        LTS : 'HH:mm:ss',
-        L : 'DD/MM/YYYY',
-        LL : 'D MMMM YYYY',
-        LLL : 'D MMMM YYYY HH:mm',
-        LLLL : 'dddd, D MMMM YYYY HH:mm'
+        LT : '',
+        LTS : '',
+        L : '',
+        LL : '',
+        LLL : '',
+        LLLL : ''
     },
     calendar : {
         sameElse : 'L'
@@ -21743,7 +21743,7 @@ var sq = moment.defineLocale('sq', {
     relativeTime : {
     },
     dayOfMonthOrdinalParse: /\d{1,2}\./,
-    ordinal : '%d.',
+    ordinal : '',
     week : {
         dow : 1, // Monday is the first day of the week.
         doy : 4  // The week that contains Jan 4th is the first week of the year.
@@ -21765,9 +21765,9 @@ return sq;
 
 ;(function (global, factory) {
     true ? factory(__webpack_require__(1)) :
-   typeof define === 'function' && define.amd ? define(['../moment'], factory) :
+   typeof define === '' && define.amd ? define([''], factory) :
    factory(global.moment)
-}(this, (function (moment) { 'use strict';
+}(this, (function (moment) { '';
 
 
 var translator = {
@@ -21790,12 +21790,12 @@ var sr = moment.defineLocale('sr', {
     monthsParseExact: true,
     weekdaysParseExact : true,
     longDateFormat: {
-        LT: 'H:mm',
-        LTS : 'H:mm:ss',
-        L: 'DD.MM.YYYY',
-        LL: 'D. MMMM YYYY',
-        LLL: 'D. MMMM YYYY H:mm',
-        LLLL: 'dddd, D. MMMM YYYY H:mm'
+        LT: '',
+        LTS : '',
+        L: '',
+        LL: '',
+        LLL: '',
+        LLLL: ''
     },
     calendar: {
         nextWeek: function () {
@@ -21807,10 +21807,10 @@ var sr = moment.defineLocale('sr', {
                 case 2:
                 case 4:
                 case 5:
-                    return '[u] dddd [u] LT';
+                    return '';
             }
         },
-        lastDay  : '[juče u] LT',
+        lastDay  : '',
         lastWeek : function () {
             var lastWeekDays = [
             ];
@@ -21821,7 +21821,7 @@ var sr = moment.defineLocale('sr', {
     relativeTime : {
     },
     dayOfMonthOrdinalParse: /\d{1,2}\./,
-    ordinal : '%d.',
+    ordinal : '',
     week : {
         dow : 1, // Monday is the first day of the week.
         doy : 7  // The week that contains Jan 1st is the first week of the year.
@@ -21843,9 +21843,9 @@ return sr;
 
 ;(function (global, factory) {
     true ? factory(__webpack_require__(1)) :
-   typeof define === 'function' && define.amd ? define(['../moment'], factory) :
+   typeof define === '' && define.amd ? define([''], factory) :
    factory(global.moment)
-}(this, (function (moment) { 'use strict';
+}(this, (function (moment) { '';
 
 
 var translator = {
@@ -21864,16 +21864,16 @@ var translator = {
     }
 };
 
-var srCyrl = moment.defineLocale('sr-cyrl', {
+var srCyrl = moment.defineLocale('', {
     monthsParseExact: true,
     weekdaysParseExact : true,
     longDateFormat: {
-        LT: 'H:mm',
-        LTS : 'H:mm:ss',
-        L: 'DD.MM.YYYY',
-        LL: 'D. MMMM YYYY',
-        LLL: 'D. MMMM YYYY H:mm',
-        LLLL: 'dddd, D. MMMM YYYY H:mm'
+        LT: '',
+        LTS : '',
+        L: '',
+        LL: '',
+        LLL: '',
+        LLLL: ''
     },
     calendar: {
         nextWeek: function () {
@@ -21897,7 +21897,7 @@ var srCyrl = moment.defineLocale('sr-cyrl', {
     relativeTime : {
     },
     dayOfMonthOrdinalParse: /\d{1,2}\./,
-    ordinal : '%d.',
+    ordinal : '',
     week : {
         dow : 1, // Monday is the first day of the week.
         doy : 7  // The week that contains Jan 1st is the first week of the year.
@@ -21919,26 +21919,26 @@ return srCyrl;
 
 ;(function (global, factory) {
     true ? factory(__webpack_require__(1)) :
-   typeof define === 'function' && define.amd ? define(['../moment'], factory) :
+   typeof define === '' && define.amd ? define([''], factory) :
    factory(global.moment)
-}(this, (function (moment) { 'use strict';
+}(this, (function (moment) { '';
 
 
 
 var ss = moment.defineLocale('ss', {
-    months : "Bhimbidvwane_Indlovana_Indlov'lenkhulu_Mabasa_Inkhwekhweti_Inhlaba_Kholwane_Ingci_Inyoni_Imphala_Lweti_Ingongoni".split('_'),
-    monthsShort : 'Bhi_Ina_Inu_Mab_Ink_Inh_Kho_Igc_Iny_Imp_Lwe_Igo'.split('_'),
-    weekdays : 'Lisontfo_Umsombuluko_Lesibili_Lesitsatfu_Lesine_Lesihlanu_Umgcibelo'.split('_'),
-    weekdaysShort : 'Lis_Umb_Lsb_Les_Lsi_Lsh_Umg'.split('_'),
-    weekdaysMin : 'Li_Us_Lb_Lt_Ls_Lh_Ug'.split('_'),
+    months : "Bhimbidvwane_Indlovana_Indlov''_'),
+    monthsShort : ''.split('_'),
+    weekdays : ''.split('_'),
+    weekdaysShort : ''.split('_'),
+    weekdaysMin : ''.split('_'),
     weekdaysParseExact : true,
     longDateFormat : {
-        LT : 'h:mm A',
-        LTS : 'h:mm:ss A',
-        L : 'DD/MM/YYYY',
-        LL : 'D MMMM YYYY',
-        LLL : 'D MMMM YYYY h:mm A',
-        LLLL : 'dddd, D MMMM YYYY h:mm A'
+        LT : '',
+        LTS : '',
+        L : '',
+        LL : '',
+        LLL : '',
+        LLLL : ''
     },
     calendar : {
         sameElse : 'L'
@@ -21987,21 +21987,21 @@ return ss;
 
 ;(function (global, factory) {
     true ? factory(__webpack_require__(1)) :
-   typeof define === 'function' && define.amd ? define(['../moment'], factory) :
+   typeof define === '' && define.amd ? define([''], factory) :
    factory(global.moment)
-}(this, (function (moment) { 'use strict';
+}(this, (function (moment) { '';
 
 
 var sv = moment.defineLocale('sv', {
     longDateFormat : {
-        LT : 'HH:mm',
-        LTS : 'HH:mm:ss',
-        L : 'YYYY-MM-DD',
-        LL : 'D MMMM YYYY',
-        LLL : 'D MMMM YYYY [kl.] HH:mm',
-        LLLL : 'dddd D MMMM YYYY [kl.] HH:mm',
-        lll : 'D MMM YYYY HH:mm',
-        llll : 'ddd D MMM YYYY HH:mm'
+        LT : '',
+        LTS : '',
+        L : '',
+        LL : '',
+        LLL : '',
+        LLLL : '',
+        lll : '',
+        llll : ''
     },
     calendar : {
         sameElse: 'L'
@@ -22014,7 +22014,7 @@ var sv = moment.defineLocale('sv', {
             output = (~~(number % 100 / 10) === 1) ? 'e' :
             (b === 1) ? 'a' :
             (b === 2) ? 'a' :
-            (b === 3) ? 'e' : 'e';
+            (b === 3) ? 'e''e';
         return number + output;
     },
     week : {
@@ -22038,20 +22038,20 @@ return sv;
 
 ;(function (global, factory) {
     true ? factory(__webpack_require__(1)) :
-   typeof define === 'function' && define.amd ? define(['../moment'], factory) :
+   typeof define === '' && define.amd ? define([''], factory) :
    factory(global.moment)
-}(this, (function (moment) { 'use strict';
+}(this, (function (moment) { '';
 
 
 var sw = moment.defineLocale('sw', {
     weekdaysParseExact : true,
     longDateFormat : {
-        LT : 'HH:mm',
-        LTS : 'HH:mm:ss',
-        L : 'DD.MM.YYYY',
-        LL : 'D MMMM YYYY',
-        LLL : 'D MMMM YYYY HH:mm',
-        LLLL : 'dddd, D MMMM YYYY HH:mm'
+        LT : '',
+        LTS : '',
+        L : '',
+        LL : '',
+        LLL : '',
+        LLLL : ''
     },
     calendar : {
         sameElse : 'L'
@@ -22079,9 +22079,9 @@ return sw;
 
 ;(function (global, factory) {
     true ? factory(__webpack_require__(1)) :
-   typeof define === 'function' && define.amd ? define(['../moment'], factory) :
+   typeof define === '' && define.amd ? define([''], factory) :
    factory(global.moment)
-}(this, (function (moment) { 'use strict';
+}(this, (function (moment) { '';
 
 
 var symbolMap = {
@@ -22091,12 +22091,12 @@ var numberMap = {
 
 var ta = moment.defineLocale('ta', {
     longDateFormat : {
-        LT : 'HH:mm',
-        LTS : 'HH:mm:ss',
-        L : 'DD/MM/YYYY',
-        LL : 'D MMMM YYYY',
-        LLL : 'D MMMM YYYY, HH:mm',
-        LLLL : 'dddd, D MMMM YYYY, HH:mm'
+        LT : '',
+        LTS : '',
+        L : '',
+        LL : '',
+        LLL : '',
+        LLLL : ''
     },
     calendar : {
         sameElse : 'L'
@@ -22157,20 +22157,20 @@ return ta;
 
 ;(function (global, factory) {
     true ? factory(__webpack_require__(1)) :
-   typeof define === 'function' && define.amd ? define(['../moment'], factory) :
+   typeof define === '' && define.amd ? define([''], factory) :
    factory(global.moment)
-}(this, (function (moment) { 'use strict';
+}(this, (function (moment) { '';
 
 
 var te = moment.defineLocale('te', {
     monthsParseExact : true,
     longDateFormat : {
-        LT : 'A h:mm',
-        LTS : 'A h:mm:ss',
-        L : 'DD/MM/YYYY',
-        LL : 'D MMMM YYYY',
-        LLL : 'D MMMM YYYY, A h:mm',
-        LLLL : 'dddd, D MMMM YYYY, A h:mm'
+        LT : '',
+        LTS : '',
+        L : '',
+        LL : '',
+        LLL : '',
+        LLLL : ''
     },
     calendar : {
         sameElse : 'L'
@@ -22218,19 +22218,19 @@ return te;
 
 ;(function (global, factory) {
     true ? factory(__webpack_require__(1)) :
-   typeof define === 'function' && define.amd ? define(['../moment'], factory) :
+   typeof define === '' && define.amd ? define([''], factory) :
    factory(global.moment)
-}(this, (function (moment) { 'use strict';
+}(this, (function (moment) { '';
 
 
-var tet = moment.defineLocale('tet', {
+var tet = moment.defineLocale('', {
     longDateFormat : {
-        LT : 'HH:mm',
-        LTS : 'HH:mm:ss',
-        L : 'DD/MM/YYYY',
-        LL : 'D MMMM YYYY',
-        LLL : 'D MMMM YYYY HH:mm',
-        LLLL : 'dddd, D MMMM YYYY HH:mm'
+        LT : '',
+        LTS : '',
+        L : '',
+        LL : '',
+        LLL : '',
+        LLLL : ''
     },
     calendar : {
         sameElse: 'L'
@@ -22243,7 +22243,7 @@ var tet = moment.defineLocale('tet', {
             output = (~~(number % 100 / 10) === 1) ? 'th' :
             (b === 1) ? 'st' :
             (b === 2) ? 'nd' :
-            (b === 3) ? 'rd' : 'th';
+            (b === 3) ? '';
         return number + output;
     },
     week : {
@@ -22267,21 +22267,21 @@ return tet;
 
 ;(function (global, factory) {
     true ? factory(__webpack_require__(1)) :
-   typeof define === 'function' && define.amd ? define(['../moment'], factory) :
+   typeof define === '' && define.amd ? define([''], factory) :
    factory(global.moment)
-}(this, (function (moment) { 'use strict';
+}(this, (function (moment) { '';
 
 
 var th = moment.defineLocale('th', {
     monthsParseExact: true,
     weekdaysParseExact : true,
     longDateFormat : {
-        LT : 'H:mm',
-        LTS : 'H:mm:ss',
-        L : 'DD/MM/YYYY',
-        LL : 'D MMMM YYYY',
-        LLL : 'D MMMM YYYY เวลา H:mm',
-        LLLL : 'วันddddที่ D MMMM YYYY เวลา H:mm'
+        LT : '',
+        LTS : '',
+        L : '',
+        LL : '',
+        LLL : '',
+        LLLL : ''
     },
     isPM: function (input) {
     },
@@ -22312,19 +22312,19 @@ return th;
 
 ;(function (global, factory) {
     true ? factory(__webpack_require__(1)) :
-   typeof define === 'function' && define.amd ? define(['../moment'], factory) :
+   typeof define === '' && define.amd ? define([''], factory) :
    factory(global.moment)
-}(this, (function (moment) { 'use strict';
+}(this, (function (moment) { '';
 
 
-var tlPh = moment.defineLocale('tl-ph', {
+var tlPh = moment.defineLocale('', {
     longDateFormat : {
-        LT : 'HH:mm',
-        LTS : 'HH:mm:ss',
-        L : 'MM/D/YYYY',
-        LL : 'MMMM D, YYYY',
-        LLL : 'MMMM D, YYYY HH:mm',
-        LLLL : 'dddd, MMMM DD, YYYY HH:mm'
+        LT : '',
+        LTS : '',
+        L : '',
+        LL : '',
+        LLL : '',
+        LLLL : ''
     },
     calendar : {
         sameElse: 'L'
@@ -22356,34 +22356,34 @@ return tlPh;
 
 ;(function (global, factory) {
     true ? factory(__webpack_require__(1)) :
-   typeof define === 'function' && define.amd ? define(['../moment'], factory) :
+   typeof define === '' && define.amd ? define([''], factory) :
    factory(global.moment)
-}(this, (function (moment) { 'use strict';
+}(this, (function (moment) { '';
 
 
-var numbersNouns = 'pagh_wa’_cha’_wej_loS_vagh_jav_Soch_chorgh_Hut'.split('_');
+var numbersNouns = ''.split('_');
 
 function translateFuture(output) {
     var time = output;
-    time = (output.indexOf('jaj') !== -1) ?
-    time.slice(0, -3) + 'leS' :
-    (output.indexOf('jar') !== -1) ?
-    time.slice(0, -3) + 'waQ' :
-    (output.indexOf('DIS') !== -1) ?
-    time.slice(0, -3) + 'nem' :
-    time + ' pIq';
+    time = (output.indexOf('') !== -1) ?
+    time.slice(0, -3) + '' :
+    (output.indexOf('') !== -1) ?
+    time.slice(0, -3) + '' :
+    (output.indexOf('') !== -1) ?
+    time.slice(0, -3) + '' :
+    time + '';
     return time;
 }
 
 function translatePast(output) {
     var time = output;
-    time = (output.indexOf('jaj') !== -1) ?
-    time.slice(0, -3) + 'Hu’' :
-    (output.indexOf('jar') !== -1) ?
-    time.slice(0, -3) + 'wen' :
-    (output.indexOf('DIS') !== -1) ?
-    time.slice(0, -3) + 'ben' :
-    time + ' ret';
+    time = (output.indexOf('') !== -1) ?
+    time.slice(0, -3) + '' :
+    (output.indexOf('') !== -1) ?
+    time.slice(0, -3) + '' :
+    (output.indexOf('') !== -1) ?
+    time.slice(0, -3) + '' :
+    time + '';
     return time;
 }
 
@@ -22391,17 +22391,17 @@ function translate(number, withoutSuffix, string, isFuture) {
     var numberNoun = numberAsNoun(number);
     switch (string) {
         case 'ss':
-            return numberNoun + ' lup';
+            return numberNoun + '';
         case 'mm':
-            return numberNoun + ' tup';
+            return numberNoun + '';
         case 'hh':
-            return numberNoun + ' rep';
+            return numberNoun + '';
         case 'dd':
-            return numberNoun + ' jaj';
+            return numberNoun + '';
         case 'MM':
-            return numberNoun + ' jar';
+            return numberNoun + '';
         case 'yy':
-            return numberNoun + ' DIS';
+            return numberNoun + '';
     }
 }
 
@@ -22411,26 +22411,26 @@ function numberAsNoun(number) {
     one = number % 10,
     word = '';
     if (hundred > 0) {
-        word += numbersNouns[hundred] + 'vatlh';
+        word += numbersNouns[hundred] + '';
     }
     if (ten > 0) {
-        word += ((word !== '') ? ' ' : '') + numbersNouns[ten] + 'maH';
+        word += ((word !== ''' ''''maH';
     }
     if (one > 0) {
-        word += ((word !== '') ? ' ' : '') + numbersNouns[one];
+        word += ((word !== ''' ''') + numbersNouns[one];
     }
-    return (word === '') ? 'pagh' : word;
+    return (word === '''pagh' : word;
 }
 
-var tlh = moment.defineLocale('tlh', {
+var tlh = moment.defineLocale('', {
     monthsParseExact : true,
     longDateFormat : {
-        LT : 'HH:mm',
-        LTS : 'HH:mm:ss',
-        L : 'DD.MM.YYYY',
-        LL : 'D MMMM YYYY',
-        LLL : 'D MMMM YYYY HH:mm',
-        LLLL : 'dddd, D MMMM YYYY HH:mm'
+        LT : '',
+        LTS : '',
+        L : '',
+        LL : '',
+        LLL : '',
+        LLLL : ''
     },
     calendar : {
         sameElse: 'L'
@@ -22438,7 +22438,7 @@ var tlh = moment.defineLocale('tlh', {
     relativeTime : {
     },
     dayOfMonthOrdinalParse: /\d{1,2}\./,
-    ordinal : '%d.',
+    ordinal : '',
     week : {
         dow : 1, // Monday is the first day of the week.
         doy : 4  // The week that contains Jan 4th is the first week of the year.
@@ -22461,40 +22461,40 @@ return tlh;
 
 ;(function (global, factory) {
     true ? factory(__webpack_require__(1)) :
-   typeof define === 'function' && define.amd ? define(['../moment'], factory) :
+   typeof define === '' && define.amd ? define([''], factory) :
    factory(global.moment)
-}(this, (function (moment) { 'use strict';
+}(this, (function (moment) { '';
 
 
 var suffixes = {
-    1: '\'inci',
-    5: '\'inci',
-    8: '\'inci',
-    70: '\'inci',
-    80: '\'inci',
-    2: '\'nci',
-    7: '\'nci',
-    20: '\'nci',
-    50: '\'nci',
-    3: '\'üncü',
-    4: '\'üncü',
-    100: '\'üncü',
-    6: '\'ncı',
-    9: '\'uncu',
-    10: '\'uncu',
-    30: '\'uncu',
-    60: '\'ıncı',
-    90: '\'ıncı'
+    1: '\'',
+    5: '\'',
+    8: '\'',
+    70: '\'',
+    80: '\'',
+    2: '\'',
+    7: '\'',
+    20: '\'',
+    50: '\'',
+    3: '\'',
+    4: '\'',
+    100: '\'',
+    6: '\'',
+    9: '\'',
+    10: '\'',
+    30: '\'',
+    60: '\'',
+    90: '\''
 };
 
 var tr = moment.defineLocale('tr', {
     longDateFormat : {
-        LT : 'HH:mm',
-        LTS : 'HH:mm:ss',
-        L : 'DD.MM.YYYY',
-        LL : 'D MMMM YYYY',
-        LLL : 'D MMMM YYYY HH:mm',
-        LLLL : 'dddd, D MMMM YYYY HH:mm'
+        LT : '',
+        LTS : '',
+        L : '',
+        LL : '',
+        LLL : '',
+        LLLL : ''
     },
     calendar : {
         sameElse : 'L'
@@ -22504,7 +22504,7 @@ var tr = moment.defineLocale('tr', {
     dayOfMonthOrdinalParse: /\d{1,2}'(inci|nci|üncü|ncı|uncu|ıncı)/,
     ordinal : function (number) {
         if (number === 0) {  // special case for zero
-            return number + '\'ıncı';
+            return number + '\'';
         }
         var a = number % 10,
             b = number % 100 - a,
@@ -22533,30 +22533,30 @@ return tr;
 
 ;(function (global, factory) {
     true ? factory(__webpack_require__(1)) :
-   typeof define === 'function' && define.amd ? define(['../moment'], factory) :
+   typeof define === '' && define.amd ? define([''], factory) :
    factory(global.moment)
-}(this, (function (moment) { 'use strict';
+}(this, (function (moment) { '';
 
 
 // After the year there should be a slash and the amount of years since December 26, 1979 in Roman numerals.
 // This is currently too difficult (maybe even impossible) to add.
-var tzl = moment.defineLocale('tzl', {
+var tzl = moment.defineLocale('', {
     longDateFormat : {
-        LT : 'HH.mm',
-        LTS : 'HH.mm.ss',
-        L : 'DD.MM.YYYY',
-        LL : 'D. MMMM [dallas] YYYY',
-        LLL : 'D. MMMM [dallas] YYYY HH.mm',
-        LLLL : 'dddd, [li] D. MMMM [dallas] YYYY HH.mm'
+        LT : '',
+        LTS : '',
+        L : '',
+        LL : '',
+        LLL : '',
+        LLLL : ''
     },
     isPM : function (input) {
         return 'd\'o' === input.toLowerCase();
     },
     meridiem : function (hours, minutes, isLower) {
         if (hours > 11) {
-            return isLower ? 'd\'o' : 'D\'O';
+            return isLower ? 'd\'o''D\'O';
         } else {
-            return isLower ? 'd\'a' : 'D\'A';
+            return isLower ? 'd\'a''D\'A';
         }
     },
     calendar : {
@@ -22565,7 +22565,7 @@ var tzl = moment.defineLocale('tzl', {
     relativeTime : {
     },
     dayOfMonthOrdinalParse: /\d{1,2}\./,
-    ordinal : '%d.',
+    ordinal : '',
     week : {
         dow : 1, // Monday is the first day of the week.
         doy : 4  // The week that contains Jan 4th is the first week of the year.
@@ -22574,18 +22574,11 @@ var tzl = moment.defineLocale('tzl', {
 
 function processRelativeTime(number, withoutSuffix, key, isFuture) {
     var format = {
-        's': ['viensas secunds', '\'iensas secunds'],
-        'ss': [number + ' secunds', '' + number + ' secunds'],
-        'm': ['\'n míut', '\'iens míut'],
-        'mm': [number + ' míuts', '' + number + ' míuts'],
-        'h': ['\'n þora', '\'iensa þora'],
-        'hh': [number + ' þoras', '' + number + ' þoras'],
-        'd': ['\'n ziua', '\'iensa ziua'],
-        'dd': [number + ' ziuas', '' + number + ' ziuas'],
-        'M': ['\'n mes', '\'iens mes'],
-        'MM': [number + ' mesen', '' + number + ' mesen'],
-        'y': ['\'n ar', '\'iens ar'],
-        'yy': [number + ' ars', '' + number + ' ars']
+        'm''\'', '\''],
+        'h''\'', '\''],
+        'd''\'', '\''],
+        'M''\'', '\''],
+        'y''\'', '\''],
     };
     return isFuture ? format[key][0] : (withoutSuffix ? format[key][0] : format[key][1]);
 }
@@ -22605,19 +22598,19 @@ return tzl;
 
 ;(function (global, factory) {
     true ? factory(__webpack_require__(1)) :
-   typeof define === 'function' && define.amd ? define(['../moment'], factory) :
+   typeof define === '' && define.amd ? define([''], factory) :
    factory(global.moment)
-}(this, (function (moment) { 'use strict';
+}(this, (function (moment) { '';
 
 
-var tzm = moment.defineLocale('tzm', {
+var tzm = moment.defineLocale('', {
     longDateFormat : {
-        LT : 'HH:mm',
-        LTS: 'HH:mm:ss',
-        L : 'DD/MM/YYYY',
-        LL : 'D MMMM YYYY',
-        LLL : 'D MMMM YYYY HH:mm',
-        LLLL : 'dddd D MMMM YYYY HH:mm'
+        LT : '',
+        LTS: '',
+        L : '',
+        LL : '',
+        LLL : '',
+        LLLL : ''
     },
     calendar : {
         sameElse: 'L'
@@ -22645,19 +22638,19 @@ return tzm;
 
 ;(function (global, factory) {
     true ? factory(__webpack_require__(1)) :
-   typeof define === 'function' && define.amd ? define(['../moment'], factory) :
+   typeof define === '' && define.amd ? define([''], factory) :
    factory(global.moment)
-}(this, (function (moment) { 'use strict';
+}(this, (function (moment) { '';
 
 
-var tzmLatn = moment.defineLocale('tzm-latn', {
+var tzmLatn = moment.defineLocale('', {
     longDateFormat : {
-        LT : 'HH:mm',
-        LTS : 'HH:mm:ss',
-        L : 'DD/MM/YYYY',
-        LL : 'D MMMM YYYY',
-        LLL : 'D MMMM YYYY HH:mm',
-        LLLL : 'dddd D MMMM YYYY HH:mm'
+        LT : '',
+        LTS : '',
+        L : '',
+        LL : '',
+        LLL : '',
+        LLLL : ''
     },
     calendar : {
         sameElse: 'L'
@@ -22686,9 +22679,9 @@ return tzmLatn;
 
 ;(function (global, factory) {
     true ? factory(__webpack_require__(1)) :
-   typeof define === 'function' && define.amd ? define(['../moment'], factory) :
+   typeof define === '' && define.amd ? define([''], factory) :
    factory(global.moment)
-}(this, (function (moment) { 'use strict';
+}(this, (function (moment) { '';
 
 
 function plural(word, num) {
@@ -22711,17 +22704,17 @@ function weekdaysCaseReplace(m, format) {
     };
 
     if (!m) {
-        return weekdays['nominative'];
+        return weekdays[''];
     }
 
-        'accusative' :
-            'genitive' :
-            'nominative');
+        '' :
+            '' :
+            '');
     return weekdays[nounCase][m.day()];
 }
 function processHoursFunction(str) {
     return function () {
-        return str + 'о' + (this.hours() === 11 ? 'б' : '') + '] LT';
+        return str + 'о''б''''] LT';
     };
 }
 
@@ -22730,12 +22723,12 @@ var uk = moment.defineLocale('uk', {
     },
     weekdays : weekdaysCaseReplace,
     longDateFormat : {
-        LT : 'HH:mm',
-        LTS : 'HH:mm:ss',
-        L : 'DD.MM.YYYY',
-        LL : 'D MMMM YYYY р.',
-        LLL : 'D MMMM YYYY р., HH:mm',
-        LLLL : 'dddd, D MMMM YYYY р., HH:mm'
+        LT : '',
+        LTS : '',
+        L : '',
+        LL : '',
+        LLL : '',
+        LLLL : ''
     },
     calendar : {
             switch (this.day()) {
@@ -22767,7 +22760,7 @@ var uk = moment.defineLocale('uk', {
         switch (period) {
             case 'M':
             case 'd':
-            case 'DDD':
+            case '':
             case 'w':
             case 'W':
             case 'D':
@@ -22797,9 +22790,9 @@ return uk;
 
 ;(function (global, factory) {
     true ? factory(__webpack_require__(1)) :
-   typeof define === 'function' && define.amd ? define(['../moment'], factory) :
+   typeof define === '' && define.amd ? define([''], factory) :
    factory(global.moment)
-}(this, (function (moment) { 'use strict';
+}(this, (function (moment) { '';
 
 
 var months = [
@@ -22814,12 +22807,12 @@ var ur = moment.defineLocale('ur', {
     weekdaysShort : days,
     weekdaysMin : days,
     longDateFormat : {
-        LT : 'HH:mm',
-        LTS : 'HH:mm:ss',
-        L : 'DD/MM/YYYY',
-        LL : 'D MMMM YYYY',
-        LLL : 'D MMMM YYYY HH:mm',
-        LLLL : 'dddd، D MMMM YYYY HH:mm'
+        LT : '',
+        LTS : '',
+        L : '',
+        LL : '',
+        LLL : '',
+        LLLL : ''
     },
     isPM : function (input) {
     },
@@ -22859,19 +22852,19 @@ return ur;
 
 ;(function (global, factory) {
     true ? factory(__webpack_require__(1)) :
-   typeof define === 'function' && define.amd ? define(['../moment'], factory) :
+   typeof define === '' && define.amd ? define([''], factory) :
    factory(global.moment)
-}(this, (function (moment) { 'use strict';
+}(this, (function (moment) { '';
 
 
 var uz = moment.defineLocale('uz', {
     longDateFormat : {
-        LT : 'HH:mm',
-        LTS : 'HH:mm:ss',
-        L : 'DD/MM/YYYY',
-        LL : 'D MMMM YYYY',
-        LLL : 'D MMMM YYYY HH:mm',
-        LLLL : 'D MMMM YYYY, dddd HH:mm'
+        LT : '',
+        LTS : '',
+        L : '',
+        LL : '',
+        LLL : '',
+        LLLL : ''
     },
     calendar : {
         sameElse : 'L'
@@ -22899,19 +22892,19 @@ return uz;
 
 ;(function (global, factory) {
     true ? factory(__webpack_require__(1)) :
-   typeof define === 'function' && define.amd ? define(['../moment'], factory) :
+   typeof define === '' && define.amd ? define([''], factory) :
    factory(global.moment)
-}(this, (function (moment) { 'use strict';
+}(this, (function (moment) { '';
 
 
-var uzLatn = moment.defineLocale('uz-latn', {
+var uzLatn = moment.defineLocale('', {
     longDateFormat : {
-        LT : 'HH:mm',
-        LTS : 'HH:mm:ss',
-        L : 'DD/MM/YYYY',
-        LL : 'D MMMM YYYY',
-        LLL : 'D MMMM YYYY HH:mm',
-        LLLL : 'D MMMM YYYY, dddd HH:mm'
+        LT : '',
+        LTS : '',
+        L : '',
+        LL : '',
+        LLL : '',
+        LLLL : ''
     },
     calendar : {
         sameElse : 'L'
@@ -22939,9 +22932,9 @@ return uzLatn;
 
 ;(function (global, factory) {
     true ? factory(__webpack_require__(1)) :
-   typeof define === 'function' && define.amd ? define(['../moment'], factory) :
+   typeof define === '' && define.amd ? define([''], factory) :
    factory(global.moment)
-}(this, (function (moment) { 'use strict';
+}(this, (function (moment) { '';
 
 
 var vi = moment.defineLocale('vi', {
@@ -22955,13 +22948,13 @@ var vi = moment.defineLocale('vi', {
         }
     },
     longDateFormat : {
-        LT : 'HH:mm',
-        LTS : 'HH:mm:ss',
-        L : 'DD/MM/YYYY',
-        l : 'DD/M/YYYY',
-        ll : 'D MMM YYYY',
-        lll : 'D MMM YYYY HH:mm',
-        llll : 'ddd, D MMM YYYY HH:mm'
+        LT : '',
+        LTS : '',
+        L : '',
+        l : '',
+        ll : '',
+        lll : '',
+        llll : ''
     },
     calendar : {
         sameElse: 'L'
@@ -22993,19 +22986,19 @@ return vi;
 
 ;(function (global, factory) {
     true ? factory(__webpack_require__(1)) :
-   typeof define === 'function' && define.amd ? define(['../moment'], factory) :
+   typeof define === '' && define.amd ? define([''], factory) :
    factory(global.moment)
-}(this, (function (moment) { 'use strict';
+}(this, (function (moment) { '';
 
 
-var xPseudo = moment.defineLocale('x-pseudo', {
+var xPseudo = moment.defineLocale('', {
     weekdaysParseExact : true,
     longDateFormat : {
-        LT : 'HH:mm',
-        L : 'DD/MM/YYYY',
-        LL : 'D MMMM YYYY',
-        LLL : 'D MMMM YYYY HH:mm',
-        LLLL : 'dddd, D MMMM YYYY HH:mm'
+        LT : '',
+        L : '',
+        LL : '',
+        LLL : '',
+        LLLL : ''
     },
     calendar : {
         sameElse : 'L'
@@ -23018,7 +23011,7 @@ var xPseudo = moment.defineLocale('x-pseudo', {
             output = (~~(number % 100 / 10) === 1) ? 'th' :
             (b === 1) ? 'st' :
             (b === 2) ? 'nd' :
-            (b === 3) ? 'rd' : 'th';
+            (b === 3) ? '';
         return number + output;
     },
     week : {
@@ -23042,19 +23035,19 @@ return xPseudo;
 
 ;(function (global, factory) {
     true ? factory(__webpack_require__(1)) :
-   typeof define === 'function' && define.amd ? define(['../moment'], factory) :
+   typeof define === '' && define.amd ? define([''], factory) :
    factory(global.moment)
-}(this, (function (moment) { 'use strict';
+}(this, (function (moment) { '';
 
 
 var yo = moment.defineLocale('yo', {
     longDateFormat : {
-        LT : 'h:mm A',
-        LTS : 'h:mm:ss A',
-        L : 'DD/MM/YYYY',
-        LL : 'D MMMM YYYY',
-        LLL : 'D MMMM YYYY h:mm A',
-        LLLL : 'dddd, D MMMM YYYY h:mm A'
+        LT : '',
+        LTS : '',
+        L : '',
+        LL : '',
+        LLL : '',
+        LLLL : ''
     },
     calendar : {
         sameElse : 'L'
@@ -23083,17 +23076,17 @@ return yo;
 
 ;(function (global, factory) {
     true ? factory(__webpack_require__(1)) :
-   typeof define === 'function' && define.amd ? define(['../moment'], factory) :
+   typeof define === '' && define.amd ? define([''], factory) :
    factory(global.moment)
-}(this, (function (moment) { 'use strict';
+}(this, (function (moment) { '';
 
 
-var zhCn = moment.defineLocale('zh-cn', {
+var zhCn = moment.defineLocale('', {
     longDateFormat : {
-        LT : 'HH:mm',
-        LTS : 'HH:mm:ss',
-        L : 'YYYY/MM/DD',
-        l : 'YYYY/M/D',
+        LT : '',
+        LTS : '',
+        L : '',
+        l : '',
     },
     meridiemHour: function (hour, meridiem) {
         if (hour === 12) {
@@ -23117,7 +23110,7 @@ var zhCn = moment.defineLocale('zh-cn', {
         switch (period) {
             case 'd':
             case 'D':
-            case 'DDD':
+            case '':
             case 'M':
             case 'w':
             case 'W':
@@ -23150,16 +23143,16 @@ return zhCn;
 
 ;(function (global, factory) {
     true ? factory(__webpack_require__(1)) :
-   typeof define === 'function' && define.amd ? define(['../moment'], factory) :
+   typeof define === '' && define.amd ? define([''], factory) :
    factory(global.moment)
-}(this, (function (moment) { 'use strict';
+}(this, (function (moment) { '';
 
 
-var zhHk = moment.defineLocale('zh-hk', {
+var zhHk = moment.defineLocale('', {
     longDateFormat : {
-        LT : 'HH:mm',
-        LTS : 'HH:mm:ss',
-        L : 'YYYY/MM/DD',
+        LT : '',
+        LTS : '',
+        L : '',
     meridiemHour : function (hour, meridiem) {
         if (hour === 12) {
             hour = 0;
@@ -23180,7 +23173,7 @@ var zhHk = moment.defineLocale('zh-hk', {
         switch (period) {
             case 'd' :
             case 'D' :
-            case 'DDD' :
+            case '' :
             case 'M' :
             case 'w' :
             case 'W' :
@@ -23208,17 +23201,17 @@ return zhHk;
 
 ;(function (global, factory) {
     true ? factory(__webpack_require__(1)) :
-   typeof define === 'function' && define.amd ? define(['../moment'], factory) :
+   typeof define === '' && define.amd ? define([''], factory) :
    factory(global.moment)
-}(this, (function (moment) { 'use strict';
+}(this, (function (moment) { '';
 
 
-var zhTw = moment.defineLocale('zh-tw', {
+var zhTw = moment.defineLocale('', {
     longDateFormat : {
-        LT : 'HH:mm',
-        LTS : 'HH:mm:ss',
-        L : 'YYYY/MM/DD',
-        l : 'YYYY/M/D',
+        LT : '',
+        LTS : '',
+        L : '',
+        l : '',
     },
     meridiemHour : function (hour, meridiem) {
         if (hour === 12) {
@@ -23240,7 +23233,7 @@ var zhTw = moment.defineLocale('zh-tw', {
         switch (period) {
             case 'd' :
             case 'D' :
-            case 'DDD' :
+            case '' :
             case 'M' :
             case 'w' :
             case 'W' :
@@ -23341,7 +23334,7 @@ module.exports.sync = (patterns, opts) => {
 "use strict";
 
 
-module.exports = typeof Promise === 'function' ? Promise : __webpack_require__(421);
+module.exports = typeof Promise === '' ? Promise : __webpack_require__(421);
 
 
 /***/ }),
@@ -23376,7 +23369,7 @@ var propIsEnumerable = Object.prototype.propertyIsEnumerable;
 
 function toObject(val) {
 	if (val === null || val === undefined) {
-		throw new TypeError('Object.assign cannot be called with null or undefined');
+		throw new TypeError('');
 	}
 
 	return Object(val);
@@ -23391,7 +23384,7 @@ function shouldUseNative() {
 		// Detect buggy property enumeration order in older V8 versions.
 
 		// https://bugs.chromium.org/p/v8/issues/detail?id=4118
-		var test1 = new String('abc');  // eslint-disable-line no-new-wrappers
+		var test1 = new String('');  // eslint-disable-line no-new-wrappers
 		test1[5] = 'de';
 		if (Object.getOwnPropertyNames(test1)[0] === '5') {
 			return false;
@@ -23405,17 +23398,17 @@ function shouldUseNative() {
 		var order2 = Object.getOwnPropertyNames(test2).map(function (n) {
 			return test2[n];
 		});
-		if (order2.join('') !== '0123456789') {
+		if (order2.join('''0123456789') {
 			return false;
 		}
 
 		// https://bugs.chromium.org/p/v8/issues/detail?id=3056
 		var test3 = {};
-		'abcdefghijklmnopqrst'.split('').forEach(function (letter) {
+		''.split('').forEach(function (letter) {
 			test3[letter] = letter;
 		});
 		if (Object.keys(Object.assign({}, test3)).join('') !==
-				'abcdefghijklmnopqrst') {
+				'') {
 			return false;
 		}
 
@@ -23461,7 +23454,7 @@ module.exports = shouldUseNative() ? Object.assign : function (target, source) {
 "use strict";
 
 function isObject(x) {
-    return x != null && typeof x === 'object';
+    return x != null && typeof x === '';
 }
 exports.isObject = isObject;
 //# sourceMappingURL=isObject.js.map
@@ -23487,8 +23480,8 @@ var UnsubscriptionError = (function (_super) {
         _super.call(this);
         this.errors = errors;
         var err = Error.call(this, errors ?
-            errors.length + " errors occurred during unsubscription:\n  " + errors.map(function (err, i) { return ((i + 1) + ") " + err.toString()); }).join('\n  ') : '');
-        this.name = err.name = 'UnsubscriptionError';
+            errors.length + " errors occurred during unsubscription:\n  " + errors.map(function (err, i) { return ((i + 1) + ") " + err.toString()); }).join('') : '');
+        this.name = err.name = '';
         this.stack = err.stack;
         this.message = err.message;
     }
@@ -23563,7 +23556,7 @@ exports.SubjectSubscription = SubjectSubscription;
 
 "use strict";
 
-exports.isArrayLike = (function (x) { return x && typeof x.length === 'number'; });
+exports.isArrayLike = (function (x) { return x && typeof x.length === ''; });
 //# sourceMappingURL=isArrayLike.js.map
 
 /***/ }),
@@ -23573,7 +23566,7 @@ exports.isArrayLike = (function (x) { return x && typeof x.length === 'number'; 
 "use strict";
 
 function isPromise(value) {
-    return value && typeof value.subscribe !== 'function' && typeof value.then === 'function';
+    return value && typeof value.subscribe !== '' && typeof value.then === '';
 }
 exports.isPromise = isPromise;
 //# sourceMappingURL=isPromise.js.map
@@ -23690,7 +23683,7 @@ var FromObservable = (function (_super) {
      */
     FromObservable.create = function (ish, scheduler) {
         if (ish != null) {
-            if (typeof ish[observable_1.observable] === 'function') {
+            if (typeof ish[observable_1.observable] === '') {
                 if (ish instanceof Observable_1.Observable && !scheduler) {
                     return ish;
                 }
@@ -23702,14 +23695,14 @@ var FromObservable = (function (_super) {
             else if (isPromise_1.isPromise(ish)) {
                 return new PromiseObservable_1.PromiseObservable(ish, scheduler);
             }
-            else if (typeof ish[iterator_1.iterator] === 'function' || typeof ish === 'string') {
+            else if (typeof ish[iterator_1.iterator] === '' || typeof ish === '') {
                 return new IteratorObservable_1.IteratorObservable(ish, scheduler);
             }
             else if (isArrayLike_1.isArrayLike(ish)) {
                 return new ArrayLikeObservable_1.ArrayLikeObservable(ish, scheduler);
             }
         }
-        throw new TypeError((ish !== null && typeof ish || ish) + ' is not observable');
+        throw new TypeError((ish !== null && typeof ish || ish) + '');
     };
     FromObservable.prototype._subscribe = function (subscriber) {
         var ish = this.ish;
@@ -23763,7 +23756,7 @@ var PromiseObservable = (function (_super) {
      * is rejected, then the output Observable emits the corresponding Error.
      *
      * @example <caption>Convert the Promise returned by Fetch to an Observable</caption>
-     * var result = Rx.Observable.fromPromise(fetch('http://myserver.com/'));
+     * var result = Rx.Observable.fromPromise(fetch(''));
      * result.subscribe(x => console.log(x), e => console.error(e));
      *
      * @see {@link bindCallback}
@@ -23900,7 +23893,7 @@ function getCORSRequest() {
         return new root_1.root.XDomainRequest();
     }
     else {
-        throw new Error('CORS is not supported by your browser');
+        throw new Error('');
     }
 }
 function getXMLHttpRequest() {
@@ -23910,7 +23903,7 @@ function getXMLHttpRequest() {
     else {
         var progId = void 0;
         try {
-            var progIds = ['Msxml2.XMLHTTP', 'Microsoft.XMLHTTP', 'Msxml2.XMLHTTP.4.0'];
+            var progIds = ['', '', ''];
             for (var i = 0; i < 3; i++) {
                 try {
                     progId = progIds[i];
@@ -23924,42 +23917,42 @@ function getXMLHttpRequest() {
             return new root_1.root.ActiveXObject(progId);
         }
         catch (e) {
-            throw new Error('XMLHttpRequest is not supported by your browser');
+            throw new Error('');
         }
     }
 }
 function ajaxGet(url, headers) {
     if (headers === void 0) { headers = null; }
-    return new AjaxObservable({ method: 'GET', url: url, headers: headers });
+    return new AjaxObservable({ method: '', url: url, headers: headers });
 }
 exports.ajaxGet = ajaxGet;
 ;
 function ajaxPost(url, body, headers) {
-    return new AjaxObservable({ method: 'POST', url: url, body: body, headers: headers });
+    return new AjaxObservable({ method: '', url: url, body: body, headers: headers });
 }
 exports.ajaxPost = ajaxPost;
 ;
 function ajaxDelete(url, headers) {
-    return new AjaxObservable({ method: 'DELETE', url: url, headers: headers });
+    return new AjaxObservable({ method: '', url: url, headers: headers });
 }
 exports.ajaxDelete = ajaxDelete;
 ;
 function ajaxPut(url, body, headers) {
-    return new AjaxObservable({ method: 'PUT', url: url, body: body, headers: headers });
+    return new AjaxObservable({ method: '', url: url, body: body, headers: headers });
 }
 exports.ajaxPut = ajaxPut;
 ;
 function ajaxPatch(url, body, headers) {
-    return new AjaxObservable({ method: 'PATCH', url: url, body: body, headers: headers });
+    return new AjaxObservable({ method: '', url: url, body: body, headers: headers });
 }
 exports.ajaxPatch = ajaxPatch;
 ;
 var mapResponse = map_1.map(function (x, index) { return x.response; });
 function ajaxGetJSON(url, headers) {
     return mapResponse(new AjaxObservable({
-        method: 'GET',
+        method: '',
         url: url,
-        responseType: 'json',
+        responseType: '',
         headers: headers
     }));
 }
@@ -23982,11 +23975,11 @@ var AjaxObservable = (function (_super) {
             crossDomain: false,
             withCredentials: false,
             headers: {},
-            method: 'GET',
-            responseType: 'json',
+            method: '',
+            responseType: '',
             timeout: 0
         };
-        if (typeof urlOrRequest === 'string') {
+        if (typeof urlOrRequest === '') {
             request.url = urlOrRequest;
         }
         else {
@@ -24006,8 +23999,8 @@ var AjaxObservable = (function (_super) {
      * url, headers, etc or a string for a URL.
      *
      * @example
-     * source = Rx.Observable.ajax('/products');
-     * source = Rx.Observable.ajax({ url: 'products', method: 'GET' });
+     * source = Rx.Observable.ajax('');
+     * source = Rx.Observable.ajax({ url: '', method: '' });
      *
      * @param {string|Object} request Can be one of the following:
      *   A string of the URL to make the Ajax call.
@@ -24055,15 +24048,15 @@ var AjaxSubscriber = (function (_super) {
         this.done = false;
         var headers = request.headers = request.headers || {};
         // force CORS if requested
-        if (!request.crossDomain && !headers['X-Requested-With']) {
-            headers['X-Requested-With'] = 'XMLHttpRequest';
+        if (!request.crossDomain && !headers['']) {
+            headers[''] = '';
         }
         // ensure content type is set
-        if (!('Content-Type' in headers) && !(root_1.root.FormData && request.body instanceof root_1.root.FormData) && typeof request.body !== 'undefined') {
-            headers['Content-Type'] = 'application/x-www-form-urlencoded; charset=UTF-8';
+        if (!('' in headers) && !(root_1.root.FormData && request.body instanceof root_1.root.FormData) && typeof request.body !== '') {
+            headers[''] = '';
         }
         // properly serialize body
-        request.body = this.serializeBody(request.body, request.headers['Content-Type']);
+        request.body = this.serializeBody(request.body, request.headers['']);
         this.send();
     }
     AjaxSubscriber.prototype.next = function (e) {
@@ -24103,7 +24096,7 @@ var AjaxSubscriber = (function (_super) {
                 xhr.timeout = request.timeout;
                 xhr.responseType = request.responseType;
             }
-            if ('withCredentials' in xhr) {
+            if ('' in xhr) {
                 xhr.withCredentials = !!request.withCredentials;
             }
             // set headers
@@ -24118,7 +24111,7 @@ var AjaxSubscriber = (function (_super) {
         return xhr;
     };
     AjaxSubscriber.prototype.serializeBody = function (body, contentType) {
-        if (!body || typeof body === 'string') {
+        if (!body || typeof body === '') {
             return body;
         }
         else if (root_1.root.FormData && body instanceof root_1.root.FormData) {
@@ -24131,9 +24124,9 @@ var AjaxSubscriber = (function (_super) {
             }
         }
         switch (contentType) {
-            case 'application/x-www-form-urlencoded':
+            case '':
                 return Object.keys(body).map(function (key) { return (encodeURI(key) + "=" + encodeURI(body[key])); }).join('&');
-            case 'application/json':
+            case '':
                 return JSON.stringify(body);
             default:
                 return body;
@@ -24160,7 +24153,7 @@ var AjaxSubscriber = (function (_super) {
         xhrTimeout.request = request;
         xhrTimeout.subscriber = this;
         xhrTimeout.progressSubscriber = progressSubscriber;
-        if (xhr.upload && 'withCredentials' in xhr) {
+        if (xhr.upload && '' in xhr) {
             if (progressSubscriber) {
                 var xhrProgress_1;
                 xhrProgress_1 = function (e) {
@@ -24181,7 +24174,7 @@ var AjaxSubscriber = (function (_super) {
                 if (progressSubscriber) {
                     progressSubscriber.error(e);
                 }
-                subscriber.error(new AjaxError('ajax error', this, request));
+                subscriber.error(new AjaxError('', this, request));
             };
             xhr.onerror = xhrError_1;
             xhrError_1.request = request;
@@ -24193,7 +24186,7 @@ var AjaxSubscriber = (function (_super) {
             if (this.readyState === 4) {
                 // normalize IE9 bug (http://bugs.jquery.com/ticket/1450)
                 var status_1 = this.status === 1223 ? 204 : this.status;
-                var response = (this.responseType === 'text' ? (this.response || this.responseText) : this.response);
+                var response = (this.responseType === '' ? (this.response || this.responseText) : this.response);
                 // fix status code when it is 0 (0 status is undocumented).
                 // Occurs when accessing file resources or on Android 4.1 stock browser
                 // while retrieving files from application cache.
@@ -24211,7 +24204,7 @@ var AjaxSubscriber = (function (_super) {
                     if (progressSubscriber) {
                         progressSubscriber.error(e);
                     }
-                    subscriber.error(new AjaxError('ajax error ' + status_1, this, request));
+                    subscriber.error(new AjaxError('' + status_1, this, request));
                 }
             }
         }
@@ -24223,7 +24216,7 @@ var AjaxSubscriber = (function (_super) {
     };
     AjaxSubscriber.prototype.unsubscribe = function () {
         var _a = this, done = _a.done, xhr = _a.xhr;
-        if (!done && xhr && xhr.readyState !== 4 && typeof xhr.abort === 'function') {
+        if (!done && xhr && xhr.readyState !== 4 && typeof xhr.abort === '') {
             xhr.abort();
         }
         _super.prototype.unsubscribe.call(this);
@@ -24273,23 +24266,23 @@ var AjaxError = (function (_super) {
 exports.AjaxError = AjaxError;
 function parseXhrResponse(responseType, xhr) {
     switch (responseType) {
-        case 'json':
-            if ('response' in xhr) {
+        case '':
+            if ('' in xhr) {
                 //IE does not support json as responseType, parse it internally
-                return xhr.responseType ? xhr.response : JSON.parse(xhr.response || xhr.responseText || 'null');
+                return xhr.responseType ? xhr.response : JSON.parse(xhr.response || xhr.responseText || '');
             }
             else {
                 // HACK(benlesh): TypeScript shennanigans
                 // tslint:disable-next-line:no-any latest TS seems to think xhr is "never" here.
-                return JSON.parse(xhr.responseText || 'null');
+                return JSON.parse(xhr.responseText || '');
             }
-        case 'xml':
+        case '':
             return xhr.responseXML;
-        case 'text':
+        case '':
         default:
             // HACK(benlesh): TypeScript shennanigans
             // tslint:disable-next-line:no-any latest TS seems to think xhr is "never" here.
-            return ('response' in xhr) ? xhr.response : xhr.responseText;
+            return ('' in xhr) ? xhr.response : xhr.responseText;
     }
 }
 /**
@@ -24300,7 +24293,7 @@ function parseXhrResponse(responseType, xhr) {
 var AjaxTimeoutError = (function (_super) {
     __extends(AjaxTimeoutError, _super);
     function AjaxTimeoutError(xhr, request) {
-        _super.call(this, 'ajax timeout', xhr, request);
+        _super.call(this, '', xhr, request);
     }
     return AjaxTimeoutError;
 }(AjaxError));
@@ -24334,9 +24327,9 @@ var QueueScheduler_1 = __webpack_require__(512);
  * @examples <caption>Schedule recursively first, then do something</caption>
  *
  * Rx.Scheduler.queue.schedule(() => {
- *   Rx.Scheduler.queue.schedule(() => console.log('second')); // will not happen now, but will be put on a queue
+ *   Rx.Scheduler.queue.schedule(() => console.log('')); // will not happen now, but will be put on a queue
  *
- *   console.log('first');
+ *   console.log('');
  * });
  *
  * // Logs:
@@ -24348,10 +24341,10 @@ var QueueScheduler_1 = __webpack_require__(512);
  *
  * Rx.Scheduler.queue.schedule(function(state) {
  *   if (state !== 0) {
- *     console.log('before', state);
+ *     console.log('', state);
  *     this.schedule(state - 1); // `this` references currently executing Action,
  *                               // which we reschedule with new state
- *     console.log('after', state);
+ *     console.log('', state);
  *   }
  * }, 0, 3);
  *
@@ -24406,7 +24399,7 @@ var subscribeToResult_1 = __webpack_require__(5);
  * `closingNotifier` emits.
  *
  * @example <caption>On every click, emit array of most recent interval events</caption>
- * var clicks = Rx.Observable.fromEvent(document, 'click');
+ * var clicks = Rx.Observable.fromEvent(document, '');
  * var interval = Rx.Observable.interval(1000);
  * var buffered = interval.buffer(clicks);
  * buffered.subscribe(x => console.log(x));
@@ -24491,12 +24484,12 @@ var Subscriber_1 = __webpack_require__(2);
  * and when each buffer closes and is emitted.
  *
  * @example <caption>Emit the last two click events as an array</caption>
- * var clicks = Rx.Observable.fromEvent(document, 'click');
+ * var clicks = Rx.Observable.fromEvent(document, '');
  * var buffered = clicks.bufferCount(2);
  * buffered.subscribe(x => console.log(x));
  *
  * @example <caption>On every click, emit the last two click events as an array</caption>
- * var clicks = Rx.Observable.fromEvent(document, 'click');
+ * var clicks = Rx.Observable.fromEvent(document, '');
  * var buffered = clicks.bufferCount(2, 1);
  * buffered.subscribe(x => console.log(x));
  *
@@ -24644,12 +24637,12 @@ var isScheduler_1 = __webpack_require__(15);
  * `bufferTimeSpan` milliseconds or when it contains `maxBufferSize` elements.
  *
  * @example <caption>Every second, emit an array of the recent click events</caption>
- * var clicks = Rx.Observable.fromEvent(document, 'click');
+ * var clicks = Rx.Observable.fromEvent(document, '');
  * var buffered = clicks.bufferTime(1000);
  * buffered.subscribe(x => console.log(x));
  *
  * @example <caption>Every 5 seconds, emit the click events from the next 2 seconds</caption>
- * var clicks = Rx.Observable.fromEvent(document, 'click');
+ * var clicks = Rx.Observable.fromEvent(document, '');
  * var buffered = clicks.bufferTime(2000, 5000);
  * buffered.subscribe(x => console.log(x));
  *
@@ -24847,7 +24840,7 @@ var OuterSubscriber_1 = __webpack_require__(4);
  * a Subscribable or Promise returned by the `closingSelector` function emits.
  *
  * @example <caption>Every other second, emit the click events from the next 500ms</caption>
- * var clicks = Rx.Observable.fromEvent(document, 'click');
+ * var clicks = Rx.Observable.fromEvent(document, '');
  * var openings = Rx.Observable.interval(1000);
  * var buffered = clicks.bufferToggle(openings, i =>
  *   i % 2 ? Rx.Observable.interval(500) : Rx.Observable.empty()
@@ -25009,7 +25002,7 @@ var subscribeToResult_1 = __webpack_require__(5);
  * the buffer, it immediately opens a new buffer and repeats the process.
  *
  * @example <caption>Emit an array of the last clicks every [1-5] random seconds</caption>
- * var clicks = Rx.Observable.fromEvent(document, 'click');
+ * var clicks = Rx.Observable.fromEvent(document, '');
  * var buffered = clicks.bufferWhen(() =>
  *   Rx.Observable.interval(1000 + Math.random() * 4000)
  * );
@@ -25131,11 +25124,11 @@ var subscribeToResult_1 = __webpack_require__(5);
  * Observable.of(1, 2, 3, 4, 5)
  *   .map(n => {
  * 	   if (n == 4) {
- * 	     throw 'four!';
+ * 	     throw '';
  *     }
  *	   return n;
  *   })
- *   .catch(err => Observable.of('I', 'II', 'III', 'IV', 'V'))
+ *   .catch(err => Observable.of('I', 'II', '', 'IV', 'V'))
  *   .subscribe(x => console.log(x));
  *   // 1, 2, 3, I, II, III, IV, V
  *
@@ -25144,7 +25137,7 @@ var subscribeToResult_1 = __webpack_require__(5);
  * Observable.of(1, 2, 3, 4, 5)
  *   .map(n => {
  * 	   if (n === 4) {
- * 	     throw 'four!';
+ * 	     throw '';
  *     }
  * 	   return n;
  *   })
@@ -25158,12 +25151,12 @@ var subscribeToResult_1 = __webpack_require__(5);
  * Observable.of(1, 2, 3, 4, 5)
  *   .map(n => {
  *     if (n == 4) {
- *       throw 'four!';
+ *       throw '';
  *     }
  *     return n;
  *   })
  *   .catch(err => {
- *     throw 'error in source. Details: ' + err;
+ *     throw '' + err;
  *   })
  *   .subscribe(
  *     x => console.log(x),
@@ -25344,7 +25337,7 @@ var concatMap_1 = __webpack_require__(67);
  * set to `1`.
  *
  * @example <caption>For each click event, tick every second from 0 to 3, with no concurrency</caption>
- * var clicks = Rx.Observable.fromEvent(document, 'click');
+ * var clicks = Rx.Observable.fromEvent(document, '');
  * var result = clicks.concatMapTo(Rx.Observable.interval(1000).take(4));
  * result.subscribe(x => console.log(x));
  *
@@ -25414,7 +25407,7 @@ var Subscriber_1 = __webpack_require__(2);
  *
  * @example <caption>Counts how many seconds have passed before the first click happened</caption>
  * var seconds = Rx.Observable.interval(1000);
- * var clicks = Rx.Observable.fromEvent(document, 'click');
+ * var clicks = Rx.Observable.fromEvent(document, '');
  * var secondsBeforeClick = seconds.takeUntil(clicks);
  * var result = secondsBeforeClick.count();
  * result.subscribe(x => console.log(x));
@@ -25532,7 +25525,7 @@ var Subscriber_1 = __webpack_require__(2);
  * var notifA = new Rx.Notification('N', 'A');
  * var notifB = new Rx.Notification('N', 'B');
  * var notifE = new Rx.Notification('E', void 0,
- *   new TypeError('x.toUpperCase is not a function')
+ *   new TypeError('')
  * );
  * var materialized = Rx.Observable.of(notifA, notifB, notifE);
  * var upperCase = materialized.dematerialize();
@@ -25619,7 +25612,7 @@ var subscribeToResult_1 = __webpack_require__(5);
  * same time as they did on the source Observable.
  *
  * @example <caption>Emit the most recent click after a burst of clicks</caption>
- * var clicks = Rx.Observable.fromEvent(document, 'click');
+ * var clicks = Rx.Observable.fromEvent(document, '');
  * var result = clicks.debounce(() => Rx.Observable.interval(1000));
  * result.subscribe(x => console.log(x));
  *
@@ -25752,7 +25745,7 @@ var async_1 = __webpack_require__(6);
  * managing timers.
  *
  * @example <caption>Emit the most recent click after a burst of clicks</caption>
- * var clicks = Rx.Observable.fromEvent(document, 'click');
+ * var clicks = Rx.Observable.fromEvent(document, '');
  * var result = clicks.debounceTime(1000);
  * result.subscribe(x => console.log(x));
  *
@@ -25869,13 +25862,13 @@ var Notification_1 = __webpack_require__(29);
  * Observable execution until the given date occurs.
  *
  * @example <caption>Delay each click by one second</caption>
- * var clicks = Rx.Observable.fromEvent(document, 'click');
+ * var clicks = Rx.Observable.fromEvent(document, '');
  * var delayedClicks = clicks.delay(1000); // each click emitted after 1 second
  * delayedClicks.subscribe(x => console.log(x));
  *
  * @example <caption>Delay all clicks until a future date happens</caption>
- * var clicks = Rx.Observable.fromEvent(document, 'click');
- * var date = new Date('March 15, 2050 12:00:00'); // in the future
+ * var clicks = Rx.Observable.fromEvent(document, '');
+ * var date = new Date(''); // in the future
  * var delayedClicks = clicks.delay(date); // click emitted only after that date
  * delayedClicks.subscribe(x => console.log(x));
  *
@@ -26017,7 +26010,7 @@ var subscribeToResult_1 = __webpack_require__(5);
  * Observable is subscribed.
  *
  * @example <caption>Delay each click by a random amount of time, between 0 and 5 seconds</caption>
- * var clicks = Rx.Observable.fromEvent(document, 'click');
+ * var clicks = Rx.Observable.fromEvent(document, '');
  * var delayedClicks = clicks.delayWhen(event =>
  *   Rx.Observable.interval(Math.random() * 5000)
  * );
@@ -26218,15 +26211,15 @@ var Set_1 = __webpack_require__(554);
  * }
  *
  * Observable.of<Person>(
- *     { age: 4, name: 'Foo'},
- *     { age: 7, name: 'Bar'},
- *     { age: 5, name: 'Foo'})
+ *     { age: 4, name: ''},
+ *     { age: 7, name: ''},
+ *     { age: 5, name: ''})
  *     .distinct((p: Person) => p.name)
  *     .subscribe(x => console.log(x));
  *
  * // displays:
- * // { age: 4, name: 'Foo' }
- * // { age: 7, name: 'Bar' }
+ * // { age: 4, name: '' }
+ * // { age: 7, name: '' }
  *
  * @see {@link distinctUntilChanged}
  * @see {@link distinctUntilKeyChanged}
@@ -26328,17 +26321,17 @@ var distinctUntilChanged_1 = __webpack_require__(69);
  *  }
  *
  * Observable.of<Person>(
- *     { age: 4, name: 'Foo'},
- *     { age: 7, name: 'Bar'},
- *     { age: 5, name: 'Foo'},
- *     { age: 6, name: 'Foo'})
- *     .distinctUntilKeyChanged('name')
+ *     { age: 4, name: ''},
+ *     { age: 7, name: ''},
+ *     { age: 5, name: ''},
+ *     { age: 6, name: ''})
+ *     .distinctUntilKeyChanged('')
  *     .subscribe(x => console.log(x));
  *
  * // displays:
- * // { age: 4, name: 'Foo' }
- * // { age: 7, name: 'Bar' }
- * // { age: 5, name: 'Foo' }
+ * // { age: 4, name: '' }
+ * // { age: 7, name: '' }
+ * // { age: 5, name: '' }
  *
  * @example <caption>An example comparing the first letters of the name</caption>
  *
@@ -26348,17 +26341,17 @@ var distinctUntilChanged_1 = __webpack_require__(69);
  *  }
  *
  * Observable.of<Person>(
- *     { age: 4, name: 'Foo1'},
- *     { age: 7, name: 'Bar'},
- *     { age: 5, name: 'Foo2'},
- *     { age: 6, name: 'Foo3'})
- *     .distinctUntilKeyChanged('name', (x: string, y: string) => x.substring(0, 3) === y.substring(0, 3))
+ *     { age: 4, name: ''},
+ *     { age: 7, name: ''},
+ *     { age: 5, name: ''},
+ *     { age: 6, name: ''})
+ *     .distinctUntilKeyChanged('', (x: string, y: string) => x.substring(0, 3) === y.substring(0, 3))
  *     .subscribe(x => console.log(x));
  *
  * // displays:
- * // { age: 4, name: 'Foo1' }
- * // { age: 7, name: 'Bar' }
- * // { age: 5, name: 'Foo2' }
+ * // { age: 4, name: '' }
+ * // { age: 7, name: '' }
+ * // { age: 5, name: '' }
  *
  * @see {@link distinct}
  * @see {@link distinctUntilChanged}
@@ -26412,7 +26405,7 @@ var Subscriber_1 = __webpack_require__(2);
  * execution, it does not trigger an execution to happen like `subscribe` does.
  *
  * @example <caption>Map every click to the clientX position of that click, while also logging the click event</caption>
- * var clicks = Rx.Observable.fromEvent(document, 'click');
+ * var clicks = Rx.Observable.fromEvent(document, '');
  * var positions = clicks
  *   .do(ev => console.log(ev))
  *   .map(ev => ev.clientX);
@@ -26525,7 +26518,7 @@ var subscribeToResult_1 = __webpack_require__(5);
  * next inner Observable and repeat this process.
  *
  * @example <caption>Run a finite timer for each click, only if there is no currently active timer</caption>
- * var clicks = Rx.Observable.fromEvent(document, 'click');
+ * var clicks = Rx.Observable.fromEvent(document, '');
  * var higherOrder = clicks.map((ev) => Rx.Observable.interval(1000).take(5));
  * var result = higherOrder.exhaust();
  * result.subscribe(x => console.log(x));
@@ -26622,7 +26615,7 @@ var subscribeToResult_1 = __webpack_require__(5);
  * and repeat this process.
  *
  * @example <caption>Run a finite timer for each click, only if there is no currently active timer</caption>
- * var clicks = Rx.Observable.fromEvent(document, 'click');
+ * var clicks = Rx.Observable.fromEvent(document, '');
  * var result = clicks.exhaustMap((ev) => Rx.Observable.interval(1000).take(5));
  * result.subscribe(x => console.log(x));
  *
@@ -26770,7 +26763,7 @@ var subscribeToResult_1 = __webpack_require__(5);
  * *expand* behaves recursively.
  *
  * @example <caption>Start emitting the powers of two on every click, at most 10 of them</caption>
- * var clicks = Rx.Observable.fromEvent(document, 'click');
+ * var clicks = Rx.Observable.fromEvent(document, '');
  * var powersOfTwo = clicks
  *   .mapTo(1)
  *   .expand(x => Rx.Observable.of(2 * x).delay(1000))
@@ -26918,7 +26911,7 @@ var ArgumentOutOfRangeError_1 = __webpack_require__(35);
  * `ArgumentOutOfRangeError` error.
  *
  * @example <caption>Emit only the third click event</caption>
- * var clicks = Rx.Observable.fromEvent(document, 'click');
+ * var clicks = Rx.Observable.fromEvent(document, '');
  * var result = clicks.elementAt(2);
  * result.subscribe(x => console.log(x));
  *
@@ -26983,7 +26976,7 @@ var ElementAtSubscriber = (function (_super) {
     ElementAtSubscriber.prototype._complete = function () {
         var destination = this.destination;
         if (this.index >= 0) {
-            if (typeof this.defaultValue !== 'undefined') {
+            if (typeof this.defaultValue !== '') {
                 destination.next(this.defaultValue);
             }
             else {
@@ -27068,8 +27061,8 @@ var find_1 = __webpack_require__(71);
  * an error if a valid value is not found.
  *
  * @example <caption>Emit the index of first click that happens on a DIV element</caption>
- * var clicks = Rx.Observable.fromEvent(document, 'click');
- * var result = clicks.findIndex(ev => ev.target.tagName === 'DIV');
+ * var clicks = Rx.Observable.fromEvent(document, '');
+ * var result = clicks.findIndex(ev => ev.target.tagName === '');
  * result.subscribe(x => console.log(x));
  *
  * @see {@link filter}
@@ -27123,13 +27116,13 @@ var EmptyError_1 = __webpack_require__(51);
  * was not provided and a matching element is not found.
  *
  * @example <caption>Emit only the first click that happens on the DOM</caption>
- * var clicks = Rx.Observable.fromEvent(document, 'click');
+ * var clicks = Rx.Observable.fromEvent(document, '');
  * var result = clicks.first();
  * result.subscribe(x => console.log(x));
  *
  * @example <caption>Emits the first click that happens on a DIV</caption>
- * var clicks = Rx.Observable.fromEvent(document, 'click');
- * var result = clicks.first(ev => ev.target.tagName === 'DIV');
+ * var clicks = Rx.Observable.fromEvent(document, '');
+ * var result = clicks.first(ev => ev.target.tagName === '');
  * result.subscribe(x => console.log(x));
  *
  * @see {@link filter}
@@ -27238,7 +27231,7 @@ var FirstSubscriber = (function (_super) {
     };
     FirstSubscriber.prototype._complete = function () {
         var destination = this.destination;
-        if (!this.hasCompleted && typeof this.defaultValue !== 'undefined') {
+        if (!this.hasCompleted && typeof this.defaultValue !== '') {
             destination.next(this.defaultValue);
             destination.complete();
         }
@@ -27276,40 +27269,40 @@ var FastMap_1 = __webpack_require__(583);
  * <img src="./img/groupBy.png" width="100%">
  *
  * @example <caption>Group objects by id and return as array</caption>
- * Observable.of<Obj>({id: 1, name: 'aze1'},
- *                    {id: 2, name: 'sf2'},
- *                    {id: 2, name: 'dg2'},
- *                    {id: 1, name: 'erg1'},
- *                    {id: 1, name: 'df1'},
- *                    {id: 2, name: 'sfqfb2'},
- *                    {id: 3, name: 'qfs3'},
- *                    {id: 2, name: 'qsgqsfg2'}
+ * Observable.of<Obj>({id: 1, name: ''},
+ *                    {id: 2, name: ''},
+ *                    {id: 2, name: ''},
+ *                    {id: 1, name: ''},
+ *                    {id: 1, name: ''},
+ *                    {id: 2, name: ''},
+ *                    {id: 3, name: ''},
+ *                    {id: 2, name: ''}
  *     )
  *     .groupBy(p => p.id)
  *     .flatMap( (group$) => group$.reduce((acc, cur) => [...acc, cur], []))
  *     .subscribe(p => console.log(p));
  *
  * // displays:
- * // [ { id: 1, name: 'aze1' },
- * //   { id: 1, name: 'erg1' },
- * //   { id: 1, name: 'df1' } ]
+ * // [ { id: 1, name: '' },
+ * //   { id: 1, name: '' },
+ * //   { id: 1, name: '' } ]
  * //
- * // [ { id: 2, name: 'sf2' },
- * //   { id: 2, name: 'dg2' },
- * //   { id: 2, name: 'sfqfb2' },
- * //   { id: 2, name: 'qsgqsfg2' } ]
+ * // [ { id: 2, name: '' },
+ * //   { id: 2, name: '' },
+ * //   { id: 2, name: '' },
+ * //   { id: 2, name: '' } ]
  * //
- * // [ { id: 3, name: 'qfs3' } ]
+ * // [ { id: 3, name: '' } ]
  *
  * @example <caption>Pivot data on the id field</caption>
- * Observable.of<Obj>({id: 1, name: 'aze1'},
- *                    {id: 2, name: 'sf2'},
- *                    {id: 2, name: 'dg2'},
- *                    {id: 1, name: 'erg1'},
- *                    {id: 1, name: 'df1'},
- *                    {id: 2, name: 'sfqfb2'},
- *                    {id: 3, name: 'qfs1'},
- *                    {id: 2, name: 'qsgqsfg2'}
+ * Observable.of<Obj>({id: 1, name: ''},
+ *                    {id: 2, name: ''},
+ *                    {id: 2, name: ''},
+ *                    {id: 1, name: ''},
+ *                    {id: 1, name: ''},
+ *                    {id: 2, name: ''},
+ *                    {id: 3, name: ''},
+ *                    {id: 2, name: ''}
  *                   )
  *     .groupBy(p => p.id, p => p.name)
  *     .flatMap( (group$) => group$.reduce((acc, cur) => [...acc, cur], ["" + group$.key]))
@@ -27317,9 +27310,9 @@ var FastMap_1 = __webpack_require__(583);
  *     .subscribe(p => console.log(p));
  *
  * // displays:
- * // { id: 1, values: [ 'aze1', 'erg1', 'df1' ] }
- * // { id: 2, values: [ 'sf2', 'dg2', 'sfqfb2', 'qsgqsfg2' ] }
- * // { id: 3, values: [ 'qfs1' ] }
+ * // { id: 1, values: [ '', '', '' ] }
+ * // { id: 2, values: [ '', '', '', '' ] }
+ * // { id: 3, values: [ '' ] }
  *
  * @param {function(value: T): K} keySelector A function that extracts the key
  * for each item.
@@ -27384,7 +27377,7 @@ var GroupBySubscriber = (function (_super) {
     GroupBySubscriber.prototype._group = function (value, key) {
         var groups = this.groups;
         if (!groups) {
-            groups = this.groups = typeof key === 'string' ? new FastMap_1.FastMap() : new Map_1.Map();
+            groups = this.groups = typeof key === '' ? new FastMap_1.FastMap() : new Map_1.Map();
         }
         var group = groups.get(key);
         var element;
@@ -27666,7 +27659,7 @@ var timer_1 = __webpack_require__(231);
  * Optionally takes a {@link IScheduler} for managing timers.
  *
  * @example <caption>Emit clicks at a rate of at most one click per second</caption>
- * var clicks = Rx.Observable.fromEvent(document, 'click');
+ * var clicks = Rx.Observable.fromEvent(document, '');
  * var result = clicks.auditTime(1000);
  * result.subscribe(x => console.log(x));
  *
@@ -27755,7 +27748,7 @@ var LastSubscriber = (function (_super) {
         this.source = source;
         this.hasValue = false;
         this.index = 0;
-        if (typeof defaultValue !== 'undefined') {
+        if (typeof defaultValue !== '') {
             this.lastValue = defaultValue;
             this.hasValue = true;
         }
@@ -27924,7 +27917,7 @@ var Subscriber_1 = __webpack_require__(2);
  * and simply uses the emission moment to know when to emit the given `value`.
  *
  * @example <caption>Map every click to the string 'Hi'</caption>
- * var clicks = Rx.Observable.fromEvent(document, 'click');
+ * var clicks = Rx.Observable.fromEvent(document, '');
  * var greetings = clicks.mapTo('Hi');
  * greetings.subscribe(x => console.log(x));
  *
@@ -28003,7 +27996,7 @@ var Notification_1 = __webpack_require__(29);
  * {@link dematerialize}.
  *
  * @example <caption>Convert a faulty Observable to an Observable of Notifications</caption>
- * var letters = Rx.Observable.of('a', 'b', 13, 'd');
+ * var letters = Rx.Observable.of('a', 'b''d');
  * var upperCase = letters.map(x => x.toUpperCase());
  * var materialized = upperCase.materialize();
  * materialized.subscribe(x => console.log(x));
@@ -28088,11 +28081,11 @@ var reduce_1 = __webpack_require__(36);
  *   age: number,
  *   name: string
  * }
- * Observable.of<Person>({age: 7, name: 'Foo'},
- *                       {age: 5, name: 'Bar'},
- *                       {age: 9, name: 'Beer'})
+ * Observable.of<Person>({age: 7, name: ''},
+ *                       {age: 5, name: ''},
+ *                       {age: 9, name: ''})
  *           .max<Person>((a: Person, b: Person) => a.age < b.age ? -1 : 1)
- *           .subscribe((x: Person) => console.log(x.name)); // -> 'Beer'
+ *           .subscribe((x: Person) => console.log(x.name)); // -> ''
  * }
  *
  * @see {@link min}
@@ -28104,7 +28097,7 @@ var reduce_1 = __webpack_require__(36);
  * @owner Observable
  */
 function max(comparer) {
-    var max = (typeof comparer === 'function')
+    var max = (typeof comparer === '')
         ? function (x, y) { return comparer(x, y) > 0 ? x : y; }
         : function (x, y) { return x > y ? x : y; };
     return reduce_1.reduce(max);
@@ -28139,7 +28132,7 @@ exports.mergeStatic = merge_2.merge;
  * emitted on the output Observable.
  *
  * @example <caption>Merge together two Observables: 1s interval and clicks</caption>
- * var clicks = Rx.Observable.fromEvent(document, 'click');
+ * var clicks = Rx.Observable.fromEvent(document, '');
  * var timer = Rx.Observable.interval(1000);
  * var clicksOrTimer = clicks.merge(timer);
  * clicksOrTimer.subscribe(x => console.log(x));
@@ -28206,7 +28199,7 @@ var subscribeToResult_1 = __webpack_require__(5);
  * single Observable, which is the output Observable.
  *
  * @example <caption>For each click event, start an interval Observable ticking every 1 second</caption>
- * var clicks = Rx.Observable.fromEvent(document, 'click');
+ * var clicks = Rx.Observable.fromEvent(document, '');
  * var result = clicks.mergeMapTo(Rx.Observable.interval(1000));
  * result.subscribe(x => console.log(x));
  *
@@ -28237,7 +28230,7 @@ var subscribeToResult_1 = __webpack_require__(5);
  */
 function mergeMapTo(innerObservable, resultSelector, concurrent) {
     if (concurrent === void 0) { concurrent = Number.POSITIVE_INFINITY; }
-    if (typeof resultSelector === 'number') {
+    if (typeof resultSelector === '') {
         concurrent = resultSelector;
         resultSelector = null;
     }
@@ -28363,7 +28356,7 @@ var OuterSubscriber_1 = __webpack_require__(4);
  * by the accumulator are merged into the outer Observable.</span>
  *
  * @example <caption>Count the number of click events</caption>
- * const click$ = Rx.Observable.fromEvent(document, 'click');
+ * const click$ = Rx.Observable.fromEvent(document, '');
  * const one$ = click$.mapTo(1);
  * const seed = 0;
  * const count$ = one$.mergeScan((acc, one) => Rx.Observable.of(acc + one), seed);
@@ -28497,11 +28490,11 @@ var reduce_1 = __webpack_require__(36);
  *   age: number,
  *   name: string
  * }
- * Observable.of<Person>({age: 7, name: 'Foo'},
- *                       {age: 5, name: 'Bar'},
- *                       {age: 9, name: 'Beer'})
+ * Observable.of<Person>({age: 7, name: ''},
+ *                       {age: 5, name: ''},
+ *                       {age: 9, name: ''})
  *           .min<Person>( (a: Person, b: Person) => a.age < b.age ? -1 : 1)
- *           .subscribe((x: Person) => console.log(x.name)); // -> 'Bar'
+ *           .subscribe((x: Person) => console.log(x.name)); // -> ''
  * }
  *
  * @see {@link max}
@@ -28513,7 +28506,7 @@ var reduce_1 = __webpack_require__(36);
  * @owner Observable
  */
 function min(comparer) {
-    var min = (typeof comparer === 'function')
+    var min = (typeof comparer === '')
         ? function (x, y) { return comparer(x, y) < 0 ? x : y; }
         : function (x, y) { return x < y ? x : y; };
     return reduce_1.reduce(min);
@@ -28725,7 +28718,7 @@ var Subscriber_1 = __webpack_require__(2);
  * there is no previous value in that case.
  *
  * @example <caption>On every click (starting from the second), emit the relative distance to the previous click</caption>
- * var clicks = Rx.Observable.fromEvent(document, 'click');
+ * var clicks = Rx.Observable.fromEvent(document, '');
  * var pairs = clicks.pairwise();
  * var distance = pairs.map(pair => {
  *   var x0 = pair[0].clientX;
@@ -28806,12 +28799,12 @@ var filter_1 = __webpack_require__(70);
  * behaves like {@link filter} with the predicate negated.
  *
  * @example <caption>Partition click events into those on DIV elements and those elsewhere</caption>
- * var clicks = Rx.Observable.fromEvent(document, 'click');
- * var parts = clicks.partition(ev => ev.target.tagName === 'DIV');
+ * var clicks = Rx.Observable.fromEvent(document, '');
+ * var parts = clicks.partition(ev => ev.target.tagName === '');
  * var clicksOnDivs = parts[0];
  * var clicksElsewhere = parts[1];
- * clicksOnDivs.subscribe(x => console.log('DIV clicked: ', x));
- * clicksElsewhere.subscribe(x => console.log('Other clicked: ', x));
+ * clicksOnDivs.subscribe(x => console.log('', x));
+ * clicksElsewhere.subscribe(x => console.log('', x));
  *
  * @see {@link filter}
  *
@@ -28859,8 +28852,8 @@ var map_1 = __webpack_require__(34);
  * that value.
  *
  * @example <caption>Map every click to the tagName of the clicked target element</caption>
- * var clicks = Rx.Observable.fromEvent(document, 'click');
- * var tagNames = clicks.pluck('target', 'tagName');
+ * var clicks = Rx.Observable.fromEvent(document, '');
+ * var tagNames = clicks.pluck('', '');
  * tagNames.subscribe(x => console.log(x));
  *
  * @see {@link map}
@@ -28878,7 +28871,7 @@ function pluck() {
     }
     var length = properties.length;
     if (length === 0) {
-        throw new Error('list of properties cannot be empty.');
+        throw new Error('');
     }
     return function (source) { return map_1.map(plucker(properties, length))(source); };
 }
@@ -28888,7 +28881,7 @@ function plucker(props, length) {
         var currentProp = x;
         for (var i = 0; i < length; i++) {
             var p = currentProp[props[i]];
-            if (typeof p !== 'undefined') {
+            if (typeof p !== '') {
                 currentProp = p;
             }
             else {
@@ -29016,10 +29009,10 @@ var ReplaySubject_1 = __webpack_require__(50);
 var multicast_1 = __webpack_require__(20);
 /* tslint:enable:max-line-length */
 function publishReplay(bufferSize, windowTime, selectorOrScheduler, scheduler) {
-    if (selectorOrScheduler && typeof selectorOrScheduler !== 'function') {
+    if (selectorOrScheduler && typeof selectorOrScheduler !== '') {
         scheduler = selectorOrScheduler;
     }
-    var selector = typeof selectorOrScheduler === 'function' ? selectorOrScheduler : undefined;
+    var selector = typeof selectorOrScheduler === '' ? selectorOrScheduler : undefined;
     var subject = new ReplaySubject_1.ReplaySubject(bufferSize, windowTime, scheduler);
     return function (source) { return multicast_1.multicast(function () { return subject; }, selector)(source); };
 }
@@ -29474,7 +29467,7 @@ var subscribeToResult_1 = __webpack_require__(5);
  *
  * @example <caption>On every click, sample the most recent "seconds" timer</caption>
  * var seconds = Rx.Observable.interval(1000);
- * var clicks = Rx.Observable.fromEvent(document, 'click');
+ * var clicks = Rx.Observable.fromEvent(document, '');
  * var result = seconds.sample(clicks);
  * result.subscribe(x => console.log(x));
  *
@@ -29568,7 +29561,7 @@ var async_1 = __webpack_require__(6);
  * the output Observable is subscribed.
  *
  * @example <caption>Every second, emit the most recent click at most once</caption>
- * var clicks = Rx.Observable.fromEvent(document, 'click');
+ * var clicks = Rx.Observable.fromEvent(document, '');
  * var result = clicks.sampleTime(1000);
  * result.subscribe(x => console.log(x));
  *
@@ -29680,7 +29673,7 @@ var errorObject_1 = __webpack_require__(10);
  *  "Enter" // no start key, clearly.
  * ]);
  *
- * var keys = Rx.Observable.fromEvent(document, 'keyup')
+ * var keys = Rx.Observable.fromEvent(document, '')
  *  .map(e => e.code);
  * var matches = keys.bufferCount(11, 1)
  *  .mergeMap(
@@ -29688,7 +29681,7 @@ var errorObject_1 = __webpack_require__(10);
  *      Rx.Observable.from(last11)
  *        .sequenceEqual(code)
  *   );
- * matches.subscribe(matched => console.log('Successful cheat at Contra? ', matched));
+ * matches.subscribe(matched => console.log('', matched));
  *
  * @see {@link combineLatest}
  * @see {@link zip}
@@ -29946,7 +29939,7 @@ var SingleSubscriber = (function (_super) {
     }
     SingleSubscriber.prototype.applySingleValue = function (value) {
         if (this.seenValue) {
-            this.destination.error('Sequence contains more than one element');
+            this.destination.error('');
         }
         else {
             this.seenValue = true;
@@ -30375,13 +30368,13 @@ var AsapScheduler_1 = __webpack_require__(681);
  *
  * @example <caption>Compare async and asap scheduler</caption>
  *
- * Rx.Scheduler.async.schedule(() => console.log('async')); // scheduling 'async' first...
- * Rx.Scheduler.asap.schedule(() => console.log('asap'));
+ * Rx.Scheduler.async.schedule(() => console.log('')); // scheduling '' first...
+ * Rx.Scheduler.asap.schedule(() => console.log(''));
  *
  * // Logs:
  * // "asap"
  * // "async"
- * // ... but 'asap' goes first!
+ * // ... but '' goes first!
  *
  * @static true
  * @name asap
@@ -30434,7 +30427,7 @@ var subscribeToResult_1 = __webpack_require__(5);
  * `innerObservable`.
  *
  * @example <caption>Rerun an interval Observable on every click event</caption>
- * var clicks = Rx.Observable.fromEvent(document, 'click');
+ * var clicks = Rx.Observable.fromEvent(document, '');
  * var result = clicks.switchMapTo(Rx.Observable.interval(1000));
  * result.subscribe(x => console.log(x));
  *
@@ -30661,7 +30654,7 @@ var subscribeToResult_1 = __webpack_require__(5);
  *
  * @example <caption>Tick every second until the first click happens</caption>
  * var interval = Rx.Observable.interval(1000);
- * var clicks = Rx.Observable.fromEvent(document, 'click');
+ * var clicks = Rx.Observable.fromEvent(document, '');
  * var result = interval.takeUntil(clicks);
  * result.subscribe(x => console.log(x));
  *
@@ -30743,7 +30736,7 @@ var Subscriber_1 = __webpack_require__(2);
  * Observable and completes the output Observable.
  *
  * @example <caption>Emit click events only while the clientX property is greater than 200</caption>
- * var clicks = Rx.Observable.fromEvent(document, 'click');
+ * var clicks = Rx.Observable.fromEvent(document, '');
  * var result = clicks.takeWhile(ev => ev.clientX > 200);
  * result.subscribe(x => console.log(x));
  *
@@ -30844,7 +30837,7 @@ var throttle_1 = __webpack_require__(52);
  * {@link IScheduler} for managing timers.
  *
  * @example <caption>Emit clicks at a rate of at most one click per second</caption>
- * var clicks = Rx.Observable.fromEvent(document, 'click');
+ * var clicks = Rx.Observable.fromEvent(document, '');
  * var result = clicks.throttleTime(1000);
  * result.subscribe(x => console.log(x));
  *
@@ -31182,8 +31175,8 @@ var __extends = (this && this.__extends) || function (d, b) {
 var TimeoutError = (function (_super) {
     __extends(TimeoutError, _super);
     function TimeoutError() {
-        var err = _super.call(this, 'Timeout has occurred');
-        this.name = err.name = 'TimeoutError';
+        var err = _super.call(this, '');
+        this.name = err.name = '';
         this.stack = err.stack;
         this.message = err.message;
     }
@@ -31376,7 +31369,7 @@ var subscribeToResult_1 = __webpack_require__(5);
  * Observable, the output is a higher-order Observable.
  *
  * @example <caption>In every window of 1 second each, emit at most 2 click events</caption>
- * var clicks = Rx.Observable.fromEvent(document, 'click');
+ * var clicks = Rx.Observable.fromEvent(document, '');
  * var interval = Rx.Observable.interval(1000);
  * var result = clicks.window(interval)
  *   .map(win => win.take(2)) // each window has at most 2 emissions
@@ -31496,14 +31489,14 @@ var Subject_1 = __webpack_require__(9);
  * with size `windowSize`.
  *
  * @example <caption>Ignore every 3rd click event, starting from the first one</caption>
- * var clicks = Rx.Observable.fromEvent(document, 'click');
+ * var clicks = Rx.Observable.fromEvent(document, '');
  * var result = clicks.windowCount(3)
  *   .map(win => win.skip(1)) // skip first of every 3 clicks
  *   .mergeAll(); // flatten the Observable-of-Observables
  * result.subscribe(x => console.log(x));
  *
  * @example <caption>Ignore every 3rd click event, starting from the third one</caption>
- * var clicks = Rx.Observable.fromEvent(document, 'click');
+ * var clicks = Rx.Observable.fromEvent(document, '');
  * var result = clicks.windowCount(2, 3)
  *   .mergeAll(); // flatten the Observable-of-Observables
  * result.subscribe(x => console.log(x));
@@ -31806,7 +31799,7 @@ var subscribeToResult_1 = __webpack_require__(5);
  * `closingSelector` emits an item.
  *
  * @example <caption>Every other second, emit the click events from the next 500ms</caption>
- * var clicks = Rx.Observable.fromEvent(document, 'click');
+ * var clicks = Rx.Observable.fromEvent(document, '');
  * var openings = Rx.Observable.interval(1000);
  * var result = clicks.windowToggle(openings, i =>
  *   i % 2 ? Rx.Observable.interval(500) : Rx.Observable.empty()
@@ -31991,7 +31984,7 @@ var subscribeToResult_1 = __webpack_require__(5);
  * window is opened immediately when subscribing to the output Observable.
  *
  * @example <caption>Emit only the first two clicks events in every window of [1-5] random seconds</caption>
- * var clicks = Rx.Observable.fromEvent(document, 'click');
+ * var clicks = Rx.Observable.fromEvent(document, '');
  * var result = clicks
  *   .windowWhen(() => Rx.Observable.interval(1000 + Math.random() * 4000))
  *   .map(win => win.take(2)) // each window has at most 2 emissions
@@ -32125,7 +32118,7 @@ var subscribeToResult_1 = __webpack_require__(5);
  * emit at least one value before the output Observable will emit a value.
  *
  * @example <caption>On every click event, emit an array with the latest timer event plus the click event</caption>
- * var clicks = Rx.Observable.fromEvent(document, 'click');
+ * var clicks = Rx.Observable.fromEvent(document, '');
  * var timer = Rx.Observable.interval(1000);
  * var result = clicks.withLatestFrom(timer);
  * result.subscribe(x => console.log(x));
@@ -32152,7 +32145,7 @@ function withLatestFrom() {
     }
     return function (source) {
         var project;
-        if (typeof args[args.length - 1] === 'function') {
+        if (typeof args[args.length - 1] === '') {
             project = args.pop();
         }
         var observables = args;
@@ -32432,7 +32425,7 @@ exports.VirtualAction = VirtualAction;
 
 const ansiRegex = __webpack_require__(738);
 
-module.exports = input => typeof input === 'string' ? input.replace(ansiRegex(), '') : input;
+module.exports = input => typeof input === '' ? input.replace(ansiRegex(), '') : input;
 
 
 /***/ }),
@@ -32453,17 +32446,17 @@ var _path = __webpack_require__(3);
  * Returns all the paths where plugins are located
  */
 function getProjectPaths(rootPath, options) {
-    const skipKibanaExtra = Boolean(options['skip-kibana-extra']);
+    const skipKibanaExtra = Boolean(options['']);
     const ossOnly = Boolean(options.oss);
-    const projectPaths = [rootPath, (0, _path.resolve)(rootPath, 'packages/*')];
+    const projectPaths = [rootPath, (0, _path.resolve)(rootPath, '')];
     if (!ossOnly) {
-        projectPaths.push((0, _path.resolve)(rootPath, 'x-pack'));
-        projectPaths.push((0, _path.resolve)(rootPath, 'x-pack/plugins/*'));
+        projectPaths.push((0, _path.resolve)(rootPath, ''));
+        projectPaths.push((0, _path.resolve)(rootPath, ''));
     }
     if (!skipKibanaExtra) {
-        projectPaths.push((0, _path.resolve)(rootPath, '../kibana-extra/*'));
-        projectPaths.push((0, _path.resolve)(rootPath, '../kibana-extra/*/packages/*'));
-        projectPaths.push((0, _path.resolve)(rootPath, '../kibana-extra/*/plugins/*'));
+        projectPaths.push((0, _path.resolve)(rootPath, ''));
+        projectPaths.push((0, _path.resolve)(rootPath, ''));
+        projectPaths.push((0, _path.resolve)(rootPath, ''));
     }
     return projectPaths;
 } /*
@@ -32497,7 +32490,7 @@ class CpFileError extends NestedError {
 	constructor(message, nested) {
 		super(message, nested);
 		Object.assign(this, nested);
-		this.name = 'CpFileError';
+		this.name = '';
 	}
 }
 
@@ -32513,8 +32506,8 @@ var inherits = __webpack_require__(82);
 var NestedError = function (message, nested) {
     this.nested = nested;
 
-    if (typeof message !== 'undefined') {
-        Object.defineProperty(this, 'message', {
+    if (typeof message !== '') {
+        Object.defineProperty(this, '', {
             value: message,
             writable: true,
             enumerable: false,
@@ -32523,9 +32516,9 @@ var NestedError = function (message, nested) {
     }
 
     Error.captureStackTrace(this, this.constructor);
-    var oldStackDescriptor = Object.getOwnPropertyDescriptor(this, 'stack');
+    var oldStackDescriptor = Object.getOwnPropertyDescriptor(this, '');
     var stackDescriptor = buildStackDescriptor(oldStackDescriptor, nested);
-    Object.defineProperty(this, 'stack', stackDescriptor);
+    Object.defineProperty(this, '', stackDescriptor);
 };
 
 function buildStackDescriptor(oldStackDescriptor, nested) {
@@ -32546,13 +32539,13 @@ function buildStackDescriptor(oldStackDescriptor, nested) {
 
 function buildCombinedStacks(stack, nested) {
     if (nested) {
-        stack += '\nCaused By: ' + nested.stack;
+        stack += '' + nested.stack;
     }
     return stack;
 }
 
 inherits(NestedError, Error);
-NestedError.prototype.name = 'NestedError';
+NestedError.prototype.name = '';
 
 
 module.exports = NestedError;
@@ -32571,7 +32564,7 @@ Object.defineProperty(exports, "__esModule", {
 
 var _cli = __webpack_require__(326);
 
-Object.defineProperty(exports, 'run', {
+Object.defineProperty(exports, '', {
   enumerable: true,
   get: function () {
     return _cli.run;
@@ -32580,13 +32573,13 @@ Object.defineProperty(exports, 'run', {
 
 var _production = __webpack_require__(741);
 
-Object.defineProperty(exports, 'buildProductionProjects', {
+Object.defineProperty(exports, '', {
   enumerable: true,
   get: function () {
     return _production.buildProductionProjects;
   }
 });
-Object.defineProperty(exports, 'prepareExternalProjectDependencies', {
+Object.defineProperty(exports, '', {
   enumerable: true,
   get: function () {
     return _production.prepareExternalProjectDependencies;
@@ -32595,7 +32588,7 @@ Object.defineProperty(exports, 'prepareExternalProjectDependencies', {
 
 var _package_json = __webpack_require__(38);
 
-Object.defineProperty(exports, 'transformDependencies', {
+Object.defineProperty(exports, '', {
   enumerable: true,
   get: function () {
     return _package_json.transformDependencies;
@@ -32625,9 +32618,9 @@ let run = exports.run = (() => {
         }
         const options = (0, _getopts2.default)(argv, {
             alias: {
-                e: 'exclude',
-                h: 'help',
-                i: 'include'
+                e: '',
+                h: '',
+                i: ''
             }
         });
         const args = options._;
@@ -32637,13 +32630,13 @@ let run = exports.run = (() => {
         }
         // This `rootPath` is relative to `./dist/` as that's the location of the
         // built version of this tool.
-        const rootPath = (0, _path.resolve)(__dirname, '../../../');
+        const rootPath = (0, _path.resolve)(__dirname, '');
         const commandName = args[0];
         const extraArgs = args.slice(1);
         const commandOptions = { options, extraArgs, rootPath };
         const command = _commands.commands[commandName];
         if (command === undefined) {
-            _log.log.write(_chalk2.default.red(`[${commandName}] is not a valid command, see 'kbn --help'`));
+            _log.log.write(_chalk2.default.red(`[${commandName}] is not a valid command, see ''`));
             process.exit(1);
         }
         yield (0, _run.runCommand)(command, commandOptions);
@@ -32701,16 +32694,16 @@ function help() {
     _log.log.write(_dedent2.default`
     usage: kbn <command> [<args>]
 
-    By default commands are run for Kibana itself, all packages in the 'packages/'
-    folder and for all plugins in '../kibana-extra'.
+    By default commands are run for Kibana itself, all packages in the ''
+    folder and for all plugins in ''.
 
     Available commands:
 
-       ${availableCommands.join('\n       ')}
+       ${availableCommands.join('')}
 
     Global options:
 
-       -e, --exclude        Exclude specified project. Can be specified multiple times to exclude multiple projects, e.g. '-e kibana -e @kbn/pm'.
+       -e, --exclude        Exclude specified project. Can be specified multiple times to exclude multiple projects, e.g. ''.
        -i, --include        Include only specified projects. If left unspecified, it defaults to including all projects.
        --oss                Do not include the x-pack when running command.
        --skip-kibana-extra  Filter all plugins in ../kibana-extra when running command.
@@ -32727,11 +32720,11 @@ function help() {
 var matchOperatorsRe = /[|\\{}()[\]^$+*?.]/g;
 
 module.exports = function (str) {
-	if (typeof str !== 'string') {
-		throw new TypeError('Expected a string');
+	if (typeof str !== '') {
+		throw new TypeError('');
 	}
 
-	return str.replace(matchOperatorsRe, '\\$&');
+	return str.replace(matchOperatorsRe, '');
 };
 
 
@@ -32838,7 +32831,7 @@ function assembleStyles() {
 			enumerable: false
 		});
 
-		Object.defineProperty(styles, 'codes', {
+		Object.defineProperty(styles, '', {
 			value: codes,
 			enumerable: false
 		});
@@ -32846,8 +32839,8 @@ function assembleStyles() {
 
 	const rgb2rgb = (r, g, b) => [r, g, b];
 
-	styles.color.close = '\u001B[39m';
-	styles.bgColor.close = '\u001B[49m';
+	styles.color.close = '';
+	styles.bgColor.close = '';
 
 	styles.color.ansi = {};
 	styles.color.ansi256 = {};
@@ -32862,23 +32855,23 @@ function assembleStyles() {
 	};
 
 	for (const key of Object.keys(colorConvert)) {
-		if (typeof colorConvert[key] !== 'object') {
+		if (typeof colorConvert[key] !== '') {
 			continue;
 		}
 
 		const suite = colorConvert[key];
 
-		if ('ansi16' in suite) {
+		if ('' in suite) {
 			styles.color.ansi[key] = wrapAnsi16(suite.ansi16, 0);
 			styles.bgColor.ansi[key] = wrapAnsi16(suite.ansi16, 10);
 		}
 
-		if ('ansi256' in suite) {
+		if ('' in suite) {
 			styles.color.ansi256[key] = wrapAnsi256(suite.ansi256, 0);
 			styles.bgColor.ansi256[key] = wrapAnsi256(suite.ansi256, 10);
 		}
 
-		if ('rgb' in suite) {
+		if ('' in suite) {
 			styles.color.ansi16m[key] = wrapAnsi16m(suite.rgb, 0);
 			styles.bgColor.ansi16m[key] = wrapAnsi16m(suite.rgb, 10);
 		}
@@ -32888,7 +32881,7 @@ function assembleStyles() {
 }
 
 // Make the export immutable
-Object.defineProperty(module, 'exports', {
+Object.defineProperty(module, '', {
 	enumerable: true,
 	get: assembleStyles
 });
@@ -32920,7 +32913,7 @@ function wrapRaw(fn) {
 	};
 
 	// preserve .conversion property if there is one
-	if ('conversion' in fn) {
+	if ('' in fn) {
 		wrappedFn.conversion = fn.conversion;
 	}
 
@@ -32942,7 +32935,7 @@ function wrapRounded(fn) {
 		// we're assuming the result is an array here.
 		// see notice in conversions.js; don't use box types
 		// in conversion functions.
-		if (typeof result === 'object') {
+		if (typeof result === '') {
 			for (var len = result.length, i = 0; i < len; i++) {
 				result[i] = Math.round(result[i]);
 			}
@@ -32952,7 +32945,7 @@ function wrapRounded(fn) {
 	};
 
 	// preserve .conversion property if there is one
-	if ('conversion' in fn) {
+	if ('' in fn) {
 		wrappedFn.conversion = fn.conversion;
 	}
 
@@ -32962,8 +32955,8 @@ function wrapRounded(fn) {
 models.forEach(function (fromModel) {
 	convert[fromModel] = {};
 
-	Object.defineProperty(convert[fromModel], 'channels', {value: conversions[fromModel].channels});
-	Object.defineProperty(convert[fromModel], 'labels', {value: conversions[fromModel].labels});
+	Object.defineProperty(convert[fromModel], '', {value: conversions[fromModel].channels});
+	Object.defineProperty(convert[fromModel], '', {value: conversions[fromModel].labels});
 
 	var routes = route(fromModel);
 	var routeModels = Object.keys(routes);
@@ -33149,7 +33142,7 @@ var conversions = __webpack_require__(78);
 
 	all functions that are routed have a property `.conversion` attached
 	to the returned synthetic function. This property is an array
-	of strings, each with the steps in between the 'from' and 'to'
+	of strings, each with the steps in between the '' and 'to'
 	color models (inclusive).
 
 	conversions that are not possible simply are not included.
@@ -33253,17 +33246,17 @@ const hasFlag = __webpack_require__(334);
 const env = process.env;
 
 let forceColor;
-if (hasFlag('no-color') ||
-	hasFlag('no-colors') ||
-	hasFlag('color=false')) {
+if (hasFlag('') ||
+	hasFlag('') ||
+	hasFlag('')) {
 	forceColor = false;
-} else if (hasFlag('color') ||
-	hasFlag('colors') ||
-	hasFlag('color=true') ||
-	hasFlag('color=always')) {
+} else if (hasFlag('') ||
+	hasFlag('') ||
+	hasFlag('') ||
+	hasFlag('')) {
 	forceColor = true;
 }
-if ('FORCE_COLOR' in env) {
+if ('' in env) {
 	forceColor = env.FORCE_COLOR.length === 0 || parseInt(env.FORCE_COLOR, 10) !== 0;
 }
 
@@ -33285,13 +33278,13 @@ function supportsColor(stream) {
 		return 0;
 	}
 
-	if (hasFlag('color=16m') ||
-		hasFlag('color=full') ||
-		hasFlag('color=truecolor')) {
+	if (hasFlag('') ||
+		hasFlag('') ||
+		hasFlag('')) {
 		return 3;
 	}
 
-	if (hasFlag('color=256')) {
+	if (hasFlag('')) {
 		return 2;
 	}
 
@@ -33301,7 +33294,7 @@ function supportsColor(stream) {
 
 	const min = forceColor ? 1 : 0;
 
-	if (process.platform === 'win32') {
+	if (process.platform === '') {
 		// Node.js 7.5.0 is the first version of Node.js to include a patch to
 		// libuv that enables 256 color output on Windows. Anything earlier and it
 		// won't work. However, here we target Node.js 8 at minimum as it is an LTS
@@ -33321,26 +33314,26 @@ function supportsColor(stream) {
 	}
 
 	if ('CI' in env) {
-		if (['TRAVIS', 'CIRCLECI', 'APPVEYOR', 'GITLAB_CI'].some(sign => sign in env) || env.CI_NAME === 'codeship') {
+		if (['', '', '', ''].some(sign => sign in env) || env.CI_NAME === '') {
 			return 1;
 		}
 
 		return min;
 	}
 
-	if ('TEAMCITY_VERSION' in env) {
+	if ('' in env) {
 		return /^(9\.(0*[1-9]\d*)\.|\d{2,}\.)/.test(env.TEAMCITY_VERSION) ? 1 : 0;
 	}
 
-	if ('TERM_PROGRAM' in env) {
-		const version = parseInt((env.TERM_PROGRAM_VERSION || '').split('.')[0], 10);
+	if ('' in env) {
+		const version = parseInt((env.TERM_PROGRAM_VERSION || '''.')[0], 10);
 
 		switch (env.TERM_PROGRAM) {
-			case 'iTerm.app':
+			case '':
 				return version >= 3 ? 3 : 2;
-			case 'Hyper':
+			case '':
 				return 3;
-			case 'Apple_Terminal':
+			case '':
 				return 2;
 			// No default
 		}
@@ -33354,11 +33347,11 @@ function supportsColor(stream) {
 		return 1;
 	}
 
-	if ('COLORTERM' in env) {
+	if ('' in env) {
 		return 1;
 	}
 
-	if (env.TERM === 'dumb') {
+	if (env.TERM === '') {
 		return min;
 	}
 
@@ -33391,7 +33384,7 @@ module.exports = require("os");
 
 module.exports = (flag, argv) => {
 	argv = argv || process.argv;
-	const prefix = flag.startsWith('-') ? '' : (flag.length === 1 ? '-' : '--');
+	const prefix = flag.startsWith('-''''-''--');
 	const pos = argv.indexOf(prefix + flag);
 	const terminatorPos = argv.indexOf('--');
 	return pos !== -1 && (terminatorPos === -1 ? true : pos < terminatorPos);
@@ -33418,12 +33411,12 @@ const ESCAPES = new Map([
 	['v', '\v'],
 	['0', '\0'],
 	['\\', '\\'],
-	['e', '\u001B'],
-	['a', '\u0007']
+	['e', ''],
+	['a', '']
 ]);
 
 function unescape(c) {
-	if ((c[0] === 'u' && c.length === 5) || (c[0] === 'x' && c.length === 3)) {
+	if ((c[0] === 'u''x' && c.length === 3)) {
 		return String.fromCharCode(parseInt(c.slice(1), 16));
 	}
 
@@ -33441,7 +33434,7 @@ function parseArguments(name, args) {
 		} else if ((matches = chunk.match(STRING_REGEX))) {
 			results.push(matches[2].replace(ESCAPE_REGEX, (m, escape, chr) => escape ? unescape(escape) : chr));
 		} else {
-			throw new Error(`Invalid Chalk template style argument: ${chunk} (in style '${name}')`);
+			throw new Error(`Invalid Chalk template style argument: ${chunk} (in style '')`);
 		}
 	}
 
@@ -33511,7 +33504,7 @@ module.exports = (chalk, tmp) => {
 			styles.push({inverse, styles: parseStyle(style)});
 		} else if (close) {
 			if (styles.length === 0) {
-				throw new Error('Found extraneous } in Chalk template literal');
+				throw new Error('');
 			}
 
 			chunks.push(buildStyle(chalk, styles)(chunk.join('')));
@@ -33525,7 +33518,7 @@ module.exports = (chalk, tmp) => {
 	chunks.push(chunk.join(''));
 
 	if (styles.length > 0) {
-		const errMsg = `Chalk template literal is missing ${styles.length} closing bracket${styles.length === 1 ? '' : 's'} (\`}\`)`;
+		const errMsg = `Chalk template literal is missing ${styles.length} closing bracket${styles.length === 1 ? '''s'} (\`}\`)`;
 		throw new Error(errMsg);
 	}
 
@@ -33859,14 +33852,14 @@ function _asyncToGenerator(fn) { return function () { var gen = fn.apply(this, a
 
 
 const BootstrapCommand = exports.BootstrapCommand = {
-    description: 'Install dependencies and crosslink projects',
-    name: 'bootstrap',
+    description: '',
+    name: '',
     run(projects, projectGraph, { options }) {
         return _asyncToGenerator(function* () {
             const batchedProjects = (0, _projects.topologicallyBatchProjects)(projects, projectGraph);
-            const frozenLockfile = options['frozen-lockfile'] === true;
-            const extraArgs = frozenLockfile ? ['--frozen-lockfile'] : [];
-            _log.log.write(_chalk2.default.bold('\nRunning installs in topological order:'));
+            const frozenLockfile = options[''] === true;
+            const extraArgs = frozenLockfile ? [''] : [];
+            _log.log.write(_chalk2.default.bold(''));
             for (const batch of batchedProjects) {
                 for (const project of batch) {
                     if (project.hasDependencies()) {
@@ -33874,7 +33867,7 @@ const BootstrapCommand = exports.BootstrapCommand = {
                     }
                 }
             }
-            _log.log.write(_chalk2.default.bold('\nInstalls completed, linking package executables:\n'));
+            _log.log.write(_chalk2.default.bold(''));
             yield (0, _link_project_executables.linkProjectExecutables)(projects, projectGraph);
             /**
              * At the end of the bootstrapping process we call all `kbn:bootstrap` scripts
@@ -33882,11 +33875,11 @@ const BootstrapCommand = exports.BootstrapCommand = {
              * transpiled before they can be used. Ideally we shouldn't do this unless we
              * have to, as it will slow down the bootstrapping process.
              */
-            _log.log.write(_chalk2.default.bold('\nLinking executables completed, running `kbn:bootstrap` scripts\n'));
+            _log.log.write(_chalk2.default.bold(''));
             yield (0, _parallelize.parallelizeBatches)(batchedProjects, (() => {
                 var _ref = _asyncToGenerator(function* (pkg) {
-                    if (pkg.hasScript('kbn:bootstrap')) {
-                        yield pkg.runScriptStreaming('kbn:bootstrap');
+                    if (pkg.hasScript('')) {
+                        yield pkg.runScriptStreaming('');
                     }
                 });
 
@@ -33894,7 +33887,7 @@ const BootstrapCommand = exports.BootstrapCommand = {
                     return _ref.apply(this, arguments);
                 };
             })());
-            _log.log.write(_chalk2.default.green.bold('\nBootstrapping completed!\n'));
+            _log.log.write(_chalk2.default.green.bold(''));
         })();
     }
 };
@@ -33923,7 +33916,7 @@ let linkProjectExecutables = exports.linkProjectExecutables = (() => {
     var _ref = _asyncToGenerator(function* (projectsByName, projectGraph) {
         for (const [projectName, projectDeps] of projectGraph) {
             const project = projectsByName.get(projectName);
-            const binsDir = (0, _path.resolve)(project.nodeModulesLocation, '.bin');
+            const binsDir = (0, _path.resolve)(project.nodeModulesLocation, '');
             for (const projectDep of projectDeps) {
                 const executables = projectDep.getExecutables();
                 for (const name of Object.keys(executables)) {
@@ -33938,8 +33931,8 @@ let linkProjectExecutables = exports.linkProjectExecutables = (() => {
                     const projectRelativePath = (0, _path.relative)(project.path, srcPath).split(_path.sep).join('/');
                     _log.log.write(_chalk2.default`{dim [${project.name}]} ${name} -> {dim ${projectRelativePath}}`);
                     yield (0, _fs.mkdirp)((0, _path.dirname)(dest));
-                    yield (0, _fs.createSymlink)(srcPath, dest, 'exec');
-                    yield (0, _fs.chmod)(dest, '755');
+                    yield (0, _fs.createSymlink)(srcPath, dest, '');
+                    yield (0, _fs.chmod)(dest, '');
                 }
             }
         }
@@ -34119,7 +34112,7 @@ function writeShim_ (from, to, prog, args, cb) {
 
   if (shLongProg) {
     sh = sh
-        + "basedir=$(dirname \"$(echo \"$0\" | sed -e 's,\\\\,/,g')\")\n"
+        + "basedir=$(dirname \"$(echo \"$0\" | sed -e '')\")\n"
         + "\n"
         + "case `uname` in\n"
         + "    *CYGWIN*) basedir=`cygpath -w \"$basedir\"`;;\n"
@@ -34201,7 +34194,7 @@ function patch (fs) {
 
   // lchmod, broken prior to 0.6.2
   // back-port the fix here.
-  if (constants.hasOwnProperty('O_SYMLINK') &&
+  if (constants.hasOwnProperty('') &&
       process.version.match(/^v0\.6\.[0-2]|^v0\.5\./)) {
     patchLchmod(fs)
   }
@@ -34291,10 +34284,10 @@ function patch (fs) {
   // if read() returns EAGAIN, then just try it again.
   fs.read = (function (fs$read) { return function (fd, buffer, offset, length, position, callback_) {
     var callback
-    if (callback_ && typeof callback_ === 'function') {
+    if (callback_ && typeof callback_ === '') {
       var eagCounter = 0
       callback = function (er, _, __) {
-        if (er && er.code === 'EAGAIN' && eagCounter < 10) {
+        if (er && er.code === '' && eagCounter < 10) {
           eagCounter ++
           return fs$read.call(fs, fd, buffer, offset, length, position, callback)
         }
@@ -34310,7 +34303,7 @@ function patch (fs) {
       try {
         return fs$readSync.call(fs, fd, buffer, offset, length, position)
       } catch (er) {
-        if (er.code === 'EAGAIN' && eagCounter < 10) {
+        if (er.code === '' && eagCounter < 10) {
           eagCounter ++
           continue
         }
@@ -34551,17 +34544,17 @@ function legacy (fs) {
     if (this.encoding) this.setEncoding(this.encoding);
 
     if (this.start !== undefined) {
-      if ('number' !== typeof this.start) {
-        throw TypeError('start must be a Number');
+      if ('' !== typeof this.start) {
+        throw TypeError('');
       }
       if (this.end === undefined) {
         this.end = Infinity;
-      } else if ('number' !== typeof this.end) {
-        throw TypeError('end must be a Number');
+      } else if ('' !== typeof this.end) {
+        throw TypeError('');
       }
 
       if (this.start > this.end) {
-        throw new Error('start must be <= end');
+        throw new Error('');
       }
 
       this.pos = this.start;
@@ -34576,13 +34569,13 @@ function legacy (fs) {
 
     fs.open(this.path, this.flags, this.mode, function (err, fd) {
       if (err) {
-        self.emit('error', err);
+        self.emit('', err);
         self.readable = false;
         return;
       }
 
       self.fd = fd;
-      self.emit('open', fd);
+      self.emit('', fd);
       self._read();
     })
   }
@@ -34597,7 +34590,7 @@ function legacy (fs) {
     this.writable = true;
 
     this.flags = 'w';
-    this.encoding = 'binary';
+    this.encoding = '';
     this.mode = 438; /*=0666*/
     this.bytesWritten = 0;
 
@@ -34611,11 +34604,11 @@ function legacy (fs) {
     }
 
     if (this.start !== undefined) {
-      if ('number' !== typeof this.start) {
-        throw TypeError('start must be a Number');
+      if ('' !== typeof this.start) {
+        throw TypeError('');
       }
       if (this.start < 0) {
-        throw new Error('start must be >= zero');
+        throw new Error('');
       }
 
       this.pos = this.start;
@@ -34659,7 +34652,7 @@ function legacy (fs) {
 // USE OR OTHER DEALINGS IN THE SOFTWARE.
 
 var pathModule = __webpack_require__(3);
-var isWindows = process.platform === 'win32';
+var isWindows = process.platform === '';
 var fs = __webpack_require__(7);
 
 // JavaScript implementation of realpath, ported from node pre-v6
@@ -34691,7 +34684,7 @@ function rethrow() {
       if (process.throwDeprecation)
         throw err;  // Forgot a callback but don't know where? Use NODE_DEBUG=fs
       else if (!process.noDeprecation) {
-        var msg = 'fs: missing callback ' + (err.stack || err.message);
+        var msg = '' + (err.stack || err.message);
         if (process.traceDeprecation)
           console.trace(msg);
         else
@@ -34702,20 +34695,20 @@ function rethrow() {
 }
 
 function maybeCallback(cb) {
-  return typeof cb === 'function' ? cb : rethrow();
+  return typeof cb === '' ? cb : rethrow();
 }
 
 var normalize = pathModule.normalize;
 
 // Regexp that finds the next partion of a (partial) path
-// result is [base_with_slash, base], e.g. ['somedir/', 'somedir']
+// result is [base_with_slash, base], e.g. ['', '']
 if (isWindows) {
   var nextPartRe = /(.*?)(?:[\/\\]+|$)/g;
 } else {
   var nextPartRe = /(.*?)(?:[\/]+|$)/g;
 }
 
-// Regex to find the device root, including trailing slash. E.g. 'c:\\'.
+// Regex to find the device root, including trailing slash. E.g. ''.
 if (isWindows) {
   var splitRootRe = /^(?:[a-zA-Z]:|[\\\/]{2}[^\\\/]+[\\\/][^\\\/]+)?[\\\/]*/;
 } else {
@@ -34820,7 +34813,7 @@ exports.realpathSync = function realpathSync(p, cache) {
 
 
 exports.realpath = function realpath(p, cache, cb) {
-  if (typeof cb !== 'function') {
+  if (typeof cb !== '') {
     cb = maybeCallback(cache);
     cache = null;
   }
@@ -34951,11 +34944,11 @@ var balanced = __webpack_require__(348);
 
 module.exports = expandTop;
 
-var escSlash = '\0SLASH'+Math.random()+'\0';
-var escOpen = '\0OPEN'+Math.random()+'\0';
-var escClose = '\0CLOSE'+Math.random()+'\0';
-var escComma = '\0COMMA'+Math.random()+'\0';
-var escPeriod = '\0PERIOD'+Math.random()+'\0';
+var escSlash = ''+Math.random()+'\0';
+var escOpen = ''+Math.random()+'\0';
+var escClose = ''+Math.random()+'\0';
+var escComma = ''+Math.random()+'\0';
+var escPeriod = ''+Math.random()+'\0';
 
 function numeric(str) {
   return parseInt(str, 10) == str
@@ -34964,11 +34957,11 @@ function numeric(str) {
 }
 
 function escapeBraces(str) {
-  return str.split('\\\\').join(escSlash)
-            .split('\\{').join(escOpen)
-            .split('\\}').join(escClose)
-            .split('\\,').join(escComma)
-            .split('\\.').join(escPeriod);
+  return str.split('').join(escSlash)
+            .split('').join(escOpen)
+            .split('').join(escClose)
+            .split('').join(escComma)
+            .split('').join(escPeriod);
 }
 
 function unescapeBraces(str) {
@@ -34998,7 +34991,7 @@ function parseCommaParts(str) {
   var post = m.post;
   var p = pre.split(',');
 
-  p[p.length-1] += '{' + body + '}';
+  p[p.length-1] += '{''}';
   var postParts = parseCommaParts(post);
   if (post.length) {
     p[p.length-1] += postParts.shift();
@@ -35021,7 +35014,7 @@ function expandTop(str) {
   // One could argue that this is a bug in Bash, but since the goal of
   // this module is to match Bash's rules, we escape a leading {}
   if (str.substr(0, 2) === '{}') {
-    str = '\\{\\}' + str.substr(2);
+    str = '' + str.substr(2);
   }
 
   return expand(escapeBraces(str), true).map(unescapeBraces);
@@ -35032,7 +35025,7 @@ function identity(e) {
 }
 
 function embrace(str) {
-  return '{' + str + '}';
+  return '{''}';
 }
 function isPadded(el) {
   return /^-?0\d/.test(el);
@@ -35164,7 +35157,7 @@ module.exports = function (xs, fn) {
 };
 
 var isArray = Array.isArray || function (xs) {
-    return Object.prototype.toString.call(xs) === '[object Array]';
+    return Object.prototype.toString.call(xs) === '';
 };
 
 
@@ -35238,8 +35231,8 @@ function range(a, b, str) {
 /* 349 */
 /***/ (function(module, exports) {
 
-if (typeof Object.create === 'function') {
-  // implementation from standard node.js 'util' module
+if (typeof Object.create === '') {
+  // implementation from standard node.js '' module
   module.exports = function inherits(ctor, superCtor) {
     ctor.super_ = superCtor
     ctor.prototype = Object.create(superCtor.prototype, {
@@ -35288,20 +35281,20 @@ var childrenIgnored = common.childrenIgnored
 var isIgnored = common.isIgnored
 
 function globSync (pattern, options) {
-  if (typeof options === 'function' || arguments.length === 3)
-    throw new TypeError('callback provided to sync glob\n'+
-                        'See: https://github.com/isaacs/node-glob/issues/167')
+  if (typeof options === '' || arguments.length === 3)
+    throw new TypeError(''+
+                        '')
 
   return new GlobSync(pattern, options).found
 }
 
 function GlobSync (pattern, options) {
   if (!pattern)
-    throw new Error('must provide pattern')
+    throw new Error('')
 
-  if (typeof options === 'function' || arguments.length === 3)
-    throw new TypeError('callback provided to sync glob\n'+
-                        'See: https://github.com/isaacs/node-glob/issues/167')
+  if (typeof options === '' || arguments.length === 3)
+    throw new TypeError(''+
+                        '')
 
   if (!(this instanceof GlobSync))
     return new GlobSync(pattern, options)
@@ -35331,7 +35324,7 @@ GlobSync.prototype._finish = function () {
           var real = rp.realpathSync(p, self.realpathCache)
           set[real] = true
         } catch (er) {
-          if (er.syscall === 'stat')
+          if (er.syscall === '')
             set[self._makeAbs(p)] = true
           else
             throw er
@@ -35348,7 +35341,7 @@ GlobSync.prototype._process = function (pattern, index, inGlobStar) {
 
   // Get the first [n] parts of pattern that are all strings.
   var n = 0
-  while (typeof pattern[n] === 'string') {
+  while (typeof pattern[n] === '') {
     n ++
   }
   // now n is the index of the first one that is *not* a string.
@@ -35369,8 +35362,8 @@ GlobSync.prototype._process = function (pattern, index, inGlobStar) {
 
     default:
       // pattern has some string bits in the front.
-      // whatever it starts with, whether that's 'absolute' like /foo/bar,
-      // or 'relative' like '../baz'
+      // whatever it starts with, whether that's '' like /foo/bar,
+      // or '' like ''
       prefix = pattern.slice(0, n).join('/')
       break
   }
@@ -35496,7 +35489,7 @@ GlobSync.prototype._emitMatch = function (index, e) {
 
   if (this.nodir) {
     var c = this.cache[abs]
-    if (c === 'DIR' || Array.isArray(c))
+    if (c === '' || Array.isArray(c))
       return
   }
 
@@ -35519,7 +35512,7 @@ GlobSync.prototype._readdirInGlobStar = function (abs) {
   try {
     lstat = fs.lstatSync(abs)
   } catch (er) {
-    if (er.code === 'ENOENT') {
+    if (er.code === '') {
       // lstat failed, doesn't exist
       return null
     }
@@ -35531,7 +35524,7 @@ GlobSync.prototype._readdirInGlobStar = function (abs) {
   // If it's not a symlink or a dir, then it's definitely a regular file.
   // don't bother doing a readdir in that case.
   if (!isSym && lstat && !lstat.isDirectory())
-    this.cache[abs] = 'FILE'
+    this.cache[abs] = ''
   else
     entries = this._readdir(abs, false)
 
@@ -35546,7 +35539,7 @@ GlobSync.prototype._readdir = function (abs, inGlobStar) {
 
   if (ownProp(this.cache, abs)) {
     var c = this.cache[abs]
-    if (!c || c === 'FILE')
+    if (!c || c === '')
       return null
 
     if (Array.isArray(c))
@@ -35585,22 +35578,22 @@ GlobSync.prototype._readdirEntries = function (abs, entries) {
 GlobSync.prototype._readdirError = function (f, er) {
   // handle errors, and cache the information
   switch (er.code) {
-    case 'ENOTSUP': // https://github.com/isaacs/node-glob/issues/205
-    case 'ENOTDIR': // totally normal. means it *does* exist.
+    case '': // https://github.com/isaacs/node-glob/issues/205
+    case '': // totally normal. means it *does* exist.
       var abs = this._makeAbs(f)
-      this.cache[abs] = 'FILE'
+      this.cache[abs] = ''
       if (abs === this.cwdAbs) {
-        var error = new Error(er.code + ' invalid cwd ' + this.cwd)
+        var error = new Error(er.code + '' + this.cwd)
         error.path = this.cwd
         error.code = er.code
         throw error
       }
       break
 
-    case 'ENOENT': // not terribly unusual
-    case 'ELOOP':
-    case 'ENAMETOOLONG':
-    case 'UNKNOWN':
+    case '': // not terribly unusual
+    case '':
+    case '':
+    case '':
       this.cache[this._makeAbs(f)] = false
       break
 
@@ -35609,7 +35602,7 @@ GlobSync.prototype._readdirError = function (f, er) {
       if (this.strict)
         throw er
       if (!this.silent)
-        console.error('glob error', er)
+        console.error('', er)
       break
   }
 }
@@ -35676,14 +35669,14 @@ GlobSync.prototype._processSimple = function (prefix, index) {
     }
   }
 
-  if (process.platform === 'win32')
+  if (process.platform === '')
     prefix = prefix.replace(/\\/g, '/')
 
   // Mark this as a match
   this._emitMatch(index, prefix)
 }
 
-// Returns either 'DIR', 'FILE', or false
+// Returns either '', '', or false
 GlobSync.prototype._stat = function (f) {
   var abs = this._makeAbs(f)
   var needDir = f.slice(-1) === '/'
@@ -35695,13 +35688,13 @@ GlobSync.prototype._stat = function (f) {
     var c = this.cache[abs]
 
     if (Array.isArray(c))
-      c = 'DIR'
+      c = ''
 
     // It exists, but maybe not how we need it
-    if (!needDir || c === 'DIR')
+    if (!needDir || c === '')
       return c
 
-    if (needDir && c === 'FILE')
+    if (needDir && c === '')
       return false
 
     // otherwise we have to stat, because maybe c=true
@@ -35715,7 +35708,7 @@ GlobSync.prototype._stat = function (f) {
     try {
       lstat = fs.lstatSync(abs)
     } catch (er) {
-      if (er && (er.code === 'ENOENT' || er.code === 'ENOTDIR')) {
+      if (er && (er.code === '' || er.code === '')) {
         this.statCache[abs] = false
         return false
       }
@@ -35736,11 +35729,11 @@ GlobSync.prototype._stat = function (f) {
 
   var c = true
   if (stat)
-    c = stat.isDirectory() ? 'DIR' : 'FILE'
+    c = stat.isDirectory() ? '' : ''
 
   this.cache[abs] = this.cache[abs] || c
 
-  if (needDir && c === 'FILE')
+  if (needDir && c === '')
     return false
 
   return c
@@ -35826,7 +35819,7 @@ const loadJsonFile = __webpack_require__(353);
 const pathType = __webpack_require__(359);
 
 module.exports = (fp, opts) => {
-	if (typeof fp !== 'string') {
+	if (typeof fp !== '') {
 		opts = fp;
 		fp = '.';
 	}
@@ -35836,7 +35829,7 @@ module.exports = (fp, opts) => {
 	return pathType.dir(fp)
 		.then(isDir => {
 			if (isDir) {
-				fp = path.join(fp, 'package.json');
+				fp = path.join(fp, '');
 			}
 
 			return loadJsonFile(fp);
@@ -35851,13 +35844,13 @@ module.exports = (fp, opts) => {
 };
 
 module.exports.sync = (fp, opts) => {
-	if (typeof fp !== 'string') {
+	if (typeof fp !== '') {
 		opts = fp;
 		fp = '.';
 	}
 
 	opts = opts || {};
-	fp = pathType.dirSync(fp) ? path.join(fp, 'package.json') : fp;
+	fp = pathType.dirSync(fp) ? path.join(fp, '') : fp;
 
 	const x = loadJsonFile.sync(fp);
 
@@ -35883,8 +35876,8 @@ const pify = __webpack_require__(22);
 
 const parse = (data, fp) => parseJson(stripBom(data), path.relative('.', fp));
 
-module.exports = fp => pify(fs.readFile)(fp, 'utf8').then(data => parse(data, fp));
-module.exports.sync = fp => parse(fs.readFileSync(fp, 'utf8'), fp);
+module.exports = fp => pify(fs.readFile)(fp, '').then(data => parse(data, fp));
+module.exports.sync = fp => parse(fs.readFileSync(fp, ''), fp);
 
 
 /***/ }),
@@ -35894,8 +35887,8 @@ module.exports.sync = fp => parse(fs.readFileSync(fp, 'utf8'), fp);
 "use strict";
 
 module.exports = x => {
-	if (typeof x !== 'string') {
-		throw new TypeError('Expected a string, got ' + typeof x);
+	if (typeof x !== '') {
+		throw new TypeError('' + typeof x);
 	}
 
 	// Catches EFBBBF (UTF-8 BOM) because the buffer-to-string
@@ -35917,12 +35910,12 @@ module.exports = x => {
 const errorEx = __webpack_require__(356);
 const fallback = __webpack_require__(358);
 
-const JSONError = errorEx('JSONError', {
-	fileName: errorEx.append('in %s')
+const JSONError = errorEx('', {
+	fileName: errorEx.append('')
 });
 
 module.exports = (input, reviver, filename) => {
-	if (typeof reviver === 'string') {
+	if (typeof reviver === '') {
 		filename = reviver;
 		reviver = null;
 	}
@@ -35978,7 +35971,7 @@ var errorEx = function errorEx(name, properties) {
 
 		this.name = name;
 
-		Object.defineProperty(this, 'message', {
+		Object.defineProperty(this, '', {
 			configurable: true,
 			enumerable: false,
 			get: function () {
@@ -35991,7 +35984,7 @@ var errorEx = function errorEx(name, properties) {
 
 					var modifier = properties[key];
 
-					if ('message' in modifier) {
+					if ('' in modifier) {
 						newMessage = modifier.message(this[key], newMessage) || newMessage;
 						if (!isArrayish(newMessage)) {
 							newMessage = [newMessage];
@@ -36006,7 +35999,7 @@ var errorEx = function errorEx(name, properties) {
 			}
 		});
 
-		var stackDescriptor = Object.getOwnPropertyDescriptor(this, 'stack');
+		var stackDescriptor = Object.getOwnPropertyDescriptor(this, '');
 		var stackGetter = stackDescriptor.get;
 		var stackValue = stackDescriptor.value;
 		delete stackDescriptor.value;
@@ -36029,14 +36022,14 @@ var errorEx = function errorEx(name, properties) {
 
 				var modifier = properties[key];
 
-				if ('line' in modifier) {
+				if ('' in modifier) {
 					var line = modifier.line(this[key]);
 					if (line) {
-						stack.splice(lineCount++, 0, '    ' + line);
+						stack.splice(lineCount++, 0, '' + line);
 					}
 				}
 
-				if ('stack' in modifier) {
+				if ('' in modifier) {
 					modifier.stack(this[key], stack);
 				}
 			}
@@ -36044,7 +36037,7 @@ var errorEx = function errorEx(name, properties) {
 			return stack.join('\n');
 		};
 
-		Object.defineProperty(this, 'stack', stackDescriptor);
+		Object.defineProperty(this, '', stackDescriptor);
 	};
 
 	if (Object.setPrototypeOf) {
@@ -36063,7 +36056,7 @@ errorEx.append = function (str, def) {
 			v = v || def;
 
 			if (v) {
-				message[0] += ' ' + str.replace('%s', v.toString());
+				message[0] += ' ''%s', v.toString());
 			}
 
 			return message;
@@ -36132,12 +36125,12 @@ function parseJson (txt, reviver, context) {
       ? txt.length
       : errIdx + context
       e.message += ` while parsing near '${
-        start === 0 ? '' : '...'
+        start === 0 ? '''...'
       }${txt.slice(start, end)}${
-        end === txt.length ? '' : '...'
+        end === txt.length ? '''...'
       }'`
     } else {
-      e.message += ` while parsing '${txt.slice(0, context * 2)}'`
+      e.message += ` while parsing ''`
     }
     throw e
   }
@@ -36154,14 +36147,14 @@ const fs = __webpack_require__(7);
 const pify = __webpack_require__(22);
 
 function type(fn, fn2, fp) {
-	if (typeof fp !== 'string') {
+	if (typeof fp !== '') {
 		return Promise.reject(new TypeError(`Expected a string, got ${typeof fp}`));
 	}
 
 	return pify(fs[fn])(fp)
 		.then(stats => stats[fn2]())
 		.catch(err => {
-			if (err.code === 'ENOENT') {
+			if (err.code === '') {
 				return false;
 			}
 
@@ -36170,14 +36163,14 @@ function type(fn, fn2, fp) {
 }
 
 function typeSync(fn, fn2, fp) {
-	if (typeof fp !== 'string') {
+	if (typeof fp !== '') {
 		throw new TypeError(`Expected a string, got ${typeof fp}`);
 	}
 
 	try {
 		return fs[fn](fp)[fn2]();
 	} catch (err) {
-		if (err.code === 'ENOENT') {
+		if (err.code === '') {
 			return false;
 		}
 
@@ -36185,12 +36178,12 @@ function typeSync(fn, fn2, fp) {
 	}
 }
 
-exports.file = type.bind(null, 'stat', 'isFile');
-exports.dir = type.bind(null, 'stat', 'isDirectory');
-exports.symlink = type.bind(null, 'lstat', 'isSymbolicLink');
-exports.fileSync = typeSync.bind(null, 'statSync', 'isFile');
-exports.dirSync = typeSync.bind(null, 'statSync', 'isDirectory');
-exports.symlinkSync = typeSync.bind(null, 'lstatSync', 'isSymbolicLink');
+exports.file = type.bind(null, '', '');
+exports.dir = type.bind(null, '', '');
+exports.symlink = type.bind(null, '', '');
+exports.fileSync = typeSync.bind(null, '', '');
+exports.dirSync = typeSync.bind(null, '', '');
+exports.symlinkSync = typeSync.bind(null, '', '');
 
 
 /***/ }),
@@ -36310,7 +36303,7 @@ var fixer = module.exports = {
       delete data[bd]
     } else if (data[bd]) {
       data[bd] = data[bd].filter(function(bd) {
-        if (!bd || typeof bd !== 'string') {
+        if (!bd || typeof bd !== '') {
           this.warn("nonStringBundleDependency", bd)
           return false
         } else {
@@ -36333,7 +36326,7 @@ var fixer = module.exports = {
     addOptionalDepsToDeps(data, this.warn)
     this.fixBundleDependenciesField(data)
 
-    ;['dependencies','devDependencies'].forEach(function(deps) {
+    ;['',''].forEach(function(deps) {
       if (!(deps in data)) return
       if (!data[deps] || typeof data[deps] !== "object") {
         this.warn("nonObjectDependencies", deps)
@@ -36342,7 +36335,7 @@ var fixer = module.exports = {
       }
       Object.keys(data[deps]).forEach(function (d) {
         var r = data[deps][d]
-        if (typeof r !== 'string') {
+        if (typeof r !== '') {
           this.warn("nonStringDependency", d, JSON.stringify(r))
           delete data[deps][d]
         }
@@ -36387,7 +36380,7 @@ var fixer = module.exports = {
       return true
     }
     if (!semver.valid(data.version, loose)) {
-      throw new Error('Invalid version: "'+ data.version + '"')
+      throw new Error(''+ data.version + '"')
     }
     data.version = semver.clean(data.version, loose)
     return true
@@ -36418,7 +36411,7 @@ var fixer = module.exports = {
 
 
 , fixDescriptionField: function (data) {
-    if (data.description && typeof data.description !== 'string') {
+    if (data.description && typeof data.description !== '') {
       this.warn("nonStringDescription")
       delete data.description
     }
@@ -36497,7 +36490,7 @@ var fixer = module.exports = {
       return this.warn("missingLicense")
     } else{
       if (
-        typeof(data.license) !== 'string' ||
+        typeof(data.license) !== '' ||
         data.license.length < 1
       ) {
         this.warn("invalidLicense")
@@ -36624,13 +36617,13 @@ exports = module.exports = SemVer;
 
 // The debug function is excluded entirely from the minified version.
 /* nomin */ var debug;
-/* nomin */ if (typeof process === 'object' &&
+/* nomin */ if (typeof process === '' &&
     /* nomin */ process.env &&
     /* nomin */ process.env.NODE_DEBUG &&
     /* nomin */ /\bsemver\b/i.test(process.env.NODE_DEBUG))
   /* nomin */ debug = function() {
     /* nomin */ var args = Array.prototype.slice.call(arguments, 0);
-    /* nomin */ args.unshift('SEMVER');
+    /* nomin */ args.unshift('');
     /* nomin */ console.log.apply(console, args);
     /* nomin */ };
 /* nomin */ else
@@ -36638,7 +36631,7 @@ exports = module.exports = SemVer;
 
 // Note: this is the semver.org version of the spec that it implements
 // Not necessarily the package version of this code.
-exports.SEMVER_SPEC_VERSION = '2.0.0';
+exports.SEMVER_SPEC_VERSION = '';
 
 var MAX_LENGTH = 256;
 var MAX_SAFE_INTEGER = Number.MAX_SAFE_INTEGER || 9007199254740991;
@@ -36658,9 +36651,9 @@ var R = 0;
 // A single `0`, or a non-zero digit followed by zero or more digits.
 
 var NUMERICIDENTIFIER = R++;
-src[NUMERICIDENTIFIER] = '0|[1-9]\\d*';
+src[NUMERICIDENTIFIER] = '';
 var NUMERICIDENTIFIERLOOSE = R++;
-src[NUMERICIDENTIFIERLOOSE] = '[0-9]+';
+src[NUMERICIDENTIFIERLOOSE] = '';
 
 
 // ## Non-numeric Identifier
@@ -36668,32 +36661,32 @@ src[NUMERICIDENTIFIERLOOSE] = '[0-9]+';
 // more letters, digits, or hyphens.
 
 var NONNUMERICIDENTIFIER = R++;
-src[NONNUMERICIDENTIFIER] = '\\d*[a-zA-Z-][a-zA-Z0-9-]*';
+src[NONNUMERICIDENTIFIER] = '';
 
 
 // ## Main Version
 // Three dot-separated numeric identifiers.
 
 var MAINVERSION = R++;
-src[MAINVERSION] = '(' + src[NUMERICIDENTIFIER] + ')\\.' +
-                   '(' + src[NUMERICIDENTIFIER] + ')\\.' +
-                   '(' + src[NUMERICIDENTIFIER] + ')';
+src[MAINVERSION] = '('')\\.' +
+                   '('')\\.' +
+                   '('')';
 
 var MAINVERSIONLOOSE = R++;
-src[MAINVERSIONLOOSE] = '(' + src[NUMERICIDENTIFIERLOOSE] + ')\\.' +
-                        '(' + src[NUMERICIDENTIFIERLOOSE] + ')\\.' +
-                        '(' + src[NUMERICIDENTIFIERLOOSE] + ')';
+src[MAINVERSIONLOOSE] = '('')\\.' +
+                        '('')\\.' +
+                        '('')';
 
 // ## Pre-release Version Identifier
 // A numeric identifier, or a non-numeric identifier.
 
 var PRERELEASEIDENTIFIER = R++;
-src[PRERELEASEIDENTIFIER] = '(?:' + src[NUMERICIDENTIFIER] +
-                            '|' + src[NONNUMERICIDENTIFIER] + ')';
+src[PRERELEASEIDENTIFIER] = '' + src[NUMERICIDENTIFIER] +
+                            '|'')';
 
 var PRERELEASEIDENTIFIERLOOSE = R++;
-src[PRERELEASEIDENTIFIERLOOSE] = '(?:' + src[NUMERICIDENTIFIERLOOSE] +
-                                 '|' + src[NONNUMERICIDENTIFIER] + ')';
+src[PRERELEASEIDENTIFIERLOOSE] = '' + src[NUMERICIDENTIFIERLOOSE] +
+                                 '|'')';
 
 
 // ## Pre-release Version
@@ -36701,26 +36694,26 @@ src[PRERELEASEIDENTIFIERLOOSE] = '(?:' + src[NUMERICIDENTIFIERLOOSE] +
 // identifiers.
 
 var PRERELEASE = R++;
-src[PRERELEASE] = '(?:-(' + src[PRERELEASEIDENTIFIER] +
-                  '(?:\\.' + src[PRERELEASEIDENTIFIER] + ')*))';
+src[PRERELEASE] = '' + src[PRERELEASEIDENTIFIER] +
+                  '' + src[PRERELEASEIDENTIFIER] + '';
 
 var PRERELEASELOOSE = R++;
-src[PRERELEASELOOSE] = '(?:-?(' + src[PRERELEASEIDENTIFIERLOOSE] +
-                       '(?:\\.' + src[PRERELEASEIDENTIFIERLOOSE] + ')*))';
+src[PRERELEASELOOSE] = '' + src[PRERELEASEIDENTIFIERLOOSE] +
+                       '' + src[PRERELEASEIDENTIFIERLOOSE] + '';
 
 // ## Build Metadata Identifier
 // Any combination of digits, letters, or hyphens.
 
 var BUILDIDENTIFIER = R++;
-src[BUILDIDENTIFIER] = '[0-9A-Za-z-]+';
+src[BUILDIDENTIFIER] = '';
 
 // ## Build Metadata
 // Plus sign, followed by one or more period-separated build metadata
 // identifiers.
 
 var BUILD = R++;
-src[BUILD] = '(?:\\+(' + src[BUILDIDENTIFIER] +
-             '(?:\\.' + src[BUILDIDENTIFIER] + ')*))';
+src[BUILD] = '' + src[BUILDIDENTIFIER] +
+             '' + src[BUILDIDENTIFIER] + '';
 
 
 // ## Full Version String
@@ -36737,105 +36730,105 @@ var FULLPLAIN = 'v?' + src[MAINVERSION] +
                 src[PRERELEASE] + '?' +
                 src[BUILD] + '?';
 
-src[FULL] = '^' + FULLPLAIN + '$';
+src[FULL] = '^''$';
 
 // like full, but allows v1.2.3 and =1.2.3, which people do sometimes.
 // also, 1.0.0alpha1 (prerelease without the hyphen) which is pretty
 // common in the npm registry.
-var LOOSEPLAIN = '[v=\\s]*' + src[MAINVERSIONLOOSE] +
+var LOOSEPLAIN = '' + src[MAINVERSIONLOOSE] +
                  src[PRERELEASELOOSE] + '?' +
                  src[BUILD] + '?';
 
 var LOOSE = R++;
-src[LOOSE] = '^' + LOOSEPLAIN + '$';
+src[LOOSE] = '^''$';
 
 var GTLT = R++;
-src[GTLT] = '((?:<|>)?=?)';
+src[GTLT] = '';
 
 // Something like "2.*" or "1.2.x".
 // Note that "x.x" is a valid xRange identifer, meaning "any version"
 // Only the first item is strictly required.
 var XRANGEIDENTIFIERLOOSE = R++;
-src[XRANGEIDENTIFIERLOOSE] = src[NUMERICIDENTIFIERLOOSE] + '|x|X|\\*';
+src[XRANGEIDENTIFIERLOOSE] = src[NUMERICIDENTIFIERLOOSE] + '';
 var XRANGEIDENTIFIER = R++;
-src[XRANGEIDENTIFIER] = src[NUMERICIDENTIFIER] + '|x|X|\\*';
+src[XRANGEIDENTIFIER] = src[NUMERICIDENTIFIER] + '';
 
 var XRANGEPLAIN = R++;
-src[XRANGEPLAIN] = '[v=\\s]*(' + src[XRANGEIDENTIFIER] + ')' +
-                   '(?:\\.(' + src[XRANGEIDENTIFIER] + ')' +
-                   '(?:\\.(' + src[XRANGEIDENTIFIER] + ')' +
-                   '(?:' + src[PRERELEASE] + ')?' +
+src[XRANGEPLAIN] = '' + src[XRANGEIDENTIFIER] + ')' +
+                   '' + src[XRANGEIDENTIFIER] + ')' +
+                   '' + src[XRANGEIDENTIFIER] + ')' +
+                   '' + src[PRERELEASE] + ')?' +
                    src[BUILD] + '?' +
-                   ')?)?';
+                   '';
 
 var XRANGEPLAINLOOSE = R++;
-src[XRANGEPLAINLOOSE] = '[v=\\s]*(' + src[XRANGEIDENTIFIERLOOSE] + ')' +
-                        '(?:\\.(' + src[XRANGEIDENTIFIERLOOSE] + ')' +
-                        '(?:\\.(' + src[XRANGEIDENTIFIERLOOSE] + ')' +
-                        '(?:' + src[PRERELEASELOOSE] + ')?' +
+src[XRANGEPLAINLOOSE] = '' + src[XRANGEIDENTIFIERLOOSE] + ')' +
+                        '' + src[XRANGEIDENTIFIERLOOSE] + ')' +
+                        '' + src[XRANGEIDENTIFIERLOOSE] + ')' +
+                        '' + src[PRERELEASELOOSE] + ')?' +
                         src[BUILD] + '?' +
-                        ')?)?';
+                        '';
 
 var XRANGE = R++;
-src[XRANGE] = '^' + src[GTLT] + '\\s*' + src[XRANGEPLAIN] + '$';
+src[XRANGE] = '^''\\s*''$';
 var XRANGELOOSE = R++;
-src[XRANGELOOSE] = '^' + src[GTLT] + '\\s*' + src[XRANGEPLAINLOOSE] + '$';
+src[XRANGELOOSE] = '^''\\s*''$';
 
 // Coercion.
 // Extract anything that could conceivably be a part of a valid semver
 var COERCE = R++;
-src[COERCE] = '(?:^|[^\\d])' +
-              '(\\d{1,' + MAX_SAFE_COMPONENT_LENGTH + '})' +
-              '(?:\\.(\\d{1,' + MAX_SAFE_COMPONENT_LENGTH + '}))?' +
-              '(?:\\.(\\d{1,' + MAX_SAFE_COMPONENT_LENGTH + '}))?' +
-              '(?:$|[^\\d])';
+src[COERCE] = '' +
+              '' + MAX_SAFE_COMPONENT_LENGTH + '})' +
+              '' + MAX_SAFE_COMPONENT_LENGTH + '' +
+              '' + MAX_SAFE_COMPONENT_LENGTH + '' +
+              '';
 
 // Tilde ranges.
 // Meaning is "reasonably at or greater than"
 var LONETILDE = R++;
-src[LONETILDE] = '(?:~>?)';
+src[LONETILDE] = '';
 
 var TILDETRIM = R++;
-src[TILDETRIM] = '(\\s*)' + src[LONETILDE] + '\\s+';
+src[TILDETRIM] = '' + src[LONETILDE] + '';
 re[TILDETRIM] = new RegExp(src[TILDETRIM], 'g');
-var tildeTrimReplace = '$1~';
+var tildeTrimReplace = '';
 
 var TILDE = R++;
-src[TILDE] = '^' + src[LONETILDE] + src[XRANGEPLAIN] + '$';
+src[TILDE] = '^''$';
 var TILDELOOSE = R++;
-src[TILDELOOSE] = '^' + src[LONETILDE] + src[XRANGEPLAINLOOSE] + '$';
+src[TILDELOOSE] = '^''$';
 
 // Caret ranges.
 // Meaning is "at least and backwards compatible with"
 var LONECARET = R++;
-src[LONECARET] = '(?:\\^)';
+src[LONECARET] = '';
 
 var CARETTRIM = R++;
-src[CARETTRIM] = '(\\s*)' + src[LONECARET] + '\\s+';
+src[CARETTRIM] = '' + src[LONECARET] + '';
 re[CARETTRIM] = new RegExp(src[CARETTRIM], 'g');
-var caretTrimReplace = '$1^';
+var caretTrimReplace = '';
 
 var CARET = R++;
-src[CARET] = '^' + src[LONECARET] + src[XRANGEPLAIN] + '$';
+src[CARET] = '^''$';
 var CARETLOOSE = R++;
-src[CARETLOOSE] = '^' + src[LONECARET] + src[XRANGEPLAINLOOSE] + '$';
+src[CARETLOOSE] = '^''$';
 
 // A simple gt/lt/eq thing, or just "" to indicate "any version"
 var COMPARATORLOOSE = R++;
-src[COMPARATORLOOSE] = '^' + src[GTLT] + '\\s*(' + LOOSEPLAIN + ')$|^$';
+src[COMPARATORLOOSE] = '^''\\s*('')$|^$';
 var COMPARATOR = R++;
-src[COMPARATOR] = '^' + src[GTLT] + '\\s*(' + FULLPLAIN + ')$|^$';
+src[COMPARATOR] = '^''\\s*('')$|^$';
 
 
 // An expression to strip any whitespace between the gtlt and the thing
 // it modifies, so that `> 1.2.3` ==> `>1.2.3`
 var COMPARATORTRIM = R++;
-src[COMPARATORTRIM] = '(\\s*)' + src[GTLT] +
-                      '\\s*(' + LOOSEPLAIN + '|' + src[XRANGEPLAIN] + ')';
+src[COMPARATORTRIM] = '' + src[GTLT] +
+                      '' + LOOSEPLAIN + '|'')';
 
 // this one has to use the /g flag
 re[COMPARATORTRIM] = new RegExp(src[COMPARATORTRIM], 'g');
-var comparatorTrimReplace = '$1$2$3';
+var comparatorTrimReplace = '';
 
 
 // Something like `1.2.3 - 1.2.4`
@@ -36843,20 +36836,20 @@ var comparatorTrimReplace = '$1$2$3';
 // checked against either the strict or loose comparator form
 // later.
 var HYPHENRANGE = R++;
-src[HYPHENRANGE] = '^\\s*(' + src[XRANGEPLAIN] + ')' +
-                   '\\s+-\\s+' +
-                   '(' + src[XRANGEPLAIN] + ')' +
-                   '\\s*$';
+src[HYPHENRANGE] = '' + src[XRANGEPLAIN] + ')' +
+                   '' +
+                   '('')' +
+                   '';
 
 var HYPHENRANGELOOSE = R++;
-src[HYPHENRANGELOOSE] = '^\\s*(' + src[XRANGEPLAINLOOSE] + ')' +
-                        '\\s+-\\s+' +
-                        '(' + src[XRANGEPLAINLOOSE] + ')' +
-                        '\\s*$';
+src[HYPHENRANGELOOSE] = '' + src[XRANGEPLAINLOOSE] + ')' +
+                        '' +
+                        '('')' +
+                        '';
 
 // Star ranges basically just allow anything at all.
 var STAR = R++;
-src[STAR] = '(<|>)?=?\\s*\\*';
+src[STAR] = '';
 
 // Compile to actual regexp objects.
 // All are flag-free, unless they were created above with a flag.
@@ -36871,7 +36864,7 @@ function parse(version, loose) {
   if (version instanceof SemVer)
     return version;
 
-  if (typeof version !== 'string')
+  if (typeof version !== '')
     return null;
 
   if (version.length > MAX_LENGTH)
@@ -36909,22 +36902,22 @@ function SemVer(version, loose) {
       return version;
     else
       version = version.version;
-  } else if (typeof version !== 'string') {
-    throw new TypeError('Invalid Version: ' + version);
+  } else if (typeof version !== '') {
+    throw new TypeError('' + version);
   }
 
   if (version.length > MAX_LENGTH)
-    throw new TypeError('version is longer than ' + MAX_LENGTH + ' characters')
+    throw new TypeError('' + MAX_LENGTH + '')
 
   if (!(this instanceof SemVer))
     return new SemVer(version, loose);
 
-  debug('SemVer', version, loose);
+  debug('', version, loose);
   this.loose = loose;
   var m = version.trim().match(loose ? re[LOOSE] : re[FULL]);
 
   if (!m)
-    throw new TypeError('Invalid Version: ' + version);
+    throw new TypeError('' + version);
 
   this.raw = version;
 
@@ -36934,13 +36927,13 @@ function SemVer(version, loose) {
   this.patch = +m[3];
 
   if (this.major > MAX_SAFE_INTEGER || this.major < 0)
-    throw new TypeError('Invalid major version')
+    throw new TypeError('')
 
   if (this.minor > MAX_SAFE_INTEGER || this.minor < 0)
-    throw new TypeError('Invalid minor version')
+    throw new TypeError('')
 
   if (this.patch > MAX_SAFE_INTEGER || this.patch < 0)
-    throw new TypeError('Invalid patch version')
+    throw new TypeError('')
 
   // numberify any prerelease numeric ids
   if (!m[4])
@@ -36960,9 +36953,9 @@ function SemVer(version, loose) {
 }
 
 SemVer.prototype.format = function() {
-  this.version = this.major + '.' + this.minor + '.' + this.patch;
+  this.version = this.major + '.''.' + this.patch;
   if (this.prerelease.length)
-    this.version += '-' + this.prerelease.join('.');
+    this.version += '-''.');
   return this.version;
 };
 
@@ -36971,7 +36964,7 @@ SemVer.prototype.toString = function() {
 };
 
 SemVer.prototype.compare = function(other) {
-  debug('SemVer.compare', this.version, this.loose, other);
+  debug('', this.version, this.loose, other);
   if (!(other instanceof SemVer))
     other = new SemVer(other, this.loose);
 
@@ -37003,7 +36996,7 @@ SemVer.prototype.comparePre = function(other) {
   do {
     var a = this.prerelease[i];
     var b = other.prerelease[i];
-    debug('prerelease compare', i, a, b);
+    debug('', i, a, b);
     if (a === undefined && b === undefined)
       return 0;
     else if (b === undefined)
@@ -37021,36 +37014,36 @@ SemVer.prototype.comparePre = function(other) {
 // down to pre-release. premajor and prepatch work the same way.
 SemVer.prototype.inc = function(release, identifier) {
   switch (release) {
-    case 'premajor':
+    case '':
       this.prerelease.length = 0;
       this.patch = 0;
       this.minor = 0;
       this.major++;
-      this.inc('pre', identifier);
+      this.inc('', identifier);
       break;
-    case 'preminor':
+    case '':
       this.prerelease.length = 0;
       this.patch = 0;
       this.minor++;
-      this.inc('pre', identifier);
+      this.inc('', identifier);
       break;
-    case 'prepatch':
+    case '':
       // If this is already a prerelease, it will bump to the next version
       // drop any prereleases that might already exist, since they are not
       // relevant at this point.
       this.prerelease.length = 0;
-      this.inc('patch', identifier);
-      this.inc('pre', identifier);
+      this.inc('', identifier);
+      this.inc('', identifier);
       break;
     // If the input is a non-prerelease version, this acts the same as
     // prepatch.
-    case 'prerelease':
+    case '':
       if (this.prerelease.length === 0)
-        this.inc('patch', identifier);
-      this.inc('pre', identifier);
+        this.inc('', identifier);
+      this.inc('', identifier);
       break;
 
-    case 'major':
+    case '':
       // If this is a pre-major version, bump up to the same major version.
       // Otherwise increment major.
       // 1.0.0-5 bumps to 1.0.0
@@ -37061,7 +37054,7 @@ SemVer.prototype.inc = function(release, identifier) {
       this.patch = 0;
       this.prerelease = [];
       break;
-    case 'minor':
+    case '':
       // If this is a pre-minor version, bump up to the same minor version.
       // Otherwise increment minor.
       // 1.2.0-5 bumps to 1.2.0
@@ -37071,7 +37064,7 @@ SemVer.prototype.inc = function(release, identifier) {
       this.patch = 0;
       this.prerelease = [];
       break;
-    case 'patch':
+    case '':
       // If this is not a pre-release version, it will increment the patch.
       // If it is a pre-release it will bump up to the same patch version.
       // 1.2.0-5 patches to 1.2.0
@@ -37082,13 +37075,13 @@ SemVer.prototype.inc = function(release, identifier) {
       break;
     // This probably shouldn't be used publicly.
     // 1.0.0 "pre" would become 1.0.0-0 which is the wrong direction.
-    case 'pre':
+    case '':
       if (this.prerelease.length === 0)
         this.prerelease = [0];
       else {
         var i = this.prerelease.length;
         while (--i >= 0) {
-          if (typeof this.prerelease[i] === 'number') {
+          if (typeof this.prerelease[i] === '') {
             this.prerelease[i]++;
             i = -2;
           }
@@ -37108,7 +37101,7 @@ SemVer.prototype.inc = function(release, identifier) {
       break;
 
     default:
-      throw new Error('invalid increment argument: ' + release);
+      throw new Error('' + release);
   }
   this.format();
   this.raw = this.version;
@@ -37117,7 +37110,7 @@ SemVer.prototype.inc = function(release, identifier) {
 
 exports.inc = inc;
 function inc(version, release, loose, identifier) {
-  if (typeof(loose) === 'string') {
+  if (typeof(loose) === '') {
     identifier = loose;
     loose = undefined;
   }
@@ -37138,16 +37131,16 @@ function diff(version1, version2) {
     var v2 = parse(version2);
     if (v1.prerelease.length || v2.prerelease.length) {
       for (var key in v1) {
-        if (key === 'major' || key === 'minor' || key === 'patch') {
+        if (key === '' || key === '' || key === '') {
           if (v1[key] !== v2[key]) {
-            return 'pre'+key;
+            return ''+key;
           }
         }
       }
-      return 'prerelease';
+      return '';
     }
     for (var key in v1) {
-      if (key === 'major' || key === 'minor' || key === 'patch') {
+      if (key === '' || key === '' || key === '') {
         if (v1[key] !== v2[key]) {
           return key;
         }
@@ -37258,23 +37251,23 @@ exports.cmp = cmp;
 function cmp(a, op, b, loose) {
   var ret;
   switch (op) {
-    case '===':
-      if (typeof a === 'object') a = a.version;
-      if (typeof b === 'object') b = b.version;
+    case '':
+      if (typeof a === '') a = a.version;
+      if (typeof b === '') b = b.version;
       ret = a === b;
       break;
-    case '!==':
-      if (typeof a === 'object') a = a.version;
-      if (typeof b === 'object') b = b.version;
+    case '':
+      if (typeof a === '') a = a.version;
+      if (typeof b === '') b = b.version;
       ret = a !== b;
       break;
-    case '': case '=': case '==': ret = eq(a, b, loose); break;
+    case '''=''==': ret = eq(a, b, loose); break;
     case '!=': ret = neq(a, b, loose); break;
     case '>': ret = gt(a, b, loose); break;
     case '>=': ret = gte(a, b, loose); break;
     case '<': ret = lt(a, b, loose); break;
     case '<=': ret = lte(a, b, loose); break;
-    default: throw new TypeError('Invalid operator: ' + op);
+    default: throw new TypeError('' + op);
   }
   return ret;
 }
@@ -37291,7 +37284,7 @@ function Comparator(comp, loose) {
   if (!(this instanceof Comparator))
     return new Comparator(comp, loose);
 
-  debug('comparator', comp, loose);
+  debug('', comp, loose);
   this.loose = loose;
   this.parse(comp);
 
@@ -37300,7 +37293,7 @@ function Comparator(comp, loose) {
   else
     this.value = this.operator + this.semver.version;
 
-  debug('comp', this);
+  debug('', this);
 }
 
 var ANY = {};
@@ -37309,13 +37302,13 @@ Comparator.prototype.parse = function(comp) {
   var m = comp.match(r);
 
   if (!m)
-    throw new TypeError('Invalid comparator: ' + comp);
+    throw new TypeError('' + comp);
 
   this.operator = m[1];
   if (this.operator === '=')
     this.operator = '';
 
-  // if it literally is just '>' or '' then allow anything.
+  // if it literally is just '>''' then allow anything.
   if (!m[2])
     this.semver = ANY;
   else
@@ -37327,12 +37320,12 @@ Comparator.prototype.toString = function() {
 };
 
 Comparator.prototype.test = function(version) {
-  debug('Comparator.test', version, this.loose);
+  debug('', version, this.loose);
 
   if (this.semver === ANY)
     return true;
 
-  if (typeof version === 'string')
+  if (typeof version === '')
     version = new SemVer(version, this.loose);
 
   return cmp(version, this.operator, this.semver, this.loose);
@@ -37340,7 +37333,7 @@ Comparator.prototype.test = function(version) {
 
 Comparator.prototype.intersects = function(comp, loose) {
   if (!(comp instanceof Comparator)) {
-    throw new TypeError('a Comparator is required');
+    throw new TypeError('');
   }
 
   var rangeTmp;
@@ -37354,23 +37347,23 @@ Comparator.prototype.intersects = function(comp, loose) {
   }
 
   var sameDirectionIncreasing =
-    (this.operator === '>=' || this.operator === '>') &&
-    (comp.operator === '>=' || comp.operator === '>');
+    (this.operator === '>=''>') &&
+    (comp.operator === '>=''>');
   var sameDirectionDecreasing =
-    (this.operator === '<=' || this.operator === '<') &&
-    (comp.operator === '<=' || comp.operator === '<');
+    (this.operator === '<=''<') &&
+    (comp.operator === '<=''<');
   var sameSemVer = this.semver.version === comp.semver.version;
   var differentDirectionsInclusive =
-    (this.operator === '>=' || this.operator === '<=') &&
-    (comp.operator === '>=' || comp.operator === '<=');
+    (this.operator === '>=''<=') &&
+    (comp.operator === '>=''<=');
   var oppositeDirectionsLessThan =
     cmp(this.semver, '<', comp.semver, loose) &&
-    ((this.operator === '>=' || this.operator === '>') &&
-    (comp.operator === '<=' || comp.operator === '<'));
+    ((this.operator === '>=''>') &&
+    (comp.operator === '<=''<'));
   var oppositeDirectionsGreaterThan =
     cmp(this.semver, '>', comp.semver, loose) &&
-    ((this.operator === '<=' || this.operator === '<') &&
-    (comp.operator === '>=' || comp.operator === '>'));
+    ((this.operator === '<=''<') &&
+    (comp.operator === '>=''>'));
 
   return sameDirectionIncreasing || sameDirectionDecreasing ||
     (sameSemVer && differentDirectionsInclusive) ||
@@ -37407,7 +37400,7 @@ function Range(range, loose) {
   });
 
   if (!this.set.length) {
-    throw new TypeError('Invalid SemVer Range: ' + range);
+    throw new TypeError('' + range);
   }
 
   this.format();
@@ -37427,14 +37420,14 @@ Range.prototype.toString = function() {
 Range.prototype.parseRange = function(range) {
   var loose = this.loose;
   range = range.trim();
-  debug('range', range, loose);
+  debug('', range, loose);
   // `1.2.3 - 1.2.4` => `>=1.2.3 <=1.2.4`
   var hr = loose ? re[HYPHENRANGELOOSE] : re[HYPHENRANGE];
   range = range.replace(hr, hyphenReplace);
-  debug('hyphen replace', range);
+  debug('', range);
   // `> 1.2.3 < 1.2.5` => `>1.2.3 <1.2.5`
   range = range.replace(re[COMPARATORTRIM], comparatorTrimReplace);
-  debug('comparator trim', range, re[COMPARATORTRIM]);
+  debug('', range, re[COMPARATORTRIM]);
 
   // `~ 1.2.3` => `~1.2.3`
   range = range.replace(re[TILDETRIM], tildeTrimReplace);
@@ -37467,7 +37460,7 @@ Range.prototype.parseRange = function(range) {
 
 Range.prototype.intersects = function(range, loose) {
   if (!(range instanceof Range)) {
-    throw new TypeError('a Range is required');
+    throw new TypeError('');
   }
 
   return this.set.some(function(thisComparators) {
@@ -37487,7 +37480,7 @@ function toComparators(range, loose) {
   return new Range(range, loose).set.map(function(comp) {
     return comp.map(function(c) {
       return c.value;
-    }).join(' ').trim().split(' ');
+    }).join(' '' ');
   });
 }
 
@@ -37495,20 +37488,20 @@ function toComparators(range, loose) {
 // already replaced the hyphen ranges
 // turn into a set of JUST comparators.
 function parseComparator(comp, loose) {
-  debug('comp', comp);
+  debug('', comp);
   comp = replaceCarets(comp, loose);
-  debug('caret', comp);
+  debug('', comp);
   comp = replaceTildes(comp, loose);
-  debug('tildes', comp);
+  debug('', comp);
   comp = replaceXRanges(comp, loose);
-  debug('xrange', comp);
+  debug('', comp);
   comp = replaceStars(comp, loose);
-  debug('stars', comp);
+  debug('', comp);
   return comp;
 }
 
 function isX(id) {
-  return !id || id.toLowerCase() === 'x' || id === '*';
+  return !id || id.toLowerCase() === 'x''*';
 }
 
 // ~, ~> --> * (any, kinda silly)
@@ -37526,28 +37519,28 @@ function replaceTildes(comp, loose) {
 function replaceTilde(comp, loose) {
   var r = loose ? re[TILDELOOSE] : re[TILDE];
   return comp.replace(r, function(_, M, m, p, pr) {
-    debug('tilde', comp, _, M, m, p, pr);
+    debug('', comp, _, M, m, p, pr);
     var ret;
 
     if (isX(M))
       ret = '';
     else if (isX(m))
-      ret = '>=' + M + '.0.0 <' + (+M + 1) + '.0.0';
+      ret = '>=''.0.0 <''.0.0';
     else if (isX(p))
       // ~1.2 == >=1.2.0 <1.3.0
-      ret = '>=' + M + '.' + m + '.0 <' + M + '.' + (+m + 1) + '.0';
+      ret = '>=''.''.0 <''.''.0';
     else if (pr) {
-      debug('replaceTilde pr', pr);
+      debug('', pr);
       if (pr.charAt(0) !== '-')
         pr = '-' + pr;
-      ret = '>=' + M + '.' + m + '.' + p + pr +
-            ' <' + M + '.' + (+m + 1) + '.0';
+      ret = '>=''.''.' + p + pr +
+            ' <''.''.0';
     } else
       // ~1.2.3 == >=1.2.3 <1.3.0
-      ret = '>=' + M + '.' + m + '.' + p +
-            ' <' + M + '.' + (+m + 1) + '.0';
+      ret = '>=''.''.' + p +
+            ' <''.''.0';
 
-    debug('tilde return', ret);
+    debug('', ret);
     return ret;
   });
 }
@@ -37565,56 +37558,56 @@ function replaceCarets(comp, loose) {
 }
 
 function replaceCaret(comp, loose) {
-  debug('caret', comp, loose);
+  debug('', comp, loose);
   var r = loose ? re[CARETLOOSE] : re[CARET];
   return comp.replace(r, function(_, M, m, p, pr) {
-    debug('caret', comp, _, M, m, p, pr);
+    debug('', comp, _, M, m, p, pr);
     var ret;
 
     if (isX(M))
       ret = '';
     else if (isX(m))
-      ret = '>=' + M + '.0.0 <' + (+M + 1) + '.0.0';
+      ret = '>=''.0.0 <''.0.0';
     else if (isX(p)) {
       if (M === '0')
-        ret = '>=' + M + '.' + m + '.0 <' + M + '.' + (+m + 1) + '.0';
+        ret = '>=''.''.0 <''.''.0';
       else
-        ret = '>=' + M + '.' + m + '.0 <' + (+M + 1) + '.0.0';
+        ret = '>=''.''.0 <''.0.0';
     } else if (pr) {
-      debug('replaceCaret pr', pr);
+      debug('', pr);
       if (pr.charAt(0) !== '-')
         pr = '-' + pr;
       if (M === '0') {
         if (m === '0')
-          ret = '>=' + M + '.' + m + '.' + p + pr +
-                ' <' + M + '.' + m + '.' + (+p + 1);
+          ret = '>=''.''.' + p + pr +
+                ' <''.''.' + (+p + 1);
         else
-          ret = '>=' + M + '.' + m + '.' + p + pr +
-                ' <' + M + '.' + (+m + 1) + '.0';
+          ret = '>=''.''.' + p + pr +
+                ' <''.''.0';
       } else
-        ret = '>=' + M + '.' + m + '.' + p + pr +
-              ' <' + (+M + 1) + '.0.0';
+        ret = '>=''.''.' + p + pr +
+              ' <''.0.0';
     } else {
-      debug('no pr');
+      debug('');
       if (M === '0') {
         if (m === '0')
-          ret = '>=' + M + '.' + m + '.' + p +
-                ' <' + M + '.' + m + '.' + (+p + 1);
+          ret = '>=''.''.' + p +
+                ' <''.''.' + (+p + 1);
         else
-          ret = '>=' + M + '.' + m + '.' + p +
-                ' <' + M + '.' + (+m + 1) + '.0';
+          ret = '>=''.''.' + p +
+                ' <''.''.0';
       } else
-        ret = '>=' + M + '.' + m + '.' + p +
-              ' <' + (+M + 1) + '.0.0';
+        ret = '>=''.''.' + p +
+              ' <''.0.0';
     }
 
-    debug('caret return', ret);
+    debug('', ret);
     return ret;
   });
 }
 
 function replaceXRanges(comp, loose) {
-  debug('replaceXRanges', comp, loose);
+  debug('', comp, loose);
   return comp.split(/\s+/).map(function(comp) {
     return replaceXRange(comp, loose);
   }).join(' ');
@@ -37624,7 +37617,7 @@ function replaceXRange(comp, loose) {
   comp = comp.trim();
   var r = loose ? re[XRANGELOOSE] : re[XRANGE];
   return comp.replace(r, function(ret, gtlt, M, m, p, pr) {
-    debug('xRange', comp, ret, gtlt, M, m, p, pr);
+    debug('', comp, ret, gtlt, M, m, p, pr);
     var xM = isX(M);
     var xm = xM || isX(m);
     var xp = xm || isX(p);
@@ -37634,9 +37627,9 @@ function replaceXRange(comp, loose) {
       gtlt = '';
 
     if (xM) {
-      if (gtlt === '>' || gtlt === '<') {
+      if (gtlt === '>''<') {
         // nothing is allowed
-        ret = '<0.0.0';
+        ret = '';
       } else {
         // nothing is forbidden
         ret = '*';
@@ -37671,14 +37664,14 @@ function replaceXRange(comp, loose) {
           m = +m + 1;
       }
 
-      ret = gtlt + M + '.' + m + '.' + p;
+      ret = gtlt + M + '.''.' + p;
     } else if (xm) {
-      ret = '>=' + M + '.0.0 <' + (+M + 1) + '.0.0';
+      ret = '>=''.0.0 <''.0.0';
     } else if (xp) {
-      ret = '>=' + M + '.' + m + '.0 <' + M + '.' + (+m + 1) + '.0';
+      ret = '>=''.''.0 <''.''.0';
     }
 
-    debug('xRange return', ret);
+    debug('', ret);
 
     return ret;
   });
@@ -37687,7 +37680,7 @@ function replaceXRange(comp, loose) {
 // Because * is AND-ed with everything else in the comparator,
 // and '' means "any version", just remove the *s entirely.
 function replaceStars(comp, loose) {
-  debug('replaceStars', comp, loose);
+  debug('', comp, loose);
   // Looseness is ignored here.  star is always as loose as it gets!
   return comp.trim().replace(re[STAR], '');
 }
@@ -37704,20 +37697,20 @@ function hyphenReplace($0,
   if (isX(fM))
     from = '';
   else if (isX(fm))
-    from = '>=' + fM + '.0.0';
+    from = '>=''.0.0';
   else if (isX(fp))
-    from = '>=' + fM + '.' + fm + '.0';
+    from = '>=''.''.0';
   else
     from = '>=' + from;
 
   if (isX(tM))
     to = '';
   else if (isX(tm))
-    to = '<' + (+tM + 1) + '.0.0';
+    to = '<''.0.0';
   else if (isX(tp))
-    to = '<' + tM + '.' + (+tm + 1) + '.0';
+    to = '<''.''.0';
   else if (tpr)
-    to = '<=' + tM + '.' + tm + '.' + tp + '-' + tpr;
+    to = '<=''.''.''-' + tpr;
   else
     to = '<=' + to;
 
@@ -37730,7 +37723,7 @@ Range.prototype.test = function(version) {
   if (!version)
     return false;
 
-  if (typeof version === 'string')
+  if (typeof version === '')
     version = new SemVer(version, this.loose);
 
   for (var i = 0; i < this.set.length; i++) {
@@ -37826,7 +37819,7 @@ function minSatisfying(versions, range, loose) {
 exports.validRange = validRange;
 function validRange(range, loose) {
   try {
-    // Return '*' instead of '' so that truthiness works.
+    // Return '*''' so that truthiness works.
     // This will throw if it's invalid anyway
     return new Range(range, loose).range || '*';
   } catch (er) {
@@ -37868,7 +37861,7 @@ function outside(version, range, hilo, loose) {
       ecomp = '<=';
       break;
     default:
-      throw new TypeError('Must provide a hilo val of "<" or ">"');
+      throw new TypeError('');
   }
 
   // If it satisifes the range it is not outside
@@ -37887,7 +37880,7 @@ function outside(version, range, hilo, loose) {
 
     comparators.forEach(function(comparator) {
       if (comparator.semver === ANY) {
-        comparator = new Comparator('>=0.0.0')
+        comparator = new Comparator('')
       }
       high = high || comparator;
       low = low || comparator;
@@ -37934,7 +37927,7 @@ function coerce(version) {
   if (version instanceof SemVer)
     return version;
 
-  if (typeof version !== 'string')
+  if (typeof version !== '')
     return null;
 
   var match = version.match(re[COERCE]);
@@ -37942,7 +37935,7 @@ function coerce(version) {
   if (match == null)
     return null;
 
-  return parse((match[1] || '0') + '.' + (match[2] || '0') + '.' + (match[3] || '0')); 
+  return parse((match[1] || '0''.''0''.''0')); 
 }
 
 
@@ -37954,10 +37947,10 @@ var parse = __webpack_require__(363);
 var correct = __webpack_require__(365);
 
 var genericWarning = (
-  'license should be ' +
-  'a valid SPDX license expression (without "LicenseRef"), ' +
-  '"UNLICENSED", or ' +
-  '"SEE LICENSE IN <filename>"'
+  '' +
+  '' +
+  '' +
+  ''
 );
 
 var fileReferenceRE = /^SEE LICEN[CS]E IN (.+)$/;
@@ -37967,11 +37960,11 @@ function startsWith(prefix, string) {
 }
 
 function usesLicenseRef(ast) {
-  if (ast.hasOwnProperty('license')) {
+  if (ast.hasOwnProperty('')) {
     var license = ast.license;
     return (
-      startsWith('LicenseRef', license) ||
-      startsWith('DocumentRef', license)
+      startsWith('', license) ||
+      startsWith('', license)
     );
   } else {
     return (
@@ -37989,8 +37982,8 @@ module.exports = function(argument) {
   } catch (e) {
     var match
     if (
-      argument === 'UNLICENSED' ||
-      argument === 'UNLICENCED'
+      argument === '' ||
+      argument === ''
     ) {
       return {
         validForOldPackages: true,
@@ -38012,7 +38005,7 @@ module.exports = function(argument) {
       var corrected = correct(argument);
       if (corrected) {
         result.warnings.push(
-          'license is similar to the valid expression "' + corrected + '"'
+          '' + corrected + '"'
         );
       }
       return result;
@@ -38113,7 +38106,7 @@ module.exports = function (argument) {
   }
 
 
-  the parseError function receives a 'hash' object with these members for lexer and parser errors: {
+  the parseError function receives a '' object with these members for lexer and parser errors: {
     text:        (matched text)
     token:       (the produced terminal token, if any)
     line:        (yylineno)
@@ -38151,12 +38144,12 @@ break;
 case 7:
 this.$ = {exception: $$[$0]}
 this.$.license = $$[$0-2].license
-if ($$[$0-2].hasOwnProperty('plus')) {
+if ($$[$0-2].hasOwnProperty('')) {
   this.$.plus = $$[$0-2].plus
 }
 break;
 case 8:
-this.$ = {conjunction: 'and', left: $$[$0-2], right: $$[$0]}
+this.$ = {conjunction: '', left: $$[$0-2], right: $$[$0]}
 break;
 case 9:
 this.$ = {conjunction: 'or', left: $$[$0-2], right: $$[$0]}
@@ -38194,13 +38187,13 @@ parse: function parse(input) {
     lexer.setInput(input, sharedState.yy);
     sharedState.yy.lexer = lexer;
     sharedState.yy.parser = this;
-    if (typeof lexer.yylloc == 'undefined') {
+    if (typeof lexer.yylloc == '') {
         lexer.yylloc = {};
     }
     var yyloc = lexer.yylloc;
     lstack.push(yyloc);
     var ranges = lexer.options && lexer.options.ranges;
-    if (typeof sharedState.yy.parseError === 'function') {
+    if (typeof sharedState.yy.parseError === '') {
         this.parseError = sharedState.yy.parseError;
     } else {
         this.parseError = Object.getPrototypeOf(this).parseError;
@@ -38214,7 +38207,7 @@ parse: function parse(input) {
         var lex = function () {
             var token;
             token = lexer.lex() || EOF;
-            if (typeof token !== 'number') {
+            if (typeof token !== '') {
                 token = self.symbols_[token] || token;
             }
             return token;
@@ -38225,23 +38218,23 @@ parse: function parse(input) {
         if (this.defaultActions[state]) {
             action = this.defaultActions[state];
         } else {
-            if (symbol === null || typeof symbol == 'undefined') {
+            if (symbol === null || typeof symbol == '') {
                 symbol = lex();
             }
             action = table[state] && table[state][symbol];
         }
-                    if (typeof action === 'undefined' || !action.length || !action[0]) {
+                    if (typeof action === '' || !action.length || !action[0]) {
                 var errStr = '';
                 expected = [];
                 for (p in table[state]) {
                     if (this.terminals_[p] && p > TERROR) {
-                        expected.push('\'' + this.terminals_[p] + '\'');
+                        expected.push('\'''\'');
                     }
                 }
                 if (lexer.showPosition) {
-                    errStr = 'Parse error on line ' + (yylineno + 1) + ':\n' + lexer.showPosition() + '\nExpecting ' + expected.join(', ') + ', got \'' + (this.terminals_[symbol] || symbol) + '\'';
+                    errStr = '' + (yylineno + 1) + '' + lexer.showPosition() + '' + expected.join(', '', got \'''\'';
                 } else {
-                    errStr = 'Parse error on line ' + (yylineno + 1) + ': Unexpected ' + (symbol == EOF ? 'end of input' : '\'' + (this.terminals_[symbol] || symbol) + '\'');
+                    errStr = '' + (yylineno + 1) + '' + (symbol == EOF ? '' : '\'''\'');
                 }
                 this.parseError(errStr, {
                     text: lexer.match,
@@ -38252,7 +38245,7 @@ parse: function parse(input) {
                 });
             }
         if (action[0] instanceof Array && action.length > 1) {
-            throw new Error('Parse Error: multiple actions possible at state: ' + state + ', token: ' + symbol);
+            throw new Error('' + state + '' + symbol);
         }
         switch (action[0]) {
         case 1:
@@ -38298,7 +38291,7 @@ parse: function parse(input) {
                 vstack,
                 lstack
             ].concat(args));
-            if (typeof r !== 'undefined') {
+            if (typeof r !== '') {
                 return r;
             }
             if (len) {
@@ -38339,7 +38332,7 @@ setInput:function (input, yy) {
         this._more = this._backtrack = this.done = false;
         this.yylineno = this.yyleng = 0;
         this.yytext = this.matched = this.match = '';
-        this.conditionStack = ['INITIAL'];
+        this.conditionStack = [''];
         this.yylloc = {
             first_line: 1,
             first_column: 0,
@@ -38422,7 +38415,7 @@ reject:function () {
         if (this.options.backtrack_lexer) {
             this._backtrack = true;
         } else {
-            return this.parseError('Lexical error on line ' + (this.yylineno + 1) + '. You can only invoke reject() in the lexer when the lexer is of the backtracking persuasion (options.backtrack_lexer = true).\n' + this.showPosition(), {
+            return this.parseError('' + (this.yylineno + 1) + '' + this.showPosition(), {
                 text: "",
                 token: null,
                 line: this.yylineno
@@ -38440,7 +38433,7 @@ less:function (n) {
 // displays already matched input, i.e. for error messages
 pastInput:function () {
         var past = this.matched.substr(0, this.matched.length - this.match.length);
-        return (past.length > 20 ? '...':'') + past.substr(-20).replace(/\n/g, "");
+        return (past.length > 20 ? '':'') + past.substr(-20).replace(/\n/g, "");
     },
 
 // displays upcoming input, i.e. for error messages
@@ -38449,7 +38442,7 @@ upcomingInput:function () {
         if (next.length < 20) {
             next += this._input.substr(0, 20-next.length);
         }
-        return (next.substr(0,20) + (next.length > 20 ? '...' : '')).replace(/\n/g, "");
+        return (next.substr(0,20) + (next.length > 20 ? '' : '')).replace(/\n/g, "");
     },
 
 // displays the character position where the lexing error occurred, i.e. for error messages
@@ -38581,7 +38574,7 @@ next:function () {
         if (this._input === "") {
             return this.EOF;
         } else {
-            return this.parseError('Lexical error on line ' + (this.yylineno + 1) + '. Unrecognized text.\n' + this.showPosition(), {
+            return this.parseError('' + (this.yylineno + 1) + '' + this.showPosition(), {
                 text: "",
                 token: null,
                 line: this.yylineno
@@ -39398,13 +39391,13 @@ exports.Parser = spdxparse.Parser;
 exports.parse = function () { return spdxparse.parse.apply(spdxparse, arguments); };
 exports.main = function commonjsMain(args) {
     if (!args[1]) {
-        console.log('Usage: '+args[0]+' FILE');
+        console.log(''+args[0]+'');
         process.exit(1);
     }
     var source = __webpack_require__(7).readFileSync(__webpack_require__(3).normalize(args[1]), "utf8");
     return exports.parser.parse(source);
 };
-if (typeof module !== 'undefined' && __webpack_require__.c[__webpack_require__.s] === module) {
+if (typeof module !== '' && __webpack_require__.c[__webpack_require__.s] === module) {
   exports.main(process.argv.slice(1));
 }
 }
@@ -39423,30 +39416,30 @@ function valid(string) {
 
 // Common transpositions of license identifier acronyms
 var transpositions = [
-  ['APGL', 'AGPL'],
-  ['Gpl', 'GPL'],
-  ['GLP', 'GPL'],
-  ['APL', 'Apache'],
-  ['ISD', 'ISC'],
-  ['GLP', 'GPL'],
-  ['IST', 'ISC'],
-  ['Claude', 'Clause'],
-  [' or later', '+'],
-  [' International', ''],
-  ['GNU', 'GPL'],
-  ['GUN', 'GPL'],
+  ['', ''],
+  ['', ''],
+  ['', ''],
+  ['', ''],
+  ['', ''],
+  ['', ''],
+  ['', ''],
+  ['', ''],
+  ['', '+'],
+  ['', ''],
+  ['', ''],
+  ['', ''],
   ['+', ''],
-  ['GNU GPL', 'GPL'],
-  ['GNU/GPL', 'GPL'],
-  ['GNU GLP', 'GPL'],
-  ['GNU General Public License', 'GPL'],
-  ['Gnu public license', 'GPL'],
-  ['GNU Public License', 'GPL'],
-  ['GNU GENERAL PUBLIC LICENSE', 'GPL'],
-  ['MTI', 'MIT'],
-  ['Mozilla Public License', 'MPL'],
-  ['WTH', 'WTF'],
-  ['-License', '']
+  ['', ''],
+  ['', ''],
+  ['', ''],
+  ['', ''],
+  ['', ''],
+  ['', ''],
+  ['', ''],
+  ['', ''],
+  ['', ''],
+  ['', ''],
+  ['', '']
 ];
 
 var TRANSPOSED = 0;
@@ -39454,132 +39447,132 @@ var CORRECT = 1;
 
 // Simple corrections to nearly valid identifiers.
 var transforms = [
-  // e.g. 'mit'
+  // e.g. ''
   function(argument) {
     return argument.toUpperCase();
   },
-  // e.g. 'MIT '
+  // e.g. ''
   function(argument) {
     return argument.trim();
   },
-  // e.g. 'M.I.T.'
+  // e.g. ''
   function(argument) {
     return argument.replace(/\./g, '');
   },
-  // e.g. 'Apache- 2.0'
+  // e.g. ''
   function(argument) {
     return argument.replace(/\s+/g, '');
   },
-  // e.g. 'CC BY 4.0''
+  // e.g. '''
   function(argument) {
     return argument.replace(/\s+/g, '-');
   },
-  // e.g. 'LGPLv2.1'
+  // e.g. ''
   function(argument) {
     return argument.replace('v', '-');
   },
-  // e.g. 'Apache 2.0'
+  // e.g. ''
   function(argument) {
-    return argument.replace(/,?\s*(\d)/, '-$1');
+    return argument.replace(/,?\s*(\d)/, '');
   },
-  // e.g. 'GPL 2'
+  // e.g. ''
   function(argument) {
-    return argument.replace(/,?\s*(\d)/, '-$1.0');
+    return argument.replace(/,?\s*(\d)/, '');
   },
-  // e.g. 'Apache Version 2.0'
+  // e.g. ''
   function(argument) {
-    return argument.replace(/,?\s*(V\.|v\.|V|v|Version|version)\s*(\d)/, '-$2');
+    return argument.replace(/,?\s*(V\.|v\.|V|v|Version|version)\s*(\d)/, '');
   },
-  // e.g. 'Apache Version 2'
+  // e.g. ''
   function(argument) {
-    return argument.replace(/,?\s*(V\.|v\.|V|v|Version|version)\s*(\d)/, '-$2.0');
+    return argument.replace(/,?\s*(V\.|v\.|V|v|Version|version)\s*(\d)/, '');
   },
-  // e.g. 'ZLIB'
+  // e.g. ''
   function(argument) {
     return argument[0].toUpperCase() + argument.slice(1);
   },
-  // e.g. 'MPL/2.0'
+  // e.g. ''
   function(argument) {
     return argument.replace('/', '-');
   },
-  // e.g. 'Apache 2'
+  // e.g. ''
   function(argument) {
     return argument
-      .replace(/\s*V\s*(\d)/, '-$1')
-      .replace(/(\d)$/, '$1.0');
+      .replace(/\s*V\s*(\d)/, '')
+      .replace(/(\d)$/, '');
   },
-  // e.g. 'GPL-2.0-'
+  // e.g. ''
   function(argument) {
     return argument.slice(0, argument.length - 1);
   },
-  // e.g. 'GPL2'
+  // e.g. ''
   function(argument) {
-    return argument.replace(/(\d)$/, '-$1.0');
+    return argument.replace(/(\d)$/, '');
   },
-  // e.g. 'BSD 3'
+  // e.g. ''
   function(argument) {
-    return argument.replace(/(-| )?(\d)$/, '-$2-Clause');
+    return argument.replace(/(-| )?(\d)$/, '');
   },
-  // e.g. 'BSD clause 3'
+  // e.g. ''
   function(argument) {
-    return argument.replace(/(-| )clause(-| )(\d)/, '-$3-Clause');
+    return argument.replace(/(-| )clause(-| )(\d)/, '');
   },
-  // e.g. 'BY-NC-4.0'
+  // e.g. ''
   function(argument) {
-    return 'CC-' + argument;
+    return '' + argument;
   },
-  // e.g. 'BY-NC'
+  // e.g. ''
   function(argument) {
-    return 'CC-' + argument + '-4.0';
+    return '' + argument + '';
   },
-  // e.g. 'Attribution-NonCommercial'
+  // e.g. ''
   function(argument) {
     return argument
-      .replace('Attribution', 'BY')
-      .replace('NonCommercial', 'NC')
-      .replace('NoDerivatives', 'ND')
-      .replace(/ (\d)/, '-$1')
+      .replace('', 'BY')
+      .replace('', 'NC')
+      .replace('', 'ND')
+      .replace(/ (\d)/, '')
       .replace(/ ?International/, '');
   },
-  // e.g. 'Attribution-NonCommercial'
+  // e.g. ''
   function(argument) {
-    return 'CC-' +
+    return '' +
       argument
-      .replace('Attribution', 'BY')
-      .replace('NonCommercial', 'NC')
-      .replace('NoDerivatives', 'ND')
-      .replace(/ (\d)/, '-$1')
+      .replace('', 'BY')
+      .replace('', 'NC')
+      .replace('', 'ND')
+      .replace(/ (\d)/, '')
       .replace(/ ?International/, '') +
-      '-4.0';
+      '';
   }
 ];
 
 // If all else fails, guess that strings containing certain substrings
 // meant to identify certain licenses.
 var lastResorts = [
-  ['UNLI', 'Unlicense'],
-  ['WTF', 'WTFPL'],
-  ['2 CLAUSE', 'BSD-2-Clause'],
-  ['2-CLAUSE', 'BSD-2-Clause'],
-  ['3 CLAUSE', 'BSD-3-Clause'],
-  ['3-CLAUSE', 'BSD-3-Clause'],
-  ['AFFERO', 'AGPL-3.0'],
-  ['AGPL', 'AGPL-3.0'],
-  ['APACHE', 'Apache-2.0'],
-  ['ARTISTIC', 'Artistic-2.0'],
-  ['Affero', 'AGPL-3.0'],
-  ['BEER', 'Beerware'],
-  ['BOOST', 'BSL-1.0'],
-  ['BSD', 'BSD-2-Clause'],
-  ['ECLIPSE', 'EPL-1.0'],
-  ['FUCK', 'WTFPL'],
-  ['GNU', 'GPL-3.0'],
-  ['LGPL', 'LGPL-3.0'],
-  ['GPL', 'GPL-3.0'],
-  ['MIT', 'MIT'],
-  ['MPL', 'MPL-2.0'],
-  ['X11', 'X11'],
-  ['ZLIB', 'Zlib']
+  ['', ''],
+  ['', ''],
+  ['', ''],
+  ['', ''],
+  ['', ''],
+  ['', ''],
+  ['', ''],
+  ['', ''],
+  ['', ''],
+  ['', ''],
+  ['', ''],
+  ['', ''],
+  ['', ''],
+  ['', ''],
+  ['', ''],
+  ['', ''],
+  ['', ''],
+  ['', ''],
+  ['', ''],
+  ['', ''],
+  ['', ''],
+  ['', ''],
+  ['', '']
 ];
 
 var SUBSTRING = 0;
@@ -39671,10 +39664,10 @@ var gitHosts = __webpack_require__(89)
 var GitHost = module.exports = __webpack_require__(368)
 
 var protocolToRepresentationMap = {
-  'git+ssh': 'sshurl',
-  'git+https': 'https',
-  'ssh': 'sshurl',
-  'git': 'git'
+  '': '',
+  '': '',
+  '': '',
+  '': ''
 }
 
 function protocolToRepresentation (protocol) {
@@ -39683,11 +39676,11 @@ function protocolToRepresentation (protocol) {
 }
 
 var authProtocols = {
-  'git:': true,
-  'https:': true,
-  'git+https:': true,
-  'http:': true,
-  'git+http:': true
+  '': true,
+  '': true,
+  '': true,
+  '': true,
+  '': true
 }
 
 var cache = {}
@@ -39705,10 +39698,10 @@ module.exports.fromUrl = function (giturl, opts) {
 function fromUrl (giturl, opts) {
   if (giturl == null || giturl === '') return
   var url = fixupUnqualifiedGist(
-    isGitHubShorthand(giturl) ? 'github:' + giturl : giturl
+    isGitHubShorthand(giturl) ? '' + giturl : giturl
   )
   var parsed = parseGitUrl(url)
-  var shortcutMatch = url.match(new RegExp('^([^:]+):(?:(?:[^@:]+(?:[^@]+)?@)?([^/]*))[/](.+?)(?:[.]git)?($|#)'))
+  var shortcutMatch = url.match(new RegExp(''))
   var matches = Object.keys(gitHosts).map(function (gitHostName) {
     try {
       var gitHostInfo = gitHosts[gitHostName]
@@ -39723,7 +39716,7 @@ function fromUrl (giturl, opts) {
       if (shortcutMatch && shortcutMatch[1] === gitHostName) {
         user = shortcutMatch[2] && decodeURIComponent(shortcutMatch[2])
         project = decodeURIComponent(shortcutMatch[3])
-        defaultRepresentation = 'shortcut'
+        defaultRepresentation = ''
       } else {
         if (parsed.host !== gitHostInfo.domain) return
         if (!gitHostInfo.protocols_re.test(parsed.protocol)) return
@@ -39759,7 +39752,7 @@ function isGitHubShorthand (arg) {
 function fixupUnqualifiedGist (giturl) {
   // necessary for round-tripping gists
   var parsed = url.parse(giturl)
-  if (parsed.protocol === 'gist:' && parsed.host && !parsed.path) {
+  if (parsed.protocol === '' && parsed.host && !parsed.path) {
     return parsed.protocol + '/' + parsed.host
   } else {
     return giturl
@@ -39767,11 +39760,11 @@ function fixupUnqualifiedGist (giturl) {
 }
 
 function parseGitUrl (giturl) {
-  if (typeof giturl !== 'string') giturl = '' + giturl
+  if (typeof giturl !== '') giturl = '' + giturl
   var matched = giturl.match(/^([^@]+)@([^:/]+):[/]?((?:[^/]+[/])?[^/]+?)(?:[.]git)?(#.*)?$/)
   if (!matched) return url.parse(giturl)
   return {
-    protocol: 'git+ssh:',
+    protocol: '',
     slashes: true,
     auth: matched[1],
     host: matched[2],
@@ -39782,8 +39775,8 @@ function parseGitUrl (giturl) {
     query: null,
     pathname: '/' + matched[3],
     path: '/' + matched[3],
-    href: 'git+ssh://' + matched[1] + '@' + matched[2] +
-          '/' + matched[3] + (matched[4] || '')
+    href: '' + matched[1] + '@' + matched[2] +
+          '/''')
   }
 }
 
@@ -39813,7 +39806,7 @@ var GitHost = module.exports = function (type, user, auth, project, committish, 
 GitHost.prototype = {}
 
 GitHost.prototype.hash = function () {
-  return this.committish ? '#' + this.committish : ''
+  return this.committish ? '#'''
 }
 
 GitHost.prototype._fill = function (template, opts) {
@@ -39829,7 +39822,7 @@ GitHost.prototype._fill = function (template, opts) {
   Object.keys(vars).forEach(function (key) {
     vars[key] = encodeURIComponent(vars[key])
   })
-  vars['auth@'] = rawAuth ? rawAuth + '@' : ''
+  vars[''] = rawAuth ? rawAuth + '@'''
   if (opts.noCommittish) {
     vars['#committish'] = ''
     vars['/tree/committish'] = ''
@@ -39845,7 +39838,7 @@ GitHost.prototype._fill = function (template, opts) {
   }
   var res = template
   Object.keys(vars).forEach(function (key) {
-    res = res.replace(new RegExp('[{]' + key + '[}]', 'g'), vars[key])
+    res = res.replace(new RegExp('' + key + '', 'g'), vars[key])
   })
   if (opts.noGitPlus) {
     return res.replace(/^git[+]/, '')
@@ -39918,8 +39911,8 @@ GitHost.prototype.toString = function (opts) {
 var builtinModules = __webpack_require__(370);
 
 module.exports = function (str) {
-	if (typeof str !== 'string') {
-		throw new TypeError('Expected a string');
+	if (typeof str !== '') {
+		throw new TypeError('');
 	}
 
 	return builtinModules.indexOf(str) !== -1;
@@ -39934,11 +39927,11 @@ module.exports = function (str) {
 
 
 var blacklist = [
-	'freelist',
-	'sys'
+	'',
+	''
 ];
 
-module.exports = Object.keys(process.binding('natives')).filter(function (el) {
+module.exports = Object.keys(process.binding('')).filter(function (el) {
 	return !/^_|^internal|\//.test(el) && blacklist.indexOf(el) === -1;
 }).sort();
 
@@ -39990,8 +39983,8 @@ module.exports = function() {
 
 function makeTypoWarning (providedName, probableName, field) {
   if (field) {
-    providedName = field + "['" + providedName + "']"
-    probableName = field + "['" + probableName + "']"
+    providedName = field + "['']"
+    probableName = field + "['']"
   }
   return util.format(messages.typo, providedName, probableName)
 }
@@ -40001,7 +39994,7 @@ function makeTypoWarning (providedName, probableName, field) {
 /* 374 */
 /***/ (function(module, exports) {
 
-module.exports = {"repositories":"'repositories' (plural) Not supported. Please pick one as the 'repository' field","missingRepository":"No repository field.","brokenGitUrl":"Probably broken git url: %s","nonObjectScripts":"scripts must be an object","nonStringScript":"script values must be string commands","nonArrayFiles":"Invalid 'files' member","invalidFilename":"Invalid filename in 'files' list: %s","nonArrayBundleDependencies":"Invalid 'bundleDependencies' list. Must be array of package names","nonStringBundleDependency":"Invalid bundleDependencies member: %s","nonDependencyBundleDependency":"Non-dependency in bundleDependencies: %s","nonObjectDependencies":"%s field must be an object","nonStringDependency":"Invalid dependency: %s %s","deprecatedArrayDependencies":"specifying %s as array is deprecated","deprecatedModules":"modules field is deprecated","nonArrayKeywords":"keywords should be an array of strings","nonStringKeyword":"keywords should be an array of strings","conflictingName":"%s is also the name of a node core module.","nonStringDescription":"'description' field should be a string","missingDescription":"No description","missingReadme":"No README data","missingLicense":"No license field.","nonEmailUrlBugsString":"Bug string field must be url, email, or {email,url}","nonUrlBugsUrlField":"bugs.url field must be a string url. Deleted.","nonEmailBugsEmailField":"bugs.email field must be a string email. Deleted.","emptyNormalizedBugs":"Normalized value of bugs field is an empty object. Deleted.","nonUrlHomepage":"homepage field must be a string url. Deleted.","invalidLicense":"license should be a valid SPDX license expression","typo":"%s should probably be %s."}
+module.exports = {"repositories":"'' (plural) Not supported. Please pick one as the '' field","missingRepository":"No repository field.","brokenGitUrl":"Probably broken git url: %s","nonObjectScripts":"scripts must be an object","nonStringScript":"script values must be string commands","nonArrayFiles":"Invalid '' member","invalidFilename":"Invalid filename in '' list: %s","nonArrayBundleDependencies":"Invalid '' list. Must be array of package names","nonStringBundleDependency":"Invalid bundleDependencies member: %s","nonDependencyBundleDependency":"Non-dependency in bundleDependencies: %s","nonObjectDependencies":"%s field must be an object","nonStringDependency":"Invalid dependency: %s %s","deprecatedArrayDependencies":"specifying %s as array is deprecated","deprecatedModules":"modules field is deprecated","nonArrayKeywords":"keywords should be an array of strings","nonStringKeyword":"keywords should be an array of strings","conflictingName":"%s is also the name of a node core module.","nonStringDescription":"'' field should be a string","missingDescription":"No description","missingReadme":"No README data","missingLicense":"No license field.","nonEmailUrlBugsString":"Bug string field must be url, email, or {email,url}","nonUrlBugsUrlField":"bugs.url field must be a string url. Deleted.","nonEmailBugsEmailField":"bugs.email field must be a string email. Deleted.","emptyNormalizedBugs":"Normalized value of bugs field is an empty object. Deleted.","nonUrlHomepage":"homepage field must be a string url. Deleted.","invalidLicense":"license should be a valid SPDX license expression","typo":"%s should probably be %s."}
 
 /***/ }),
 /* 375 */
@@ -40016,10 +40009,10 @@ const sortKeys = __webpack_require__(90);
 const opts = {detectIndent: true};
 
 const dependencyKeys = new Set([
-	'dependencies',
-	'devDependencies',
-	'optionalDependencies',
-	'peerDependencies'
+	'',
+	'',
+	'',
+	''
 ]);
 
 function normalize(pkg) {
@@ -40037,12 +40030,12 @@ function normalize(pkg) {
 }
 
 module.exports = (fp, data) => {
-	if (typeof fp !== 'string') {
+	if (typeof fp !== '') {
 		data = fp;
 		fp = '.';
 	}
 
-	fp = path.basename(fp) === 'package.json' ? fp : path.join(fp, 'package.json');
+	fp = path.basename(fp) === '' ? fp : path.join(fp, '');
 
 	data = normalize(data);
 
@@ -40050,12 +40043,12 @@ module.exports = (fp, data) => {
 };
 
 module.exports.sync = (fp, data) => {
-	if (typeof fp !== 'string') {
+	if (typeof fp !== '') {
 		data = fp;
 		fp = '.';
 	}
 
-	fp = path.basename(fp) === 'package.json' ? fp : path.join(fp, 'package.json');
+	fp = path.basename(fp) === '' ? fp : path.join(fp, '');
 
 	data = normalize(data);
 
@@ -40079,11 +40072,11 @@ const detectIndent = __webpack_require__(381);
 
 const init = (fn, fp, data, opts) => {
 	if (!fp) {
-		throw new TypeError('Expected a filepath');
+		throw new TypeError('');
 	}
 
 	if (data === undefined) {
-		throw new TypeError('Expected data to stringify');
+		throw new TypeError('');
 	}
 
 	opts = Object.assign({
@@ -40094,14 +40087,14 @@ const init = (fn, fp, data, opts) => {
 	if (opts.sortKeys) {
 		data = sortKeys(data, {
 			deep: true,
-			compare: typeof opts.sortKeys === 'function' && opts.sortKeys
+			compare: typeof opts.sortKeys === '' && opts.sortKeys
 		});
 	}
 
 	return fn(fp, data, opts);
 };
 
-const readFile = fp => pify(fs.readFile)(fp, 'utf8').catch(() => {});
+const readFile = fp => pify(fs.readFile)(fp, '').catch(() => {});
 
 const main = (fp, data, opts) => {
 	return (opts.detectIndent ? readFile(fp) : Promise.resolve())
@@ -40118,10 +40111,10 @@ const mainSync = (fp, data, opts) => {
 
 	if (opts.detectIndent) {
 		try {
-			const file = fs.readFileSync(fp, 'utf8');
+			const file = fs.readFileSync(fp, '');
 			indent = detectIndent(file).indent;
 		} catch (err) {
-			if (err.code !== 'ENOENT') {
+			if (err.code !== '') {
 				throw err;
 			}
 		}
@@ -40172,7 +40165,7 @@ function getTmpname (filename) {
 function cleanupOnExit (tmpfile) {
   return function () {
     try {
-      fs.unlinkSync(typeof tmpfile === 'function' ? tmpfile() : tmpfile)
+      fs.unlinkSync(typeof tmpfile === '' ? tmpfile() : tmpfile)
     } catch (_) {}
   }
 }
@@ -40243,7 +40236,7 @@ function writeFile (filename, data, options, callback) {
           else resolve()
         })
       } else if (data != null) {
-        fs.write(fd, String(data), 0, String(options.encoding || 'utf8'), function (err) {
+        fs.write(fd, String(data), 0, String(options.encoding || ''), function (err) {
           if (err) reject(err)
           else resolve()
         })
@@ -40331,7 +40324,7 @@ function writeFileSync (filename, data, options) {
     if (Buffer.isBuffer(data)) {
       fs.writeSync(fd, data, 0, data.length, 0)
     } else if (data != null) {
-      fs.writeSync(fd, String(data), 0, String(options.encoding || 'utf8'))
+      fs.writeSync(fd, String(data), 0, String(options.encoding || ''))
     }
     if (options.fsync !== false) {
       fs.fsyncSync(fd)
@@ -40376,7 +40369,7 @@ function writeFileSync (filename, data, options) {
     function MurmurHash3(key, seed) {
         var m = this instanceof MurmurHash3 ? this : cache;
         m.reset(seed)
-        if (typeof key === 'string' && key.length > 0) {
+        if (typeof key === '' && key.length > 0) {
             m.hash(key);
         }
 
@@ -40476,7 +40469,7 @@ function writeFileSync (filename, data, options) {
     //
     // @param {number} seed An optional positive integer
     MurmurHash3.prototype.reset = function(seed) {
-        this.h1 = typeof seed === 'number' ? seed : 0;
+        this.h1 = typeof seed === '' ? seed : 0;
         this.rem = this.k1 = this.len = 0;
         return this;
     };
@@ -40518,36 +40511,36 @@ function writeFileSync (filename, data, options) {
 // state from which it is not safe to try and enter JS
 // listeners.
 module.exports = [
-  'SIGABRT',
-  'SIGALRM',
-  'SIGHUP',
-  'SIGINT',
-  'SIGTERM'
+  '',
+  '',
+  '',
+  '',
+  ''
 ]
 
-if (process.platform !== 'win32') {
+if (process.platform !== '') {
   module.exports.push(
-    'SIGVTALRM',
-    'SIGXCPU',
-    'SIGXFSZ',
-    'SIGUSR2',
-    'SIGTRAP',
-    'SIGSYS',
-    'SIGQUIT',
-    'SIGIOT'
+    '',
+    '',
+    '',
+    '',
+    '',
+    '',
+    '',
+    ''
     // should detect profiler and enable/disable accordingly.
     // see #21
-    // 'SIGPROF'
+    // ''
   )
 }
 
-if (process.platform === 'linux') {
+if (process.platform === '') {
   module.exports.push(
-    'SIGIO',
-    'SIGPOLL',
-    'SIGPWR',
-    'SIGSTKFLT',
-    'SIGUNUSED'
+    '',
+    '',
+    '',
+    '',
+    ''
   )
 }
 
@@ -40562,7 +40555,7 @@ var toString = Object.prototype.toString;
 
 module.exports = function (x) {
 	var prototype;
-	return toString.call(x) === '[object Object]' && (prototype = Object.getPrototypeOf(x), prototype === null || prototype === Object.getPrototypeOf({}));
+	return toString.call(x) === '' && (prototype = Object.getPrototypeOf(x), prototype === null || prototype === Object.getPrototypeOf({}));
 };
 
 
@@ -40601,8 +40594,8 @@ function getMostUsed(indents) {
 }
 
 module.exports = str => {
-	if (typeof str !== 'string') {
-		throw new TypeError('Expected a string');
+	if (typeof str !== '') {
+		throw new TypeError('');
 	}
 
 	// used to see if tabs or spaces are the most used
@@ -40680,10 +40673,10 @@ module.exports = str => {
 		type = null;
 		indent = '';
 	} else if (spaces >= tabs) {
-		type = 'space';
+		type = '';
 		indent = ' '.repeat(amount);
 	} else {
-		type = 'tab';
+		type = '';
 		indent = '\t'.repeat(amount);
 	}
 
@@ -40712,10 +40705,10 @@ exports.runScriptInPackage = exports.installInDir = undefined;
  */
 let installInDir = exports.installInDir = (() => {
     var _ref = _asyncToGenerator(function* (directory, extraArgs = []) {
-        const options = ['install', '--non-interactive', '--mutex file', ...extraArgs];
+        const options = ['', '', '', ...extraArgs];
         // We pass the mutex flag to ensure only one instance of yarn runs at any
         // given time (e.g. to avoid conflicts).
-        yield (0, _child_process.spawn)('yarn', options, {
+        yield (0, _child_process.spawn)('', options, {
             cwd: directory
         });
     });
@@ -40734,7 +40727,7 @@ let runScriptInPackage = exports.runScriptInPackage = (() => {
         const execOpts = {
             cwd: pkg.path
         };
-        yield (0, _child_process.spawn)('yarn', ['run', script, ...args], execOpts);
+        yield (0, _child_process.spawn)('', ['', script, ...args], execOpts);
     });
 
     return function runScriptInPackage(_x2, _x3, _x4) {
@@ -40774,7 +40767,7 @@ function runScriptInPackageStreaming(script, args, pkg) {
     const execOpts = {
         cwd: pkg.path
     };
-    return (0, _child_process.spawnStreaming)('yarn', ['run', script, ...args], execOpts, {
+    return (0, _child_process.spawnStreaming)('', ['', script, ...args], execOpts, {
         prefix: pkg.name
     });
 }
@@ -40839,13 +40832,13 @@ function generateColors() {
 }
 function spawn(command, args, opts) {
     return (0, _execa2.default)(command, args, _extends({}, opts, {
-        stdio: 'inherit'
+        stdio: ''
     }));
 }
 const nextColor = generateColors();
 function spawnStreaming(command, args, opts, { prefix }) {
     const spawned = (0, _execa2.default)(command, args, _extends({}, opts, {
-        stdio: ['ignore', 'pipe', 'pipe']
+        stdio: ['', '', '']
     }));
     const color = nextColor();
     const prefixedStdout = (0, _strongLogTransformer2.default)({ tag: `${color.bold(prefix)}:` });
@@ -40909,7 +40902,7 @@ function handleArgs(cmd, args, opts) {
 		stripEof: true,
 		preferLocal: true,
 		localDir: parsed.options.cwd || process.cwd(),
-		encoding: 'utf8',
+		encoding: '',
 		reject: true,
 		cleanup: true
 	}, parsed.options);
@@ -40925,7 +40918,7 @@ function handleArgs(cmd, args, opts) {
 		opts.cleanup = false;
 	}
 
-	if (process.platform === 'win32' && path.basename(parsed.command) === 'cmd.exe') {
+	if (process.platform === '' && path.basename(parsed.command) === '') {
 		// #116
 		parsed.args.unshift('/q');
 	}
@@ -40961,14 +40954,14 @@ function handleOutput(opts, val) {
 }
 
 function handleShell(fn, cmd, opts) {
-	let file = '/bin/sh';
+	let file = '';
 	let args = ['-c', cmd];
 
 	opts = Object.assign({}, opts);
 
-	if (process.platform === 'win32') {
+	if (process.platform === '') {
 		opts.__winShell = true;
-		file = process.env.comspec || 'cmd.exe';
+		file = process.env.comspec || '';
 		args = ['/s', '/c', `"${cmd}"`];
 		opts.windowsVerbatimArguments = true;
 	}
@@ -41020,14 +41013,14 @@ function makeError(result, options) {
 		let output = '';
 
 		if (Array.isArray(parsed.opts.stdio)) {
-			if (parsed.opts.stdio[2] !== 'inherit') {
+			if (parsed.opts.stdio[2] !== '') {
 				output += output.length > 0 ? stderr : `\n${stderr}`;
 			}
 
-			if (parsed.opts.stdio[1] !== 'inherit') {
+			if (parsed.opts.stdio[1] !== '') {
 				output += `\n${stdout}`;
 			}
-		} else if (parsed.opts.stdio !== 'inherit') {
+		} else if (parsed.opts.stdio !== '') {
 			output = `\n${stderr}${stdout}`;
 		}
 
@@ -41049,7 +41042,7 @@ function joinCmd(cmd, args) {
 	let joinedCmd = cmd;
 
 	if (Array.isArray(args) && args.length > 0) {
-		joinedCmd += ' ' + args.join(' ');
+		joinedCmd += ' '' ');
 	}
 
 	return joinedCmd;
@@ -41094,18 +41087,18 @@ module.exports = (cmd, args, opts) => {
 	}
 
 	const processDone = new Promise(resolve => {
-		spawned.on('exit', (code, signal) => {
+		spawned.on('', (code, signal) => {
 			cleanupTimeout();
 			resolve({code, signal});
 		});
 
-		spawned.on('error', err => {
+		spawned.on('', err => {
 			cleanupTimeout();
 			resolve({error: err});
 		});
 
 		if (spawned.stdin) {
-			spawned.stdin.on('error', err => {
+			spawned.stdin.on('', err => {
 				cleanupTimeout();
 				resolve({error: err});
 			});
@@ -41124,8 +41117,8 @@ module.exports = (cmd, args, opts) => {
 
 	const handlePromise = () => pFinally(Promise.all([
 		processDone,
-		getStream(spawned, 'stdout', encoding, maxBuffer),
-		getStream(spawned, 'stderr', encoding, maxBuffer)
+		getStream(spawned, '', encoding, maxBuffer),
+		getStream(spawned, '', encoding, maxBuffer)
 	]).then(arr => {
 		const result = arr[0];
 		result.stdout = arr[1];
@@ -41177,12 +41170,12 @@ module.exports = (cmd, args, opts) => {
 };
 
 module.exports.stdout = function () {
-	// TODO: set `stderr: 'ignore'` when that option is implemented
+	// TODO: set `stderr: ''` when that option is implemented
 	return module.exports.apply(null, arguments).then(x => x.stdout);
 };
 
 module.exports.stderr = function () {
-	// TODO: set `stdout: 'ignore'` when that option is implemented
+	// TODO: set `stdout: ''` when that option is implemented
 	return module.exports.apply(null, arguments).then(x => x.stderr);
 };
 
@@ -41193,7 +41186,7 @@ module.exports.sync = (cmd, args, opts) => {
 	const joinedCmd = joinCmd(cmd, args);
 
 	if (isStream(parsed.opts.input)) {
-		throw new TypeError('The `input` option cannot be a stream in sync mode');
+		throw new TypeError('');
 	}
 
 	const result = childProcess.spawnSync(parsed.cmd, parsed.args, parsed.opts);
@@ -41225,7 +41218,7 @@ module.exports.sync = (cmd, args, opts) => {
 
 module.exports.shellSync = (cmd, opts) => handleShell(module.exports.sync, cmd, opts);
 
-module.exports.spawn = util.deprecate(module.exports, 'execa.spawn() is deprecated. Use execa() instead.');
+module.exports.spawn = util.deprecate(module.exports, '');
 
 
 /***/ }),
@@ -41267,9 +41260,9 @@ function spawnSync(command, args, options) {
             cpSpawnSync = __webpack_require__(400);  // eslint-disable-line global-require
         } catch (ex) {
             throw new Error(
-                'In order to use spawnSync on node 0.10 or older, you must ' +
-                'install spawn-sync:\n\n' +
-                '  npm install spawn-sync --save'
+                '' +
+                '' +
+                ''
             );
         }
     }
@@ -41307,12 +41300,12 @@ var escapeArgument = __webpack_require__(94);
 var escapeCommand = __webpack_require__(395);
 var readShebang = __webpack_require__(396);
 
-var isWin = process.platform === 'win32';
+var isWin = process.platform === '';
 var skipShellRegExp = /\.(?:com|exe)$/i;
 
 // Supported in Node >= 6 and >= 4.8
 var supportsShellOption = parseInt(process.version.substr(1).split('.')[0], 10) >= 6 ||
- parseInt(process.version.substr(1).split('.')[0], 10) === 4 && parseInt(process.version.substr(1).split('.')[1], 10) >= 8;
+ parseInt(process.version.substr(1).split('.''.')[1], 10) >= 8;
 
 function parseNonShell(parsed) {
     var shebang;
@@ -41339,15 +41332,15 @@ function parseNonShell(parsed) {
     // If a shell is required, use cmd.exe and take care of escaping everything correctly
     if (needsShell) {
         // Escape command & arguments
-        applyQuotes = (parsed.command !== 'echo');  // Do not quote arguments for the special "echo" command
+        applyQuotes = (parsed.command !== '');  // Do not quote arguments for the special "echo" command
         parsed.command = escapeCommand(parsed.command);
         parsed.args = parsed.args.map(function (arg) {
             return escapeArgument(arg, applyQuotes);
         });
 
         // Make use of cmd.exe
-        parsed.args = ['/d', '/s', '/c', '"' + parsed.command + (parsed.args.length ? ' ' + parsed.args.join(' ') : '') + '"'];
-        parsed.command = process.env.comspec || 'cmd.exe';
+        parsed.args = ['/d', '/s', '/c', '"'' '' ''''"'];
+        parsed.command = process.env.comspec || '';
         parsed.options.windowsVerbatimArguments = true;  // Tell node's spawn that the arguments are already escaped
     }
 
@@ -41366,16 +41359,16 @@ function parseShell(parsed) {
     shellCommand = [parsed.command].concat(parsed.args).join(' ');
 
     if (isWin) {
-        parsed.command = typeof parsed.options.shell === 'string' ? parsed.options.shell : process.env.comspec || 'cmd.exe';
-        parsed.args = ['/d', '/s', '/c', '"' + shellCommand + '"'];
+        parsed.command = typeof parsed.options.shell === '' ? parsed.options.shell : process.env.comspec || '';
+        parsed.args = ['/d', '/s', '/c', '"''"'];
         parsed.options.windowsVerbatimArguments = true;  // Tell node's spawn that the arguments are already escaped
     } else {
-        if (typeof parsed.options.shell === 'string') {
+        if (typeof parsed.options.shell === '') {
             parsed.command = parsed.options.shell;
-        } else if (process.platform === 'android') {
-            parsed.command = '/system/bin/sh';
+        } else if (process.platform === '') {
+            parsed.command = '';
         } else {
-            parsed.command = '/bin/sh';
+            parsed.command = '';
         }
 
         parsed.args = ['-c', shellCommand];
@@ -41421,17 +41414,17 @@ module.exports = parse;
 module.exports = which
 which.sync = whichSync
 
-var isWindows = process.platform === 'win32' ||
-    process.env.OSTYPE === 'cygwin' ||
-    process.env.OSTYPE === 'msys'
+var isWindows = process.platform === '' ||
+    process.env.OSTYPE === '' ||
+    process.env.OSTYPE === ''
 
 var path = __webpack_require__(3)
-var COLON = isWindows ? ';' : ':'
+var COLON = isWindows ? ';'':'
 var isexe = __webpack_require__(388)
 
 function getNotFoundError (cmd) {
-  var er = new Error('not found: ' + cmd)
-  er.code = 'ENOENT'
+  var er = new Error('' + cmd)
+  er.code = ''
 
   return er
 }
@@ -41446,13 +41439,13 @@ function getPathInfo (cmd, opt) {
   var pathExtExe = ''
   if (isWindows) {
     pathEnv.unshift(process.cwd())
-    pathExtExe = (opt.pathExt || process.env.PATHEXT || '.EXE;.CMD;.BAT;.COM')
+    pathExtExe = (opt.pathExt || process.env.PATHEXT || '')
     pathExt = pathExtExe.split(colon)
 
 
     // Always test the cmd itself first.  isexe will check to make sure
     // it's found in the pathExt set.
-    if (cmd.indexOf('.') !== -1 && pathExt[0] !== '')
+    if (cmd.indexOf('.''')
       pathExt.unshift('')
   }
 
@@ -41469,7 +41462,7 @@ function getPathInfo (cmd, opt) {
 }
 
 function which (cmd, opt, cb) {
-  if (typeof opt === 'function') {
+  if (typeof opt === '') {
     cb = opt
     opt = {}
   }
@@ -41489,7 +41482,7 @@ function which (cmd, opt, cb) {
     }
 
     var pathPart = pathEnv[i]
-    if (pathPart.charAt(0) === '"' && pathPart.slice(-1) === '"')
+    if (pathPart.charAt(0) === '"''"')
       pathPart = pathPart.slice(1, -1)
 
     var p = path.join(pathPart, cmd)
@@ -41523,7 +41516,7 @@ function whichSync (cmd, opt) {
 
   for (var i = 0, l = pathEnv.length; i < l; i ++) {
     var pathPart = pathEnv[i]
-    if (pathPart.charAt(0) === '"' && pathPart.slice(-1) === '"')
+    if (pathPart.charAt(0) === '"''"')
       pathPart = pathPart.slice(1, -1)
 
     var p = path.join(pathPart, cmd)
@@ -41561,7 +41554,7 @@ function whichSync (cmd, opt) {
 
 var fs = __webpack_require__(7)
 var core
-if (process.platform === 'win32' || global.TESTING_WINDOWS) {
+if (process.platform === '' || global.TESTING_WINDOWS) {
   core = __webpack_require__(389)
 } else {
   core = __webpack_require__(390)
@@ -41571,14 +41564,14 @@ module.exports = isexe
 isexe.sync = sync
 
 function isexe (path, options, cb) {
-  if (typeof options === 'function') {
+  if (typeof options === '') {
     cb = options
     options = {}
   }
 
   if (!cb) {
-    if (typeof Promise !== 'function') {
-      throw new TypeError('callback not provided')
+    if (typeof Promise !== '') {
+      throw new TypeError('')
     }
 
     return new Promise(function (resolve, reject) {
@@ -41595,7 +41588,7 @@ function isexe (path, options, cb) {
   core(path, options || {}, function (er, is) {
     // ignore EACCES because that just means we aren't allowed to run it
     if (er) {
-      if (er.code === 'EACCES' || options && options.ignoreErrors) {
+      if (er.code === '' || options && options.ignoreErrors) {
         er = null
         is = false
       }
@@ -41609,7 +41602,7 @@ function sync (path, options) {
   try {
     return core.sync(path, options || {})
   } catch (er) {
-    if (options && options.ignoreErrors || er.code === 'EACCES') {
+    if (options && options.ignoreErrors || er.code === '') {
       return false
     } else {
       throw er
@@ -41699,9 +41692,9 @@ function checkMode (stat, options) {
   var myGid = options.gid !== undefined ?
     options.gid : process.getgid && process.getgid()
 
-  var u = parseInt('100', 8)
-  var g = parseInt('010', 8)
-  var o = parseInt('001', 8)
+  var u = parseInt('', 8)
+  var g = parseInt('', 8)
+  var o = parseInt('', 8)
   var ug = u | g
 
   var ret = (mod & o) ||
@@ -41717,11 +41710,11 @@ function checkMode (stat, options) {
 /* 391 */
 /***/ (function(module, exports, __webpack_require__) {
 
-if (process.env.npm_package_name === 'pseudomap' &&
-    process.env.npm_lifecycle_script === 'test')
-  process.env.TEST_PSEUDOMAP = 'true'
+if (process.env.npm_package_name === '' &&
+    process.env.npm_lifecycle_script === '')
+  process.env.TEST_PSEUDOMAP = ''
 
-if (typeof Map === 'function' && !process.env.TEST_PSEUDOMAP) {
+if (typeof Map === '' && !process.env.TEST_PSEUDOMAP) {
   module.exports = Map
 } else {
   module.exports = __webpack_require__(392)
@@ -41738,13 +41731,13 @@ module.exports = PseudoMap
 
 function PseudoMap (set) {
   if (!(this instanceof PseudoMap)) // whyyyyyyy
-    throw new TypeError("Constructor PseudoMap requires 'new'")
+    throw new TypeError("Constructor PseudoMap requires ''")
 
   this.clear()
 
   if (set) {
     if ((set instanceof PseudoMap) ||
-        (typeof Map === 'function' && set instanceof Map))
+        (typeof Map === '' && set instanceof Map))
       set.forEach(function (value, key) {
         this.set(key, value)
       }, this)
@@ -41753,14 +41746,14 @@ function PseudoMap (set) {
         this.set(kv[0], kv[1])
       }, this)
     else
-      throw new TypeError('invalid argument')
+      throw new TypeError('')
   }
 }
 
 PseudoMap.prototype.forEach = function (fn, thisp) {
   thisp = thisp || this
   Object.keys(this._data).forEach(function (k) {
-    if (k !== 'size')
+    if (k !== '')
       fn.call(thisp, this._data[k].value, this._data[k].key)
   }, this)
 }
@@ -41790,7 +41783,7 @@ PseudoMap.prototype.clear = function () {
   var data = Object.create(null)
   data.size = 0
 
-  Object.defineProperty(this, '_data', {
+  Object.defineProperty(this, '', {
     value: data,
     enumerable: false,
     configurable: true,
@@ -41798,7 +41791,7 @@ PseudoMap.prototype.clear = function () {
   })
 }
 
-Object.defineProperty(PseudoMap.prototype, 'size', {
+Object.defineProperty(PseudoMap.prototype, '', {
   get: function () {
     return this._data.size
   },
@@ -41810,7 +41803,7 @@ Object.defineProperty(PseudoMap.prototype, 'size', {
 PseudoMap.prototype.values =
 PseudoMap.prototype.keys =
 PseudoMap.prototype.entries = function () {
-  throw new Error('iterators are not implemented in this version')
+  throw new Error('')
 }
 
 // Either identical, or both NaN
@@ -41866,7 +41859,7 @@ function Yallist (list) {
   self.head = null
   self.length = 0
 
-  if (list && typeof list.forEach === 'function') {
+  if (list && typeof list.forEach === '') {
     list.forEach(function (item) {
       self.push(item)
     })
@@ -41881,7 +41874,7 @@ function Yallist (list) {
 
 Yallist.prototype.removeNode = function (node) {
   if (node.list !== this) {
-    throw new Error('removing node which does not belong to this list')
+    throw new Error('')
   }
 
   var next = node.next
@@ -42065,7 +42058,7 @@ Yallist.prototype.reduce = function (fn, initial) {
     walker = this.head.next
     acc = this.head.value
   } else {
-    throw new TypeError('Reduce of empty list with no initial value')
+    throw new TypeError('')
   }
 
   for (var i = 0; walker !== null; i++) {
@@ -42085,7 +42078,7 @@ Yallist.prototype.reduceReverse = function (fn, initial) {
     walker = this.tail.prev
     acc = this.tail.value
   } else {
-    throw new TypeError('Reduce of empty list with no initial value')
+    throw new TypeError('')
   }
 
   for (var i = this.length - 1; walker !== null; i--) {
@@ -42234,7 +42227,7 @@ function Node (value, prev, next, list) {
 function hasEmptyArgumentBug() {
     var nodeVer;
 
-    if (process.platform !== 'win32') {
+    if (process.platform !== '') {
         return false;
     }
 
@@ -42326,13 +42319,13 @@ module.exports = function (str) {
 		return null;
 	}
 
-	var arr = match[0].replace(/#! ?/, '').split(' ');
+	var arr = match[0].replace(/#! ?/, ''' ');
 	var bin = arr[0].split('/').pop();
 	var arg = arr[1];
 
-	return (bin === 'env' ?
+	return (bin === '' ?
 		arg :
-		bin + (arg ? ' ' + arg : '')
+		bin + (arg ? ' ''')
 	);
 };
 
@@ -42353,16 +42346,16 @@ module.exports = /^#!.*/;
 "use strict";
 
 
-var isWin = process.platform === 'win32';
+var isWin = process.platform === '';
 var resolveCommand = __webpack_require__(92);
 
-var isNode10 = process.version.indexOf('v0.10.') === 0;
+var isNode10 = process.version.indexOf('') === 0;
 
 function notFoundError(command, syscall) {
     var err;
 
-    err = new Error(syscall + ' ' + command + ' ENOENT');
-    err.code = err.errno = 'ENOENT';
+    err = new Error(syscall + ' '' ENOENT');
+    err.code = err.errno = '';
     err.syscall = syscall + ' ' + command;
 
     return err;
@@ -42382,11 +42375,11 @@ function hookChildProcess(cp, parsed) {
         // If emitting "exit" event and exit code is 1, we need to check if
         // the command exists and emit an "error" instead
         // See: https://github.com/IndigoUnited/node-cross-spawn/issues/16
-        if (name === 'exit') {
-            err = verifyENOENT(arg1, parsed, 'spawn');
+        if (name === '') {
+            err = verifyENOENT(arg1, parsed, '');
 
             if (err) {
-                return originalEmit.call(cp, 'error', err);
+                return originalEmit.call(cp, '', err);
             }
         }
 
@@ -42396,7 +42389,7 @@ function hookChildProcess(cp, parsed) {
 
 function verifyENOENT(status, parsed) {
     if (isWin && status === 1 && !parsed.file) {
-        return notFoundError(parsed.original, 'spawn');
+        return notFoundError(parsed.original, '');
     }
 
     return null;
@@ -42404,7 +42397,7 @@ function verifyENOENT(status, parsed) {
 
 function verifyENOENTSync(status, parsed) {
     if (isWin && status === 1 && !parsed.file) {
-        return notFoundError(parsed.original, 'spawnSync');
+        return notFoundError(parsed.original, '');
     }
 
     // If we are in node 10, then we are using spawn-sync; if it exited
@@ -42413,7 +42406,7 @@ function verifyENOENTSync(status, parsed) {
         parsed.file = isWin ? parsed.file : resolveCommand(parsed.original);
 
         if (!parsed.file) {
-            return notFoundError(parsed.original, 'spawnSync');
+            return notFoundError(parsed.original, '');
         }
     }
 
@@ -42443,8 +42436,8 @@ module.exports = __webpack_require__(60).spawnSync;
 "use strict";
 
 module.exports = function (x) {
-	var lf = typeof x === 'string' ? '\n' : '\n'.charCodeAt();
-	var cr = typeof x === 'string' ? '\r' : '\r'.charCodeAt();
+	var lf = typeof x === '' ? '\n''\n'.charCodeAt();
+	var cr = typeof x === '' ? '\r''\r'.charCodeAt();
 
 	if (x[x.length - 1] === lf) {
 		x = x.slice(0, x.length - 1);
@@ -42478,7 +42471,7 @@ module.exports = opts => {
 	const ret = [];
 
 	while (prev !== pth) {
-		ret.push(path.join(pth, 'node_modules/.bin'));
+		ret.push(path.join(pth, ''));
 		prev = pth;
 		pth = path.resolve(pth, '..');
 	}
@@ -42516,11 +42509,11 @@ module.exports = opts => {
 	const env = opts.env || process.env;
 	const platform = opts.platform || process.platform;
 
-	if (platform !== 'win32') {
-		return 'PATH';
+	if (platform !== '') {
+		return '';
 	}
 
-	return Object.keys(env).find(x => x.toUpperCase() === 'PATH') || 'Path';
+	return Object.keys(env).find(x => x.toUpperCase() === '') || '';
 };
 
 
@@ -42532,15 +42525,15 @@ module.exports = opts => {
 
 
 var isStream = module.exports = function (stream) {
-	return stream !== null && typeof stream === 'object' && typeof stream.pipe === 'function';
+	return stream !== null && typeof stream === '' && typeof stream.pipe === '';
 };
 
 isStream.writable = function (stream) {
-	return isStream(stream) && stream.writable !== false && typeof stream._write === 'function' && typeof stream._writableState === 'object';
+	return isStream(stream) && stream.writable !== false && typeof stream._write === '' && typeof stream._writableState === '';
 };
 
 isStream.readable = function (stream) {
-	return isStream(stream) && stream.readable !== false && typeof stream._read === 'function' && typeof stream._readableState === 'object';
+	return isStream(stream) && stream.readable !== false && typeof stream._read === '' && typeof stream._readableState === '';
 };
 
 isStream.duplex = function (stream) {
@@ -42548,7 +42541,7 @@ isStream.duplex = function (stream) {
 };
 
 isStream.transform = function (stream) {
-	return isStream.duplex(stream) && typeof stream._transform === 'function' && typeof stream._transformState === 'object';
+	return isStream.duplex(stream) && typeof stream._transform === '' && typeof stream._transformState === '';
 };
 
 
@@ -42562,7 +42555,7 @@ const bufferStream = __webpack_require__(406);
 
 function getStream(inputStream, opts) {
 	if (!inputStream) {
-		return Promise.reject(new Error('Expected a stream'));
+		return Promise.reject(new Error(''));
 	}
 
 	opts = Object.assign({maxBuffer: Infinity}, opts);
@@ -42581,16 +42574,16 @@ function getStream(inputStream, opts) {
 		};
 
 		stream = bufferStream(opts);
-		inputStream.once('error', error);
+		inputStream.once('', error);
 		inputStream.pipe(stream);
 
-		stream.on('data', () => {
+		stream.on('', () => {
 			if (stream.getBufferedLength() > maxBuffer) {
-				reject(new Error('maxBuffer exceeded'));
+				reject(new Error(''));
 			}
 		});
-		stream.once('error', error);
-		stream.on('end', resolve);
+		stream.once('', error);
+		stream.on('', resolve);
 
 		clean = () => {
 			// some streams doesn't implement the `stream.Readable` interface correctly
@@ -42606,7 +42599,7 @@ function getStream(inputStream, opts) {
 }
 
 module.exports = getStream;
-module.exports.buffer = (stream, opts) => getStream(stream, Object.assign({}, opts, {encoding: 'buffer'}));
+module.exports.buffer = (stream, opts) => getStream(stream, Object.assign({}, opts, {encoding: ''}));
 module.exports.array = (stream, opts) => getStream(stream, Object.assign({}, opts, {array: true}));
 
 
@@ -42623,13 +42616,13 @@ module.exports = opts => {
 
 	const array = opts.array;
 	let encoding = opts.encoding;
-	const buffer = encoding === 'buffer';
+	const buffer = encoding === '';
 	let objectMode = false;
 
 	if (array) {
 		objectMode = !(encoding || buffer);
 	} else {
-		encoding = encoding || 'utf8';
+		encoding = encoding || '';
 	}
 
 	if (buffer) {
@@ -42644,7 +42637,7 @@ module.exports = opts => {
 		stream.setEncoding(encoding);
 	}
 
-	stream.on('data', chunk => {
+	stream.on('', chunk => {
 		ret.push(chunk);
 
 		if (objectMode) {
@@ -42708,11 +42701,11 @@ let uv;
 try {
 	uv = process.binding('uv');
 
-	if (typeof uv.errname !== 'function') {
-		throw new TypeError('uv.errname is not a function');
+	if (typeof uv.errname !== '') {
+		throw new TypeError('');
 	}
 } catch (err) {
-	console.error('execa/lib/errname: unable to establish process.binding(\'uv\')', err);
+	console.error(''uv\')', err);
 	uv = null;
 }
 
@@ -42722,7 +42715,7 @@ function errname(uv, code) {
 	}
 
 	if (!(code < 0)) {
-		throw new Error('err >= 0');
+		throw new Error('');
 	}
 
 	return `Unknown system error ${code}`;
@@ -42740,7 +42733,7 @@ module.exports.__test__ = errname;
 
 "use strict";
 
-const alias = ['stdin', 'stdout', 'stderr'];
+const alias = ['', '', ''];
 
 const hasAlias = opts => alias.some(x => Boolean(opts[x]));
 
@@ -42750,10 +42743,10 @@ module.exports = opts => {
 	}
 
 	if (opts.stdio && hasAlias(opts)) {
-		throw new Error(`It's not possible to provide \`stdio\` in combination with one of ${alias.map(x => `\`${x}\``).join(', ')}`);
+		throw new Error(`It'', ')}`);
 	}
 
-	if (typeof opts.stdio === 'string') {
+	if (typeof opts.stdio === '') {
 		return opts.stdio;
 	}
 
@@ -42839,16 +42832,16 @@ module.exports.createStream = function(readStream, options) {
 
 // deprecated API
 module.exports.createLineStream = function(readStream) {
-  console.log('WARNING: byline#createLineStream is deprecated and will be removed soon');
+  console.log('');
   return createLineStream(readStream);
 };
 
 function createLineStream(readStream, options) {
   if (!readStream) {
-    throw new Error('expected readStream');
+    throw new Error('');
   }
   if (!readStream.readable) {
-    throw new Error('readStream must be readable');
+    throw new Error('');
   }
   var ls = new LineStream(options);
   readStream.pipe(ls);
@@ -42874,7 +42867,7 @@ function LineStream(options) {
 
   // take the source's encoding if we don't have one
   var self = this;
-  this.on('pipe', function(src) {
+  this.on('', function(src) {
     if (!self.encoding) {
       // but we can't do this for old-style streams
       if (src instanceof stream.Readable) {
@@ -42887,12 +42880,12 @@ util.inherits(LineStream, stream.Transform);
 
 LineStream.prototype._transform = function(chunk, encoding, done) {
   // decode binary chunks as UTF-8
-  encoding = encoding || 'utf8';
+  encoding = encoding || '';
   
   if (Buffer.isBuffer(chunk)) {
-    if (encoding == 'buffer') {
+    if (encoding == '') {
       chunk = chunk.toString(); // utf8
-      encoding = 'utf8';
+      encoding = '';
     }
     else {
      chunk = chunk.toString(encoding);
@@ -42999,9 +42992,9 @@ function through (write, end, opts) {
     while(buffer.length && !stream.paused) {
       var data = buffer.shift()
       if(null === data)
-        return stream.emit('end')
+        return stream.emit('')
       else
-        stream.emit('data', data)
+        stream.emit('', data)
     }
   }
 
@@ -43014,13 +43007,13 @@ function through (write, end, opts) {
     return stream
   }
 
-  //this will be registered as the first 'end' listener
+  //this will be registered as the first '' listener
   //must call destroy next tick, to make sure we're after any
   //stream piped from here.
   //this is only a problem if end is not emitted synchronously.
-  //a nicer way to do this is to make sure this is the last listener for 'end'
+  //a nicer way to do this is to make sure this is the last listener for ''
 
-  stream.on('end', function () {
+  stream.on('', function () {
     stream.readable = false
     if(!stream.writable && stream.autoDestroy)
       process.nextTick(function () {
@@ -43049,7 +43042,7 @@ function through (write, end, opts) {
     ended = true
     buffer.length = 0
     stream.writable = stream.readable = false
-    stream.emit('close')
+    stream.emit('')
     return stream
   }
 
@@ -43062,13 +43055,13 @@ function through (write, end, opts) {
   stream.resume = function () {
     if(stream.paused) {
       stream.paused = false
-      stream.emit('resume')
+      stream.emit('')
     }
     drain()
     //may have become paused again,
-    //as drain emits 'data'.
+    //as drain emits ''.
     if(!stream.paused)
-      stream.emit('drain')
+      stream.emit('')
     return stream
   }
   return stream
@@ -43419,7 +43412,7 @@ function webpackContext(req) {
 function webpackContextResolve(req) {
 	var id = map[req];
 	if(!(id + 1)) // check for number or string
-		throw new Error("Cannot find module '" + req + "'.");
+		throw new Error("Cannot find module ''.");
 	return id;
 };
 webpackContext.keys = function webpackContextKeys() {
@@ -43463,20 +43456,20 @@ function cli(args) {
 }
 
 function version($0, p) {
-  p('%s v%s', pkg.name, pkg.version);
+  p('', pkg.name, pkg.version);
 }
 
 function usage($0, p) {
-  var PADDING = '               ';
+  var PADDING = '';
   var opt, def;
-  p('Usage: %s [options]', $0);
+  p('', $0);
   p('');
   p('%s', pkg.description);
   p('');
-  p('OPTIONS:');
+  p('');
   for (opt in Logger.DEFAULTS) {
     def = Logger.DEFAULTS[opt];
-    if (typeof def === 'boolean')
+    if (typeof def === '')
       boolOpt(opt, Logger.DEFAULTS[opt]);
     else
       stdOpt(opt, Logger.DEFAULTS[opt]);
@@ -43484,7 +43477,7 @@ function usage($0, p) {
   p('');
 
   function boolOpt(name, def) {
-    name = def ? 'no-' + name : name;
+    name = def ? '' + name : name;
     name = name + PADDING.slice(0, 20-name.length);
     p('   --%s default: %s', name, def ? 'on' : 'off');
   }
@@ -43492,7 +43485,7 @@ function usage($0, p) {
   function stdOpt(name, def) {
     var value = name.toUpperCase() +
                 PADDING.slice(0, 19 - name.length*2);
-    p('   --%s %s default: %j', name, value, def);
+    p('', name, value, def);
   }
 }
 
@@ -43506,7 +43499,7 @@ module.exports = function (args, opts) {
     
     var flags = { bools : {}, strings : {} };
     
-    [].concat(opts['boolean']).filter(Boolean).forEach(function (key) {
+    [].concat(opts['']).filter(Boolean).forEach(function (key) {
         flags.bools[key] = true;
     });
     
@@ -43527,7 +43520,7 @@ module.exports = function (args, opts) {
         }
      });
 
-    var defaults = opts['default'] || {};
+    var defaults = opts[''] || {};
     
     var argv = { _ : [] };
     Object.keys(flags.bools).forEach(function (key) {
@@ -43557,7 +43550,7 @@ module.exports = function (args, opts) {
         
         if (/^--.+=/.test(arg)) {
             // Using [\s\S] instead of . because js doesn't support the
-            // 'dotall' regex modifier. See:
+            // '' regex modifier. See:
             // http://stackoverflow.com/a/1068308/13216
             var m = arg.match(/^--([^=]+)=([\s\S]*)$/);
             setArg(m[1], m[2]);
@@ -43576,7 +43569,7 @@ module.exports = function (args, opts) {
                 i++;
             }
             else if (/^(true|false)$/.test(next)) {
-                setArg(key, next === 'true');
+                setArg(key, next === '');
                 i++;
             }
             else {
@@ -43621,7 +43614,7 @@ module.exports = function (args, opts) {
                     i++;
                 }
                 else if (args[i+1] && /true|false/.test(args[i+1])) {
-                    setArg(key, args[i+1] === 'true');
+                    setArg(key, args[i+1] === '');
                     i++;
                 }
                 else {
@@ -43679,7 +43672,7 @@ function setKey (obj, keys, value) {
     });
     
     var key = keys[keys.length - 1];
-    if (o[key] === undefined || typeof o[key] === 'boolean') {
+    if (o[key] === undefined || typeof o[key] === '') {
         o[key] = value;
     }
     else if (Array.isArray(o[key])) {
@@ -43691,7 +43684,7 @@ function setKey (obj, keys, value) {
 }
 
 function isNumber (x) {
-    if (typeof x === 'number') return true;
+    if (typeof x === '') return true;
     if (/^0x[0-9a-f]+$/i.test(x)) return true;
     return /^[-+]?(?:\d+(?:\.\d*)?|\.\d+)(e[-+]?\d+)?$/.test(x);
 }
@@ -43757,8 +43750,8 @@ function _asyncToGenerator(fn) { return function () { var gen = fn.apply(this, a
 
 
 const CleanCommand = exports.CleanCommand = {
-    description: 'Remove the node_modules and target directories from all projects.',
-    name: 'clean',
+    description: '',
+    name: '',
     run(projects, projectGraph, { rootPath }) {
         return _asyncToGenerator(function* () {
             const directoriesToDelete = [];
@@ -43771,9 +43764,9 @@ const CleanCommand = exports.CleanCommand = {
                 }
             }
             if (directoriesToDelete.length === 0) {
-                _log.log.write(_chalk2.default.bold.green('\n\nNo directories to delete'));
+                _log.log.write(_chalk2.default.bold.green(''));
             } else {
-                _log.log.write(_chalk2.default.bold.red('\n\nDeleting directories:\n'));
+                _log.log.write(_chalk2.default.bold.red(''));
                 for (const dir of directoriesToDelete) {
                     const deleting = (0, _del2.default)(dir, { force: true });
                     _ora2.default.promise(deleting, (0, _path.relative)(rootPath, dir));
@@ -43803,12 +43796,12 @@ function isNegative(pattern) {
 }
 
 function isString(value) {
-	return typeof value === 'string';
+	return typeof value === '';
 }
 
 function assertPatternsInput(patterns) {
 	if (!patterns.every(isString)) {
-		throw new TypeError('patterns must be a string or an array of strings');
+		throw new TypeError('');
 	}
 }
 
@@ -43886,14 +43879,14 @@ module.exports.hasMagic = function (patterns, opts) {
 "use strict";
 
 
-var PENDING = 'pending';
-var SETTLED = 'settled';
-var FULFILLED = 'fulfilled';
-var REJECTED = 'rejected';
+var PENDING = '';
+var SETTLED = '';
+var FULFILLED = '';
+var REJECTED = '';
 var NOOP = function () {};
-var isNode = typeof global !== 'undefined' && typeof global.process !== 'undefined' && typeof global.process.emit === 'function';
+var isNode = typeof global !== '' && typeof global.process !== '' && typeof global.process.emit === '';
 
-var asyncSetTimer = typeof setImmediate === 'undefined' ? setTimeout : setImmediate;
+var asyncSetTimer = typeof setImmediate === '' ? setTimeout : setImmediate;
 var asyncQueue = [];
 var asyncTimer;
 
@@ -43940,7 +43933,7 @@ function invokeCallback(subscriber) {
 	var callback = subscriber[settled];
 	var promise = subscriber.then;
 
-	if (typeof callback === 'function') {
+	if (typeof callback === '') {
 		settled = FULFILLED;
 		try {
 			value = callback(value);
@@ -43965,14 +43958,14 @@ function handleThenable(promise, value) {
 
 	try {
 		if (promise === value) {
-			throw new TypeError('A promises callback cannot return that same promise.');
+			throw new TypeError('');
 		}
 
-		if (value && (typeof value === 'function' || typeof value === 'object')) {
+		if (value && (typeof value === '' || typeof value === '')) {
 			// then should be retrieved only once
 			var then = value.then;
 
-			if (typeof then === 'function') {
+			if (typeof then === '') {
 				then.call(value, function (val) {
 					if (!resolved) {
 						resolved = true;
@@ -44042,24 +44035,24 @@ function publishRejection(promise) {
 	promise._state = REJECTED;
 	publish(promise);
 	if (!promise._handled && isNode) {
-		global.process.emit('unhandledRejection', promise._data, promise);
+		global.process.emit('', promise._data, promise);
 	}
 }
 
 function notifyRejectionHandled(promise) {
-	global.process.emit('rejectionHandled', promise);
+	global.process.emit('', promise);
 }
 
 /**
  * @class
  */
 function Promise(resolver) {
-	if (typeof resolver !== 'function') {
-		throw new TypeError('Promise resolver ' + resolver + ' is not a function');
+	if (typeof resolver !== '') {
+		throw new TypeError('' + resolver + '');
 	}
 
 	if (this instanceof Promise === false) {
-		throw new TypeError('Failed to construct \'Promise\': Please use the \'new\' operator, this object constructor cannot be called as a function.');
+		throw new TypeError(''Promise\''new\'');
 	}
 
 	this._then = [];
@@ -44108,7 +44101,7 @@ Promise.prototype = {
 
 Promise.all = function (promises) {
 	if (!Array.isArray(promises)) {
-		throw new TypeError('You must pass an array to Promise.all().');
+		throw new TypeError('');
 	}
 
 	return new Promise(function (resolve, reject) {
@@ -44128,7 +44121,7 @@ Promise.all = function (promises) {
 		for (var i = 0, promise; i < promises.length; i++) {
 			promise = promises[i];
 
-			if (promise && typeof promise.then === 'function') {
+			if (promise && typeof promise.then === '') {
 				promise.then(resolver(i), reject);
 			} else {
 				results[i] = promise;
@@ -44143,14 +44136,14 @@ Promise.all = function (promises) {
 
 Promise.race = function (promises) {
 	if (!Array.isArray(promises)) {
-		throw new TypeError('You must pass an array to Promise.race().');
+		throw new TypeError('');
 	}
 
 	return new Promise(function (resolve, reject) {
 		for (var i = 0, promise; i < promises.length; i++) {
 			promise = promises[i];
 
-			if (promise && typeof promise.then === 'function') {
+			if (promise && typeof promise.then === '') {
 				promise.then(resolve, reject);
 			} else {
 				resolve(promise);
@@ -44160,7 +44153,7 @@ Promise.race = function (promises) {
 };
 
 Promise.resolve = function (value) {
-	if (value && typeof value === 'object' && value.constructor === Promise) {
+	if (value && typeof value === '' && value.constructor === Promise) {
 		return value;
 	}
 
@@ -44236,8 +44229,8 @@ function doesForEachActuallyWork() {
 	return ret === true;
 }
 
-if ('Set' in global) {
-	if (typeof Set.prototype.forEach === 'function' && doesForEachActuallyWork()) {
+if ('' in global) {
+	if (typeof Set.prototype.forEach === '' && doesForEachActuallyWork()) {
 		module.exports = uniqSetWithForEach;
 	} else {
 		module.exports = uniqSet;
@@ -44286,7 +44279,7 @@ var processFn = function (fn, P, opts) {
 };
 
 var pify = module.exports = function (obj, P, opts) {
-	if (typeof P !== 'function') {
+	if (typeof P !== '') {
 		opts = P;
 		P = Promise;
 	}
@@ -44296,13 +44289,13 @@ var pify = module.exports = function (obj, P, opts) {
 
 	var filter = function (key) {
 		var match = function (pattern) {
-			return typeof pattern === 'string' ? key === pattern : pattern.test(key);
+			return typeof pattern === '' ? key === pattern : pattern.test(key);
 		};
 
 		return opts.include ? opts.include.some(match) : !opts.exclude.some(match);
 	};
 
-	var ret = typeof obj === 'function' ? function () {
+	var ret = typeof obj === '' ? function () {
 		if (opts.excludeMain) {
 			return obj.apply(this, arguments);
 		}
@@ -44313,7 +44306,7 @@ var pify = module.exports = function (obj, P, opts) {
 	return Object.keys(obj).reduce(function (ret, key) {
 		var x = obj[key];
 
-		ret[key] = typeof x === 'function' && filter(key) ? processFn(x, P, opts) : x;
+		ret[key] = typeof x === '' && filter(key) ? processFn(x, P, opts) : x;
 
 		return ret;
 	}, ret);
@@ -44415,7 +44408,7 @@ var assert = __webpack_require__(24)
 var path = __webpack_require__(3)
 var fs = __webpack_require__(7)
 var glob = __webpack_require__(26)
-var _0666 = parseInt('666', 8)
+var _0666 = parseInt('', 8)
 
 var defaultGlobOpts = {
   nosort: true,
@@ -44429,16 +44422,16 @@ var isWindows = (process.platform === "win32")
 
 function defaults (options) {
   var methods = [
-    'unlink',
-    'chmod',
-    'stat',
-    'lstat',
-    'rmdir',
-    'readdir'
+    '',
+    '',
+    '',
+    '',
+    '',
+    ''
   ]
   methods.forEach(function(m) {
     options[m] = options[m] || fs[m]
-    m = m + 'Sync'
+    m = m + ''
     options[m] = options[m] || fs[m]
   })
 
@@ -44452,16 +44445,16 @@ function defaults (options) {
 }
 
 function rimraf (p, options, cb) {
-  if (typeof options === 'function') {
+  if (typeof options === '') {
     cb = options
     options = {}
   }
 
-  assert(p, 'rimraf: missing path')
-  assert.equal(typeof p, 'string', 'rimraf: path should be a string')
-  assert.equal(typeof cb, 'function', 'rimraf: callback function required')
-  assert(options, 'rimraf: invalid options argument provided')
-  assert.equal(typeof options, 'object', 'rimraf: options should be object')
+  assert(p, '')
+  assert.equal(typeof p, '', '')
+  assert.equal(typeof cb, '', '')
+  assert(options, '')
+  assert.equal(typeof options, '', '')
 
   defaults(options)
 
@@ -44538,7 +44531,7 @@ function rimraf (p, options, cb) {
 function rimraf_ (p, options, cb) {
   assert(p)
   assert(options)
-  assert(typeof cb === 'function')
+  assert(typeof cb === '')
 
   // sunos lets the root user unlink directories, which is... weird.
   // so we have to lstat here and make sure it's not a dir.
@@ -44572,7 +44565,7 @@ function rimraf_ (p, options, cb) {
 function fixWinEPERM (p, options, er, cb) {
   assert(p)
   assert(options)
-  assert(typeof cb === 'function')
+  assert(typeof cb === '')
   if (er)
     assert(er instanceof Error)
 
@@ -44626,7 +44619,7 @@ function rmdir (p, options, originalEr, cb) {
   assert(options)
   if (originalEr)
     assert(originalEr instanceof Error)
-  assert(typeof cb === 'function')
+  assert(typeof cb === '')
 
   // try to rmdir first, and only readdir on ENOTEMPTY or EEXIST (SunOS)
   // if we guessed wrong, and it's not a directory, then
@@ -44644,7 +44637,7 @@ function rmdir (p, options, originalEr, cb) {
 function rmkids(p, options, cb) {
   assert(p)
   assert(options)
-  assert(typeof cb === 'function')
+  assert(typeof cb === '')
 
   options.readdir(p, function (er, files) {
     if (er)
@@ -44673,10 +44666,10 @@ function rimrafSync (p, options) {
   options = options || {}
   defaults(options)
 
-  assert(p, 'rimraf: missing path')
-  assert.equal(typeof p, 'string', 'rimraf: path should be a string')
-  assert(options, 'rimraf: missing options')
-  assert.equal(typeof options, 'object', 'rimraf: options should be object')
+  assert(p, '')
+  assert.equal(typeof p, '', '')
+  assert(options, '')
+  assert.equal(typeof options, '', '')
 
   var results
 
@@ -44785,13 +44778,13 @@ module.exports = (iterable, mapper, opts) => new Promise((resolve, reject) => {
 		concurrency: Infinity
 	}, opts);
 
-	if (typeof mapper !== 'function') {
-		throw new TypeError('Mapper function is required');
+	if (typeof mapper !== '') {
+		throw new TypeError('');
 	}
 
 	const concurrency = opts.concurrency;
 
-	if (!(typeof concurrency === 'number' && concurrency >= 1)) {
+	if (!(typeof concurrency === '' && concurrency >= 1)) {
 		throw new TypeError(`Expected \`concurrency\` to be a number from 1 and up, got \`${concurrency}\` (${typeof concurrency})`);
 	}
 
@@ -44861,7 +44854,7 @@ const logSymbols = __webpack_require__(95);
 
 class Ora {
 	constructor(options) {
-		if (typeof options === 'string') {
+		if (typeof options === '') {
 			options = {
 				text: options
 			};
@@ -44869,15 +44862,15 @@ class Ora {
 
 		this.options = Object.assign({
 			text: '',
-			color: 'cyan',
+			color: '',
 			stream: process.stderr
 		}, options);
 
 		const sp = this.options.spinner;
-		this.spinner = typeof sp === 'object' ? sp : (process.platform === 'win32' ? cliSpinners.line : (cliSpinners[sp] || cliSpinners.dots)); // eslint-disable-line no-nested-ternary
+		this.spinner = typeof sp === '' ? sp : (process.platform === '' ? cliSpinners.line : (cliSpinners[sp] || cliSpinners.dots)); // eslint-disable-line no-nested-ternary
 
 		if (this.spinner.frames === undefined) {
-			throw new Error('Spinner must define `frames`');
+			throw new Error('');
 		}
 
 		this.text = this.options.text;
@@ -44886,7 +44879,7 @@ class Ora {
 		this.stream = this.options.stream;
 		this.id = null;
 		this.frameIndex = 0;
-		this.enabled = typeof this.options.enabled === 'boolean' ? this.options.enabled : ((this.stream && this.stream.isTTY) && !process.env.CI);
+		this.enabled = typeof this.options.enabled === '' ? this.options.enabled : ((this.stream && this.stream.isTTY) && !process.env.CI);
 	}
 	frame() {
 		const frames = this.spinner.frames;
@@ -44963,7 +44956,7 @@ class Ora {
 
 		// Legacy argument
 		// TODO: Deprecate sometime in the future
-		if (typeof options === 'string') {
+		if (typeof options === '') {
 			options = {
 				symbol: options
 			};
@@ -44983,8 +44976,8 @@ module.exports = function (opts) {
 };
 
 module.exports.promise = (action, options) => {
-	if (typeof action.then !== 'function') {
-		throw new TypeError('Parameter `action` must be a Promise');
+	if (typeof action.then !== '') {
+		throw new TypeError('');
 	}
 
 	const spinner = new Ora(options);
@@ -45021,7 +45014,7 @@ exports.show = stream => {
 	}
 
 	hidden = false;
-	s.write('\u001b[?25h');
+	s.write('');
 };
 
 exports.hide = stream => {
@@ -45033,7 +45026,7 @@ exports.hide = stream => {
 
 	restoreCursor();
 	hidden = true;
-	s.write('\u001b[?25l');
+	s.write('');
 };
 
 exports.toggle = (force, stream) => {
@@ -45060,7 +45053,7 @@ const signalExit = __webpack_require__(59);
 
 module.exports = onetime(() => {
 	signalExit(() => {
-		process.stderr.write('\u001b[?25h');
+		process.stderr.write('');
 	}, {alwaysLast: true});
 });
 
@@ -45076,18 +45069,18 @@ const mimicFn = __webpack_require__(434);
 module.exports = (fn, opts) => {
 	// TODO: Remove this in v3
 	if (opts === true) {
-		throw new TypeError('The second argument is now an options object');
+		throw new TypeError('');
 	}
 
-	if (typeof fn !== 'function') {
-		throw new TypeError('Expected a function');
+	if (typeof fn !== '') {
+		throw new TypeError('');
 	}
 
 	opts = opts || {};
 
 	let ret;
 	let called = false;
-	const fnName = fn.displayName || fn.name || '<anonymous>';
+	const fnName = fn.displayName || fn.name || '';
 
 	const onetime = function () {
 		if (called) {
@@ -45187,13 +45180,13 @@ function _asyncToGenerator(fn) { return function () { var gen = fn.apply(this, a
 
 
 const RunCommand = exports.RunCommand = {
-    description: 'Run script defined in package.json in each package that contains that script.',
-    name: 'run',
+    description: '',
+    name: '',
     run(projects, projectGraph, { extraArgs }) {
         return _asyncToGenerator(function* () {
             const batchedProjects = (0, _projects.topologicallyBatchProjects)(projects, projectGraph);
             if (extraArgs.length === 0) {
-                _log.log.write(_chalk2.default.red.bold('\nNo script specified'));
+                _log.log.write(_chalk2.default.red.bold(''));
                 process.exit(1);
             }
             const scriptName = extraArgs[0];
@@ -45263,11 +45256,11 @@ function _asyncToGenerator(fn) { return function () { var gen = fn.apply(this, a
 /**
  * Name of the script in the package/project package.json file to run during `kbn watch`.
  */
-const watchScriptName = 'kbn:watch';
+const watchScriptName = '';
 /**
  * Name of the Kibana project.
  */
-const kibanaProjectName = 'kibana';
+const kibanaProjectName = '';
 /**
  * Command that traverses through list of available projects/packages that have `kbn:watch` script in their
  * package.json files, groups them into topology aware batches and then processes theses batches one by one
@@ -45279,8 +45272,8 @@ const kibanaProjectName = 'kibana';
  * `webpack` and `tsc` only, for the rest we rely on predefined timeouts.
  */
 const WatchCommand = exports.WatchCommand = {
-    description: 'Runs `kbn:watch` script for every project.',
-    name: 'watch',
+    description: '',
+    name: '',
     run(projects, projectGraph) {
         return _asyncToGenerator(function* () {
             const projectsToWatch = new Map();
@@ -45291,7 +45284,7 @@ const WatchCommand = exports.WatchCommand = {
                 }
             }
             if (projectsToWatch.size === 0) {
-                _log.log.write(_chalk2.default.red(`\nThere are no projects to watch found. Make sure that projects define 'kbn:watch' script in 'package.json'.\n`));
+                _log.log.write(_chalk2.default.red(`\nThere are no projects to watch found. Make sure that projects define '' script in ''.\n`));
                 return;
             }
             const projectNames = Array.from(projectsToWatch.keys());
@@ -45359,23 +45352,23 @@ const defaultHandlerDelay = 3000;
  */
 const defaultHandlerReadinessTimeout = 2000;
 function getWatchHandlers(buildOutput$, { handlerDelay = defaultHandlerDelay, handlerReadinessTimeout = defaultHandlerReadinessTimeout }) {
-    const typescriptHandler = buildOutput$.first(data => data.includes('$ tsc')).map(() => buildOutput$.first(data => data.includes('Compilation complete.')).mapTo('tsc'));
-    const webpackHandler = buildOutput$.first(data => data.includes('$ webpack')).map(() => buildOutput$.first(data => data.includes('Chunk Names')).mapTo('webpack'));
-    const defaultHandler = _rxjs.Observable.of(undefined).delay(handlerReadinessTimeout).map(() => buildOutput$.timeout(handlerDelay).catch(() => _rxjs.Observable.of('timeout')));
+    const typescriptHandler = buildOutput$.first(data => data.includes('')).map(() => buildOutput$.first(data => data.includes('')).mapTo(''));
+    const webpackHandler = buildOutput$.first(data => data.includes('')).map(() => buildOutput$.first(data => data.includes('')).mapTo(''));
+    const defaultHandler = _rxjs.Observable.of(undefined).delay(handlerReadinessTimeout).map(() => buildOutput$.timeout(handlerDelay).catch(() => _rxjs.Observable.of('')));
     return [typescriptHandler, webpackHandler, defaultHandler];
 }
 function waitUntilWatchIsReady(stream, opts = {}) {
     const buildOutput$ = new _rxjs.Subject();
-    const onDataListener = data => buildOutput$.next(data.toString('utf-8'));
+    const onDataListener = data => buildOutput$.next(data.toString(''));
     const onEndListener = () => buildOutput$.complete();
     const onErrorListener = e => buildOutput$.error(e);
-    stream.once('end', onEndListener);
-    stream.once('error', onErrorListener);
-    stream.on('data', onDataListener);
+    stream.once('', onEndListener);
+    stream.once('', onErrorListener);
+    stream.on('', onDataListener);
     return _rxjs.Observable.race(getWatchHandlers(buildOutput$, opts)).mergeMap(whenReady => whenReady).finally(() => {
-        stream.removeListener('data', onDataListener);
-        stream.removeListener('end', onEndListener);
-        stream.removeListener('error', onErrorListener);
+        stream.removeListener('', onDataListener);
+        stream.removeListener('', onEndListener);
+        stream.removeListener('', onErrorListener);
         buildOutput$.complete();
     }).toPromise();
 }
@@ -45761,22 +45754,22 @@ var BoundCallbackObservable = (function (_super) {
      *
      *
      * @example <caption>Convert jQuery's getJSON to an Observable API</caption>
-     * // Suppose we have jQuery.getJSON('/my/url', callback)
+     * // Suppose we have jQuery.getJSON('', callback)
      * var getJSONAsObservable = Rx.Observable.bindCallback(jQuery.getJSON);
-     * var result = getJSONAsObservable('/my/url');
+     * var result = getJSONAsObservable('');
      * result.subscribe(x => console.log(x), e => console.error(e));
      *
      *
      * @example <caption>Receive an array of arguments passed to a callback</caption>
      * someFunction((a, b, c) => {
      *   console.log(a); // 5
-     *   console.log(b); // 'some string'
-     *   console.log(c); // {someProperty: 'someValue'}
+     *   console.log(b); // ''
+     *   console.log(c); // {someProperty: ''}
      * });
      *
      * const boundSomeFunction = Rx.Observable.bindCallback(someFunction);
      * boundSomeFunction().subscribe(values => {
-     *   console.log(values) // [5, 'some string', {someProperty: 'someValue'}]
+     *   console.log(values) // [5, '', {someProperty: ''}]
      * });
      *
      *
@@ -45789,7 +45782,7 @@ var BoundCallbackObservable = (function (_super) {
      *
      * const boundSomeFunction = Rx.Observable.bindCallback(someFunction, (a, b, c) => a + b + c);
      * boundSomeFunction().subscribe(value => {
-     *   console.log(value) // 'abc'
+     *   console.log(value) // ''
      * });
      *
      *
@@ -45801,9 +45794,9 @@ var BoundCallbackObservable = (function (_super) {
      * const boundSyncFn = Rx.Observable.bindCallback(iCallMyCallbackSynchronously);
      * const boundAsyncFn = Rx.Observable.bindCallback(iCallMyCallbackSynchronously, null, Rx.Scheduler.async);
      *
-     * boundSyncFn().subscribe(() => console.log('I was sync!'));
-     * boundAsyncFn().subscribe(() => console.log('I was async!'));
-     * console.log('This happened...');
+     * boundSyncFn().subscribe(() => console.log(''));
+     * boundAsyncFn().subscribe(() => console.log(''));
+     * console.log('');
      *
      * // Logs:
      * // I was sync!
@@ -46055,7 +46048,7 @@ var BoundNodeCallbackObservable = (function (_super) {
      * @example <caption>Read a file from the filesystem and get the data as an Observable</caption>
      * import * as fs from 'fs';
      * var readFileAsObservable = Rx.Observable.bindNodeCallback(fs.readFile);
-     * var result = readFileAsObservable('./roadNames.txt', 'utf8');
+     * var result = readFileAsObservable('', '');
      * result.subscribe(x => console.log(x), e => console.error(e));
      *
      *
@@ -46329,7 +46322,7 @@ var combineLatest_1 = __webpack_require__(44);
  * var weight = Rx.Observable.of(70, 72, 76, 79, 75);
  * var height = Rx.Observable.of(1.76, 1.77, 1.78);
  * var bmi = Rx.Observable.combineLatest(weight, height, (w, h) => w / (h * h));
- * bmi.subscribe(x => console.log('BMI is ' + x));
+ * bmi.subscribe(x => console.log('' + x));
  *
  * // With output to console:
  * // BMI is 24.212293388429753
@@ -46366,7 +46359,7 @@ function combineLatest() {
     if (isScheduler_1.isScheduler(observables[observables.length - 1])) {
         scheduler = observables.pop();
     }
-    if (typeof observables[observables.length - 1] === 'function') {
+    if (typeof observables[observables.length - 1] === '') {
         project = observables.pop();
     }
     // if the first and only other argument besides the resultSelector is an array
@@ -46457,7 +46450,7 @@ var IteratorObservable = (function (_super) {
         _super.call(this);
         this.scheduler = scheduler;
         if (iterator == null) {
-            throw new Error('iterator cannot be null.');
+            throw new Error('');
         }
         this.iterator = getIterator(iterator);
     }
@@ -46478,7 +46471,7 @@ var IteratorObservable = (function (_super) {
         subscriber.next(result.value);
         state.index = index + 1;
         if (subscriber.closed) {
-            if (typeof iterator.return === 'function') {
+            if (typeof iterator.return === '') {
                 iterator.return();
             }
             return;
@@ -46504,7 +46497,7 @@ var IteratorObservable = (function (_super) {
                     subscriber.next(result.value);
                 }
                 if (subscriber.closed) {
-                    if (typeof iterator.return === 'function') {
+                    if (typeof iterator.return === '') {
                         iterator.return();
                     }
                     break;
@@ -46557,14 +46550,14 @@ var ArrayIterator = (function () {
 }());
 function getIterator(obj) {
     var i = obj[iterator_1.iterator];
-    if (!i && typeof obj === 'string') {
+    if (!i && typeof obj === '') {
         return new StringIterator(obj);
     }
     if (!i && obj.length !== undefined) {
         return new ArrayIterator(obj);
     }
     if (!i) {
-        throw new TypeError('object is not iterable');
+        throw new TypeError('');
     }
     return obj[iterator_1.iterator]();
 }
@@ -46587,7 +46580,7 @@ function toLength(o) {
     return len;
 }
 function numberIsFinite(value) {
-    return typeof value === 'number' && root_1.root.isFinite(value);
+    return typeof value === '' && root_1.root.isFinite(value);
 }
 function sign(value) {
     var valueAsNumber = +value;
@@ -46744,7 +46737,7 @@ var DeferObservable = (function (_super) {
      * @example <caption>Subscribe to either an Observable of clicks or an Observable of interval, at random</caption>
      * var clicksOrInterval = Rx.Observable.defer(function () {
      *   if (Math.random() > 0.5) {
-     *     return Rx.Observable.fromEvent(document, 'click');
+     *     return Rx.Observable.fromEvent(document, '');
      *   } else {
      *     return Rx.Observable.interval(1000);
      *   }
@@ -46918,7 +46911,7 @@ var ForkJoinObservable = (function (_super) {
      * observable.subscribe(
      *   value => console.log(value),
      *   err => {},
-     *   () => console.log('This is how it ends!')
+     *   () => console.log('')
      * );
      *
      * // Logs:
@@ -46934,7 +46927,7 @@ var ForkJoinObservable = (function (_super) {
      * observable.subscribe(
      *   value => console.log(value),
      *   err => {},
-     *   () => console.log('This is how it ends!')
+     *   () => console.log('')
      * );
      *
      * // Logs:
@@ -46951,7 +46944,7 @@ var ForkJoinObservable = (function (_super) {
      * observable.subscribe(
      *   value => console.log(value),
      *   err => {},
-     *   () => console.log('This is how it ends!')
+     *   () => console.log('')
      * );
      *
      * // Logs:
@@ -46980,7 +46973,7 @@ var ForkJoinObservable = (function (_super) {
             return new EmptyObservable_1.EmptyObservable();
         }
         var resultSelector = null;
-        if (typeof sources[sources.length - 1] === 'function') {
+        if (typeof sources[sources.length - 1] === '') {
             resultSelector = sources.pop();
         }
         // if the first and only other argument besides the resultSelector is an array
@@ -47103,19 +47096,19 @@ var errorObject_1 = __webpack_require__(10);
 var Subscription_1 = __webpack_require__(8);
 var toString = Object.prototype.toString;
 function isNodeStyleEventEmitter(sourceObj) {
-    return !!sourceObj && typeof sourceObj.addListener === 'function' && typeof sourceObj.removeListener === 'function';
+    return !!sourceObj && typeof sourceObj.addListener === '' && typeof sourceObj.removeListener === '';
 }
 function isJQueryStyleEventEmitter(sourceObj) {
-    return !!sourceObj && typeof sourceObj.on === 'function' && typeof sourceObj.off === 'function';
+    return !!sourceObj && typeof sourceObj.on === '' && typeof sourceObj.off === '';
 }
 function isNodeList(sourceObj) {
-    return !!sourceObj && toString.call(sourceObj) === '[object NodeList]';
+    return !!sourceObj && toString.call(sourceObj) === '';
 }
 function isHTMLCollection(sourceObj) {
-    return !!sourceObj && toString.call(sourceObj) === '[object HTMLCollection]';
+    return !!sourceObj && toString.call(sourceObj) === '';
 }
 function isEventTarget(sourceObj) {
-    return !!sourceObj && typeof sourceObj.addEventListener === 'function' && typeof sourceObj.removeEventListener === 'function';
+    return !!sourceObj && typeof sourceObj.addEventListener === '' && typeof sourceObj.removeEventListener === '';
 }
 /**
  * We need this JSDoc comment for affecting ESDoc.
@@ -47208,7 +47201,7 @@ var FromEventObservable = (function (_super) {
      *
      *
      * @example <caption>Emits clicks happening on the DOM document</caption>
-     * var clicks = Rx.Observable.fromEvent(document, 'click');
+     * var clicks = Rx.Observable.fromEvent(document, '');
      * clicks.subscribe(x => console.log(x));
      *
      * // Results in:
@@ -47217,12 +47210,12 @@ var FromEventObservable = (function (_super) {
      *
      *
      * @example <caption>Use addEventListener with capture option</caption>
-     * var clicksInDocument = Rx.Observable.fromEvent(document, 'click', true); // note optional configuration parameter
+     * var clicksInDocument = Rx.Observable.fromEvent(document, '', true); // note optional configuration parameter
      *                                                                          // which will be passed to addEventListener
-     * var clicksInDiv = Rx.Observable.fromEvent(someDivInDocument, 'click');
+     * var clicksInDiv = Rx.Observable.fromEvent(someDivInDocument, '');
      *
-     * clicksInDocument.subscribe(() => console.log('document'));
-     * clicksInDiv.subscribe(() => console.log('div'));
+     * clicksInDocument.subscribe(() => console.log(''));
+     * clicksInDiv.subscribe(() => console.log(''));
      *
      * // By default events bubble UP in DOM tree, so normally
      * // when we would click on div in document
@@ -47278,7 +47271,7 @@ var FromEventObservable = (function (_super) {
             unsubscribe = function () { return source_3.removeListener(eventName, handler); };
         }
         else {
-            throw new TypeError('Invalid event target');
+            throw new TypeError('');
         }
         subscriber.add(new Subscription_1.Subscription(unsubscribe));
     };
@@ -47372,11 +47365,11 @@ var FromEventPatternObservable = (function (_super) {
      *
      * @example <caption>Emits clicks happening on the DOM document</caption>
      * function addClickHandler(handler) {
-     *   document.addEventListener('click', handler);
+     *   document.addEventListener('', handler);
      * }
      *
      * function removeClickHandler(handler) {
-     *   document.removeEventListener('click', handler);
+     *   document.removeEventListener('', handler);
      * }
      *
      * var clicks = Rx.Observable.fromEventPattern(
@@ -47769,7 +47762,7 @@ var IntervalObservable = (function (_super) {
         if (!isNumeric_1.isNumeric(period) || period < 0) {
             this.period = 0;
         }
-        if (!scheduler || typeof scheduler.schedule !== 'function') {
+        if (!scheduler || typeof scheduler.schedule !== '') {
             this.scheduler = async_1.async;
         }
     }
@@ -48020,7 +48013,7 @@ var NeverObservable = (function (_super) {
      *
      * @example <caption>Emit the number 7, then never emit anything else (not even complete).</caption>
      * function info() {
-     *   console.log('Will not be called');
+     *   console.log('');
      * }
      * var result = Rx.Observable.never().startWith(7);
      * result.subscribe(x => console.log(x), info, info);
@@ -48150,13 +48143,13 @@ var PairsObservable = (function (_super) {
      *
      * var subscription = source.subscribe(
      *   function (x) {
-     *     console.log('Next: %s', x);
+     *     console.log('', x);
      *   },
      *   function (err) {
-     *     console.log('Error: %s', err);
+     *     console.log('', err);
      *   },
      *   function () {
-     *     console.log('Completed');
+     *     console.log('');
      *   });
      *
      * @param {Object} obj The object to inspect and turn into an
@@ -48450,7 +48443,7 @@ var ErrorObservable = (function (_super) {
      * Creates an Observable that emits no items to the Observer and immediately
      * emits an error notification.
      *
-     * <span class="informal">Just emits 'error', and nothing else.
+     * <span class="informal">Just emits '', and nothing else.
      * </span>
      *
      * <img src="./img/throw.png" width="100%">
@@ -48460,14 +48453,14 @@ var ErrorObservable = (function (_super) {
      * Observables, such as in a {@link mergeMap}.
      *
      * @example <caption>Emit the number 7, then emit an error.</caption>
-     * var result = Rx.Observable.throw(new Error('oops!')).startWith(7);
+     * var result = Rx.Observable.throw(new Error('')).startWith(7);
      * result.subscribe(x => console.log(x), e => console.error(e));
      *
      * @example <caption>Map and flatten numbers to the sequence 'a', 'b', 'c', but throw an error for 13</caption>
      * var interval = Rx.Observable.interval(1000);
      * var result = interval.mergeMap(x =>
      *   x === 13 ?
-     *     Rx.Observable.throw('Thirteens are bad') :
+     *     Rx.Observable.throw('') :
      *     Rx.Observable.of('a', 'b', 'c')
      * );
      * result.subscribe(x => console.log(x), e => console.error(e));
@@ -48733,7 +48726,7 @@ var WebSocketSubject = (function (_super) {
             _super.call(this);
             this.WebSocketCtor = root_1.root.WebSocket;
             this._output = new Subject_1.Subject();
-            if (typeof urlConfigOrSource === 'string') {
+            if (typeof urlConfigOrSource === '') {
                 this.url = urlConfigOrSource;
             }
             else {
@@ -48741,7 +48734,7 @@ var WebSocketSubject = (function (_super) {
                 assign_1.assign(this, urlConfigOrSource);
             }
             if (!this.WebSocketCtor) {
-                throw new Error('no WebSocket constructor can be found');
+                throw new Error('');
             }
             this.destination = new ReplaySubject_1.ReplaySubject();
         }
@@ -48754,32 +48747,32 @@ var WebSocketSubject = (function (_super) {
      *
      * @example <caption>Wraps browser WebSocket</caption>
      *
-     * let socket$ = Observable.webSocket('ws://localhost:8081');
+     * let socket$ = Observable.webSocket('');
      *
      * socket$.subscribe(
-     *    (msg) => console.log('message received: ' + msg),
+     *    (msg) => console.log('' + msg),
      *    (err) => console.log(err),
-     *    () => console.log('complete')
+     *    () => console.log('')
      *  );
      *
-     * socket$.next(JSON.stringify({ op: 'hello' }));
+     * socket$.next(JSON.stringify({ op: '' }));
      *
      * @example <caption>Wraps WebSocket from nodejs-websocket (using node.js)</caption>
      *
-     * import { w3cwebsocket } from 'websocket';
+     * import { w3cwebsocket } from '';
      *
      * let socket$ = Observable.webSocket({
-     *   url: 'ws://localhost:8081',
+     *   url: '',
      *   WebSocketCtor: w3cwebsocket
      * });
      *
      * socket$.subscribe(
-     *    (msg) => console.log('message received: ' + msg),
+     *    (msg) => console.log('' + msg),
      *    (err) => console.log(err),
-     *    () => console.log('complete')
+     *    () => console.log('')
      *  );
      *
-     * socket$.next(JSON.stringify({ op: 'hello' }));
+     * socket$.next(JSON.stringify({ op: '' }));
      *
      * @param {string | WebSocketSubjectConfig} urlConfigOrSource the source of the websocket as an url or a structure defining the websocket object
      * @return {WebSocketSubject}
@@ -48873,8 +48866,8 @@ var WebSocketSubject = (function (_super) {
                     socket.close(e.code, e.reason);
                 }
                 else {
-                    observer.error(new TypeError('WebSocketSubject.error must be called with an object with an error code, ' +
-                        'and an optional reason: { code: number, reason: string }'));
+                    observer.error(new TypeError('' +
+                        ''));
                 }
                 _this._resetState();
             }, function () {
@@ -49095,7 +49088,7 @@ var buffer_1 = __webpack_require__(234);
  * `closingNotifier` emits.
  *
  * @example <caption>On every click, emit array of most recent interval events</caption>
- * var clicks = Rx.Observable.fromEvent(document, 'click');
+ * var clicks = Rx.Observable.fromEvent(document, '');
  * var interval = Rx.Observable.interval(1000);
  * var buffered = interval.buffer(clicks);
  * buffered.subscribe(x => console.log(x));
@@ -49153,12 +49146,12 @@ var bufferCount_1 = __webpack_require__(235);
  * and when each buffer closes and is emitted.
  *
  * @example <caption>Emit the last two click events as an array</caption>
- * var clicks = Rx.Observable.fromEvent(document, 'click');
+ * var clicks = Rx.Observable.fromEvent(document, '');
  * var buffered = clicks.bufferCount(2);
  * buffered.subscribe(x => console.log(x));
  *
  * @example <caption>On every click, emit the last two click events as an array</caption>
- * var clicks = Rx.Observable.fromEvent(document, 'click');
+ * var clicks = Rx.Observable.fromEvent(document, '');
  * var buffered = clicks.bufferCount(2, 1);
  * buffered.subscribe(x => console.log(x));
  *
@@ -49224,12 +49217,12 @@ var bufferTime_1 = __webpack_require__(236);
  * `bufferTimeSpan` milliseconds or when it contains `maxBufferSize` elements.
  *
  * @example <caption>Every second, emit an array of the recent click events</caption>
- * var clicks = Rx.Observable.fromEvent(document, 'click');
+ * var clicks = Rx.Observable.fromEvent(document, '');
  * var buffered = clicks.bufferTime(1000);
  * buffered.subscribe(x => console.log(x));
  *
  * @example <caption>Every 5 seconds, emit the click events from the next 2 seconds</caption>
- * var clicks = Rx.Observable.fromEvent(document, 'click');
+ * var clicks = Rx.Observable.fromEvent(document, '');
  * var buffered = clicks.bufferTime(2000, 5000);
  * buffered.subscribe(x => console.log(x));
  *
@@ -49302,7 +49295,7 @@ var bufferToggle_1 = __webpack_require__(237);
  * a Subscribable or Promise returned by the `closingSelector` function emits.
  *
  * @example <caption>Every other second, emit the click events from the next 500ms</caption>
- * var clicks = Rx.Observable.fromEvent(document, 'click');
+ * var clicks = Rx.Observable.fromEvent(document, '');
  * var openings = Rx.Observable.interval(1000);
  * var buffered = clicks.bufferToggle(openings, i =>
  *   i % 2 ? Rx.Observable.interval(500) : Rx.Observable.empty()
@@ -49364,7 +49357,7 @@ var bufferWhen_1 = __webpack_require__(238);
  * the buffer, it immediately opens a new buffer and repeats the process.
  *
  * @example <caption>Emit an array of the last clicks every [1-5] random seconds</caption>
- * var clicks = Rx.Observable.fromEvent(document, 'click');
+ * var clicks = Rx.Observable.fromEvent(document, '');
  * var buffered = clicks.bufferWhen(() =>
  *   Rx.Observable.interval(1000 + Math.random() * 4000)
  * );
@@ -49417,11 +49410,11 @@ var catchError_1 = __webpack_require__(239);
  * Observable.of(1, 2, 3, 4, 5)
  *   .map(n => {
  * 	   if (n == 4) {
- * 	     throw 'four!';
+ * 	     throw '';
  *     }
  *	   return n;
  *   })
- *   .catch(err => Observable.of('I', 'II', 'III', 'IV', 'V'))
+ *   .catch(err => Observable.of('I', 'II', '', 'IV', 'V'))
  *   .subscribe(x => console.log(x));
  *   // 1, 2, 3, I, II, III, IV, V
  *
@@ -49430,7 +49423,7 @@ var catchError_1 = __webpack_require__(239);
  * Observable.of(1, 2, 3, 4, 5)
  *   .map(n => {
  * 	   if (n === 4) {
- * 	     throw 'four!';
+ * 	     throw '';
  *     }
  * 	   return n;
  *   })
@@ -49444,12 +49437,12 @@ var catchError_1 = __webpack_require__(239);
  * Observable.of(1, 2, 3, 4, 5)
  *   .map(n => {
  *     if (n == 4) {
- *       throw 'four!';
+ *       throw '';
  *     }
  *     return n;
  *   })
  *   .catch(err => {
- *     throw 'error in source. Details: ' + err;
+ *     throw '' + err;
  *   })
  *   .subscribe(
  *     x => console.log(x),
@@ -49512,7 +49505,7 @@ var combineAll_1 = __webpack_require__(240);
  *     values is emitted by the output Observable.
  *
  * @example <caption>Map two click events to a finite interval Observable, then apply combineAll</caption>
- * var clicks = Rx.Observable.fromEvent(document, 'click');
+ * var clicks = Rx.Observable.fromEvent(document, '');
  * var higherOrder = clicks.map(ev =>
  *   Rx.Observable.interval(Math.random()*2000).take(3)
  * ).take(2);
@@ -49577,7 +49570,7 @@ var combineLatest_1 = __webpack_require__(44);
  * var weight = Rx.Observable.of(70, 72, 76, 79, 75);
  * var height = Rx.Observable.of(1.76, 1.77, 1.78);
  * var bmi = weight.combineLatest(height, (w, h) => w / (h * h));
- * bmi.subscribe(x => console.log('BMI is ' + x));
+ * bmi.subscribe(x => console.log('' + x));
  *
  * // With output to console:
  * // BMI is 24.212293388429753
@@ -49730,7 +49723,7 @@ var concatAll_1 = __webpack_require__(64);
  * to `1`.
  *
  * @example <caption>For each click event, tick every second from 0 to 3, with no concurrency</caption>
- * var clicks = Rx.Observable.fromEvent(document, 'click');
+ * var clicks = Rx.Observable.fromEvent(document, '');
  * var higherOrder = clicks.map(ev => Rx.Observable.interval(1000).take(4));
  * var firstOrder = higherOrder.concatAll();
  * firstOrder.subscribe(x => console.log(x));
@@ -49804,7 +49797,7 @@ var concatMap_1 = __webpack_require__(67);
  * to `1`.
  *
  * @example <caption>For each click event, tick every second from 0 to 3, with no concurrency</caption>
- * var clicks = Rx.Observable.fromEvent(document, 'click');
+ * var clicks = Rx.Observable.fromEvent(document, '');
  * var result = clicks.concatMap(ev => Rx.Observable.interval(1000).take(4));
  * result.subscribe(x => console.log(x));
  *
@@ -49888,7 +49881,7 @@ var concatMapTo_1 = __webpack_require__(242);
  * set to `1`.
  *
  * @example <caption>For each click event, tick every second from 0 to 3, with no concurrency</caption>
- * var clicks = Rx.Observable.fromEvent(document, 'click');
+ * var clicks = Rx.Observable.fromEvent(document, '');
  * var result = clicks.concatMapTo(Rx.Observable.interval(1000).take(4));
  * result.subscribe(x => console.log(x));
  *
@@ -49964,7 +49957,7 @@ var count_1 = __webpack_require__(243);
  *
  * @example <caption>Counts how many seconds have passed before the first click happened</caption>
  * var seconds = Rx.Observable.interval(1000);
- * var clicks = Rx.Observable.fromEvent(document, 'click');
+ * var clicks = Rx.Observable.fromEvent(document, '');
  * var secondsBeforeClick = seconds.takeUntil(clicks);
  * var result = secondsBeforeClick.count();
  * result.subscribe(x => console.log(x));
@@ -50037,7 +50030,7 @@ var dematerialize_1 = __webpack_require__(244);
  * var notifA = new Rx.Notification('N', 'A');
  * var notifB = new Rx.Notification('N', 'B');
  * var notifE = new Rx.Notification('E', void 0,
- *   new TypeError('x.toUpperCase is not a function')
+ *   new TypeError('')
  * );
  * var materialized = Rx.Observable.of(notifA, notifB, notifE);
  * var upperCase = materialized.dematerialize();
@@ -50104,7 +50097,7 @@ var debounce_1 = __webpack_require__(245);
  * same time as they did on the source Observable.
  *
  * @example <caption>Emit the most recent click after a burst of clicks</caption>
- * var clicks = Rx.Observable.fromEvent(document, 'click');
+ * var clicks = Rx.Observable.fromEvent(document, '');
  * var result = clicks.debounce(() => Rx.Observable.interval(1000));
  * result.subscribe(x => console.log(x));
  *
@@ -50171,7 +50164,7 @@ var debounceTime_1 = __webpack_require__(246);
  * managing timers.
  *
  * @example <caption>Emit the most recent click after a burst of clicks</caption>
- * var clicks = Rx.Observable.fromEvent(document, 'click');
+ * var clicks = Rx.Observable.fromEvent(document, '');
  * var result = clicks.debounceTime(1000);
  * result.subscribe(x => console.log(x));
  *
@@ -50233,9 +50226,9 @@ var defaultIfEmpty_1 = __webpack_require__(68);
  * having emitted any `next` value).
  *
  * @example <caption>If no clicks happen in 5 seconds, then emit "no clicks"</caption>
- * var clicks = Rx.Observable.fromEvent(document, 'click');
+ * var clicks = Rx.Observable.fromEvent(document, '');
  * var clicksBeforeFive = clicks.takeUntil(Rx.Observable.interval(5000));
- * var result = clicksBeforeFive.defaultIfEmpty('no clicks');
+ * var result = clicksBeforeFive.defaultIfEmpty('');
  * result.subscribe(x => console.log(x));
  *
  * @see {@link empty}
@@ -50292,13 +50285,13 @@ var delay_1 = __webpack_require__(247);
  * Observable execution until the given date occurs.
  *
  * @example <caption>Delay each click by one second</caption>
- * var clicks = Rx.Observable.fromEvent(document, 'click');
+ * var clicks = Rx.Observable.fromEvent(document, '');
  * var delayedClicks = clicks.delay(1000); // each click emitted after 1 second
  * delayedClicks.subscribe(x => console.log(x));
  *
  * @example <caption>Delay all clicks until a future date happens</caption>
- * var clicks = Rx.Observable.fromEvent(document, 'click');
- * var date = new Date('March 15, 2050 12:00:00'); // in the future
+ * var clicks = Rx.Observable.fromEvent(document, '');
+ * var date = new Date(''); // in the future
  * var delayedClicks = clicks.delay(date); // click emitted only after that date
  * delayedClicks.subscribe(x => console.log(x));
  *
@@ -50363,7 +50356,7 @@ var delayWhen_1 = __webpack_require__(248);
  * Observable is subscribed.
  *
  * @example <caption>Delay each click by a random amount of time, between 0 and 5 seconds</caption>
- * var clicks = Rx.Observable.fromEvent(document, 'click');
+ * var clicks = Rx.Observable.fromEvent(document, '');
  * var delayedClicks = clicks.delayWhen(event =>
  *   Rx.Observable.interval(Math.random() * 5000)
  * );
@@ -50434,15 +50427,15 @@ var distinct_1 = __webpack_require__(249);
  * }
  *
  * Observable.of<Person>(
- *     { age: 4, name: 'Foo'},
- *     { age: 7, name: 'Bar'},
- *     { age: 5, name: 'Foo'})
+ *     { age: 4, name: ''},
+ *     { age: 7, name: ''},
+ *     { age: 5, name: ''})
  *     .distinct((p: Person) => p.name)
  *     .subscribe(x => console.log(x));
  *
  * // displays:
- * // { age: 4, name: 'Foo' }
- * // { age: 7, name: 'Bar' }
+ * // { age: 4, name: '' }
+ * // { age: 7, name: '' }
  *
  * @see {@link distinctUntilChanged}
  * @see {@link distinctUntilKeyChanged}
@@ -50536,17 +50529,17 @@ var distinctUntilChanged_1 = __webpack_require__(69);
  * }
  *
  * Observable.of<Person>(
- *     { age: 4, name: 'Foo'},
- *     { age: 7, name: 'Bar'},
- *     { age: 5, name: 'Foo'})
- *     { age: 6, name: 'Foo'})
+ *     { age: 4, name: ''},
+ *     { age: 7, name: ''},
+ *     { age: 5, name: ''})
+ *     { age: 6, name: ''})
  *     .distinctUntilChanged((p: Person, q: Person) => p.name === q.name)
  *     .subscribe(x => console.log(x));
  *
  * // displays:
- * // { age: 4, name: 'Foo' }
- * // { age: 7, name: 'Bar' }
- * // { age: 5, name: 'Foo' }
+ * // { age: 4, name: '' }
+ * // { age: 7, name: '' }
+ * // { age: 5, name: '' }
  *
  * @see {@link distinct}
  * @see {@link distinctUntilKeyChanged}
@@ -50597,17 +50590,17 @@ var distinctUntilKeyChanged_1 = __webpack_require__(250);
  *  }
  *
  * Observable.of<Person>(
- *     { age: 4, name: 'Foo'},
- *     { age: 7, name: 'Bar'},
- *     { age: 5, name: 'Foo'},
- *     { age: 6, name: 'Foo'})
- *     .distinctUntilKeyChanged('name')
+ *     { age: 4, name: ''},
+ *     { age: 7, name: ''},
+ *     { age: 5, name: ''},
+ *     { age: 6, name: ''})
+ *     .distinctUntilKeyChanged('')
  *     .subscribe(x => console.log(x));
  *
  * // displays:
- * // { age: 4, name: 'Foo' }
- * // { age: 7, name: 'Bar' }
- * // { age: 5, name: 'Foo' }
+ * // { age: 4, name: '' }
+ * // { age: 7, name: '' }
+ * // { age: 5, name: '' }
  *
  * @example <caption>An example comparing the first letters of the name</caption>
  *
@@ -50617,17 +50610,17 @@ var distinctUntilKeyChanged_1 = __webpack_require__(250);
  *  }
  *
  * Observable.of<Person>(
- *     { age: 4, name: 'Foo1'},
- *     { age: 7, name: 'Bar'},
- *     { age: 5, name: 'Foo2'},
- *     { age: 6, name: 'Foo3'})
- *     .distinctUntilKeyChanged('name', (x: string, y: string) => x.substring(0, 3) === y.substring(0, 3))
+ *     { age: 4, name: ''},
+ *     { age: 7, name: ''},
+ *     { age: 5, name: ''},
+ *     { age: 6, name: ''})
+ *     .distinctUntilKeyChanged('', (x: string, y: string) => x.substring(0, 3) === y.substring(0, 3))
  *     .subscribe(x => console.log(x));
  *
  * // displays:
- * // { age: 4, name: 'Foo1' }
- * // { age: 7, name: 'Bar' }
- * // { age: 5, name: 'Foo2' }
+ * // { age: 4, name: '' }
+ * // { age: 7, name: '' }
+ * // { age: 5, name: '' }
  *
  * @see {@link distinct}
  * @see {@link distinctUntilChanged}
@@ -50688,7 +50681,7 @@ var tap_1 = __webpack_require__(251);
  * execution, it does not trigger an execution to happen like `subscribe` does.
  *
  * @example <caption>Map every click to the clientX position of that click, while also logging the click event</caption>
- * var clicks = Rx.Observable.fromEvent(document, 'click');
+ * var clicks = Rx.Observable.fromEvent(document, '');
  * var positions = clicks
  *   .do(ev => console.log(ev))
  *   .map(ev => ev.clientX);
@@ -50749,7 +50742,7 @@ var exhaust_1 = __webpack_require__(252);
  * next inner Observable and repeat this process.
  *
  * @example <caption>Run a finite timer for each click, only if there is no currently active timer</caption>
- * var clicks = Rx.Observable.fromEvent(document, 'click');
+ * var clicks = Rx.Observable.fromEvent(document, '');
  * var higherOrder = clicks.map((ev) => Rx.Observable.interval(1000).take(5));
  * var result = higherOrder.exhaust();
  * result.subscribe(x => console.log(x));
@@ -50810,7 +50803,7 @@ var exhaustMap_1 = __webpack_require__(253);
  * and repeat this process.
  *
  * @example <caption>Run a finite timer for each click, only if there is no currently active timer</caption>
- * var clicks = Rx.Observable.fromEvent(document, 'click');
+ * var clicks = Rx.Observable.fromEvent(document, '');
  * var result = clicks.exhaustMap((ev) => Rx.Observable.interval(1000).take(5));
  * result.subscribe(x => console.log(x));
  *
@@ -50882,7 +50875,7 @@ var expand_1 = __webpack_require__(254);
  * *expand* behaves recursively.
  *
  * @example <caption>Start emitting the powers of two on every click, at most 10 of them</caption>
- * var clicks = Rx.Observable.fromEvent(document, 'click');
+ * var clicks = Rx.Observable.fromEvent(document, '');
  * var powersOfTwo = clicks
  *   .mapTo(1)
  *   .expand(x => Rx.Observable.of(2 * x).delay(1000))
@@ -50948,7 +50941,7 @@ var elementAt_1 = __webpack_require__(255);
  * `ArgumentOutOfRangeError` error.
  *
  * @example <caption>Emit only the third click event</caption>
- * var clicks = Rx.Observable.fromEvent(document, 'click');
+ * var clicks = Rx.Observable.fromEvent(document, '');
  * var result = clicks.elementAt(2);
  * result.subscribe(x => console.log(x));
  *
@@ -51015,8 +51008,8 @@ var filter_1 = __webpack_require__(70);
  * function and only emits those values that yielded `true`.
  *
  * @example <caption>Emit only click events whose target was a DIV element</caption>
- * var clicks = Rx.Observable.fromEvent(document, 'click');
- * var clicksOnDivs = clicks.filter(ev => ev.target.tagName === 'DIV');
+ * var clicks = Rx.Observable.fromEvent(document, '');
+ * var clicksOnDivs = clicks.filter(ev => ev.target.tagName === '');
  * clicksOnDivs.subscribe(x => console.log(x));
  *
  * @see {@link distinct}
@@ -51112,8 +51105,8 @@ var find_1 = __webpack_require__(71);
  * in `find`, and does not emit an error if a valid value is not found.
  *
  * @example <caption>Find and emit the first click that happens on a DIV element</caption>
- * var clicks = Rx.Observable.fromEvent(document, 'click');
- * var result = clicks.find(ev => ev.target.tagName === 'DIV');
+ * var clicks = Rx.Observable.fromEvent(document, '');
+ * var result = clicks.find(ev => ev.target.tagName === '');
  * result.subscribe(x => console.log(x));
  *
  * @see {@link filter}
@@ -51170,8 +51163,8 @@ var findIndex_1 = __webpack_require__(257);
  * an error if a valid value is not found.
  *
  * @example <caption>Emit the index of first click that happens on a DIV element</caption>
- * var clicks = Rx.Observable.fromEvent(document, 'click');
- * var result = clicks.findIndex(ev => ev.target.tagName === 'DIV');
+ * var clicks = Rx.Observable.fromEvent(document, '');
+ * var result = clicks.findIndex(ev => ev.target.tagName === '');
  * result.subscribe(x => console.log(x));
  *
  * @see {@link filter}
@@ -51230,13 +51223,13 @@ var first_1 = __webpack_require__(258);
  * was not provided and a matching element is not found.
  *
  * @example <caption>Emit only the first click that happens on the DOM</caption>
- * var clicks = Rx.Observable.fromEvent(document, 'click');
+ * var clicks = Rx.Observable.fromEvent(document, '');
  * var result = clicks.first();
  * result.subscribe(x => console.log(x));
  *
  * @example <caption>Emits the first click that happens on a DIV</caption>
- * var clicks = Rx.Observable.fromEvent(document, 'click');
- * var result = clicks.first(ev => ev.target.tagName === 'DIV');
+ * var clicks = Rx.Observable.fromEvent(document, '');
+ * var result = clicks.first(ev => ev.target.tagName === '');
  * result.subscribe(x => console.log(x));
  *
  * @see {@link filter}
@@ -51295,40 +51288,40 @@ exports.GroupedObservable = groupBy_1.GroupedObservable;
  * <img src="./img/groupBy.png" width="100%">
  *
  * @example <caption>Group objects by id and return as array</caption>
- * Observable.of<Obj>({id: 1, name: 'aze1'},
- *                    {id: 2, name: 'sf2'},
- *                    {id: 2, name: 'dg2'},
- *                    {id: 1, name: 'erg1'},
- *                    {id: 1, name: 'df1'},
- *                    {id: 2, name: 'sfqfb2'},
- *                    {id: 3, name: 'qfs3'},
- *                    {id: 2, name: 'qsgqsfg2'}
+ * Observable.of<Obj>({id: 1, name: ''},
+ *                    {id: 2, name: ''},
+ *                    {id: 2, name: ''},
+ *                    {id: 1, name: ''},
+ *                    {id: 1, name: ''},
+ *                    {id: 2, name: ''},
+ *                    {id: 3, name: ''},
+ *                    {id: 2, name: ''}
  *     )
  *     .groupBy(p => p.id)
  *     .flatMap( (group$) => group$.reduce((acc, cur) => [...acc, cur], []))
  *     .subscribe(p => console.log(p));
  *
  * // displays:
- * // [ { id: 1, name: 'aze1' },
- * //   { id: 1, name: 'erg1' },
- * //   { id: 1, name: 'df1' } ]
+ * // [ { id: 1, name: '' },
+ * //   { id: 1, name: '' },
+ * //   { id: 1, name: '' } ]
  * //
- * // [ { id: 2, name: 'sf2' },
- * //   { id: 2, name: 'dg2' },
- * //   { id: 2, name: 'sfqfb2' },
- * //   { id: 2, name: 'qsgqsfg2' } ]
+ * // [ { id: 2, name: '' },
+ * //   { id: 2, name: '' },
+ * //   { id: 2, name: '' },
+ * //   { id: 2, name: '' } ]
  * //
- * // [ { id: 3, name: 'qfs3' } ]
+ * // [ { id: 3, name: '' } ]
  *
  * @example <caption>Pivot data on the id field</caption>
- * Observable.of<Obj>({id: 1, name: 'aze1'},
- *                    {id: 2, name: 'sf2'},
- *                    {id: 2, name: 'dg2'},
- *                    {id: 1, name: 'erg1'},
- *                    {id: 1, name: 'df1'},
- *                    {id: 2, name: 'sfqfb2'},
- *                    {id: 3, name: 'qfs1'},
- *                    {id: 2, name: 'qsgqsfg2'}
+ * Observable.of<Obj>({id: 1, name: ''},
+ *                    {id: 2, name: ''},
+ *                    {id: 2, name: ''},
+ *                    {id: 1, name: ''},
+ *                    {id: 1, name: ''},
+ *                    {id: 2, name: ''},
+ *                    {id: 3, name: ''},
+ *                    {id: 2, name: ''}
  *                   )
  *     .groupBy(p => p.id, p => p.name)
  *     .flatMap( (group$) => group$.reduce((acc, cur) => [...acc, cur], ["" + group$.key]))
@@ -51336,9 +51329,9 @@ exports.GroupedObservable = groupBy_1.GroupedObservable;
  *     .subscribe(p => console.log(p));
  *
  * // displays:
- * // { id: 1, values: [ 'aze1', 'erg1', 'df1' ] }
- * // { id: 2, values: [ 'sf2', 'dg2', 'sfqfb2', 'qsgqsfg2' ] }
- * // { id: 3, values: [ 'qfs1' ] }
+ * // { id: 1, values: [ '', '', '' ] }
+ * // { id: 2, values: [ '', '', '', '' ] }
+ * // { id: 3, values: [ '' ] }
  *
  * @param {function(value: T): K} keySelector A function that extracts the key
  * for each item.
@@ -51569,7 +51562,7 @@ var audit_1 = __webpack_require__(72);
  * repeats for the next source value.
  *
  * @example <caption>Emit clicks at a rate of at most one click per second</caption>
- * var clicks = Rx.Observable.fromEvent(document, 'click');
+ * var clicks = Rx.Observable.fromEvent(document, '');
  * var result = clicks.audit(ev => Rx.Observable.interval(1000));
  * result.subscribe(x => console.log(x));
  *
@@ -51634,7 +51627,7 @@ var auditTime_1 = __webpack_require__(262);
  * Optionally takes a {@link IScheduler} for managing timers.
  *
  * @example <caption>Emit clicks at a rate of at most one click per second</caption>
- * var clicks = Rx.Observable.fromEvent(document, 'click');
+ * var clicks = Rx.Observable.fromEvent(document, '');
  * var result = clicks.auditTime(1000);
  * result.subscribe(x => console.log(x));
  *
@@ -51804,7 +51797,7 @@ var map_1 = __webpack_require__(34);
  * Observable.
  *
  * @example <caption>Map every click to the clientX position of that click</caption>
- * var clicks = Rx.Observable.fromEvent(document, 'click');
+ * var clicks = Rx.Observable.fromEvent(document, '');
  * var positions = clicks.map(ev => ev.clientX);
  * positions.subscribe(x => console.log(x));
  *
@@ -51860,7 +51853,7 @@ var mapTo_1 = __webpack_require__(265);
  * and simply uses the emission moment to know when to emit the given `value`.
  *
  * @example <caption>Map every click to the string 'Hi'</caption>
- * var clicks = Rx.Observable.fromEvent(document, 'click');
+ * var clicks = Rx.Observable.fromEvent(document, '');
  * var greetings = clicks.mapTo('Hi');
  * greetings.subscribe(x => console.log(x));
  *
@@ -51919,7 +51912,7 @@ var materialize_1 = __webpack_require__(266);
  * {@link dematerialize}.
  *
  * @example <caption>Convert a faulty Observable to an Observable of Notifications</caption>
- * var letters = Rx.Observable.of('a', 'b', 13, 'd');
+ * var letters = Rx.Observable.of('a', 'b''d');
  * var upperCase = letters.map(x => x.toUpperCase());
  * var materialized = upperCase.materialize();
  * materialized.subscribe(x => console.log(x));
@@ -51980,11 +51973,11 @@ var max_1 = __webpack_require__(267);
  *   age: number,
  *   name: string
  * }
- * Observable.of<Person>({age: 7, name: 'Foo'},
- *                       {age: 5, name: 'Bar'},
- *                       {age: 9, name: 'Beer'})
+ * Observable.of<Person>({age: 7, name: ''},
+ *                       {age: 5, name: ''},
+ *                       {age: 9, name: ''})
  *           .max<Person>((a: Person, b: Person) => a.age < b.age ? -1 : 1)
- *           .subscribe((x: Person) => console.log(x.name)); // -> 'Beer'
+ *           .subscribe((x: Person) => console.log(x.name)); // -> ''
  * }
  *
  * @see {@link min}
@@ -52039,7 +52032,7 @@ exports.mergeStatic = merge_2.merge;
  * emitted on the output Observable.
  *
  * @example <caption>Merge together two Observables: 1s interval and clicks</caption>
- * var clicks = Rx.Observable.fromEvent(document, 'click');
+ * var clicks = Rx.Observable.fromEvent(document, '');
  * var timer = Rx.Observable.interval(1000);
  * var clicksOrTimer = clicks.merge(timer);
  * clicksOrTimer.subscribe(x => console.log(x));
@@ -52112,13 +52105,13 @@ var mergeAll_1 = __webpack_require__(46);
  * a inner Observable will be immediately emitted on the output Observable.
  *
  * @example <caption>Spawn a new interval Observable for each click event, and blend their outputs as one Observable</caption>
- * var clicks = Rx.Observable.fromEvent(document, 'click');
+ * var clicks = Rx.Observable.fromEvent(document, '');
  * var higherOrder = clicks.map((ev) => Rx.Observable.interval(1000));
  * var firstOrder = higherOrder.mergeAll();
  * firstOrder.subscribe(x => console.log(x));
  *
  * @example <caption>Count from 0 to 9 every second for each click, but only allow 2 concurrent timers</caption>
- * var clicks = Rx.Observable.fromEvent(document, 'click');
+ * var clicks = Rx.Observable.fromEvent(document, '');
  * var higherOrder = clicks.map((ev) => Rx.Observable.interval(1000).take(10));
  * var firstOrder = higherOrder.mergeAll(2);
  * firstOrder.subscribe(x => console.log(x));
@@ -52266,7 +52259,7 @@ var mergeMapTo_1 = __webpack_require__(269);
  * single Observable, which is the output Observable.
  *
  * @example <caption>For each click event, start an interval Observable ticking every 1 second</caption>
- * var clicks = Rx.Observable.fromEvent(document, 'click');
+ * var clicks = Rx.Observable.fromEvent(document, '');
  * var result = clicks.mergeMapTo(Rx.Observable.interval(1000));
  * result.subscribe(x => console.log(x));
  *
@@ -52329,7 +52322,7 @@ var mergeScan_1 = __webpack_require__(270);
  * by the accumulator are merged into the outer Observable.</span>
  *
  * @example <caption>Count the number of click events</caption>
- * const click$ = Rx.Observable.fromEvent(document, 'click');
+ * const click$ = Rx.Observable.fromEvent(document, '');
  * const one$ = click$.mapTo(1);
  * const seed = 0;
  * const count$ = one$.mergeScan((acc, one) => Rx.Observable.of(acc + one), seed);
@@ -52392,11 +52385,11 @@ var min_1 = __webpack_require__(271);
  *   age: number,
  *   name: string
  * }
- * Observable.of<Person>({age: 7, name: 'Foo'},
- *                       {age: 5, name: 'Bar'},
- *                       {age: 9, name: 'Beer'})
+ * Observable.of<Person>({age: 7, name: ''},
+ *                       {age: 5, name: ''},
+ *                       {age: 9, name: ''})
  *           .min<Person>( (a: Person, b: Person) => a.age < b.age ? -1 : 1)
- *           .subscribe((x: Person) => console.log(x.name)); // -> 'Bar'
+ *           .subscribe((x: Person) => console.log(x.name)); // -> ''
  * }
  *
  * @see {@link max}
@@ -52484,8 +52477,8 @@ var multicast_1 = __webpack_require__(20);
  * const seconds = Rx.Observable.interval(1000);
  * const connectableSeconds = seconds.multicast(new Subject());
  *
- * connectableSeconds.subscribe(value => console.log('first: ' + value));
- * connectableSeconds.subscribe(value => console.log('second: ' + value));
+ * connectableSeconds.subscribe(value => console.log('' + value));
+ * connectableSeconds.subscribe(value => console.log('' + value));
  *
  * // At this point still nothing happens, even though we subscribed twice.
  *
@@ -52662,7 +52655,7 @@ var onErrorResumeNext_1 = __webpack_require__(66);
  *   .subscribe(
  *     val => console.log(val),
  *     err => console.log(err),          // Will never be called.
- *     () => console.log('that\'s it!')
+ *     () => console.log(''s it!')
  *   );
  *
  * // Logs:
@@ -52727,7 +52720,7 @@ var pairwise_1 = __webpack_require__(273);
  * there is no previous value in that case.
  *
  * @example <caption>On every click (starting from the second), emit the relative distance to the previous click</caption>
- * var clicks = Rx.Observable.fromEvent(document, 'click');
+ * var clicks = Rx.Observable.fromEvent(document, '');
  * var pairs = clicks.pairwise();
  * var distance = pairs.map(pair => {
  *   var x0 = pair[0].clientX;
@@ -52788,12 +52781,12 @@ var partition_1 = __webpack_require__(274);
  * behaves like {@link filter} with the predicate negated.
  *
  * @example <caption>Partition click events into those on DIV elements and those elsewhere</caption>
- * var clicks = Rx.Observable.fromEvent(document, 'click');
- * var parts = clicks.partition(ev => ev.target.tagName === 'DIV');
+ * var clicks = Rx.Observable.fromEvent(document, '');
+ * var parts = clicks.partition(ev => ev.target.tagName === '');
  * var clicksOnDivs = parts[0];
  * var clicksElsewhere = parts[1];
- * clicksOnDivs.subscribe(x => console.log('DIV clicked: ', x));
- * clicksElsewhere.subscribe(x => console.log('Other clicked: ', x));
+ * clicksOnDivs.subscribe(x => console.log('', x));
+ * clicksElsewhere.subscribe(x => console.log('', x));
  *
  * @see {@link filter}
  *
@@ -52866,8 +52859,8 @@ var pluck_1 = __webpack_require__(275);
  * that value.
  *
  * @example <caption>Map every click to the tagName of the clicked target element</caption>
- * var clicks = Rx.Observable.fromEvent(document, 'click');
- * var tagNames = clicks.pluck('target', 'tagName');
+ * var clicks = Rx.Observable.fromEvent(document, '');
+ * var tagNames = clicks.pluck('', '');
  * tagNames.subscribe(x => console.log(x));
  *
  * @see {@link map}
@@ -53103,7 +53096,7 @@ var reduce_1 = __webpack_require__(36);
  * value is specified, the first item of the source is used as the seed.
  *
  * @example <caption>Count the number of click events that happened in 5 seconds</caption>
- * var clicksInFiveSeconds = Rx.Observable.fromEvent(document, 'click')
+ * var clicksInFiveSeconds = Rx.Observable.fromEvent(document, '')
  *   .takeUntil(Rx.Observable.interval(5000));
  * var ones = clicksInFiveSeconds.mapTo(1);
  * var seed = 0;
@@ -53326,7 +53319,7 @@ var sample_1 = __webpack_require__(286);
  *
  * @example <caption>On every click, sample the most recent "seconds" timer</caption>
  * var seconds = Rx.Observable.interval(1000);
- * var clicks = Rx.Observable.fromEvent(document, 'click');
+ * var clicks = Rx.Observable.fromEvent(document, '');
  * var result = seconds.sample(clicks);
  * result.subscribe(x => console.log(x));
  *
@@ -53385,7 +53378,7 @@ var sampleTime_1 = __webpack_require__(287);
  * the output Observable is subscribed.
  *
  * @example <caption>Every second, emit the most recent click at most once</caption>
- * var clicks = Rx.Observable.fromEvent(document, 'click');
+ * var clicks = Rx.Observable.fromEvent(document, '');
  * var result = clicks.sampleTime(1000);
  * result.subscribe(x => console.log(x));
  *
@@ -53450,7 +53443,7 @@ var scan_1 = __webpack_require__(73);
  * value is specified, the first item of the source is used as the seed.
  *
  * @example <caption>Count the number of click events</caption>
- * var clicks = Rx.Observable.fromEvent(document, 'click');
+ * var clicks = Rx.Observable.fromEvent(document, '');
  * var ones = clicks.mapTo(1);
  * var seed = 0;
  * var count = ones.scan((acc, one) => acc + one, seed);
@@ -53525,7 +53518,7 @@ var sequenceEqual_1 = __webpack_require__(288);
  *  "Enter" // no start key, clearly.
  * ]);
  *
- * var keys = Rx.Observable.fromEvent(document, 'keyup')
+ * var keys = Rx.Observable.fromEvent(document, '')
  *  .map(e => e.code);
  * var matches = keys.bufferCount(11, 1)
  *  .mergeMap(
@@ -53533,7 +53526,7 @@ var sequenceEqual_1 = __webpack_require__(288);
  *      Rx.Observable.from(last11)
  *        .sequenceEqual(code)
  *   );
- * matches.subscribe(matched => console.log('Successful cheat at Contra? ', matched));
+ * matches.subscribe(matched => console.log('', matched));
  *
  * @see {@link combineLatest}
  * @see {@link zip}
@@ -53972,7 +53965,7 @@ var SubscribeOnObservable = (function (_super) {
         if (!isNumeric_1.isNumeric(delayTime) || delayTime < 0) {
             this.delayTime = 0;
         }
-        if (!scheduler || typeof scheduler.schedule !== 'function') {
+        if (!scheduler || typeof scheduler.schedule !== '') {
             this.scheduler = asap_1.asap;
         }
     }
@@ -54072,7 +54065,7 @@ var root_1 = __webpack_require__(12);
 var ImmediateDefinition = (function () {
     function ImmediateDefinition(root) {
         this.root = root;
-        if (root.setImmediate && typeof root.setImmediate === 'function') {
+        if (root.setImmediate && typeof root.setImmediate === '') {
             this.setImmediate = root.setImmediate.bind(root);
             this.clearImmediate = root.clearImmediate.bind(root);
         }
@@ -54112,14 +54105,14 @@ var ImmediateDefinition = (function () {
         return this.root.Object.prototype.toString.call(o);
     };
     ImmediateDefinition.prototype.canUseProcessNextTick = function () {
-        return this.identify(this.root.process) === '[object process]';
+        return this.identify(this.root.process) === '';
     };
     ImmediateDefinition.prototype.canUseMessageChannel = function () {
         return Boolean(this.root.MessageChannel);
     };
     ImmediateDefinition.prototype.canUseReadyStateChange = function () {
         var document = this.root.document;
-        return Boolean(document && 'onreadystatechange' in document.createElement('script'));
+        return Boolean(document && '' in document.createElement(''));
     };
     ImmediateDefinition.prototype.canUsePostMessage = function () {
         var root = this.root;
@@ -54146,7 +54139,7 @@ var ImmediateDefinition = (function () {
         }
         var fn = function result() {
             var _a = result, handler = _a.handler, args = _a.args;
-            if (typeof handler === 'function') {
+            if (typeof handler === '') {
                 handler.apply(undefined, args);
             }
             else {
@@ -54176,17 +54169,17 @@ var ImmediateDefinition = (function () {
         // * https://developer.mozilla.org/en/DOM/window.postMessage
         // * http://www.whatwg.org/specs/web-apps/current-work/multipage/comms.html#crossDocumentMessages
         var root = this.root;
-        var messagePrefix = 'setImmediate$' + root.Math.random() + '$';
+        var messagePrefix = '' + root.Math.random() + '$';
         var onGlobalMessage = function globalMessageHandler(event) {
             var instance = globalMessageHandler.instance;
             if (event.source === root &&
-                typeof event.data === 'string' &&
+                typeof event.data === '' &&
                 event.data.indexOf(messagePrefix) === 0) {
                 instance.runIfPresent(+event.data.slice(messagePrefix.length));
             }
         };
         onGlobalMessage.instance = this;
-        root.addEventListener('message', onGlobalMessage, false);
+        root.addEventListener('', onGlobalMessage, false);
         var fn = function setImmediate() {
             var _a = setImmediate, messagePrefix = _a.messagePrefix, instance = _a.instance;
             var handle = instance.addFromSetImmediateArguments(arguments);
@@ -54202,7 +54195,7 @@ var ImmediateDefinition = (function () {
         // So if we're currently running a task, we'll need to delay this invocation.
         if (this.currentlyRunningATask) {
             // Delay by doing a setTimeout. setImmediate was tried instead, but in Firefox 7 it generated a
-            // 'too much recursion' error.
+            // '' error.
             this.root.setTimeout(this.partiallyApplied(this.runIfPresent, handle), 0);
         }
         else {
@@ -54245,7 +54238,7 @@ var ImmediateDefinition = (function () {
             var handle = instance.addFromSetImmediateArguments(arguments);
             // Create a <script> element; its readystatechange event will be fired asynchronously once it is inserted
             // into the document. Do so, thus queuing up the task. Remember to clean up once it's been called.
-            var script = doc.createElement('script');
+            var script = doc.createElement('');
             script.onreadystatechange = function () {
                 instance.runIfPresent(handle);
                 script.onreadystatechange = null;
@@ -54355,7 +54348,7 @@ var switchAll_1 = __webpack_require__(298);
  * continues to behave like this for subsequent inner Observables.
  *
  * @example <caption>Rerun an interval Observable on every click event</caption>
- * var clicks = Rx.Observable.fromEvent(document, 'click');
+ * var clicks = Rx.Observable.fromEvent(document, '');
  * // Each click event is mapped to an Observable that ticks every second
  * var higherOrder = clicks.map((ev) => Rx.Observable.interval(1000));
  * var switched = higherOrder.switch();
@@ -54422,7 +54415,7 @@ var switchMap_1 = __webpack_require__(76);
  * subsequent inner Observables.
  *
  * @example <caption>Rerun an interval Observable on every click event</caption>
- * var clicks = Rx.Observable.fromEvent(document, 'click');
+ * var clicks = Rx.Observable.fromEvent(document, '');
  * var result = clicks.switchMap((ev) => Rx.Observable.interval(1000));
  * result.subscribe(x => console.log(x));
  *
@@ -54491,7 +54484,7 @@ var switchMapTo_1 = __webpack_require__(299);
  * `innerObservable`.
  *
  * @example <caption>Rerun an interval Observable on every click event</caption>
- * var clicks = Rx.Observable.fromEvent(document, 'click');
+ * var clicks = Rx.Observable.fromEvent(document, '');
  * var result = clicks.switchMapTo(Rx.Observable.interval(1000));
  * result.subscribe(x => console.log(x));
  *
@@ -54674,7 +54667,7 @@ var takeUntil_1 = __webpack_require__(301);
  *
  * @example <caption>Tick every second until the first click happens</caption>
  * var interval = Rx.Observable.interval(1000);
- * var clicks = Rx.Observable.fromEvent(document, 'click');
+ * var clicks = Rx.Observable.fromEvent(document, '');
  * var result = interval.takeUntil(clicks);
  * result.subscribe(x => console.log(x));
  *
@@ -54733,7 +54726,7 @@ var takeWhile_1 = __webpack_require__(302);
  * Observable and completes the output Observable.
  *
  * @example <caption>Emit click events only while the clientX property is greater than 200</caption>
- * var clicks = Rx.Observable.fromEvent(document, 'click');
+ * var clicks = Rx.Observable.fromEvent(document, '');
  * var result = clicks.takeWhile(ev => ev.clientX > 200);
  * result.subscribe(x => console.log(x));
  *
@@ -54795,7 +54788,7 @@ var throttle_1 = __webpack_require__(52);
  * next source value.
  *
  * @example <caption>Emit clicks at a rate of at most one click per second</caption>
- * var clicks = Rx.Observable.fromEvent(document, 'click');
+ * var clicks = Rx.Observable.fromEvent(document, '');
  * var result = clicks.throttle(ev => Rx.Observable.interval(1000));
  * result.subscribe(x => console.log(x));
  *
@@ -54861,7 +54854,7 @@ var throttleTime_1 = __webpack_require__(303);
  * {@link IScheduler} for managing timers.
  *
  * @example <caption>Emit clicks at a rate of at most one click per second</caption>
- * var clicks = Rx.Observable.fromEvent(document, 'click');
+ * var clicks = Rx.Observable.fromEvent(document, '');
  * var result = clicks.throttleTime(1000);
  * result.subscribe(x => console.log(x));
  *
@@ -55186,7 +55179,7 @@ var window_1 = __webpack_require__(310);
  * Observable, the output is a higher-order Observable.
  *
  * @example <caption>In every window of 1 second each, emit at most 2 click events</caption>
- * var clicks = Rx.Observable.fromEvent(document, 'click');
+ * var clicks = Rx.Observable.fromEvent(document, '');
  * var interval = Rx.Observable.interval(1000);
  * var result = clicks.window(interval)
  *   .map(win => win.take(2)) // each window has at most 2 emissions
@@ -55249,14 +55242,14 @@ var windowCount_1 = __webpack_require__(311);
  * with size `windowSize`.
  *
  * @example <caption>Ignore every 3rd click event, starting from the first one</caption>
- * var clicks = Rx.Observable.fromEvent(document, 'click');
+ * var clicks = Rx.Observable.fromEvent(document, '');
  * var result = clicks.windowCount(3)
  *   .map(win => win.skip(1)) // skip first of every 3 clicks
  *   .mergeAll(); // flatten the Observable-of-Observables
  * result.subscribe(x => console.log(x));
  *
  * @example <caption>Ignore every 3rd click event, starting from the third one</caption>
- * var clicks = Rx.Observable.fromEvent(document, 'click');
+ * var clicks = Rx.Observable.fromEvent(document, '');
  * var result = clicks.windowCount(2, 3)
  *   .mergeAll(); // flatten the Observable-of-Observables
  * result.subscribe(x => console.log(x));
@@ -55365,7 +55358,7 @@ var windowToggle_1 = __webpack_require__(313);
  * `closingSelector` emits an item.
  *
  * @example <caption>Every other second, emit the click events from the next 500ms</caption>
- * var clicks = Rx.Observable.fromEvent(document, 'click');
+ * var clicks = Rx.Observable.fromEvent(document, '');
  * var openings = Rx.Observable.interval(1000);
  * var result = clicks.windowToggle(openings, i =>
  *   i % 2 ? Rx.Observable.interval(500) : Rx.Observable.empty()
@@ -55430,7 +55423,7 @@ var windowWhen_1 = __webpack_require__(314);
  * window is opened immediately when subscribing to the output Observable.
  *
  * @example <caption>Emit only the first two clicks events in every window of [1-5] random seconds</caption>
- * var clicks = Rx.Observable.fromEvent(document, 'click');
+ * var clicks = Rx.Observable.fromEvent(document, '');
  * var result = clicks
  *   .windowWhen(() => Rx.Observable.interval(1000 + Math.random() * 4000))
  *   .map(win => win.take(2)) // each window has at most 2 emissions
@@ -55494,7 +55487,7 @@ var withLatestFrom_1 = __webpack_require__(315);
  * emit at least one value before the output Observable will emit a value.
  *
  * @example <caption>On every click event, emit an array with the latest timer event plus the click event</caption>
- * var clicks = Rx.Observable.fromEvent(document, 'click');
+ * var clicks = Rx.Observable.fromEvent(document, '');
  * var timer = Rx.Observable.interval(1000);
  * var result = clicks.withLatestFrom(timer);
  * result.subscribe(x => console.log(x));
@@ -55619,16 +55612,16 @@ var TestScheduler = (function (_super) {
     TestScheduler.prototype.createTime = function (marbles) {
         var indexOf = marbles.indexOf('|');
         if (indexOf === -1) {
-            throw new Error('marble diagram for time should have a completion marker "|"');
+            throw new Error('');
         }
         return indexOf * TestScheduler.frameTimeFactor;
     };
     TestScheduler.prototype.createColdObservable = function (marbles, values, error) {
         if (marbles.indexOf('^') !== -1) {
-            throw new Error('cold observable cannot have subscription offset "^"');
+            throw new Error('');
         }
         if (marbles.indexOf('!') !== -1) {
-            throw new Error('cold observable cannot have unsubscription marker "!"');
+            throw new Error('');
         }
         var messages = TestScheduler.parseMarbles(marbles, values, error);
         var cold = new ColdObservable_1.ColdObservable(messages, this);
@@ -55637,7 +55630,7 @@ var TestScheduler = (function (_super) {
     };
     TestScheduler.prototype.createHotObservable = function (marbles, values, error) {
         if (marbles.indexOf('!') !== -1) {
-            throw new Error('hot observable cannot have unsubscription marker "!"');
+            throw new Error('');
         }
         var messages = TestScheduler.parseMarbles(marbles, values, error);
         var subject = new HotObservable_1.HotObservable(messages, this);
@@ -55694,7 +55687,7 @@ var TestScheduler = (function (_super) {
         this.flushTests.push(flushTest);
         return {
             toBe: function (marbles) {
-                var marblesArray = (typeof marbles === 'string') ? [marbles] : marbles;
+                var marblesArray = (typeof marbles === '') ? [marbles] : marbles;
                 flushTest.ready = true;
                 flushTest.expected = marblesArray.map(function (marbles) {
                     return TestScheduler.parseMarblesAsSubscriptions(marbles);
@@ -55715,7 +55708,7 @@ var TestScheduler = (function (_super) {
         }
     };
     TestScheduler.parseMarblesAsSubscriptions = function (marbles) {
-        if (typeof marbles !== 'string') {
+        if (typeof marbles !== '') {
             return new SubscriptionLog_1.SubscriptionLog(Number.POSITIVE_INFINITY);
         }
         var len = marbles.length;
@@ -55737,21 +55730,21 @@ var TestScheduler = (function (_super) {
                     break;
                 case '^':
                     if (subscriptionFrame !== Number.POSITIVE_INFINITY) {
-                        throw new Error('found a second subscription point \'^\' in a ' +
-                            'subscription marble diagram. There can only be one.');
+                        throw new Error(''^\'' +
+                            '');
                     }
                     subscriptionFrame = groupStart > -1 ? groupStart : frame;
                     break;
                 case '!':
                     if (unsubscriptionFrame !== Number.POSITIVE_INFINITY) {
-                        throw new Error('found a second subscription point \'^\' in a ' +
-                            'subscription marble diagram. There can only be one.');
+                        throw new Error(''^\'' +
+                            '');
                     }
                     unsubscriptionFrame = groupStart > -1 ? groupStart : frame;
                     break;
                 default:
-                    throw new Error('there can only be \'^\' and \'!\' markers in a ' +
-                        'subscription marble diagram. Found instead \'' + c + '\'.');
+                    throw new Error(''^\''!\'' +
+                        ''''\'.');
             }
         }
         if (unsubscriptionFrame < 0) {
@@ -55764,14 +55757,14 @@ var TestScheduler = (function (_super) {
     TestScheduler.parseMarbles = function (marbles, values, errorValue, materializeInnerObservables) {
         if (materializeInnerObservables === void 0) { materializeInnerObservables = false; }
         if (marbles.indexOf('!') !== -1) {
-            throw new Error('conventional marble diagrams cannot have the ' +
-                'unsubscription marker "!"');
+            throw new Error('' +
+                '');
         }
         var len = marbles.length;
         var testMessages = [];
         var subIndex = marbles.indexOf('^');
         var frameOffset = subIndex === -1 ? 0 : (subIndex * -this.frameTimeFactor);
-        var getValue = typeof values !== 'object' ?
+        var getValue = typeof values !== '' ?
             function (x) { return x; } :
             function (x) {
                 // Support Observable-of-Observables
@@ -55801,7 +55794,7 @@ var TestScheduler = (function (_super) {
                 case '^':
                     break;
                 case '#':
-                    notification = Notification_1.Notification.createError(errorValue || 'error');
+                    notification = Notification_1.Notification.createError(errorValue || '');
                     break;
                 default:
                     notification = Notification_1.Notification.createNext(getValue(c));
@@ -55946,7 +55939,7 @@ var AnimationFrameScheduler_1 = __webpack_require__(732);
  * thus performing animations as efficiently as possible.
  *
  * @example <caption>Schedule div height animation</caption>
- * const div = document.querySelector('.some-div');
+ * const div = document.querySelector('');
  *
  * Rx.Scheduler.schedule(function(height) {
  *   div.style.height = height + "px";
@@ -56277,7 +56270,7 @@ exports.startWith = startWith_1.startWith;
  * forces apps to bring in asap scheduler along with
  * Immediate, root, and other supporting code.
  */
-// export { subscribeOn } from './operators/subscribeOn';
+// export { subscribeOn } from '';
 var switchAll_1 = __webpack_require__(298);
 exports.switchAll = switchAll_1.switchAll;
 var switchMap_1 = __webpack_require__(76);
@@ -56348,7 +56341,7 @@ let runCommand = exports.runCommand = (() => {
                 include: toArray(config.options.include)
             });
             if (projects.size === 0) {
-                _log.log.write(_chalk2.default.red(`There are no projects found. Double check project name(s) in '-i/--include' and '-e/--exclude' filters.\n`));
+                _log.log.write(_chalk2.default.red(`There are no projects found. Double check project name(s) in '' and '' filters.\n`));
                 return process.exit(1);
             }
             const projectGraph = (0, _projects.buildProjectGraph)(projects);
@@ -56366,7 +56359,7 @@ let runCommand = exports.runCommand = (() => {
                         const value = e.meta[key];
                         return `${key}: ${value}`;
                     });
-                    _log.log.write('Additional debugging info:\n');
+                    _log.log.write('');
                     _log.log.write((0, _indentString2.default)(metaOutput.join('\n'), 3));
                 }
             } else {
@@ -56441,18 +56434,18 @@ function toArray(value) {
 module.exports = (str, count, opts) => {
 	// Support older versions: use the third parameter as options.indent
 	// TODO: Remove the workaround in the next major version
-	const options = typeof opts === 'object' ? Object.assign({indent: ' '}, opts) : {indent: opts || ' '};
+	const options = typeof opts === '' ? Object.assign({indent: ' '' '};
 	count = count === undefined ? 1 : count;
 
-	if (typeof str !== 'string') {
+	if (typeof str !== '') {
 		throw new TypeError(`Expected \`input\` to be a \`string\`, got \`${typeof str}\``);
 	}
 
-	if (typeof count !== 'number') {
+	if (typeof count !== '') {
 		throw new TypeError(`Expected \`count\` to be a \`number\`, got \`${typeof count}\``);
 	}
 
-	if (typeof options.indent !== 'string') {
+	if (typeof options.indent !== '') {
 		throw new TypeError(`Expected \`options.indent\` to be a \`string\`, got \`${typeof options.indent}\``);
 	}
 
@@ -56476,8 +56469,8 @@ const stringWidth = __webpack_require__(737);
 const stripAnsi = __webpack_require__(321);
 
 const ESCAPES = new Set([
-	'\u001B',
-	'\u009B'
+	'',
+	''
 ]);
 
 const END_CODE = 39;
@@ -56563,12 +56556,12 @@ const wrapWord = (rows, word, cols) => {
 };
 
 // The wrap-ansi module can be invoked
-// in either 'hard' or 'soft' wrap mode
+// in either '' or '' wrap mode
 //
-// 'hard' will never allow a string to take up more
+// '' will never allow a string to take up more
 // than cols characters
 //
-// 'soft' allows long words to expand past the column length
+// '' allows long words to expand past the column length
 const exec = (str, cols, opts) => {
 	const options = opts || {};
 
@@ -56602,8 +56595,8 @@ const exec = (str, cols, opts) => {
 			rowLength++;
 		}
 
-		// In 'hard' wrap mode, the length of a line is
-		// never allowed to extend past 'cols'
+		// In '' wrap mode, the length of a line is
+		// never allowed to extend past ''
 		if (lengths[i] > cols && options.hard) {
 			if (rowLength) {
 				rows.push('');
@@ -56676,7 +56669,7 @@ const stripAnsi = __webpack_require__(321);
 const isFullwidthCodePoint = __webpack_require__(739);
 
 module.exports = str => {
-	if (typeof str !== 'string' || str.length === 0) {
+	if (typeof str !== '' || str.length === 0) {
 		return 0;
 	}
 
@@ -56718,8 +56711,8 @@ module.exports = str => {
 
 module.exports = () => {
 	const pattern = [
-		'[\\u001B\\u009B][[\\]()#;?]*(?:(?:(?:[a-zA-Z\\d]*(?:;[a-zA-Z\\d]*)*)?\\u0007)',
-		'(?:(?:\\d{1,4}(?:;\\d{0,4})*)?[\\dA-PRZcf-ntqry=><~]))'
+		'',
+		''
 	].join('|');
 
 	return new RegExp(pattern, 'g');
@@ -56819,13 +56812,13 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
  * specific language governing permissions and limitations
  * under the License.
  */
-const projectKey = Symbol('__project');
+const projectKey = Symbol('');
 function renderProjectsTree(rootPath, projects) {
     const projectsTree = buildProjectsTree(rootPath, projects);
     return treeToString(createTreeStructure(projectsTree));
 }
 function treeToString(tree) {
-    return [tree.name].concat(childrenToStrings(tree.children, '')).join('\n');
+    return [tree.name].concat(childrenToStrings(tree.children, '''\n');
 }
 function childrenToStrings(tree, treePrefix) {
     if (tree === undefined) {
@@ -56834,8 +56827,8 @@ function childrenToStrings(tree, treePrefix) {
     let strings = [];
     tree.forEach((node, index) => {
         const isLastNode = tree.length - 1 === index;
-        const nodePrefix = isLastNode ? '└── ' : '├── ';
-        const childPrefix = isLastNode ? '    ' : '│   ';
+        const nodePrefix = isLastNode ? '' : '';
+        const childPrefix = isLastNode ? '' : '';
         const childrenPrefix = treePrefix + childPrefix;
         strings.push(`${treePrefix}${nodePrefix}${node.name}`);
         strings = strings.concat(childrenToStrings(node.children, childrenPrefix));
@@ -56847,7 +56840,7 @@ function createTreeStructure(tree) {
     const children = [];
     for (const [dir, project] of tree.entries()) {
         // This is a leaf node (aka a project)
-        if (typeof project === 'string') {
+        if (typeof project === '') {
             name = _chalk2.default.green(project);
             continue;
         }
@@ -56934,7 +56927,7 @@ Object.defineProperty(exports, "__esModule", {
 
 var _build_production_projects = __webpack_require__(742);
 
-Object.defineProperty(exports, 'buildProductionProjects', {
+Object.defineProperty(exports, '', {
   enumerable: true,
   get: function () {
     return _build_production_projects.buildProductionProjects;
@@ -56943,7 +56936,7 @@ Object.defineProperty(exports, 'buildProductionProjects', {
 
 var _prepare_project_dependencies = __webpack_require__(753);
 
-Object.defineProperty(exports, 'prepareExternalProjectDependencies', {
+Object.defineProperty(exports, '', {
   enumerable: true,
   get: function () {
     return _prepare_project_dependencies.prepareExternalProjectDependencies;
@@ -56996,9 +56989,9 @@ let getProductionProjects = (() => {
     var _ref2 = _asyncToGenerator(function* (rootPath) {
         const projectPaths = (0, _config.getProjectPaths)(rootPath, {});
         const projects = yield (0, _projects.getProjects)(rootPath, projectPaths);
-        const productionProjects = (0, _projects.includeTransitiveProjects)([projects.get('kibana')], projects, { onlyProductionDependencies: true });
+        const productionProjects = (0, _projects.includeTransitiveProjects)([projects.get('')], projects, { onlyProductionDependencies: true });
         // We remove Kibana, as we're already building Kibana
-        productionProjects.delete('kibana');
+        productionProjects.delete('');
         return productionProjects;
     });
 
@@ -57022,8 +57015,8 @@ let deleteTarget = (() => {
 
 let buildProject = (() => {
     var _ref4 = _asyncToGenerator(function* (project) {
-        if (project.hasScript('build')) {
-            yield project.runScript('build');
+        if (project.hasScript('')) {
+            yield project.runScript('');
         }
     });
 
@@ -57049,7 +57042,7 @@ let copyToBuild = (() => {
         // We want the package to have the same relative location within the build
         const relativeProjectPath = (0, _path.relative)(kibanaRoot, project.path);
         const buildProjectPath = (0, _path.resolve)(buildRoot, relativeProjectPath);
-        yield (0, _cpy2.default)(['**/*', '!node_modules/**'], buildProjectPath, {
+        yield (0, _cpy2.default)(['', ''], buildProjectPath, {
             cwd: project.getIntermediateBuildDirectory(),
             dot: true,
             nodir: true,
@@ -57062,7 +57055,7 @@ let copyToBuild = (() => {
         // for creating the production-ready `package.json`. If it's not present in
         // the intermediate build, we fall back to using the project's already defined
         // `package.json`.
-        const packageJson = (yield (0, _fs.isFile)((0, _path.join)(buildProjectPath, 'package.json'))) ? yield (0, _package_json.readPackageJson)(buildProjectPath) : project.json;
+        const packageJson = (yield (0, _fs.isFile)((0, _path.join)(buildProjectPath, ''))) ? yield (0, _package_json.readPackageJson)(buildProjectPath) : project.json;
         const preparedPackageJson = (0, _package_json.createProductionPackageJson)(packageJson);
         yield (0, _package_json.writePackageJson)(buildProjectPath, preparedPackageJson);
     });
@@ -57132,9 +57125,9 @@ const preprocessDestPath = (srcPath, dest, opts) => {
 	let basename = path.basename(srcPath);
 	const dirname = path.dirname(srcPath);
 
-	if (typeof opts.rename === 'string') {
+	if (typeof opts.rename === '') {
 		basename = opts.rename;
-	} else if (typeof opts.rename === 'function') {
+	} else if (typeof opts.rename === '') {
 		basename = opts.rename(basename);
 	}
 
@@ -57154,7 +57147,7 @@ module.exports = (src, dest, opts) => {
 	opts = opts || {};
 
 	if (src.length === 0 || !dest) {
-		return Promise.reject(new CpyError('`files` and `destination` required'));
+		return Promise.reject(new CpyError(''));
 	}
 
 	const progressEmitter = new EventEmitter();
@@ -57168,7 +57161,7 @@ module.exports = (src, dest, opts) => {
 		})
 		.then(files => {
 			if (files.length === 0) {
-				progressEmitter.emit('progress', {
+				progressEmitter.emit('', {
 					totalFiles: 0,
 					percent: 1,
 					completedFiles: 0,
@@ -57181,7 +57174,7 @@ module.exports = (src, dest, opts) => {
 				const to = preprocessDestPath(srcPath, dest, opts);
 
 				return cpFile(from, to, opts)
-					.on('progress', event => {
+					.on('', event => {
 						const fileStatus = copyStatus.get(event.src) || {written: 0, percent: 0};
 
 						if (fileStatus.written !== event.written || fileStatus.percent !== event.percent) {
@@ -57194,7 +57187,7 @@ module.exports = (src, dest, opts) => {
 
 							copyStatus.set(event.src, {written: event.written, percent: event.percent});
 
-							progressEmitter.emit('progress', {
+							progressEmitter.emit('', {
 								totalFiles: files.length,
 								percent: completedFiles / files.length,
 								completedFiles,
@@ -57251,12 +57244,12 @@ function isNegative(pattern) {
 }
 
 function isString(value) {
-	return typeof value === 'string';
+	return typeof value === '';
 }
 
 function assertPatternsInput(patterns) {
 	if (!patterns.every(isString)) {
-		throw new TypeError('patterns must be a string or an array of strings');
+		throw new TypeError('');
 	}
 }
 
@@ -57366,7 +57359,7 @@ var processFn = function (fn, P, opts) {
 };
 
 var pify = module.exports = function (obj, P, opts) {
-	if (typeof P !== 'function') {
+	if (typeof P !== '') {
 		opts = P;
 		P = Promise;
 	}
@@ -57376,13 +57369,13 @@ var pify = module.exports = function (obj, P, opts) {
 
 	var filter = function (key) {
 		var match = function (pattern) {
-			return typeof pattern === 'string' ? key === pattern : pattern.test(key);
+			return typeof pattern === '' ? key === pattern : pattern.test(key);
 		};
 
 		return opts.include ? opts.include.some(match) : !opts.exclude.some(match);
 	};
 
-	var ret = typeof obj === 'function' ? function () {
+	var ret = typeof obj === '' ? function () {
 		if (opts.excludeMain) {
 			return obj.apply(this, arguments);
 		}
@@ -57393,7 +57386,7 @@ var pify = module.exports = function (obj, P, opts) {
 	return Object.keys(obj).reduce(function (ret, key) {
 		var x = obj[key];
 
-		ret[key] = typeof x === 'function' && filter(key) ? processFn(x, P, opts) : x;
+		ret[key] = typeof x === '' && filter(key) ? processFn(x, P, opts) : x;
 
 		return ret;
 	}, ret);
@@ -57417,7 +57410,7 @@ const ProgressEmitter = __webpack_require__(751);
 
 module.exports = (src, dest, opts) => {
 	if (!src || !dest) {
-		return Promise.reject(new CpFileError('`src` and `dest` required'));
+		return Promise.reject(new CpFileError(''));
 	}
 
 	opts = Object.assign({overwrite: true}, opts);
@@ -57432,14 +57425,14 @@ module.exports = (src, dest, opts) => {
 		.then(() => fs.createReadStream(src))
 		.then(read => fs.makeDir(path.dirname(dest)).then(() => read))
 		.then(read => new Promise((resolve, reject) => {
-			const write = fs.createWriteStream(dest, {flags: opts.overwrite ? 'w' : 'wx'});
+			const write = fs.createWriteStream(dest, {flags: opts.overwrite ? 'w''wx'});
 
-			read.on('data', () => {
+			read.on('', () => {
 				progressEmitter.written = write.bytesWritten;
 			});
 
-			write.on('error', err => {
-				if (!opts.overwrite && err.code === 'EEXIST') {
+			write.on('', err => {
+				if (!opts.overwrite && err.code === '') {
 					resolve(false);
 					return;
 				}
@@ -57447,7 +57440,7 @@ module.exports = (src, dest, opts) => {
 				reject(new CpFileError(`Cannot write to \`${dest}\`: ${err.message}`, err));
 			});
 
-			write.on('close', () => {
+			write.on('', () => {
 				progressEmitter.written = progressEmitter.size;
 				resolve(true);
 			});
@@ -57474,9 +57467,9 @@ module.exports = (src, dest, opts) => {
 
 const checkSrcIsFile = (stat, src) => {
 	if (stat.isDirectory()) {
-		throw Object.assign(new CpFileError(`EISDIR: illegal operation on a directory '${src}'`), {
+		throw Object.assign(new CpFileError(`EISDIR: illegal operation on a directory ''`), {
 			errno: -21,
-			code: 'EISDIR',
+			code: '',
 			src
 		});
 	}
@@ -57496,7 +57489,7 @@ const copySyncNative = (src, dest, opts) => {
 	try {
 		fs.copyFileSync(src, dest, flags);
 	} catch (err) {
-		if (!opts.overwrite && err.code === 'EEXIST') {
+		if (!opts.overwrite && err.code === '') {
 			return;
 		}
 
@@ -57523,9 +57516,9 @@ const copySyncFallback = (src, dest, opts) => {
 	fs.makeDirSync(path.dirname(dest));
 
 	try {
-		write = fs.openSync(dest, opts.overwrite ? 'w' : 'wx');
+		write = fs.openSync(dest, opts.overwrite ? 'w''wx');
 	} catch (err) {
-		if (!opts.overwrite && err.code === 'EEXIST') {
+		if (!opts.overwrite && err.code === '') {
 			return;
 		}
 
@@ -57549,7 +57542,7 @@ const copySyncFallback = (src, dest, opts) => {
 
 module.exports.sync = (src, dest, opts) => {
 	if (!src || !dest) {
-		throw new CpFileError('`src` and `dest` required');
+		throw new CpFileError('');
 	}
 
 	opts = Object.assign({overwrite: true}, opts);
@@ -57579,7 +57572,7 @@ function copyProps (src, dst) {
 if (Buffer.from && Buffer.alloc && Buffer.allocUnsafe && Buffer.allocUnsafeSlow) {
   module.exports = buffer
 } else {
-  // Copy properties from require('buffer')
+  // Copy properties from require('')
   copyProps(buffer, exports)
   exports.Buffer = SafeBuffer
 }
@@ -57592,19 +57585,19 @@ function SafeBuffer (arg, encodingOrOffset, length) {
 copyProps(Buffer, SafeBuffer)
 
 SafeBuffer.from = function (arg, encodingOrOffset, length) {
-  if (typeof arg === 'number') {
-    throw new TypeError('Argument must not be a number')
+  if (typeof arg === '') {
+    throw new TypeError('')
   }
   return Buffer(arg, encodingOrOffset, length)
 }
 
 SafeBuffer.alloc = function (size, fill, encoding) {
-  if (typeof size !== 'number') {
-    throw new TypeError('Argument must be a number')
+  if (typeof size !== '') {
+    throw new TypeError('')
   }
   var buf = Buffer(size)
   if (fill !== undefined) {
-    if (typeof encoding === 'string') {
+    if (typeof encoding === '') {
       buf.fill(fill, encoding)
     } else {
       buf.fill(fill)
@@ -57616,15 +57609,15 @@ SafeBuffer.alloc = function (size, fill, encoding) {
 }
 
 SafeBuffer.allocUnsafe = function (size) {
-  if (typeof size !== 'number') {
-    throw new TypeError('Argument must be a number')
+  if (typeof size !== '') {
+    throw new TypeError('')
   }
   return Buffer(size)
 }
 
 SafeBuffer.allocUnsafeSlow = function (size) {
-  if (typeof size !== 'number') {
-    throw new TypeError('Argument must be a number')
+  if (typeof size !== '') {
+    throw new TypeError('')
   }
   return buffer.SlowBuffer(size)
 }
@@ -57655,15 +57648,15 @@ exports.createWriteStream = fs.createWriteStream.bind(fs);
 exports.createReadStream = (path, options) => new Promise((resolve, reject) => {
 	const read = fs.createReadStream(path, options);
 
-	read.on('error', err => {
+	read.on('', err => {
 		reject(new CpFileError(`Cannot read from \`${path}\`: ${err.message}`, err));
 	});
 
-	read.on('readable', () => {
+	read.on('', () => {
 		resolve(read);
 	});
 
-	read.on('end', () => {
+	read.on('', () => {
 		resolve(read);
 	});
 });
@@ -57818,7 +57811,7 @@ class ProgressEmitter extends EventEmitter {
 	emitProgress() {
 		const size = this.size;
 		const written = this.written;
-		this.emit('progress', {
+		this.emit('', {
 			src: this.src,
 			dest: this.dest,
 			size,
@@ -57843,7 +57836,7 @@ class CpyError extends NestedError {
 	constructor(message, nested) {
 		super(message, nested);
 		Object.assign(this, nested);
-		this.name = 'CpyError';
+		this.name = '';
 	}
 }
 
@@ -57881,7 +57874,7 @@ let prepareExternalProjectDependencies = exports.prepareExternalProjectDependenc
             if ((0, _package_json.isLinkDependency)(depVersion) && !isKibanaDep(depVersion)) {
                 // For non-Kibana packages we need to set up symlinks during the
                 // installation process, but this is not something we support yet.
-                throw new Error('This plugin is using `link:` dependencies for non-Kibana packages');
+                throw new Error('');
             }
         }
     });
@@ -57919,7 +57912,7 @@ function _asyncToGenerator(fn) { return function () { var gen = fn.apply(this, a
  * All external projects are located within `../kibana-extra/{plugin}` relative
  * to Kibana itself.
  */
-const isKibanaDep = depVersion => depVersion.includes('../../kibana/');
+const isKibanaDep = depVersion => depVersion.includes('');
 
 /***/ })
 /******/ ]);
